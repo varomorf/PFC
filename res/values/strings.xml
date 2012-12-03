@@ -5,5 +5,27 @@
     <string name="menu_settings">Settings</string>
     <string name="main_add">Añadir</string>
     <string name="main_list">Listar</string>
+    <string name="green">verde</string>
+    <string name="yellow">amarillo</string>
+    <string name="red">rojo</string>
+    <string name="hello">Rellena los valores y dale al botón</string>
+    <string name="label_calories">Calorias</string>
+    <string name="label_sugars">Azúcares</string>
+    <string name="label_fats">Grasas</string>
+    <string name="button_calculate">Calcular</string>
+    <string name="addFoodButton">Añadir</string>
+    <string name="resultSugarsText">Azúcares</string>
+    <string name="resultFatsText">Grasas</string>
+    <string name="resultFinalText">El alimento es</string>
+    <string name="notFilledAlert">Debes rellenar los tres valores.</string>
+    <string name="addFoodNameText">Introduce el nombre de la comida</string>
+    <string name="mainMenuFoodsList">Lista de comidas</string>
+    <string name="foodsListMenuMain">Inicio</string>
+    <string name="newFoodInserted">ha sido añadida.</string>
+    <string name="label_delete">Eliminar</string>
+    <string name="label_edit">Editar</string>
+    <string name="deleteFoodMessage">ha sido eliminada</string>
+    <string name="editFoodMessage">La comida ha sido actualizada</string>
+    <string name="food_name">Nombre:</string>
 
 </resources>
