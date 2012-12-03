@@ -1,8 +1,12 @@
-package com.gyp.pfc;
+package com.gyp.pfc.activities;
 
 import android.app.ListActivity;
 import android.os.Bundle;
 import android.view.Menu;
+
+import com.gyp.pfc.R;
+import com.gyp.pfc.adapters.MainListAdapter;
+import com.gyp.pfc.data.db.DBManager;
 
 public class MainActivity extends ListActivity {
 
@@ -14,6 +18,7 @@ public class MainActivity extends ListActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		DBManager.createInstance(getApplicationContext());
 		adapter = new MainListAdapter(this, R.layout.main_list_item,
 				mainSectionsNames);
 		setListAdapter(adapter);
