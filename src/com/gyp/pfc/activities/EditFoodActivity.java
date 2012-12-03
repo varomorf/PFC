@@ -30,6 +30,7 @@ public class EditFoodActivity extends Activity {
 	}
 
 	public void editFoodButton(View view) {
+		// FIXME is not working
 		String oldName = food.getName();
 		food.setName(nameText.getText().toString());
 		food.setCalories(Integer.parseInt(caloriesText.getText().toString()));
