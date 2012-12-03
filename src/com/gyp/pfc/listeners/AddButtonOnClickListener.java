@@ -46,8 +46,7 @@ public class AddButtonOnClickListener implements OnClickListener {
 	public AddButtonOnClickListener(String entryName) {
 		assert StringUtils.isNotBlank(entryName);
 		// remove last character from the entryName that will always be an 's'
-		StringUtils.chop(entryName);
-		this.entryName = entryName;
+		this.entryName = StringUtils.chop(entryName);
 	}
 
 	@Override
