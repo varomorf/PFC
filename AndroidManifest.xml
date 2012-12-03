@@ -23,6 +23,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.FoodsListActivity"></activity>
+        <activity android:name=".activities.AddFoodActivity"></activity>
+        <activity android:name=".activities.EditFoodActivity"></activity>
+        <activity android:name=".activities.EnterFoodNameActivity"></activity>
+        <activity android:name=".activities.ShowFoodDetailsActivity"></activity>
     </application>
 
 </manifest>

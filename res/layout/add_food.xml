@@ -1,30 +1,141 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:id="@+id/mainLayout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     android:orientation="vertical" >
 
     <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/addFoodNameText"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <EditText
-        android:id="@+id/foodNameTextEdit"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="text" >
-
-        <requestFocus />
-    </EditText>
-
-    <Button
-        android:id="@+id/addFoodButton"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/instructionsText"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:onClick="addFoodButton"
-        android:text="@string/addFoodButton" />
+        android:text="@string/hello"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <LinearLayout
+        android:id="@+id/dataEnterLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:id="@+id/caloriesDataEnterLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/label_calories"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/label_calories"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <EditText
+                android:id="@+id/caloriesText"
+                android:layout_width="100dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:inputType="number"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/sugarsDataEnterLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/label_sugars"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/label_sugars"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <EditText
+                android:id="@+id/sugarsText"
+                android:layout_width="100dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:inputType="number"
+                android:nextFocusUp="@id/caloriesText">
+            </EditText>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/fatsDataEnterLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/label_fats"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/label_fats"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <EditText
+                android:id="@+id/fatsText"
+                android:layout_width="100dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:focusableInTouchMode="true"
+                android:freezesText="true"
+                android:inputType="number"
+                android:nextFocusUp="@id/sugarsText"/>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/calculateButton"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:onClick="calculate"
+            android:text="@string/button_calculate" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/resultsLayout"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/resultSugarsText"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/resultSugarsText"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <TextView
+            android:id="@+id/resultFatsText"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/resultFatsText"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <TextView
+            android:id="@+id/resultFinalText"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/resultFinalText"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <Button
+            android:id="@+id/addFoodButton"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:onClick="addFood"
+            android:text="@string/addFoodButton"
+            android:visibility="invisible" />
+
+    </LinearLayout>
 
 </LinearLayout>
