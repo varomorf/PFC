@@ -14,7 +14,13 @@ import android.database.sqlite.SQLiteOpenHelper;
  * 
  */
 public class DBManager extends SQLiteOpenHelper {
+	// TODO fucking comment this
+	// Constants -----------------------------------------------------
 
+	// Attributes ----------------------------------------------------
+
+	// Static --------------------------------------------------------
+	// TODO why so much statics???
 	private static String DBName = "percentajeCalculator";
 	private static int version = 1;
 	private static CursorFactory cursorFactory = null;
@@ -22,6 +28,18 @@ public class DBManager extends SQLiteOpenHelper {
 
 	private static FoodManager foodManager;
 
+	public static void createInstance(Context context) {
+		if (instance == null) {
+			instance = new DBManager(context);
+		}
+	}
+
+	public static FoodManager getFoodManager() {
+		return foodManager;
+	}
+
+	// Constructors --------------------------------------------------
+	// TODO why package modifier?
 	/**
 	 * @param context
 	 * @param DBName
@@ -33,11 +51,7 @@ public class DBManager extends SQLiteOpenHelper {
 		foodManager = new FoodManager(this);
 	}
 
-	public static void createInstance(Context context) {
-		if (instance == null) {
-			instance = new DBManager(context);
-		}
-	}
+	// Public --------------------------------------------------------
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
@@ -70,8 +84,12 @@ public class DBManager extends SQLiteOpenHelper {
 		}
 	}
 
-	public static FoodManager getFoodManager() {
-		return foodManager;
-	}
+	// Package protected ---------------------------------------------
+
+	// Protected -----------------------------------------------------
+
+	// Private -------------------------------------------------------
+
+	// Inner classes -------------------------------------------------
 
 }

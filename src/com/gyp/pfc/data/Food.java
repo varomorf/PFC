@@ -12,7 +12,14 @@ import android.graphics.Color;
  */
 public class Food implements Serializable {
 	// TODO fucking comment everything
+	// Constants -----------------------------------------------------
+	public static final int GREEN = 1;
+	public static final int YELLOW = 2;
+	public static final int RED = 3;
+
 	private static final long serialVersionUID = 1L;
+
+	// Attributes ----------------------------------------------------
 	private String name;
 	private int calories;
 	private int sugars;
@@ -21,13 +28,14 @@ public class Food implements Serializable {
 	private int sugarColor;
 	private int fatsColor;
 
-	public static final int GREEN = 1;
-	public static final int YELLOW = 2;
-	public static final int RED = 3;
+	// Static --------------------------------------------------------
 
+	// Constructors --------------------------------------------------
 	public Food() {
 
 	}
+
+	// Public --------------------------------------------------------
 
 	public Food(String name, int calories, int sugars, int fats) {
 		this.name = name;
@@ -50,10 +58,6 @@ public class Food implements Serializable {
 
 	public int fatsPercentage() {
 		return percentage(fatsCalories());
-	}
-
-	private int percentage(int value) {
-		return (int) ((value * 100.0F) / calories);
 	}
 
 	public String getName() {
@@ -157,5 +161,16 @@ public class Food implements Serializable {
 		ret += color + "color\n";
 		return ret;
 	}
+
+	// Package protected ---------------------------------------------
+
+	// Protected -----------------------------------------------------
+
+	// Private -------------------------------------------------------
+	private int percentage(int value) {
+		return (int) ((value * 100.0F) / calories);
+	}
+
+	// Inner classes -------------------------------------------------
 
 }

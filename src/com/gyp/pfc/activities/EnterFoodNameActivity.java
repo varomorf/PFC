@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.gyp.pfc.activities;
 
 import android.app.Activity;
@@ -16,10 +13,19 @@ import com.gyp.pfc.R;
  * 
  */
 public class EnterFoodNameActivity extends Activity {
-
+	// TODO fucking comment this
+	// Constants -----------------------------------------------------
 	public static final String FOOD_NAME_IDENTIFIER = "foodName";
 
+	// Attributes ----------------------------------------------------
+
 	private EditText foodNameTextEdit;
+
+	// Static --------------------------------------------------------
+
+	// Constructors --------------------------------------------------
+
+	// Public --------------------------------------------------------
 
 	/** Called when the activity is first created. */
 	@Override
@@ -28,13 +34,6 @@ public class EnterFoodNameActivity extends Activity {
 		setContentView(R.layout.enter_food_name);
 
 		getUIForms();
-	}
-
-	/**
-	 * 
-	 */
-	private void getUIForms() {
-		foodNameTextEdit = (EditText) findViewById(R.id.foodNameTextEdit);
 	}
 
 	public void addFoodButton(View view) {
@@ -46,4 +45,19 @@ public class EnterFoodNameActivity extends Activity {
 			finish();
 		}
 	}
+
+	// Package protected ---------------------------------------------
+
+	// Protected -----------------------------------------------------
+
+	// Private -------------------------------------------------------
+	/**
+	 * 
+	 */
+	private void getUIForms() {
+		foodNameTextEdit = (EditText) findViewById(R.id.foodNameTextEdit);
+	}
+
+	// Inner classes -------------------------------------------------
+
 }

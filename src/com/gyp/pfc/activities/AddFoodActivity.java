@@ -18,9 +18,11 @@ import com.gyp.pfc.data.Food;
 import com.gyp.pfc.data.db.DBManager;
 
 public class AddFoodActivity extends Activity {
-
+	// TODO fucking comment this
+	// Constants -----------------------------------------------------
 	public static final int FOOD_NAME = 1;
 
+	// Attributes ----------------------------------------------------
 	private EditText caloriesEditText;
 	private EditText sugarsEditText;
 	private EditText fatsEditText;
@@ -32,7 +34,14 @@ public class AddFoodActivity extends Activity {
 	private boolean filled;
 	private Food food;
 
-	/** Called when the activity is first created. */
+	// Static --------------------------------------------------------
+
+	// Constructors --------------------------------------------------
+
+	// Public --------------------------------------------------------
+	/**
+	 * Called when the activity is first created.
+	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -76,6 +85,33 @@ public class AddFoodActivity extends Activity {
 		}
 	}
 
+	public void calculate(View view) {
+		food = new Food();
+		extract();
+		if (filled) {
+			updateUI();
+		} else {
+			clearResults();
+			Toast.makeText(getApplicationContext(), R.string.notFilledAlert,
+					Toast.LENGTH_SHORT).show();
+		}
+		caloriesEditText.requestFocus();
+	}
+
+	public void addFood(View view) {
+		if (food != null) {
+			if (!food.isEmpty()) {
+				Intent i = new Intent(this, EnterFoodNameActivity.class);
+				startActivityForResult(i, FOOD_NAME);
+			}
+		}
+	}
+
+	// Package protected ---------------------------------------------
+
+	// Protected -----------------------------------------------------
+
+	// Private -------------------------------------------------------
 	/**
 	 * @param data
 	 */
@@ -105,28 +141,6 @@ public class AddFoodActivity extends Activity {
 		resultSugarsText.setTextColor(Color.BLACK);
 		resultFatsText.setTextColor(Color.BLACK);
 		resultFinalText.setTextColor(Color.BLACK);
-	}
-
-	public void calculate(View view) {
-		food = new Food();
-		extract();
-		if (filled) {
-			updateUI();
-		} else {
-			clearResults();
-			Toast.makeText(getApplicationContext(), R.string.notFilledAlert,
-					Toast.LENGTH_SHORT).show();
-		}
-		caloriesEditText.requestFocus();
-	}
-
-	public void addFood(View view) {
-		if (food != null) {
-			if (!food.isEmpty()) {
-				Intent i = new Intent(this, EnterFoodNameActivity.class);
-				startActivityForResult(i, FOOD_NAME);
-			}
-		}
 	}
 
 	private void foodsList() {
@@ -193,4 +207,6 @@ public class AddFoodActivity extends Activity {
 		resultFinalText.setBackgroundColor(Color.BLACK);
 		addFoodButton.setVisibility(View.INVISIBLE);
 	}
+	// Inner classes -------------------------------------------------
+
 }

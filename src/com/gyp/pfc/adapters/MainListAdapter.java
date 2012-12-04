@@ -21,17 +21,18 @@ import com.gyp.pfc.listeners.ListButtonOnClickListener;
  * 
  */
 public class MainListAdapter extends ArrayAdapter<String> {
+	// TODO fucking comment this
 
+	// Constants -----------------------------------------------------
+
+	// Attributes ----------------------------------------------------
 	private String[] data;
 	private ViewHolder holder;
 	private LayoutInflater inflator;
 
-	class ViewHolder {
-		TextView title;
-		Button addButton;
-		Button listButton;
-	}
+	// Static --------------------------------------------------------
 
+	// Constructors --------------------------------------------------
 	public MainListAdapter(Context context, int textViewResourceId,
 			String[] mainSectionsNames) {
 		super(context, textViewResourceId, mainSectionsNames);
@@ -40,6 +41,7 @@ public class MainListAdapter extends ArrayAdapter<String> {
 				Context.LAYOUT_INFLATER_SERVICE);
 	}
 
+	// Public --------------------------------------------------------
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		View v = convertView;
@@ -70,6 +72,20 @@ public class MainListAdapter extends ArrayAdapter<String> {
 	@Override
 	public void notifyDataSetChanged() {
 		super.notifyDataSetChanged();
+	}
+
+	// Package protected ---------------------------------------------
+
+	// Protected -----------------------------------------------------
+
+	// Private -------------------------------------------------------
+
+	// Inner classes -------------------------------------------------
+
+	class ViewHolder {
+		TextView title;
+		Button addButton;
+		Button listButton;
 	}
 
 }

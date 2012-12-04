@@ -17,6 +17,7 @@ import android.view.View.OnClickListener;
  */
 public class AddButtonOnClickListener implements OnClickListener {
 
+	// Constants -----------------------------------------------------
 	/**
 	 * Tag for logging
 	 */
@@ -30,12 +31,15 @@ public class AddButtonOnClickListener implements OnClickListener {
 	 * Suffix for destiny activity's class name
 	 */
 	public static final String POST = "Activity";
-
+	// Attributes ----------------------------------------------------
 	/**
 	 * The name of the entry for which the listener is being created
 	 */
 	private String entryName;
 
+	// Static --------------------------------------------------------
+
+	// Constructors --------------------------------------------------
 	/**
 	 * Sets the {@link #entryName}
 	 * 
@@ -49,6 +53,7 @@ public class AddButtonOnClickListener implements OnClickListener {
 		this.entryName = StringUtils.chop(entryName);
 	}
 
+	// Public --------------------------------------------------------
 	@Override
 	public void onClick(View view) {
 		// get context from the passed view
@@ -70,4 +75,12 @@ public class AddButtonOnClickListener implements OnClickListener {
 					+ className, e);
 		}
 	}
+	// Package protected ---------------------------------------------
+
+	// Protected -----------------------------------------------------
+
+	// Private -------------------------------------------------------
+
+	// Inner classes -------------------------------------------------
+
 }

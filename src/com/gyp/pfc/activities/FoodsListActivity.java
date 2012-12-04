@@ -27,14 +27,23 @@ import com.gyp.pfc.data.db.DBManager;
  * 
  */
 public class FoodsListActivity extends ListActivity {
+	// TODO fucking comment this
+	// Constants -----------------------------------------------------
 
 	public static final String SELECTED_FOOD = "selectedFood";
 	public static final int EDIT_FOOD = 1;
+
+	// Attributes ----------------------------------------------------
 
 	private FoodListViewAdapter listViewAdapter;
 
 	private ArrayList<Food> foods;
 
+	// Static --------------------------------------------------------
+
+	// Constructors --------------------------------------------------
+
+	// Public --------------------------------------------------------
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -46,15 +55,6 @@ public class FoodsListActivity extends ListActivity {
 				R.layout.food_list_item, foods);
 		setListAdapter(listViewAdapter);
 		registerForContextMenu(getListView());
-	}
-
-	@Override
-	protected void onListItemClick(ListView l, View v, int position, long id) {
-		Food selectedFood = (Food) l.getAdapter().getItem(position);
-		Intent showFoodDetailsIntent = new Intent(getApplicationContext(),
-				ShowFoodDetailsActivity.class);
-		showFoodDetailsIntent.putExtra(SELECTED_FOOD, selectedFood);
-		startActivity(showFoodDetailsIntent);
 	}
 
 	@Override
@@ -100,22 +100,6 @@ public class FoodsListActivity extends ListActivity {
 		}
 	}
 
-	private void main() {
-		finish();
-	}
-
-	private void loadFoods() {
-		foods = new ArrayList<Food>();
-		Cursor cursor = DBManager.getFoodManager().getFoods();
-		if (cursor.moveToFirst()) {
-			do {
-				Food tmp = new Food(cursor.getString(0), cursor.getInt(1),
-						cursor.getInt(2), cursor.getInt(3));
-				foods.add(tmp);
-			} while (cursor.moveToNext());
-		}
-	}
-
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
@@ -134,6 +118,36 @@ public class FoodsListActivity extends ListActivity {
 
 		default:
 			break;
+		}
+	}
+
+	// Package protected ---------------------------------------------
+
+	// Protected -----------------------------------------------------
+	@Override
+	protected void onListItemClick(ListView l, View v, int position, long id) {
+		Food selectedFood = (Food) l.getAdapter().getItem(position);
+		Intent showFoodDetailsIntent = new Intent(getApplicationContext(),
+				ShowFoodDetailsActivity.class);
+		showFoodDetailsIntent.putExtra(SELECTED_FOOD, selectedFood);
+		startActivity(showFoodDetailsIntent);
+	}
+
+	// Private -------------------------------------------------------
+
+	private void main() {
+		finish();
+	}
+
+	private void loadFoods() {
+		foods = new ArrayList<Food>();
+		Cursor cursor = DBManager.getFoodManager().getFoods();
+		if (cursor.moveToFirst()) {
+			do {
+				Food tmp = new Food(cursor.getString(0), cursor.getInt(1),
+						cursor.getInt(2), cursor.getInt(3));
+				foods.add(tmp);
+			} while (cursor.moveToNext());
 		}
 	}
 
@@ -156,5 +170,6 @@ public class FoodsListActivity extends ListActivity {
 		editFoodIntent.putExtra(SELECTED_FOOD, selectedFood);
 		startActivityForResult(editFoodIntent, EDIT_FOOD);
 	}
+	// Inner classes -------------------------------------------------
 
 }

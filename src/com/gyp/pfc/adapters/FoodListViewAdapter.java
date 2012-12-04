@@ -17,14 +17,18 @@ import com.gyp.pfc.data.Food;
  * 
  */
 public class FoodListViewAdapter extends ArrayAdapter<Food> {
+	// TODO fucking comment this
+	// Constants -----------------------------------------------------
 
+	// Attributes ----------------------------------------------------
 	private ArrayList<Food> foods;
 	private ViewHolder holder;
 
-	class ViewHolder {
-		TextView title;
-	}
+	// Static --------------------------------------------------------
 
+	// Constructors --------------------------------------------------
+
+	// Public --------------------------------------------------------
 	public FoodListViewAdapter(Context context, int textViewResourceId,
 			ArrayList<Food> foods) {
 		super(context, textViewResourceId, foods);
@@ -64,6 +68,18 @@ public class FoodListViewAdapter extends ArrayAdapter<Food> {
 	@Override
 	public void notifyDataSetChanged() {
 		super.notifyDataSetChanged();
+	}
+
+	// Package protected ---------------------------------------------
+
+	// Protected -----------------------------------------------------
+
+	// Private -------------------------------------------------------
+
+	// Inner classes -------------------------------------------------
+
+	class ViewHolder {
+		TextView title;
 	}
 
 }

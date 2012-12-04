@@ -17,6 +17,7 @@ import android.view.View.OnClickListener;
  */
 public class ListButtonOnClickListener implements OnClickListener {
 
+	// Constants -----------------------------------------------------
 	/**
 	 * Tag for logging
 	 */
@@ -31,11 +32,15 @@ public class ListButtonOnClickListener implements OnClickListener {
 	 */
 	public static final String POST = "ListActivity";
 
+	// Attributes ----------------------------------------------------
 	/**
 	 * The name of the entry for which the listener is being created
 	 */
 	private String entryName;
 
+	// Static --------------------------------------------------------
+
+	// Constructors --------------------------------------------------
 	/**
 	 * Sets the {@link #entryName}
 	 * 
@@ -47,6 +52,8 @@ public class ListButtonOnClickListener implements OnClickListener {
 		assert StringUtils.isNotBlank(entryName);
 		this.entryName = entryName;
 	}
+
+	// Public --------------------------------------------------------
 
 	@Override
 	public void onClick(View view) {
@@ -69,4 +76,11 @@ public class ListButtonOnClickListener implements OnClickListener {
 					+ className, e);
 		}
 	}
+	// Package protected ---------------------------------------------
+
+	// Protected -----------------------------------------------------
+
+	// Private -------------------------------------------------------
+
+	// Inner classes -------------------------------------------------
 }

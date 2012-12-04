@@ -12,12 +12,21 @@ import com.gyp.pfc.data.db.DBManager;
 
 public class EditFoodActivity extends Activity {
 
+	// Constants -----------------------------------------------------
+
+	// Attributes ----------------------------------------------------
+
 	private TextView nameText;
 	private TextView caloriesText;
 	private TextView sugarsText;
 	private TextView fatsText;
 	private Food food;
 
+	// Static --------------------------------------------------------
+
+	// Constructors --------------------------------------------------
+
+	// Public --------------------------------------------------------
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -42,6 +51,11 @@ public class EditFoodActivity extends Activity {
 		finish();
 	}
 
+	// Package protected ---------------------------------------------
+
+	// Protected -----------------------------------------------------
+
+	// Private -------------------------------------------------------
 	private void getUIForms() {
 		nameText = (TextView) findViewById(R.id.foodName);
 		caloriesText = (TextView) findViewById(R.id.foodCalories);
@@ -55,5 +69,7 @@ public class EditFoodActivity extends Activity {
 		sugarsText.setText(Integer.toString(food.getSugars()));
 		fatsText.setText(Integer.toString(food.getFats()));
 	}
+
+	// Inner classes -------------------------------------------------
 
 }

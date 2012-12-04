@@ -13,6 +13,10 @@ import com.gyp.pfc.data.Food;
  * 
  */
 public class ShowFoodDetailsActivity extends Activity {
+	// TODO fucking comment this
+	// Constants -----------------------------------------------------
+
+	// Attributes ----------------------------------------------------
 
 	private TextView nameText;
 	private TextView caloriesText;
@@ -21,6 +25,11 @@ public class ShowFoodDetailsActivity extends Activity {
 
 	private Food food;
 
+	// Static --------------------------------------------------------
+
+	// Constructors --------------------------------------------------
+
+	// Public --------------------------------------------------------
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -34,6 +43,11 @@ public class ShowFoodDetailsActivity extends Activity {
 		updateUI();
 	}
 
+	// Package protected ---------------------------------------------
+
+	// Protected -----------------------------------------------------
+
+	// Private -------------------------------------------------------
 	private void getUIForms() {
 		nameText = (TextView) findViewById(R.id.nameTextView);
 		caloriesText = (TextView) findViewById(R.id.caloriesText);
@@ -52,5 +66,6 @@ public class ShowFoodDetailsActivity extends Activity {
 				+ " Kcal - " + food.fatsPercentage() + "%");
 		fatsText.setBackgroundColor(food.getFatsColor());
 	}
+	// Inner classes -------------------------------------------------
 
 }

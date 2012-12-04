@@ -9,26 +9,40 @@ import com.gyp.pfc.adapters.MainListAdapter;
 import com.gyp.pfc.data.db.DBManager;
 
 public class MainActivity extends ListActivity {
+	// TODO fucking comment this
+	// Constants -----------------------------------------------------
+	private static final String[] MAIN_SECTIONS_NAMES = { "Foods", "Meals",
+			"Exercises", "Trainnings" };
 
+	// Attributes ----------------------------------------------------
 	private MainListAdapter adapter;
 
-	private String[] mainSectionsNames = { "Foods", "Meals", "Exercises",
-			"Trainnings" };
+	// Static --------------------------------------------------------
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		DBManager.createInstance(getApplicationContext());
-		adapter = new MainListAdapter(this, R.layout.main_list_item,
-				mainSectionsNames);
-		setListAdapter(adapter);
-	}
+	// Constructors --------------------------------------------------
 
+	// Public --------------------------------------------------------
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.activity_main, menu);
 		return true;
 	}
+
+	// Package protected ---------------------------------------------
+
+	// Protected -----------------------------------------------------
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		DBManager.createInstance(getApplicationContext());
+		adapter = new MainListAdapter(this, R.layout.main_list_item,
+				MAIN_SECTIONS_NAMES);
+		setListAdapter(adapter);
+	}
+
+	// Private -------------------------------------------------------
+
+	// Inner classes -------------------------------------------------
 
 }
