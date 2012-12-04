@@ -1,6 +1,6 @@
 package com.gyp.pfc.adapters;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -21,7 +21,7 @@ public class FoodListViewAdapter extends ArrayAdapter<Food> {
 	// Constants -----------------------------------------------------
 
 	// Attributes ----------------------------------------------------
-	private ArrayList<Food> foods;
+	private List<Food> foods;
 	private ViewHolder holder;
 
 	// Static --------------------------------------------------------
@@ -30,12 +30,12 @@ public class FoodListViewAdapter extends ArrayAdapter<Food> {
 
 	// Public --------------------------------------------------------
 	public FoodListViewAdapter(Context context, int textViewResourceId,
-			ArrayList<Food> foods) {
+			List<Food> foods) {
 		super(context, textViewResourceId, foods);
 		this.foods = foods;
 	}
 
-	public void setFoods(ArrayList<Food> foods) {
+	public void setFoods(List<Food> foods) {
 		this.foods = foods;
 	}
 
@@ -65,11 +65,6 @@ public class FoodListViewAdapter extends ArrayAdapter<Food> {
 		return v;
 	}
 
-	@Override
-	public void notifyDataSetChanged() {
-		super.notifyDataSetChanged();
-	}
-
 	// Package protected ---------------------------------------------
 
 	// Protected -----------------------------------------------------
@@ -78,7 +73,7 @@ public class FoodListViewAdapter extends ArrayAdapter<Food> {
 
 	// Inner classes -------------------------------------------------
 
-	class ViewHolder {
+	private class ViewHolder {
 		TextView title;
 	}
 

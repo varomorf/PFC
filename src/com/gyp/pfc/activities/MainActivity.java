@@ -15,7 +15,6 @@ public class MainActivity extends ListActivity {
 			"Exercises", "Trainnings" };
 
 	// Attributes ----------------------------------------------------
-	private MainListAdapter adapter;
 
 	// Static --------------------------------------------------------
 
@@ -36,8 +35,8 @@ public class MainActivity extends ListActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		DBManager.createInstance(getApplicationContext());
-		adapter = new MainListAdapter(this, R.layout.main_list_item,
-				MAIN_SECTIONS_NAMES);
+		MainListAdapter adapter = new MainListAdapter(this,
+				R.layout.main_list_item, MAIN_SECTIONS_NAMES);
 		setListAdapter(adapter);
 	}
 

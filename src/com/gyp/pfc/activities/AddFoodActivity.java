@@ -99,11 +99,9 @@ public class AddFoodActivity extends Activity {
 	}
 
 	public void addFood(View view) {
-		if (food != null) {
-			if (!food.isEmpty()) {
-				Intent i = new Intent(this, EnterFoodNameActivity.class);
-				startActivityForResult(i, FOOD_NAME);
-			}
+		if (food != null && !food.isEmpty()) {
+			Intent i = new Intent(this, EnterFoodNameActivity.class);
+			startActivityForResult(i, FOOD_NAME);
 		}
 	}
 

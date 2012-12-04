@@ -16,12 +16,12 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DBManager extends SQLiteOpenHelper {
 	// TODO fucking comment this
 	// Constants -----------------------------------------------------
+	private static final String DB_NAME = "pfcDatabase";
 
 	// Attributes ----------------------------------------------------
 
 	// Static --------------------------------------------------------
 	// TODO why so much statics???
-	private static String DBName = "percentajeCalculator";
 	private static int version = 1;
 	private static CursorFactory cursorFactory = null;
 	private static DBManager instance;
@@ -42,12 +42,12 @@ public class DBManager extends SQLiteOpenHelper {
 	// TODO why package modifier?
 	/**
 	 * @param context
-	 * @param DBName
+	 * @param DB_NAME
 	 * @param factory
 	 * @param version
 	 */
 	DBManager(Context context) {
-		super(context, DBName, cursorFactory, version);
+		super(context, DB_NAME, cursorFactory, version);
 		foodManager = new FoodManager(this);
 	}
 

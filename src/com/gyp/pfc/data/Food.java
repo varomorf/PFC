@@ -11,6 +11,13 @@ import android.graphics.Color;
  * 
  */
 public class Food implements Serializable {
+	private static final float HUNDRED = 100.0f;
+	private static final int RED_MARGIN_FOR_FATS = 30;
+	private static final int YELLOW_MARGIN_FOR_FATS = 10;
+	private static final int RED_MARGIN_FOR_SUGAR = 50;
+	private static final int YELLOW_MARGIN_FOR_SUGAR = 15;
+	private static final int CALORIES_PER_FAT_GRAM = 9;
+	private static final int CALORIES_PER_SUGAR_GRAM = 4;
 	// TODO fucking comment everything
 	// Constants -----------------------------------------------------
 	public static final int GREEN = 1;
@@ -45,11 +52,11 @@ public class Food implements Serializable {
 	}
 
 	public int sugarCalories() {
-		return sugars * 4;
+		return sugars * CALORIES_PER_SUGAR_GRAM;
 	}
 
 	public int fatsCalories() {
-		return fats * 9;
+		return fats * CALORIES_PER_FAT_GRAM;
 	}
 
 	public int sugarPercentage() {
@@ -114,8 +121,8 @@ public class Food implements Serializable {
 	public int getSugarColor() {
 		if (sugarColor == 0) {
 			int sugarPercentage = sugarPercentage();
-			if (sugarPercentage > 15) {
-				if (sugarPercentage > 50) {
+			if (sugarPercentage > YELLOW_MARGIN_FOR_SUGAR) {
+				if (sugarPercentage > RED_MARGIN_FOR_SUGAR) {
 					sugarColor = Color.RED;
 				} else {
 					sugarColor = Color.YELLOW;
@@ -130,8 +137,8 @@ public class Food implements Serializable {
 	public int getFatsColor() {
 		if (fatsColor == 0) {
 			int fatsPercentage = fatsPercentage();
-			if (fatsPercentage > 15) {
-				if (fatsPercentage > 30) {
+			if (fatsPercentage > YELLOW_MARGIN_FOR_FATS) {
+				if (fatsPercentage > RED_MARGIN_FOR_FATS) {
 					fatsColor = Color.RED;
 				} else {
 					fatsColor = Color.YELLOW;
@@ -168,7 +175,7 @@ public class Food implements Serializable {
 
 	// Private -------------------------------------------------------
 	private int percentage(int value) {
-		return (int) ((value * 100.0F) / calories);
+		return (int) ((value * HUNDRED) / calories);
 	}
 
 	// Inner classes -------------------------------------------------

@@ -1,6 +1,7 @@
 package com.gyp.pfc.activities;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import android.app.Activity;
 import android.app.ListActivity;
@@ -37,7 +38,7 @@ public class FoodsListActivity extends ListActivity {
 
 	private FoodListViewAdapter listViewAdapter;
 
-	private ArrayList<Food> foods;
+	private List<Food> foods;
 
 	// Static --------------------------------------------------------
 
@@ -112,7 +113,8 @@ public class FoodsListActivity extends ListActivity {
 				listViewAdapter.setFoods(foods);
 				listViewAdapter.notifyDataSetChanged();
 				Toast.makeText(getApplicationContext(),
-						getString(R.string.editFoodMessage), 5).show();
+						getString(R.string.editFoodMessage), Toast.LENGTH_SHORT)
+						.show();
 			}
 			break;
 
@@ -144,9 +146,16 @@ public class FoodsListActivity extends ListActivity {
 		Cursor cursor = DBManager.getFoodManager().getFoods();
 		if (cursor.moveToFirst()) {
 			do {
-				Food tmp = new Food(cursor.getString(0), cursor.getInt(1),
-						cursor.getInt(2), cursor.getInt(3));
-				foods.add(tmp);
+				Food food = new Food();
+				food.setName(cursor.getString(cursor
+						.getColumnIndexOrThrow("name")));
+				food.setCalories(cursor.getInt(cursor
+						.getColumnIndexOrThrow("calories")));
+				food.setSugars(cursor.getInt(cursor
+						.getColumnIndexOrThrow("sugars")));
+				food.setFats(cursor.getInt(cursor.getColumnIndexOrThrow("fats")));
+
+				foods.add(food);
 			} while (cursor.moveToNext());
 		}
 	}
@@ -160,7 +169,8 @@ public class FoodsListActivity extends ListActivity {
 		Toast.makeText(
 				getApplicationContext(),
 				selectedFood.getName() + " "
-						+ getString(R.string.deleteFoodMessage), 5).show();
+						+ getString(R.string.deleteFoodMessage),
+				Toast.LENGTH_SHORT).show();
 	}
 
 	private void editFood(int position) {

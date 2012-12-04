@@ -36,7 +36,7 @@ public class MainListAdapter extends ArrayAdapter<String> {
 	public MainListAdapter(Context context, int textViewResourceId,
 			String[] mainSectionsNames) {
 		super(context, textViewResourceId, mainSectionsNames);
-		this.data = mainSectionsNames;
+		this.data = mainSectionsNames.clone();
 		inflator = (LayoutInflater) getContext().getSystemService(
 				Context.LAYOUT_INFLATER_SERVICE);
 	}
@@ -69,11 +69,6 @@ public class MainListAdapter extends ArrayAdapter<String> {
 		return v;
 	}
 
-	@Override
-	public void notifyDataSetChanged() {
-		super.notifyDataSetChanged();
-	}
-
 	// Package protected ---------------------------------------------
 
 	// Protected -----------------------------------------------------
@@ -82,7 +77,7 @@ public class MainListAdapter extends ArrayAdapter<String> {
 
 	// Inner classes -------------------------------------------------
 
-	class ViewHolder {
+	private class ViewHolder {
 		TextView title;
 		Button addButton;
 		Button listButton;
