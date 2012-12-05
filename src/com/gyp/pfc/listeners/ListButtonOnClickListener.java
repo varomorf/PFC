@@ -2,11 +2,9 @@ package com.gyp.pfc.listeners;
 
 import org.apache.commons.lang.StringUtils;
 
-import android.view.View.OnClickListener;
-
 /**
- * {@link OnClickListener} for the buttons shown in the main activity for
- * listing each main entity.
+ * Listener for the buttons shown in the main activity for listing each main
+ * entity.
  * 
  * @author Alvaro
  * 
@@ -37,7 +35,7 @@ public class ListButtonOnClickListener extends
 	 */
 	public ListButtonOnClickListener(String entryName) {
 		assert StringUtils.isNotBlank(entryName);
-		activityName = PRE + entryName + POST;
+		setActivityName(PRE + entryName + POST);
 	}
 
 	// Public --------------------------------------------------------

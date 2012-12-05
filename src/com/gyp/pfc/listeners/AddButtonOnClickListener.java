@@ -2,11 +2,9 @@ package com.gyp.pfc.listeners;
 
 import org.apache.commons.lang.StringUtils;
 
-import android.view.View.OnClickListener;
-
 /**
- * {@link OnClickListener} for the buttons shown in the main activity for
- * directly adding a new main entity entry.
+ * Listener for the buttons shown in the main activity for directly adding a new
+ * main entity entry.
  * 
  * @author Alvaro
  * 
@@ -38,7 +36,7 @@ public class AddButtonOnClickListener extends
 	public AddButtonOnClickListener(String entryName) {
 		assert StringUtils.isNotBlank(entryName);
 		// remove last character from the entryName that will always be an 's'
-		activityName = PRE + StringUtils.chop(entryName) + POST;
+		setActivityName(PRE + StringUtils.chop(entryName) + POST);
 	}
 
 	// Public --------------------------------------------------------

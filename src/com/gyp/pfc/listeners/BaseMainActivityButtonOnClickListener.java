@@ -26,7 +26,7 @@ public class BaseMainActivityButtonOnClickListener implements OnClickListener {
 	/**
 	 * The qualified name of the activity to be launched
 	 */
-	protected String activityName;
+	private String activityName;
 
 	// Static --------------------------------------------------------
 
@@ -52,6 +52,11 @@ public class BaseMainActivityButtonOnClickListener implements OnClickListener {
 					+ activityName, e);
 		}
 	}
+
+	public void setActivityName(String activityName) {
+		this.activityName = activityName;
+	}
+
 	// Package protected ---------------------------------------------
 
 	// Protected -----------------------------------------------------
