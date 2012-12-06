@@ -3,7 +3,6 @@ package com.gyp.pfc.data.db;
 import java.sql.SQLException;
 
 import android.content.Context;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
@@ -78,25 +77,6 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 			foodDao = getRuntimeExceptionDao(Food.class);
 		}
 		return foodDao;
-	}
-
-	/**
-	 * FIXME destroyme
-	 */
-	public Cursor executeReadableQuery(String query) {
-		SQLiteDatabase db = getReadableDatabase();
-		return db.rawQuery(query, null);
-	}
-
-	/**
-	 * FIXME destroyme
-	 */
-	public void executeWritableQuery(String query) {
-		SQLiteDatabase db = getWritableDatabase();
-		if (db != null) {
-			db.execSQL(query);
-			db.close();
-		}
 	}
 
 	/**
