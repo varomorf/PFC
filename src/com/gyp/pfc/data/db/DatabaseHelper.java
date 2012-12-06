@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.gyp.pfc.data.db;
 
 import java.sql.SQLException;
@@ -19,6 +16,14 @@ import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 
 /**
+ * <p>
+ * ORMLite database helper used to manage the creation and upgrading of the
+ * application's database.
+ * </p>
+ * <p>
+ * This class also usually provides the DAOs used by the other classes
+ * </p>
+ * 
  * @author afernandezgo
  * 
  */
