@@ -16,8 +16,9 @@ import android.widget.Toast;
 import com.gyp.pfc.R;
 import com.gyp.pfc.data.db.DatabaseHelper;
 import com.gyp.pfc.data.domain.Food;
+import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 
-public class AddFoodActivity extends Activity {
+public class AddFoodActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 	// TODO fucking comment this
 	// Constants -----------------------------------------------------
 	public static final int FOOD_NAME = 1;
@@ -46,8 +47,6 @@ public class AddFoodActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.add_food);
-
-		DatabaseHelper.createInstance(getApplicationContext());
 		getUIForms();
 	}
 
@@ -117,7 +116,7 @@ public class AddFoodActivity extends Activity {
 		String foodName = data
 				.getStringExtra(EnterFoodNameActivity.FOOD_NAME_IDENTIFIER);
 		food.setName(foodName);
-		DatabaseHelper.getFoodManager().insertFood(food);
+		getHelper().getFoodDao().create(food);
 		clearResults();
 		Toast.makeText(getApplicationContext(),
 				foodName + " " + getString(R.string.newFoodInserted),

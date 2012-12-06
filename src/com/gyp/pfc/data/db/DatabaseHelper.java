@@ -5,7 +5,6 @@ import java.sql.SQLException;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.util.Log;
 
 import com.gyp.pfc.R;
@@ -37,21 +36,6 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 	private RuntimeExceptionDao<Food, String> foodDao;
 
 	// Static --------------------------------------------------------
-	// TODO why so much statics???
-	private static CursorFactory cursorFactory = null;
-	private static DatabaseHelper instance;
-
-	private static FoodManager foodManager;
-
-	public static void createInstance(Context context) {
-		if (instance == null) {
-			instance = new DatabaseHelper(context);
-		}
-	}
-
-	public static FoodManager getFoodManager() {
-		return foodManager;
-	}
 
 	// Constructors --------------------------------------------------
 	public DatabaseHelper(Context context) {

@@ -1,6 +1,5 @@
 package com.gyp.pfc.activities;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -9,8 +8,9 @@ import android.widget.TextView;
 import com.gyp.pfc.R;
 import com.gyp.pfc.data.db.DatabaseHelper;
 import com.gyp.pfc.data.domain.Food;
+import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 
-public class EditFoodActivity extends Activity {
+public class EditFoodActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 
 	// Constants -----------------------------------------------------
 
@@ -40,12 +40,11 @@ public class EditFoodActivity extends Activity {
 
 	public void editFoodButton(View view) {
 		// FIXME is not working
-		String oldName = food.getName();
 		food.setName(nameText.getText().toString());
 		food.setCalories(Integer.parseInt(caloriesText.getText().toString()));
 		food.setSugars(Integer.parseInt(sugarsText.getText().toString()));
 		food.setFats(Integer.parseInt(fatsText.getText().toString()));
-		DatabaseHelper.getFoodManager().updateFood(oldName, food);
+		getHelper().getFoodDao().update(food);
 		Intent i = new Intent();
 		setResult(RESULT_OK, i);
 		finish();

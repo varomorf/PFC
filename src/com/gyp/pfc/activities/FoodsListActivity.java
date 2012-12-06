@@ -1,12 +1,9 @@
 package com.gyp.pfc.activities;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
-import android.app.ListActivity;
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -22,12 +19,13 @@ import com.gyp.pfc.R;
 import com.gyp.pfc.adapters.FoodListViewAdapter;
 import com.gyp.pfc.data.db.DatabaseHelper;
 import com.gyp.pfc.data.domain.Food;
+import com.j256.ormlite.android.apptools.OrmLiteBaseListActivity;
 
 /**
  * @author afernandezgo
  * 
  */
-public class FoodsListActivity extends ListActivity {
+public class FoodsListActivity extends OrmLiteBaseListActivity<DatabaseHelper> {
 	// TODO fucking comment this
 	// Constants -----------------------------------------------------
 
@@ -142,27 +140,12 @@ public class FoodsListActivity extends ListActivity {
 	}
 
 	private void loadFoods() {
-		foods = new ArrayList<Food>();
-		Cursor cursor = DatabaseHelper.getFoodManager().getFoods();
-		if (cursor.moveToFirst()) {
-			do {
-				Food food = new Food();
-				food.setName(cursor.getString(cursor
-						.getColumnIndexOrThrow("name")));
-				food.setCalories(cursor.getInt(cursor
-						.getColumnIndexOrThrow("calories")));
-				food.setSugars(cursor.getInt(cursor
-						.getColumnIndexOrThrow("sugars")));
-				food.setFats(cursor.getInt(cursor.getColumnIndexOrThrow("fats")));
-
-				foods.add(food);
-			} while (cursor.moveToNext());
-		}
+		foods = getHelper().getFoodDao().queryForAll();
 	}
 
 	private void deleteFood(int position) {
 		Food selectedFood = (Food) getListAdapter().getItem(position);
-		DatabaseHelper.getFoodManager().deleteFood(selectedFood.getName());
+		getHelper().getFoodDao().delete(selectedFood);
 		foods.remove(selectedFood);
 		// refresh UI
 		listViewAdapter.notifyDataSetChanged();
