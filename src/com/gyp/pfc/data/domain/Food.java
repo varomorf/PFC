@@ -1,8 +1,11 @@
-package com.gyp.pfc.data;
+package com.gyp.pfc.data.domain;
 
 import java.io.Serializable;
 
 import android.graphics.Color;
+
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
 
 /**
  * Holds the nutritional info of a food.
@@ -10,6 +13,7 @@ import android.graphics.Color;
  * @author Alvaro
  * 
  */
+@DatabaseTable
 public class Food implements Serializable {
 	private static final float HUNDRED = 100.0f;
 	private static final int RED_MARGIN_FOR_FATS = 30;
@@ -27,9 +31,13 @@ public class Food implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	// Attributes ----------------------------------------------------
+	@DatabaseField(id = true)
 	private String name;
+	@DatabaseField
 	private int calories;
+	@DatabaseField
 	private int sugars;
+	@DatabaseField
 	private int fats;
 	private int color;
 	private int sugarColor;
@@ -38,8 +46,10 @@ public class Food implements Serializable {
 	// Static --------------------------------------------------------
 
 	// Constructors --------------------------------------------------
+	/**
+	 * ORMLite needs a no-arg constructor
+	 */
 	public Food() {
-
 	}
 
 	// Public --------------------------------------------------------
