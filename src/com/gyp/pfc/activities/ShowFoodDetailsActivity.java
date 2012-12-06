@@ -14,6 +14,7 @@ import com.gyp.pfc.data.domain.Food;
  */
 public class ShowFoodDetailsActivity extends Activity {
 	// TODO fucking comment this
+	// FIXME after updating a food it still shows the old data
 	// Constants -----------------------------------------------------
 
 	// Attributes ----------------------------------------------------
