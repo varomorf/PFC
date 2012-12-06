@@ -39,7 +39,6 @@ public class EditFoodActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 	}
 
 	public void editFoodButton(View view) {
-		// FIXME is not working
 		food.setName(nameText.getText().toString());
 		food.setCalories(Integer.parseInt(caloriesText.getText().toString()));
 		food.setSugars(Integer.parseInt(sugarsText.getText().toString()));
