@@ -20,8 +20,8 @@ import android.widget.Toast;
 
 import com.gyp.pfc.R;
 import com.gyp.pfc.adapters.FoodListViewAdapter;
-import com.gyp.pfc.data.Food;
-import com.gyp.pfc.data.db.DBManager;
+import com.gyp.pfc.data.db.DatabaseHelper;
+import com.gyp.pfc.data.domain.Food;
 
 /**
  * @author afernandezgo
@@ -143,7 +143,7 @@ public class FoodsListActivity extends ListActivity {
 
 	private void loadFoods() {
 		foods = new ArrayList<Food>();
-		Cursor cursor = DBManager.getFoodManager().getFoods();
+		Cursor cursor = DatabaseHelper.getFoodManager().getFoods();
 		if (cursor.moveToFirst()) {
 			do {
 				Food food = new Food();
@@ -162,7 +162,7 @@ public class FoodsListActivity extends ListActivity {
 
 	private void deleteFood(int position) {
 		Food selectedFood = (Food) getListAdapter().getItem(position);
-		DBManager.getFoodManager().deleteFood(selectedFood.getName());
+		DatabaseHelper.getFoodManager().deleteFood(selectedFood.getName());
 		foods.remove(selectedFood);
 		// refresh UI
 		listViewAdapter.notifyDataSetChanged();

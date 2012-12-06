@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 import com.gyp.pfc.R;
-import com.gyp.pfc.data.Food;
+import com.gyp.pfc.data.domain.Food;
 
 /**
  * @author afernandezgo

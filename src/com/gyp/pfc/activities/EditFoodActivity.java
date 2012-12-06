@@ -7,8 +7,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.gyp.pfc.R;
-import com.gyp.pfc.data.Food;
-import com.gyp.pfc.data.db.DBManager;
+import com.gyp.pfc.data.db.DatabaseHelper;
+import com.gyp.pfc.data.domain.Food;
 
 public class EditFoodActivity extends Activity {
 
@@ -45,7 +45,7 @@ public class EditFoodActivity extends Activity {
 		food.setCalories(Integer.parseInt(caloriesText.getText().toString()));
 		food.setSugars(Integer.parseInt(sugarsText.getText().toString()));
 		food.setFats(Integer.parseInt(fatsText.getText().toString()));
-		DBManager.getFoodManager().updateFood(oldName, food);
+		DatabaseHelper.getFoodManager().updateFood(oldName, food);
 		Intent i = new Intent();
 		setResult(RESULT_OK, i);
 		finish();

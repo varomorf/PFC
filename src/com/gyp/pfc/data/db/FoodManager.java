@@ -3,7 +3,7 @@ package com.gyp.pfc.data.db;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.gyp.pfc.data.Food;
+import com.gyp.pfc.data.domain.Food;
 
 /**
  * Manager for the {@link Food} entity
@@ -17,13 +17,13 @@ public class FoodManager {
 	private static final String TABLE_FOODS_NAME = "foods";
 
 	// Attributes ----------------------------------------------------
-	private DBManager db;
+	private DatabaseHelper db;
 
 	// Static --------------------------------------------------------
 
 	// Constructors --------------------------------------------------
 	// TODO why package modifier???
-	FoodManager(DBManager db) {
+	FoodManager(DatabaseHelper db) {
 		this.db = db;
 	}
 

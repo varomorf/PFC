@@ -6,7 +6,7 @@ import android.view.Menu;
 
 import com.gyp.pfc.R;
 import com.gyp.pfc.adapters.MainListAdapter;
-import com.gyp.pfc.data.db.DBManager;
+import com.gyp.pfc.data.db.DatabaseHelper;
 
 public class MainActivity extends ListActivity {
 	// TODO fucking comment this
@@ -34,7 +34,7 @@ public class MainActivity extends ListActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		DBManager.createInstance(getApplicationContext());
+		DatabaseHelper.createInstance(getApplicationContext());
 		MainListAdapter adapter = new MainListAdapter(this,
 				R.layout.main_list_item, MAIN_SECTIONS_NAMES);
 		setListAdapter(adapter);

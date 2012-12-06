@@ -10,7 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.gyp.pfc.R;
-import com.gyp.pfc.data.Food;
+import com.gyp.pfc.data.domain.Food;
 
 /**
  * @author afernandezgo

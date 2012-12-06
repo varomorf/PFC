@@ -14,8 +14,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gyp.pfc.R;
-import com.gyp.pfc.data.Food;
-import com.gyp.pfc.data.db.DBManager;
+import com.gyp.pfc.data.db.DatabaseHelper;
+import com.gyp.pfc.data.domain.Food;
 
 public class AddFoodActivity extends Activity {
 	// TODO fucking comment this
@@ -47,7 +47,7 @@ public class AddFoodActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.add_food);
 
-		DBManager.createInstance(getApplicationContext());
+		DatabaseHelper.createInstance(getApplicationContext());
 		getUIForms();
 	}
 
@@ -117,7 +117,7 @@ public class AddFoodActivity extends Activity {
 		String foodName = data
 				.getStringExtra(EnterFoodNameActivity.FOOD_NAME_IDENTIFIER);
 		food.setName(foodName);
-		DBManager.getFoodManager().insertFood(food);
+		DatabaseHelper.getFoodManager().insertFood(food);
 		clearResults();
 		Toast.makeText(getApplicationContext(),
 				foodName + " " + getString(R.string.newFoodInserted),
