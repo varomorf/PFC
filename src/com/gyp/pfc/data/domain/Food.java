@@ -31,7 +31,9 @@ public class Food implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	// Attributes ----------------------------------------------------
-	@DatabaseField(id = true)
+	@DatabaseField(generatedId = true)
+	private int id;
+	@DatabaseField
 	private String name;
 	@DatabaseField
 	private int calories;
@@ -75,6 +77,14 @@ public class Food implements Serializable {
 
 	public int fatsPercentage() {
 		return percentage(fatsCalories());
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getName() {
