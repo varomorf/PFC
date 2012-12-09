@@ -27,6 +27,7 @@ import com.j256.ormlite.android.apptools.OrmLiteBaseListActivity;
  * @author Alvaro
  */
 public class FoodsListActivity extends OrmLiteBaseListActivity<DatabaseHelper> {
+
 	// Constants -----------------------------------------------------
 
 	/**
@@ -40,9 +41,6 @@ public class FoodsListActivity extends OrmLiteBaseListActivity<DatabaseHelper> {
 
 	// Attributes ----------------------------------------------------
 
-	private FoodListViewAdapter listViewAdapter;
-	private List<Food> foods;
-
 	// Static --------------------------------------------------------
 
 	// Constructors --------------------------------------------------
@@ -52,11 +50,8 @@ public class FoodsListActivity extends OrmLiteBaseListActivity<DatabaseHelper> {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.foods_list);
-
-		loadFoods();
-		listViewAdapter = new FoodListViewAdapter(this,
-				R.layout.food_list_item, foods);
-		setListAdapter(listViewAdapter);
+		setListAdapter(new FoodListViewAdapter(this, R.layout.food_list_item,
+				getFoods()));
 		registerForContextMenu(getListView());
 	}
 
@@ -110,17 +105,13 @@ public class FoodsListActivity extends OrmLiteBaseListActivity<DatabaseHelper> {
 		switch (requestCode) {
 		case EDIT_FOOD:
 			if (resultCode == Activity.RESULT_OK) {
-				loadFoods();
 				// refresh UI
-				loadFoods();
-				listViewAdapter.setFoods(foods);
-				listViewAdapter.notifyDataSetChanged();
+				refreshAdapter();
 				Toast.makeText(getApplicationContext(),
 						getString(R.string.editFoodMessage), Toast.LENGTH_SHORT)
 						.show();
 			}
 			break;
-
 		default:
 			break;
 		}
@@ -131,25 +122,31 @@ public class FoodsListActivity extends OrmLiteBaseListActivity<DatabaseHelper> {
 	// Protected -----------------------------------------------------
 	@Override
 	protected void onListItemClick(ListView l, View v, int position, long id) {
+		// get selected food from adapter
 		Food selectedFood = (Food) l.getAdapter().getItem(position);
-		Intent showFoodDetailsIntent = new Intent(getApplicationContext(),
+		// prepare intent for showing food details view
+		Intent intent = new Intent(getApplicationContext(),
 				ShowFoodDetailsActivity.class);
-		showFoodDetailsIntent.putExtra(SELECTED_FOOD, selectedFood);
-		startActivity(showFoodDetailsIntent);
+		// put the selected food on the intent
+		intent.putExtra(SELECTED_FOOD, selectedFood);
+		// start the activity with the intent
+		startActivity(intent);
 	}
 
 	// Private -------------------------------------------------------
 
-	private void loadFoods() {
-		foods = getHelper().getFoodDao().queryForAll();
+	private List<Food> getFoods() {
+		return getHelper().getFoodDao().queryForAll();
 	}
 
 	private void deleteFood(int position) {
+		// get selected food from adapter
 		Food selectedFood = (Food) getListAdapter().getItem(position);
+		// delete food on DB
 		getHelper().getFoodDao().delete(selectedFood);
-		foods.remove(selectedFood);
-		// refresh UI
-		listViewAdapter.notifyDataSetChanged();
+		// refresh the adapter to update UI
+		refreshAdapter();
+		// show deletion message
 		Toast.makeText(
 				getApplicationContext(),
 				selectedFood.getName() + " "
@@ -163,6 +160,12 @@ public class FoodsListActivity extends OrmLiteBaseListActivity<DatabaseHelper> {
 				EditFoodActivity.class);
 		editFoodIntent.putExtra(SELECTED_FOOD, selectedFood);
 		startActivityForResult(editFoodIntent, EDIT_FOOD);
+	}
+
+	private void refreshAdapter() {
+		FoodListViewAdapter adapter = (FoodListViewAdapter) getListAdapter();
+		adapter.setFoods(getFoods());
+		adapter.notifyDataSetChanged();
 	}
 	// Inner classes -------------------------------------------------
 

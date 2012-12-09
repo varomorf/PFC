@@ -10,55 +10,78 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.gyp.pfc.R;
+import com.gyp.pfc.activities.FoodsListActivity;
 import com.gyp.pfc.data.domain.Food;
 
+/**
+ * {@link ArrayAdapter} for the {@link FoodsListActivity}
+ * 
+ * @author Alvaro
+ * 
+ */
 public class FoodListViewAdapter extends ArrayAdapter<Food> {
-	// TODO fucking comment this
 	// Constants -----------------------------------------------------
 
 	// Attributes ----------------------------------------------------
-	private List<Food> foods;
 	private ViewHolder holder;
+	private LayoutInflater inflater = null;
 
 	// Static --------------------------------------------------------
 
 	// Constructors --------------------------------------------------
-
-	// Public --------------------------------------------------------
+	/**
+	 * Constructor
+	 * 
+	 * @param context
+	 *            The current context.
+	 * @param textViewResourceId
+	 *            The resource ID for a layout file containing a TextView to use
+	 *            when instantiating views.
+	 * @param objects
+	 *            The objects to represent in the ListView.
+	 */
 	public FoodListViewAdapter(Context context, int textViewResourceId,
 			List<Food> foods) {
 		super(context, textViewResourceId, foods);
-		this.foods = foods;
+		inflater = LayoutInflater.from(context);
 	}
 
-	public void setFoods(List<Food> foods) {
-		this.foods = foods;
-	}
+	// Public --------------------------------------------------------
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		View v = convertView;
-
-		if (v == null) {
-			LayoutInflater vi = (LayoutInflater) getContext().getSystemService(
-					Context.LAYOUT_INFLATER_SERVICE);
-			v = vi.inflate(R.layout.food_list_item, null);
-
+		View view = convertView;
+		if (view == null) {
+			// generate view inflating the layout
+			view = inflater.inflate(R.layout.food_list_item, null);
+			// create a new holder
 			holder = new ViewHolder();
-
-			holder.title = (TextView) v.findViewById(R.id.title);
-			v.setTag(holder);
+			// retrieve the widgets
+			holder.title = (TextView) view.findViewById(R.id.title);
+			// set the holder as tag
+			view.setTag(holder);
 		} else {
-			holder = (ViewHolder) v.getTag();
+			// get the holder from the view
+			holder = (ViewHolder) view.getTag();
 		}
-		Food food = foods.get(position);
 
-		String text = food.getName() + " / " + food.getCalories() + "KCal";
+		// populate the holder with the data
+		Food food = getItem(position);
 
-		holder.title.setText(text);
+		holder.title.setText(food.getName());
 		holder.title.setBackgroundColor(food.getColor());
 
-		return v;
+		return view;
+	}
+
+	/**
+	 * Sets the collection on the adapter to the contents of the passed list
+	 */
+	public void setFoods(List<Food> foods) {
+		clear();
+		for (Food food : foods) {
+			add(food);
+		}
 	}
 
 	// Package protected ---------------------------------------------
