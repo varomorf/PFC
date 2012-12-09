@@ -17,26 +17,36 @@ import com.gyp.pfc.listeners.AddButtonOnClickListener;
 import com.gyp.pfc.listeners.ListButtonOnClickListener;
 
 /**
+ * {@link ArrayAdapter} for the main activity list
+ * 
  * @author Alvaro
  * 
  */
 public class MainListAdapter extends ArrayAdapter<String> {
-	// TODO fucking comment this
 
 	// Constants -----------------------------------------------------
 
 	// Attributes ----------------------------------------------------
-	private String[] data;
 	private ViewHolder holder;
 	private LayoutInflater inflator;
 
 	// Static --------------------------------------------------------
 
 	// Constructors --------------------------------------------------
+	/**
+	 * Constructor
+	 * 
+	 * @param context
+	 *            The current context.
+	 * @param textViewResourceId
+	 *            The resource ID for a layout file containing a TextView to use
+	 *            when instantiating views.
+	 * @param mainSectionsNames
+	 *            The names of the different sections.
+	 */
 	public MainListAdapter(Context context, int textViewResourceId,
 			String[] mainSectionsNames) {
 		super(context, textViewResourceId, mainSectionsNames);
-		this.data = mainSectionsNames.clone();
 		inflator = (LayoutInflater) getContext().getSystemService(
 				Context.LAYOUT_INFLATER_SERVICE);
 	}
@@ -44,29 +54,36 @@ public class MainListAdapter extends ArrayAdapter<String> {
 	// Public --------------------------------------------------------
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		View v = convertView;
+		View view = convertView;
 
-		if (v == null) {
-			v = inflator.inflate(R.layout.main_list_item, null);
-
+		if (view == null) {
+			// generate view inflating the layout
+			view = inflator.inflate(R.layout.main_list_item, null);
+			// create a new holder
 			holder = new ViewHolder();
-
-			holder.title = (TextView) v.findViewById(R.id.entryName);
-			holder.addButton = (Button) v.findViewById(R.id.entryAddButton);
-			holder.listButton = (Button) v.findViewById(R.id.entryListButton);
-			v.setTag(holder);
+			// populate holder
+			holder.title = (TextView) view.findViewById(R.id.entryName);
+			holder.addButton = (Button) view.findViewById(R.id.entryAddButton);
+			holder.listButton = (Button) view
+					.findViewById(R.id.entryListButton);
+			// set the holder as tag
+			view.setTag(holder);
 		} else {
-			holder = (ViewHolder) v.getTag();
+			// get the holder from the view
+			holder = (ViewHolder) view.getTag();
 		}
-		String str = data[position];
+		// fill holder with data
+		String str = getItem(position);
 
 		holder.title.setText(str);
+		// add click listener for list entities
 		OnClickListener listListener = new ListButtonOnClickListener(str);
 		holder.listButton.setOnClickListener(listListener);
+		// add click listener for add entities
 		OnClickListener addListener = new AddButtonOnClickListener(str);
 		holder.addButton.setOnClickListener(addListener);
 
-		return v;
+		return view;
 	}
 
 	// Package protected ---------------------------------------------

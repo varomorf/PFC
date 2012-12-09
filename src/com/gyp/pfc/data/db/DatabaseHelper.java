@@ -37,6 +37,12 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 	// Static --------------------------------------------------------
 
 	// Constructors --------------------------------------------------
+	/**
+	 * Constructor
+	 * 
+	 * @param context
+	 *            The context of the application for which the DB is being made
+	 */
 	public DatabaseHelper(Context context) {
 		super(context, DB_NAME, null, DB_VERSION, R.raw.ormlite_config);
 	}
@@ -52,7 +58,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 			TableUtils.createTable(connectionSource, Food.class);
 		} catch (SQLException e) {
 			Log.e(DatabaseHelper.class.getName(), "Can't create database", e);
-			throw new RuntimeException(e);
+			throw new DatabaseException(e);
 		}
 	}
 
@@ -67,11 +73,17 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 			onCreate(sqliteDatabase, connectionSource);
 		} catch (SQLException e) {
 			Log.e(DatabaseHelper.class.getName(), "Can't drop databases", e);
-			throw new RuntimeException(e);
+			throw new DatabaseException(e);
 		}
 
 	}
 
+	/**
+	 * Factory method for a {@link RuntimeExceptionDao} for the {@link Food}
+	 * entity
+	 * 
+	 * @return The {@link RuntimeExceptionDao} for the {@link Food} entity
+	 */
 	public RuntimeExceptionDao<Food, String> getFoodDao() {
 		if (null == foodDao) {
 			foodDao = getRuntimeExceptionDao(Food.class);

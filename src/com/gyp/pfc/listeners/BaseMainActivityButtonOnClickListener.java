@@ -33,6 +33,12 @@ public class BaseMainActivityButtonOnClickListener implements OnClickListener {
 	// Constructors --------------------------------------------------
 
 	// Public --------------------------------------------------------
+	/**
+	 * Called when a view has been clicked.
+	 * 
+	 * @param v
+	 *            The view that was clicked.
+	 */
 	@SuppressWarnings("rawtypes")
 	public void onClick(View view) {
 		// get context from the passed view

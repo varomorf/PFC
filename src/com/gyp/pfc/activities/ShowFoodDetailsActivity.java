@@ -9,12 +9,13 @@ import com.gyp.pfc.R;
 import com.gyp.pfc.data.domain.Food;
 
 /**
- * @author afernandezgo
+ * Activity for showing the details of a {@link Food} entity
+ * 
+ * @author Alvaro
  * 
  */
 public class ShowFoodDetailsActivity extends Activity {
-	// TODO fucking comment this
-	// FIXME after updating a food it still shows the old data
+
 	// Constants -----------------------------------------------------
 
 	// Attributes ----------------------------------------------------
@@ -31,12 +32,12 @@ public class ShowFoodDetailsActivity extends Activity {
 	// Constructors --------------------------------------------------
 
 	// Public --------------------------------------------------------
-	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.show_food_details);
 
+		// retrieve the food to be shown from the intent
 		Intent sender = getIntent();
 		food = (Food) sender.getExtras().getSerializable(
 				FoodsListActivity.SELECTED_FOOD);
@@ -60,8 +61,9 @@ public class ShowFoodDetailsActivity extends Activity {
 		nameText.setText(food.getName());
 		nameText.setTextColor(food.getColor());
 		caloriesText.setText(food.getCalories() + " KCal");
-		sugarsText.setText(food.getSugars() + " gr. / " + food.getSugarCalories()
-				+ " KCal - " + food.getSugarPercentage() + "%");
+		sugarsText.setText(food.getSugars() + " gr. / "
+				+ food.getSugarCalories() + " KCal - "
+				+ food.getSugarPercentage() + "%");
 		sugarsText.setBackgroundColor(food.getSugarColor());
 		fatsText.setText(food.getFats() + " gr. / " + food.getFatsCalories()
 				+ " Kcal - " + food.getFatsPercentage() + "%");
