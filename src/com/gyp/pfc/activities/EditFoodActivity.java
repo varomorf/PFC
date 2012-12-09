@@ -67,6 +67,7 @@ public class EditFoodActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 		getHelper().getFoodDao().update(food);
 		// prepare intent for return
 		Intent i = new Intent();
+		i.putExtra(FOOD_TO_EDIT, food);
 		setResult(RESULT_OK, i);
 		// return
 		finish();
