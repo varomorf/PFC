@@ -22,13 +22,13 @@ public class DatabaseConfigUtil extends OrmLiteConfigUtil {
 	/**
 	 * Which classes to use for the configuration writing
 	 */
-	private static final Class<?>[] classes = new Class[] { Food.class };
+	private static final Class<?>[] CLASSES = new Class[] { Food.class };
 
 	/**
 	 * This method must be launched with each modification to entity classes.
 	 */
 	public static void main(String[] args) throws SQLException, IOException {
-		writeConfigFile("ormlite_config.txt", classes);
+		writeConfigFile("ormlite_config.txt", CLASSES);
 	}
 
 	// Constructors --------------------------------------------------
