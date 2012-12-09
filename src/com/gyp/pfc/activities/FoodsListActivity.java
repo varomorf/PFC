@@ -21,17 +21,26 @@ import com.gyp.pfc.data.db.DatabaseHelper;
 import com.gyp.pfc.data.domain.Food;
 import com.j256.ormlite.android.apptools.OrmLiteBaseListActivity;
 
+/**
+ * Activity for listing all food on DB
+ * 
+ * @author Alvaro
+ */
 public class FoodsListActivity extends OrmLiteBaseListActivity<DatabaseHelper> {
-	// TODO fucking comment this
 	// Constants -----------------------------------------------------
 
+	/**
+	 * Key for the selected food
+	 */
 	public static final String SELECTED_FOOD = "selectedFood";
+	/**
+	 * Result code for food edition
+	 */
 	public static final int EDIT_FOOD = 1;
 
 	// Attributes ----------------------------------------------------
 
 	private FoodListViewAdapter listViewAdapter;
-
 	private List<Food> foods;
 
 	// Static --------------------------------------------------------
@@ -39,7 +48,6 @@ public class FoodsListActivity extends OrmLiteBaseListActivity<DatabaseHelper> {
 	// Constructors --------------------------------------------------
 
 	// Public --------------------------------------------------------
-	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
