@@ -57,8 +57,7 @@ public class FoodsListActivity extends OrmLiteBaseListActivity<DatabaseHelper> {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.foods_list_menu, menu);
+		getMenuInflater().inflate(R.menu.foods_list_menu, menu);
 		return true;
 	}
 
