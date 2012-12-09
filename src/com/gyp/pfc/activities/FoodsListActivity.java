@@ -30,15 +30,6 @@ public class FoodsListActivity extends OrmLiteBaseListActivity<DatabaseHelper> {
 
 	// Constants -----------------------------------------------------
 
-	/**
-	 * Key for the selected food
-	 */
-	public static final String SELECTED_FOOD = "selectedFood";
-	/**
-	 * Result code for food edition
-	 */
-	public static final int EDIT_FOOD = 1;
-
 	// Attributes ----------------------------------------------------
 
 	// Static --------------------------------------------------------
@@ -102,7 +93,7 @@ public class FoodsListActivity extends OrmLiteBaseListActivity<DatabaseHelper> {
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 		switch (requestCode) {
-		case EDIT_FOOD:
+		case EditFoodActivity.EDIT_FOOD:
 			if (resultCode == Activity.RESULT_OK) {
 				// refresh UI
 				refreshAdapter();
@@ -127,7 +118,7 @@ public class FoodsListActivity extends OrmLiteBaseListActivity<DatabaseHelper> {
 		Intent intent = new Intent(getApplicationContext(),
 				ShowFoodDetailsActivity.class);
 		// put the selected food on the intent
-		intent.putExtra(SELECTED_FOOD, selectedFood);
+		intent.putExtra(EditFoodActivity.FOOD_TO_EDIT, selectedFood);
 		// start the activity with the intent
 		startActivity(intent);
 	}
@@ -157,8 +148,8 @@ public class FoodsListActivity extends OrmLiteBaseListActivity<DatabaseHelper> {
 		Food selectedFood = (Food) getListAdapter().getItem(position);
 		Intent editFoodIntent = new Intent(getApplicationContext(),
 				EditFoodActivity.class);
-		editFoodIntent.putExtra(SELECTED_FOOD, selectedFood);
-		startActivityForResult(editFoodIntent, EDIT_FOOD);
+		editFoodIntent.putExtra(EditFoodActivity.FOOD_TO_EDIT, selectedFood);
+		startActivityForResult(editFoodIntent, EditFoodActivity.EDIT_FOOD);
 	}
 
 	private void refreshAdapter() {

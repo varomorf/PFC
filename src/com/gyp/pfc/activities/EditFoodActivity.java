@@ -19,6 +19,14 @@ import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 public class EditFoodActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 
 	// Constants -----------------------------------------------------
+	/**
+	 * Result code for food edition
+	 */
+	public static final int EDIT_FOOD = 1;
+	/**
+	 * Key for the selected food
+	 */
+	public static final String FOOD_TO_EDIT = "selectedFood";
 
 	// Attributes ----------------------------------------------------
 
@@ -38,8 +46,7 @@ public class EditFoodActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_edit_food);
 		Intent sender = getIntent();
-		food = (Food) sender.getExtras().getSerializable(
-				FoodsListActivity.SELECTED_FOOD);
+		food = (Food) sender.getExtras().getSerializable(FOOD_TO_EDIT);
 		getUIForms();
 		updateUI();
 	}
