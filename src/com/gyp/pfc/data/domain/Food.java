@@ -15,19 +15,13 @@ import com.j256.ormlite.table.DatabaseTable;
  */
 @DatabaseTable
 public class Food implements Serializable {
-	private static final float HUNDRED = 100.0f;
 	private static final int RED_MARGIN_FOR_FATS = 30;
 	private static final int YELLOW_MARGIN_FOR_FATS = 10;
 	private static final int RED_MARGIN_FOR_SUGAR = 50;
 	private static final int YELLOW_MARGIN_FOR_SUGAR = 15;
 	private static final int CALORIES_PER_FAT_GRAM = 9;
 	private static final int CALORIES_PER_SUGAR_GRAM = 4;
-	// TODO fucking comment everything
 	// Constants -----------------------------------------------------
-	public static final int GREEN = 1;
-	public static final int YELLOW = 2;
-	public static final int RED = 3;
-
 	private static final long serialVersionUID = 1L;
 
 	// Attributes ----------------------------------------------------
@@ -41,8 +35,11 @@ public class Food implements Serializable {
 	private int sugars;
 	@DatabaseField
 	private int fats;
+	@DatabaseField
 	private int color;
+	@DatabaseField
 	private int sugarColor;
+	@DatabaseField
 	private int fatsColor;
 
 	// Static --------------------------------------------------------
@@ -55,29 +52,6 @@ public class Food implements Serializable {
 	}
 
 	// Public --------------------------------------------------------
-
-	public Food(String name, int calories, int sugars, int fats) {
-		this.name = name;
-		this.calories = calories;
-		this.sugars = sugars;
-		this.fats = fats;
-	}
-
-	public int sugarCalories() {
-		return sugars * CALORIES_PER_SUGAR_GRAM;
-	}
-
-	public int fatsCalories() {
-		return fats * CALORIES_PER_FAT_GRAM;
-	}
-
-	public int sugarPercentage() {
-		return percentage(sugarCalories());
-	}
-
-	public int fatsPercentage() {
-		return percentage(fatsCalories());
-	}
 
 	public int getId() {
 		return id;
@@ -119,68 +93,101 @@ public class Food implements Serializable {
 		this.fats = fats;
 	}
 
+	/**
+	 * Calculates the amount of calories from sugar
+	 * 
+	 * @return The amount of calories from sugar
+	 */
+	public int getSugarCalories() {
+		return sugars * CALORIES_PER_SUGAR_GRAM;
+	}
+
+	/**
+	 * Calculates the amount of calories from fats
+	 * 
+	 * @return The amount of calories from fats
+	 */
+	public int getFatsCalories() {
+		return fats * CALORIES_PER_FAT_GRAM;
+	}
+
+	/**
+	 * Calculates the percentage of calories from sugar
+	 * 
+	 * @return the percentage of calories from sugar
+	 */
+	public int getSugarPercentage() {
+		return percentage(getSugarCalories());
+	}
+
+	/**
+	 * Calculates the percentage of calories from fats
+	 * 
+	 * @return the percentage of calories from fats
+	 */
+	public int getFatsPercentage() {
+		return percentage(getFatsCalories());
+	}
+
+	/**
+	 * Returns the color of the food calculating it if necessary
+	 * 
+	 * @return the color of the food
+	 */
 	public int getColor() {
-		if (sugarColor == 0) {
-			getSugarColor();
-		}
-		if (fatsColor == 0) {
-			getFatsColor();
-		}
 		if (color == 0) {
-			if (sugarColor == Color.GREEN && fatsColor == Color.GREEN) {
-				color = Color.GREEN;
-			} else if (sugarColor == Color.RED || fatsColor == Color.RED) {
-				color = Color.RED;
-			} else {
-				color = Color.YELLOW;
-			}
+			calculateColor();
 		}
 		return color;
 	}
 
+	public void setColor(int color) {
+		this.color = color;
+	}
+
+	/**
+	 * Returns the color of the sugar calculating it if necessary
+	 * 
+	 * @return the color of the sugar
+	 */
 	public int getSugarColor() {
 		if (sugarColor == 0) {
-			int sugarPercentage = sugarPercentage();
-			if (sugarPercentage > YELLOW_MARGIN_FOR_SUGAR) {
-				if (sugarPercentage > RED_MARGIN_FOR_SUGAR) {
-					sugarColor = Color.RED;
-				} else {
-					sugarColor = Color.YELLOW;
-				}
-			} else {
-				sugarColor = Color.GREEN;
-			}
+			calculateSugarColor();
 		}
 		return sugarColor;
 	}
 
+	public void setSugarColor(int sugarColor) {
+		this.sugarColor = sugarColor;
+	}
+
+	/**
+	 * Returns the color of the fats calculating it if necessary
+	 * 
+	 * @return the color of the fats
+	 */
 	public int getFatsColor() {
 		if (fatsColor == 0) {
-			int fatsPercentage = fatsPercentage();
-			if (fatsPercentage > YELLOW_MARGIN_FOR_FATS) {
-				if (fatsPercentage > RED_MARGIN_FOR_FATS) {
-					fatsColor = Color.RED;
-				} else {
-					fatsColor = Color.YELLOW;
-				}
-			} else {
-				fatsColor = Color.GREEN;
-			}
+			calculateFatsColor();
 		}
 		return fatsColor;
 	}
 
+	public void setFatsColor(int fatsColor) {
+		this.fatsColor = fatsColor;
+	}
+
+	/**
+	 * Returns whether the food has no field set
+	 * 
+	 * @return True if calories, sugars and fats are 0. False otherwise
+	 */
 	public boolean isEmpty() {
-		return (calories == 0 && sugars == 0 && fats == 0);
+		return (calories & sugars & fats) == 0;
 	}
 
 	@Override
 	public String toString() {
-		// for list view
-		return name;
-	}
-
-	public String fullToString() {
 		String ret = "";
 		ret += calories + "calories\n";
 		ret += sugars + "sugars\n";
@@ -195,7 +202,49 @@ public class Food implements Serializable {
 
 	// Private -------------------------------------------------------
 	private int percentage(int value) {
-		return (int) ((value * HUNDRED) / calories);
+		return (int) ((value * 100) / calories);
+	}
+
+	private void calculateSugarColor() {
+		int sugarPercentage = getSugarPercentage();
+		if (sugarPercentage > YELLOW_MARGIN_FOR_SUGAR) {
+			if (sugarPercentage > RED_MARGIN_FOR_SUGAR) {
+				sugarColor = Color.RED;
+			} else {
+				sugarColor = Color.YELLOW;
+			}
+		} else {
+			sugarColor = Color.GREEN;
+		}
+	}
+
+	private void calculateFatsColor() {
+		int fatsPercentage = getFatsPercentage();
+		if (fatsPercentage > YELLOW_MARGIN_FOR_FATS) {
+			if (fatsPercentage > RED_MARGIN_FOR_FATS) {
+				fatsColor = Color.RED;
+			} else {
+				fatsColor = Color.YELLOW;
+			}
+		} else {
+			fatsColor = Color.GREEN;
+		}
+	}
+
+	private void calculateColor() {
+		if (sugarColor == 0) {
+			calculateSugarColor();
+		}
+		if (fatsColor == 0) {
+			calculateFatsColor();
+		}
+		if (sugarColor == Color.GREEN && fatsColor == Color.GREEN) {
+			color = Color.GREEN;
+		} else if (sugarColor == Color.RED || fatsColor == Color.RED) {
+			color = Color.RED;
+		} else {
+			color = Color.YELLOW;
+		}
 	}
 
 	// Inner classes -------------------------------------------------

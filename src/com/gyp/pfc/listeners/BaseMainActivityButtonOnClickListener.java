@@ -33,6 +33,7 @@ public class BaseMainActivityButtonOnClickListener implements OnClickListener {
 	// Constructors --------------------------------------------------
 
 	// Public --------------------------------------------------------
+	@SuppressWarnings("rawtypes")
 	public void onClick(View view) {
 		// get context from the passed view
 		Context context = view.getContext();

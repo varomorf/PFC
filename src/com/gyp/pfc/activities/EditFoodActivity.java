@@ -10,16 +10,22 @@ import com.gyp.pfc.data.db.DatabaseHelper;
 import com.gyp.pfc.data.domain.Food;
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 
+/**
+ * Activity for the edition of a food
+ * 
+ * @author Alvaro
+ * 
+ */
 public class EditFoodActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 
 	// Constants -----------------------------------------------------
 
 	// Attributes ----------------------------------------------------
 
-	private TextView nameText;
-	private TextView caloriesText;
-	private TextView sugarsText;
-	private TextView fatsText;
+	private TextView foodName;
+	private TextView foodCalories;
+	private TextView foodSugars;
+	private TextView foodFats;
 	private Food food;
 
 	// Static --------------------------------------------------------
@@ -38,14 +44,24 @@ public class EditFoodActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 		updateUI();
 	}
 
+	/**
+	 * Method to be called by the Edit button
+	 * 
+	 * @param view
+	 *            The view
+	 */
 	public void editFoodButton(View view) {
-		food.setName(nameText.getText().toString());
-		food.setCalories(Integer.parseInt(caloriesText.getText().toString()));
-		food.setSugars(Integer.parseInt(sugarsText.getText().toString()));
-		food.setFats(Integer.parseInt(fatsText.getText().toString()));
+		// set new food values
+		food.setName(foodName.getText().toString());
+		food.setCalories(Integer.parseInt(foodCalories.getText().toString()));
+		food.setSugars(Integer.parseInt(foodSugars.getText().toString()));
+		food.setFats(Integer.parseInt(foodFats.getText().toString()));
+		// update the food on DB
 		getHelper().getFoodDao().update(food);
+		// prepare intent for return
 		Intent i = new Intent();
 		setResult(RESULT_OK, i);
+		// return
 		finish();
 	}
 
@@ -55,17 +71,17 @@ public class EditFoodActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 
 	// Private -------------------------------------------------------
 	private void getUIForms() {
-		nameText = (TextView) findViewById(R.id.foodName);
-		caloriesText = (TextView) findViewById(R.id.foodCalories);
-		sugarsText = (TextView) findViewById(R.id.foodSugars);
-		fatsText = (TextView) findViewById(R.id.foodFats);
+		foodName = (TextView) findViewById(R.id.foodName);
+		foodCalories = (TextView) findViewById(R.id.foodCalories);
+		foodSugars = (TextView) findViewById(R.id.foodSugars);
+		foodFats = (TextView) findViewById(R.id.foodFats);
 	}
 
 	private void updateUI() {
-		nameText.setText(food.getName());
-		caloriesText.setText(Integer.toString(food.getCalories()));
-		sugarsText.setText(Integer.toString(food.getSugars()));
-		fatsText.setText(Integer.toString(food.getFats()));
+		foodName.setText(food.getName());
+		foodCalories.setText(Integer.toString(food.getCalories()));
+		foodSugars.setText(Integer.toString(food.getSugars()));
+		foodFats.setText(Integer.toString(food.getFats()));
 	}
 
 	// Inner classes -------------------------------------------------

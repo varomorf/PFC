@@ -12,10 +12,6 @@ import android.widget.TextView;
 import com.gyp.pfc.R;
 import com.gyp.pfc.data.domain.Food;
 
-/**
- * @author afernandezgo
- * 
- */
 public class FoodListViewAdapter extends ArrayAdapter<Food> {
 	// TODO fucking comment this
 	// Constants -----------------------------------------------------

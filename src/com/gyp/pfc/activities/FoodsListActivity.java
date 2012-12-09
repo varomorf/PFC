@@ -21,10 +21,6 @@ import com.gyp.pfc.data.db.DatabaseHelper;
 import com.gyp.pfc.data.domain.Food;
 import com.j256.ormlite.android.apptools.OrmLiteBaseListActivity;
 
-/**
- * @author afernandezgo
- * 
- */
 public class FoodsListActivity extends OrmLiteBaseListActivity<DatabaseHelper> {
 	// TODO fucking comment this
 	// Constants -----------------------------------------------------
@@ -68,7 +64,8 @@ public class FoodsListActivity extends OrmLiteBaseListActivity<DatabaseHelper> {
 		// Handle item selection
 		switch (item.getItemId()) {
 		case R.id.foodsListMenuMain:
-			main();
+			// go back
+			finish();
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);
@@ -134,10 +131,6 @@ public class FoodsListActivity extends OrmLiteBaseListActivity<DatabaseHelper> {
 	}
 
 	// Private -------------------------------------------------------
-
-	private void main() {
-		finish();
-	}
 
 	private void loadFoods() {
 		foods = getHelper().getFoodDao().queryForAll();

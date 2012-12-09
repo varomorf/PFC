@@ -18,12 +18,23 @@ import com.gyp.pfc.data.db.DatabaseHelper;
 import com.gyp.pfc.data.domain.Food;
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 
+/**
+ * <p>
+ * With activity nutritional data can be entered for a food in order to qualify
+ * it. Only nutritional info is entered on this activity, the name of the food
+ * is entered in {@link EnterFoodNameActivity}.
+ * </p>
+ * 
+ * @author Alvaro
+ * 
+ */
 public class AddFoodActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 	// TODO fucking comment this
 	// Constants -----------------------------------------------------
 	public static final int FOOD_NAME = 1;
 
 	// Attributes ----------------------------------------------------
+	// view components
 	private EditText caloriesEditText;
 	private EditText sugarsEditText;
 	private EditText fatsEditText;
@@ -40,9 +51,6 @@ public class AddFoodActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 	// Constructors --------------------------------------------------
 
 	// Public --------------------------------------------------------
-	/**
-	 * Called when the activity is first created.
-	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -59,10 +67,11 @@ public class AddFoodActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle item selection
+		// Handle item selection on menu
 		switch (item.getItemId()) {
 		case R.id.mainMenuFoodsList:
-			foodsList();
+			// show food list
+			startActivity(new Intent(this, FoodsListActivity.class));
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);
@@ -75,29 +84,55 @@ public class AddFoodActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 		switch (requestCode) {
 		case FOOD_NAME:
 			if (resultCode == Activity.RESULT_OK) {
-				insertFood(data);
+				// food name was correctly entered -> extract food name
+				String foodName = data
+						.getStringExtra(EnterFoodNameActivity.FOOD_NAME_IDENTIFIER);
+				// save food with passed name
+				saveFoodData(foodName);
 			}
 			break;
-
 		default:
 			break;
 		}
 	}
 
+	/**
+	 * <p>
+	 * Will be called when the calculate button is pressed.
+	 * </p>
+	 * <p>
+	 * Food color will be calculated and showed in the same view.
+	 * </p>
+	 * 
+	 * @param view
+	 */
 	public void calculate(View view) {
 		food = new Food();
-		extract();
+		extractDataFromViewComponents();
 		if (filled) {
 			updateUI();
 		} else {
-			clearResults();
+			clearResultsView();
 			Toast.makeText(getApplicationContext(), R.string.notFilledAlert,
 					Toast.LENGTH_SHORT).show();
 		}
 		caloriesEditText.requestFocus();
 	}
 
-	public void addFood(View view) {
+	/**
+	 * <p>
+	 * Will be called when the add food button is pressed
+	 * </p>
+	 * 
+	 * <p>
+	 * This will launch the {@link EnterFoodNameActivity} to ask the user to
+	 * enter the food's name. When this activity ends correctly the food data
+	 * will be saved with the retrieved name.
+	 * </p>
+	 * 
+	 * @param view
+	 */
+	public void enterFoodName(View view) {
 		if (food != null && !food.isEmpty()) {
 			Intent i = new Intent(this, EnterFoodNameActivity.class);
 			startActivityForResult(i, FOOD_NAME);
@@ -110,22 +145,22 @@ public class AddFoodActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 
 	// Private -------------------------------------------------------
 	/**
-	 * @param data
+	 * Creates a new food with the passed food name.
+	 * 
+	 * @param foodName
+	 *            The name to be used for the food
 	 */
-	private void insertFood(Intent data) {
-		String foodName = data
-				.getStringExtra(EnterFoodNameActivity.FOOD_NAME_IDENTIFIER);
+	private void saveFoodData(String foodName) {
 		food.setName(foodName);
+		// save food on DB
 		getHelper().getFoodDao().create(food);
-		clearResults();
+		clearResultsView();
+		// tell user that the food was correctly saved
 		Toast.makeText(getApplicationContext(),
 				foodName + " " + getString(R.string.newFoodInserted),
 				Toast.LENGTH_SHORT).show();
 	}
 
-	/**
-	 * 
-	 */
 	private void getUIForms() {
 		caloriesEditText = (EditText) findViewById(R.id.caloriesText);
 		sugarsEditText = (EditText) findViewById(R.id.sugarsText);
@@ -140,15 +175,7 @@ public class AddFoodActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 		resultFinalText.setTextColor(Color.BLACK);
 	}
 
-	private void foodsList() {
-		Intent i = new Intent(this, FoodsListActivity.class);
-		startActivity(i);
-	}
-
-	/**
-	 * 
-	 */
-	private void extract() {
+	private void extractDataFromViewComponents() {
 		String caloriesValue = caloriesEditText.getText().toString();
 		String fatsValue = fatsEditText.getText().toString();
 		String sugarsValue = sugarsEditText.getText().toString();
@@ -162,17 +189,14 @@ public class AddFoodActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 		}
 	}
 
-	/**
-	 * 
-	 */
 	private void updateUI() {
-		int sugarPercentage = food.sugarPercentage();
-		int fatsPercentage = food.fatsPercentage();
+		int sugarPercentage = food.getSugarPercentage();
+		int fatsPercentage = food.getFatsPercentage();
 		resultSugarsText.setText(getString(R.string.resultSugarsText) + ": "
-				+ sugarPercentage + "% (" + food.sugarCalories() + " KCal)");
+				+ sugarPercentage + "% (" + food.getSugarCalories() + " KCal)");
 		resultSugarsText.setBackgroundColor(food.getSugarColor());
 		resultFatsText.setText(getString(R.string.resultFatsText) + ": "
-				+ fatsPercentage + "% (" + food.fatsCalories() + " KCal)");
+				+ fatsPercentage + "% (" + food.getFatsCalories() + " KCal)");
 		resultFatsText.setBackgroundColor(food.getFatsColor());
 		String finalText = getString(R.string.resultFinalText) + " ";
 		switch (food.getColor()) {
@@ -195,13 +219,13 @@ public class AddFoodActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 		addFoodButton.setVisibility(View.VISIBLE);
 	}
 
-	private void clearResults() {
+	private void clearResultsView() {
 		resultSugarsText.setText("");
 		resultFatsText.setText("");
 		resultFinalText.setText("");
-		resultSugarsText.setBackgroundColor(Color.BLACK);
-		resultFatsText.setBackgroundColor(Color.BLACK);
-		resultFinalText.setBackgroundColor(Color.BLACK);
+		resultSugarsText.setBackgroundColor(Color.WHITE);
+		resultFatsText.setBackgroundColor(Color.WHITE);
+		resultFinalText.setBackgroundColor(Color.WHITE);
 		addFoodButton.setVisibility(View.INVISIBLE);
 	}
 	// Inner classes -------------------------------------------------

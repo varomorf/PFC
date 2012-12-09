@@ -60,11 +60,11 @@ public class ShowFoodDetailsActivity extends Activity {
 		nameText.setText(food.getName());
 		nameText.setTextColor(food.getColor());
 		caloriesText.setText(food.getCalories() + " KCal");
-		sugarsText.setText(food.getSugars() + " gr. / " + food.sugarCalories()
-				+ " KCal - " + food.sugarPercentage() + "%");
+		sugarsText.setText(food.getSugars() + " gr. / " + food.getSugarCalories()
+				+ " KCal - " + food.getSugarPercentage() + "%");
 		sugarsText.setBackgroundColor(food.getSugarColor());
-		fatsText.setText(food.getFats() + " gr. / " + food.fatsCalories()
-				+ " Kcal - " + food.fatsPercentage() + "%");
+		fatsText.setText(food.getFats() + " gr. / " + food.getFatsCalories()
+				+ " Kcal - " + food.getFatsPercentage() + "%");
 		fatsText.setBackgroundColor(food.getFatsColor());
 	}
 	// Inner classes -------------------------------------------------
