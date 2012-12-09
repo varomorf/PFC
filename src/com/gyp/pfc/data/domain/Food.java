@@ -183,7 +183,7 @@ public class Food implements Serializable {
 	 * @return True if calories, sugars and fats are 0. False otherwise
 	 */
 	public boolean isEmpty() {
-		return (calories & sugars & fats) == 0;
+		return (calories | sugars | fats) == 0;
 	}
 
 	@Override
