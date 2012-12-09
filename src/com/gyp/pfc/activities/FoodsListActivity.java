@@ -91,7 +91,6 @@ public class FoodsListActivity extends OrmLiteBaseListActivity<DatabaseHelper> {
 
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-		super.onActivityResult(requestCode, resultCode, data);
 		switch (requestCode) {
 		case EditFoodActivity.EDIT_FOOD:
 			if (resultCode == Activity.RESULT_OK) {
@@ -121,6 +120,13 @@ public class FoodsListActivity extends OrmLiteBaseListActivity<DatabaseHelper> {
 		intent.putExtra(EditFoodActivity.FOOD_TO_EDIT, selectedFood);
 		// start the activity with the intent
 		startActivity(intent);
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		// the activity is shown via back button
+		refreshAdapter();
 	}
 
 	// Private -------------------------------------------------------
