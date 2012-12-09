@@ -39,7 +39,7 @@
                 android:layout_weight="1"
                 android:focusable="true"
                 android:focusableInTouchMode="true"
-                android:inputType="number"/>
+                android:inputType="number" />
         </LinearLayout>
 
         <LinearLayout
@@ -63,7 +63,7 @@
                 android:focusable="true"
                 android:focusableInTouchMode="true"
                 android:inputType="number"
-                android:nextFocusUp="@id/caloriesText">
+                android:nextFocusUp="@id/caloriesText" >
             </EditText>
         </LinearLayout>
 
@@ -89,16 +89,15 @@
                 android:focusableInTouchMode="true"
                 android:freezesText="true"
                 android:inputType="number"
-                android:nextFocusUp="@id/sugarsText"/>
+                android:nextFocusUp="@id/sugarsText" />
         </LinearLayout>
-
+
         <Button
             android:id="@+id/calculateButton"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:onClick="calculate"
             android:text="@string/button_calculate" />
-
     </LinearLayout>
 
     <LinearLayout
@@ -127,15 +126,14 @@
             android:layout_height="wrap_content"
             android:text="@string/resultFinalText"
             android:textAppearance="?android:attr/textAppearanceLarge" />
-
+
         <Button
             android:id="@+id/addFoodButton"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:onClick="addFood"
+            android:onClick="enterFoodName"
             android:text="@string/addFoodButton"
             android:visibility="invisible" />
-
     </LinearLayout>
 
 </LinearLayout>
