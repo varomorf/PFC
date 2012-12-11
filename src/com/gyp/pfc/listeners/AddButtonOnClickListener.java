@@ -1,7 +1,5 @@
 package com.gyp.pfc.listeners;
 
-import org.apache.commons.lang.StringUtils;
-
 /**
  * Listener for the buttons shown in the main activity for directly adding a new
  * main entity entry.
@@ -13,14 +11,11 @@ public class AddButtonOnClickListener extends
 		BaseMainActivityButtonOnClickListener {
 
 	// Constants -----------------------------------------------------
-	/**
-	 * Prefix for destiny activity's class name
-	 */
-	public static final String PRE = "com.gyp.pfc.activities.Add";
-	/**
-	 * Suffix for destiny activity's class name
-	 */
-	public static final String POST = "Activity";
+	private static final String PRE = "com.gyp.pfc.activities.";
+
+	private static final String MIDDLE = ".Add";
+
+	private static final String POST = "Activity";
 
 	// Attributes ----------------------------------------------------
 
@@ -34,9 +29,7 @@ public class AddButtonOnClickListener extends
 	 *            The value to be used for setting the activityName
 	 */
 	public AddButtonOnClickListener(String entryName) {
-		assert StringUtils.isNotBlank(entryName);
-		// remove last character from the entryName that will always be an 's'
-		setActivityName(PRE + StringUtils.chop(entryName) + POST);
+		super(entryName);
 	}
 
 	// Public --------------------------------------------------------
@@ -44,6 +37,17 @@ public class AddButtonOnClickListener extends
 	// Package protected ---------------------------------------------
 
 	// Protected -----------------------------------------------------
+	protected String prepareActivityQualifiedName(String packageName,
+			String entityName) {
+		// prepare qualified name putting the pieces together
+		StringBuffer buffer = new StringBuffer(PRE);
+		buffer.append(packageName);
+		buffer.append(MIDDLE);
+		buffer.append(entityName);
+		buffer.append(POST);
+
+		return buffer.toString();
+	}
 
 	// Private -------------------------------------------------------
 

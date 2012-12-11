@@ -1,5 +1,7 @@
 package com.gyp.pfc.listeners;
 
+import org.apache.commons.lang.StringUtils;
+
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -13,7 +15,8 @@ import android.view.View.OnClickListener;
  * @author Alvaro
  * 
  */
-public class BaseMainActivityButtonOnClickListener implements OnClickListener {
+public abstract class BaseMainActivityButtonOnClickListener implements
+		OnClickListener {
 
 	// Constants -----------------------------------------------------
 	/**
@@ -31,6 +34,15 @@ public class BaseMainActivityButtonOnClickListener implements OnClickListener {
 	// Static --------------------------------------------------------
 
 	// Constructors --------------------------------------------------
+	/**
+	 * Constructor
+	 * 
+	 * @param entryName
+	 *            The value to be used for the activity
+	 */
+	public BaseMainActivityButtonOnClickListener(String entryName) {
+		activityName = prepareActivityQualifiedName(entryName);
+	}
 
 	// Public --------------------------------------------------------
 	/**
@@ -59,14 +71,48 @@ public class BaseMainActivityButtonOnClickListener implements OnClickListener {
 		}
 	}
 
-	public void setActivityName(String activityName) {
-		this.activityName = activityName;
+	/**
+	 * <p>
+	 * Must return the qualified name of the activity to be called for the
+	 * passed entryName
+	 * </p>
+	 * 
+	 * @param entryName
+	 *            the name of the section for which to prepare the listener
+	 * @return the qualified name of the activity
+	 */
+	public String prepareActivityQualifiedName(String entryName) {
+		assert StringUtils.isNotBlank(entryName);
+		// remove the last character (always s)
+		String entityName = StringUtils.chop(entryName);
+		// package name is entity name in small caps
+		String packageName = StringUtils.uncapitalize(entityName);
+
+		// get qualified name calling to the abstract method
+		String qualifiedName = prepareActivityQualifiedName(packageName,
+				entityName);
+
+		return qualifiedName;
 	}
 
 	// Package protected ---------------------------------------------
 
 	// Protected -----------------------------------------------------
-
+	/**
+	 * <p>
+	 * Must return the qualified name of the activity to be called for the
+	 * passed entity and package
+	 * </p>
+	 * 
+	 * @param packageName
+	 *            the package in which the activity is
+	 * @param entityName
+	 *            the name of the entity for which to prepare the activity
+	 *            qualified name
+	 * @return the qualified name of the activity
+	 */
+	protected abstract String prepareActivityQualifiedName(String packageName,
+			String entityName);
 	// Private -------------------------------------------------------
 
 	// Inner classes -------------------------------------------------
