@@ -1,4 +1,4 @@
-package com.gyp.pfc.activities;
+package com.gyp.pfc.activities.food;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -71,7 +71,7 @@ public class AddFoodActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 		switch (item.getItemId()) {
 		case R.id.mainMenuFoodsList:
 			// show food list
-			startActivity(new Intent(this, FoodsListActivity.class));
+			startActivity(new Intent(this, FoodListActivity.class));
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);

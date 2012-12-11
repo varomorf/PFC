@@ -22,11 +22,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.FoodsListActivity"></activity>
-        <activity android:name=".activities.AddFoodActivity"></activity>
-        <activity android:name=".activities.EditFoodActivity"></activity>
-        <activity android:name=".activities.EnterFoodNameActivity"></activity>
-        <activity android:name=".activities.ShowFoodDetailsActivity"></activity>
+        <activity android:name=".activities.food.FoodListActivity"></activity>
+        <activity android:name=".activities.food.AddFoodActivity"></activity>
+        <activity android:name=".activities.food.EditFoodActivity"></activity>
+        <activity android:name=".activities.food.EnterFoodNameActivity"></activity>
+        <activity android:name=".activities.food.ShowFoodDetailsActivity"></activity>
     </application>
 
 </manifest>

@@ -1,4 +1,4 @@
-package com.gyp.pfc.activities;
+package com.gyp.pfc.activities.food;
 
 import java.util.List;
 
@@ -26,7 +26,7 @@ import com.j256.ormlite.android.apptools.OrmLiteBaseListActivity;
  * 
  * @author Alvaro
  */
-public class FoodsListActivity extends OrmLiteBaseListActivity<DatabaseHelper> {
+public class FoodListActivity extends OrmLiteBaseListActivity<DatabaseHelper> {
 
 	// Constants -----------------------------------------------------
 

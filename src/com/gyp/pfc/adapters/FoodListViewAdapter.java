@@ -10,11 +10,11 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.gyp.pfc.R;
-import com.gyp.pfc.activities.FoodsListActivity;
+import com.gyp.pfc.activities.food.FoodListActivity;
 import com.gyp.pfc.data.domain.Food;
 
 /**
- * {@link ArrayAdapter} for the {@link FoodsListActivity}
+ * {@link ArrayAdapter} for the {@link FoodListActivity}
  * 
  * @author Alvaro
  * 

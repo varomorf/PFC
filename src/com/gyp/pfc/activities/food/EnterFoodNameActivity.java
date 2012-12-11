@@ -1,4 +1,4 @@
-package com.gyp.pfc.activities;
+package com.gyp.pfc.activities.food;
 
 import android.app.Activity;
 import android.content.Intent;
