@@ -28,6 +28,16 @@ public class MainActivity extends OrmLiteBaseListActivity<DatabaseHelper> {
 
 	// Public --------------------------------------------------------
 	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_main);
+		// set the list adapter
+		MainListAdapter adapter = new MainListAdapter(this,
+				R.layout.main_list_item, MAIN_SECTIONS_NAMES);
+		setListAdapter(adapter);
+	}
+
+	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.activity_main, menu);
@@ -37,14 +47,6 @@ public class MainActivity extends OrmLiteBaseListActivity<DatabaseHelper> {
 	// Package protected ---------------------------------------------
 
 	// Protected -----------------------------------------------------
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		// set the list adapter
-		MainListAdapter adapter = new MainListAdapter(this,
-				R.layout.main_list_item, MAIN_SECTIONS_NAMES);
-		setListAdapter(adapter);
-	}
 
 	// Private -------------------------------------------------------
 
