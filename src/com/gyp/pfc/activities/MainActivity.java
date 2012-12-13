@@ -30,7 +30,6 @@ public class MainActivity extends OrmLiteBaseListActivity<DatabaseHelper> {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
 		// set the list adapter
 		MainListAdapter adapter = new MainListAdapter(this,
 				R.layout.main_list_item, MAIN_SECTIONS_NAMES);
