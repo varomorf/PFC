@@ -1,5 +1,5 @@
 #
-# generated on 2012/12/06 02:43:20
+# generated on 2012/12/27 08:08:27
 #
 # --table-start--
 dataClass=com.gyp.pfc.data.domain.Food
@@ -20,6 +20,31 @@ fieldName=sugars
 # --field-end--
 # --field-start--
 fieldName=fats
+# --field-end--
+# --field-start--
+fieldName=color
+# --field-end--
+# --field-start--
+fieldName=sugarColor
+# --field-end--
+# --field-start--
+fieldName=fatsColor
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+# --table-start--
+dataClass=com.gyp.pfc.data.domain.Exercise
+tableName=exercise
+# --table-fields-start--
+# --field-start--
+fieldName=id
+# --field-end--
+# --field-start--
+fieldName=name
+# --field-end--
+# --field-start--
+fieldName=description
 # --field-end--
 # --table-fields-end--
 # --table-end--
