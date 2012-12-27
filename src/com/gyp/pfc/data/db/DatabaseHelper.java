@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.gyp.pfc.R;
+import com.gyp.pfc.data.domain.Exercise;
 import com.gyp.pfc.data.domain.Food;
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
@@ -33,6 +34,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
 	// Attributes ----------------------------------------------------
 	private RuntimeExceptionDao<Food, String> foodDao;
+	private RuntimeExceptionDao<Exercise, Integer> exerciseDao;
 
 	// Static --------------------------------------------------------
 
@@ -89,6 +91,19 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 			foodDao = getRuntimeExceptionDao(Food.class);
 		}
 		return foodDao;
+	}
+
+	/**
+	 * Factory method for a {@link RuntimeExceptionDao} for the {@link Exercise}
+	 * entity
+	 * 
+	 * @return The {@link RuntimeExceptionDao} for the {@link Exercise} entity
+	 */
+	public RuntimeExceptionDao<Exercise, Integer> getExerciseDao() {
+		if (null == exerciseDao) {
+			exerciseDao = getRuntimeExceptionDao(Exercise.class);
+		}
+		return exerciseDao;
 	}
 
 	/**
