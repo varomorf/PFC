@@ -29,7 +29,6 @@ import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
  * 
  */
 public class AddFoodActivity extends OrmLiteBaseActivity<DatabaseHelper> {
-	// TODO fucking comment this
 	// Constants -----------------------------------------------------
 	public static final int FOOD_NAME = 1;
 

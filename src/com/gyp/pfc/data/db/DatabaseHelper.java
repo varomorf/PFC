@@ -27,7 +27,6 @@ import com.j256.ormlite.table.TableUtils;
  * 
  */
 public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
-	// TODO fucking comment this
 	// Constants -----------------------------------------------------
 	private static final String DB_NAME = "pfcDatabase";
 	private static final int DB_VERSION = 1;
