@@ -15,12 +15,12 @@ public class Exercise {
 	// Constants -----------------------------------------------------
 
 	// Attributes ----------------------------------------------------
+	@DatabaseField(generatedId = true)
+	private int id;
 	@DatabaseField
-	int id;
+	private String name;
 	@DatabaseField
-	String name;
-	@DatabaseField
-	String description;
+	private String description;
 
 	// Static --------------------------------------------------------
 
