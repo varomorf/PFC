@@ -57,6 +57,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 			Log.i(DatabaseHelper.class.getName(), "Creating database");
 			// create table for food entity
 			TableUtils.createTable(connectionSource, Food.class);
+			TableUtils.createTable(connectionSource, Exercise.class);
 		} catch (SQLException e) {
 			Log.e(DatabaseHelper.class.getName(), "Can't create database", e);
 			throw new DatabaseException(e);
@@ -70,6 +71,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 			Log.i(DatabaseHelper.class.getName(), "Upgrading database");
 			// drop the databases
 			TableUtils.dropTable(connectionSource, Food.class, true);
+			TableUtils.dropTable(connectionSource, Exercise.class, true);
 			// after we drop the old databases, we create the new ones
 			onCreate(sqliteDatabase, connectionSource);
 		} catch (SQLException e) {
