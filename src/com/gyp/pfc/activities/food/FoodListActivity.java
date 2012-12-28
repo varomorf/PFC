@@ -70,7 +70,7 @@ public class FoodListActivity extends OrmLiteBaseListActivity<DatabaseHelper> {
 			ContextMenuInfo menuInfo) {
 		super.onCreateContextMenu(menu, v, menuInfo);
 		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.foods_list_context_menu, menu);
+		inflater.inflate(R.menu.crud_context_menu, menu);
 	}
 
 	@Override
@@ -78,10 +78,10 @@ public class FoodListActivity extends OrmLiteBaseListActivity<DatabaseHelper> {
 		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item
 				.getMenuInfo();
 		switch (item.getItemId()) {
-		case R.id.deleteFood:
+		case R.id.delete:
 			deleteFood(info.position);
 			return true;
-		case R.id.editFood:
+		case R.id.edit:
 			editFood(info.position);
 			return true;
 		default:

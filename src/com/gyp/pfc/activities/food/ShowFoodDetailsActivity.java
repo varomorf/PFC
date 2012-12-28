@@ -53,18 +53,18 @@ public class ShowFoodDetailsActivity extends
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.foods_list_context_menu, menu);
+		getMenuInflater().inflate(R.menu.crud_context_menu, menu);
 		return true;
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-		case R.id.deleteFood:
+		case R.id.delete:
 			getHelper().getFoodDao().delete(food);
 			finish();
 			return true;
-		case R.id.editFood:
+		case R.id.edit:
 			editFood();
 			return true;
 		default:
