@@ -14,12 +14,13 @@ import android.widget.TextView;
 
 import com.gyp.pfc.CustomTestRunner;
 import com.gyp.pfc.R;
-import com.gyp.pfc.activities.exercise.ExerciseListActivity;
 import com.gyp.pfc.data.db.DatabaseHelper;
 import com.gyp.pfc.data.domain.Exercise;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
 import com.j256.ormlite.support.ConnectionSource;
+import com.xtremelabs.robolectric.shadows.ShadowListActivity;
+import com.xtremelabs.robolectric.shadows.ShadowListView;
 import com.xtremelabs.robolectric.shadows.ShadowView;
 
 /**
@@ -34,7 +35,7 @@ public class ExercisesListActivityTest {
 	// Constants -----------------------------------------------------
 
 	// Attributes ----------------------------------------------------
-	private ExerciseListActivity activity;
+	private ShadowListActivity activity;
 	private RuntimeExceptionDao<Exercise, Integer> dao;
 	protected ConnectionSource connectionSource;
 
@@ -45,9 +46,10 @@ public class ExercisesListActivityTest {
 	// Public --------------------------------------------------------
 	@Before
 	public void before() {
-		activity = new ExerciseListActivity();
-		OpenHelperManager.getHelper(activity, DatabaseHelper.class);
-		dao = new DatabaseHelper(activity).getExerciseDao();
+		ExerciseListActivity realActivity = new ExerciseListActivity();
+		activity = shadowOf(realActivity);
+		OpenHelperManager.getHelper(realActivity, DatabaseHelper.class);
+		dao = new DatabaseHelper(realActivity).getExerciseDao();
 	}
 
 	@Test
@@ -56,10 +58,10 @@ public class ExercisesListActivityTest {
 		insertExercise("foo", "foo desc");
 		insertExercise("bar", "bar desc");
 		// WHEN
-		activity.onCreate(null);
+		activity.callOnCreate(null);
 		// THEN
-		assertItemText(getItemFromListView(android.R.id.list, 0), "foo");
-		assertItemText(getItemFromListView(android.R.id.list, 1), "bar");
+		assertItemText(getItemFromListView(0), "foo");
+		assertItemText(getItemFromListView(1), "bar");
 	}
 
 	@Test
@@ -78,15 +80,22 @@ public class ExercisesListActivityTest {
 		// GIVEN
 		insertExercise("foo", "foo desc");
 		insertExercise("bar", "bar desc");
-		activity.onCreate(null);
+		activity.callOnCreate(null);
 		// WHEN
 		// long click on an item
-		View item = getItemFromListView(android.R.id.list, 0);
+		ListView listView = (ListView) activity.findViewById(android.R.id.list);
+		listView.performLongClick();
+		ShadowListView shadow = shadowOf(listView);
+		shadow.performLongClick();
+		View item = getItemFromListView(0);
+		item.performLongClick();
 		ShadowView shadowItem = shadowOf(item);
 		shadowItem.performLongClick();
 		// THEN
 		// contextual menu is shown
-		fail();
+		View contextMenu = activity.findViewById(R.menu.crud_context_menu);
+		assertNotNull(contextMenu);
+		// TODO FINISH LATER
 	}
 
 	// Package protected ---------------------------------------------
@@ -106,11 +115,10 @@ public class ExercisesListActivityTest {
 		assertThat(title.getText().toString(), is(text));
 	}
 
-	private View getItemFromListView(int id, int index) {
-		ListView listView = (ListView) activity.findViewById(id);
+	private View getItemFromListView(int index) {
+		ListView listView = (ListView) activity.findViewById(android.R.id.list);
 		return listView.getChildAt(index);
 	}
-
 	// Inner classes -------------------------------------------------
 
 }
