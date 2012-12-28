@@ -3,6 +3,10 @@ package com.gyp.pfc.activities.exercise;
 import java.util.List;
 
 import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
+import android.view.MenuInflater;
+import android.view.View;
 
 import com.gyp.pfc.R;
 import com.gyp.pfc.adapters.ExerciseListViewAdapter;
@@ -35,7 +39,15 @@ public class ExerciseListActivity extends
 		List<Exercise> exercises = getHelper().getExerciseDao().queryForAll();
 		setListAdapter(new ExerciseListViewAdapter(this,
 				R.layout.exercise_list_item, exercises));
-		// TODO
+		registerForContextMenu(getListView());
+	}
+
+	@Override
+	public void onCreateContextMenu(ContextMenu menu, View v,
+			ContextMenuInfo menuInfo) {
+		super.onCreateContextMenu(menu, v, menuInfo);
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.crud_context_menu, menu);
 	}
 
 	// Package protected ---------------------------------------------
