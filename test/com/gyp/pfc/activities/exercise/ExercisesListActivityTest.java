@@ -22,6 +22,7 @@ import com.j256.ormlite.support.ConnectionSource;
 import com.xtremelabs.robolectric.shadows.ShadowListActivity;
 import com.xtremelabs.robolectric.shadows.ShadowListView;
 import com.xtremelabs.robolectric.shadows.ShadowView;
+import com.xtremelabs.robolectric.tester.android.view.TestContextMenu;
 
 /**
  * Tests for the ExerciseListActivity
@@ -93,9 +94,9 @@ public class ExercisesListActivityTest {
 		shadowItem.performLongClick();
 		// THEN
 		// contextual menu is shown
-		View contextMenu = activity.findViewById(R.menu.crud_context_menu);
+		TestContextMenu contextMenu = TestContextMenu.getLastContextMenu();
 		assertNotNull(contextMenu);
-		// TODO FINISH LATER
+		// TODO assert menu items' names
 	}
 
 	// Package protected ---------------------------------------------
@@ -119,6 +120,7 @@ public class ExercisesListActivityTest {
 		ListView listView = (ListView) activity.findViewById(android.R.id.list);
 		return listView.getChildAt(index);
 	}
+
 	// Inner classes -------------------------------------------------
 
 }
