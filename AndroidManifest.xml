@@ -28,6 +28,7 @@
         <activity android:name=".activities.food.EnterFoodNameActivity"></activity>
         <activity android:name=".activities.food.ShowFoodDetailsActivity"></activity>
         <activity android:name=".activities.exercise.ExerciseListActivity"></activity>
+        <activity android:name=".activities.exercise.ExerciseDetailsActivity"></activity>
     </application>
 
 </manifest>
