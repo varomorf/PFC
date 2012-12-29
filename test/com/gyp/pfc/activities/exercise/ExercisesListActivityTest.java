@@ -8,6 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.view.View;
 import android.widget.ListView;
@@ -15,12 +16,7 @@ import android.widget.TextView;
 
 import com.gyp.pfc.CustomTestRunner;
 import com.gyp.pfc.R;
-import com.gyp.pfc.data.db.DatabaseHelper;
 import com.gyp.pfc.data.domain.Exercise;
-import com.j256.ormlite.android.apptools.OpenHelperManager;
-import com.j256.ormlite.dao.RuntimeExceptionDao;
-import com.j256.ormlite.support.ConnectionSource;
-import com.xtremelabs.robolectric.shadows.ShadowListActivity;
 import com.xtremelabs.robolectric.tester.android.view.TestContextMenu;
 
 /**
@@ -30,14 +26,11 @@ import com.xtremelabs.robolectric.tester.android.view.TestContextMenu;
  * 
  */
 @RunWith(CustomTestRunner.class)
-public class ExercisesListActivityTest {
+public class ExercisesListActivityTest extends BaseExerciseTest {
 
 	// Constants -----------------------------------------------------
 
 	// Attributes ----------------------------------------------------
-	private ShadowListActivity activity;
-	private RuntimeExceptionDao<Exercise, Integer> dao;
-	protected ConnectionSource connectionSource;
 
 	// Static --------------------------------------------------------
 
@@ -46,10 +39,7 @@ public class ExercisesListActivityTest {
 	// Public --------------------------------------------------------
 	@Before
 	public void before() {
-		ExerciseListActivity realActivity = new ExerciseListActivity();
-		activity = shadowOf(realActivity);
-		OpenHelperManager.getHelper(realActivity, DatabaseHelper.class);
-		dao = new DatabaseHelper(realActivity).getExerciseDao();
+		super.before();
 	}
 
 	@Test
@@ -102,13 +92,12 @@ public class ExercisesListActivityTest {
 
 	// Protected -----------------------------------------------------
 
-	// Private -------------------------------------------------------
-	private void insertExercise(String name, String description) {
-		Exercise exercise = new Exercise();
-		exercise.setName(name);
-		exercise.setDescription(description);
-		dao.create(exercise);
+	@Override
+	protected Activity createActivity() {
+		return new ExerciseListActivity();
 	}
+
+	// Private -------------------------------------------------------
 
 	private void assertItemText(View item, String text) {
 		TextView title = (TextView) item.findViewById(R.id.title);
