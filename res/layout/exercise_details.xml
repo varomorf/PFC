@@ -9,7 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text=""
+        android:layout_margin="@dimen/defaultMargin"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
@@ -19,16 +19,11 @@
         android:text="@string/description"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
-    <EditText
-        android:id="@+id/editText1"
+    <TextView
+        android:id="@+id/exerciseDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:clickable="false"
-        android:ems="10"
-        android:inputType="textMultiLine"
-        android:lines="10" >
-
-        <requestFocus />
-    </EditText>
+        android:layout_margin="@dimen/defaultMargin"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
     
 </LinearLayout>

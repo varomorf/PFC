@@ -48,7 +48,7 @@ public class ExerciseDetailsActivityTest extends BaseExerciseTest {
 		activity.callOnCreate(null);
 		// THEN
 		TextView name = (TextView) activity.findViewById(R.id.exerciseName);
-		EditText description = (EditText) activity
+		TextView description = (TextView) activity
 				.findViewById(R.id.exerciseDescription);
 		assertThat(name.getText().toString(), is(EXERCISE_NAME));
 		assertThat(description.getText().toString(), is(EXERCISE_DESC));

@@ -62,7 +62,7 @@ public class ExerciseDetailsActivity extends
 	private void updateView(Exercise exercise) {
 		// get widgets from view
 		TextView name = (TextView) findViewById(R.id.exerciseName);
-		EditText description = (EditText) findViewById(R.id.exerciseDescription);
+		TextView description = (TextView) findViewById(R.id.exerciseDescription);
 		// populate widgets
 		name.setText(exercise.getName());
 		description.setText(exercise.getDescription());
