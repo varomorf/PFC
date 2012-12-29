@@ -1,8 +1,13 @@
 package com.gyp.pfc.activities.exercise;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.EditText;
+import android.widget.TextView;
 
+import com.gyp.pfc.R;
 import com.gyp.pfc.data.db.DatabaseHelper;
+import com.gyp.pfc.data.domain.Exercise;
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 
 /**
@@ -26,6 +31,19 @@ public class ExerciseDetailsActivity extends
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		setContentView(R.layout.exercise_details);
+
+		// get intent to get data
+		Intent intent = getIntent();
+		if (null != intent) {
+			// if there's an intent -> get the exercise
+			Exercise exercise = (Exercise) intent
+					.getSerializableExtra(ExerciseListActivity.SELECTED_EXERCISE);
+			if (null != exercise) {
+				// if there's an exercise -> update the view
+				updateView(exercise);
+			}
+		}
 	}
 
 	// Package protected ---------------------------------------------
@@ -33,7 +51,14 @@ public class ExerciseDetailsActivity extends
 	// Protected -----------------------------------------------------
 
 	// Private -------------------------------------------------------
-
+	private void updateView(Exercise exercise) {
+		// get widgets from view
+		TextView name = (TextView) findViewById(R.id.exerciseName);
+		EditText description = (EditText) findViewById(R.id.exerciseDescription);
+		// populate widgets
+		name.setText(exercise.getName());
+		description.setText(exercise.getDescription());
+	}
 	// Inner classes -------------------------------------------------
 
 }
