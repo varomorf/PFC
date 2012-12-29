@@ -27,5 +27,6 @@
     <string name="deleteFoodMessage">ha sido eliminada</string>
     <string name="editFoodMessage">La comida ha sido actualizada</string>
     <string name="food_name">Nombre:</string>
+    <string name="description">Descripción:</string>
 
 </resources>
