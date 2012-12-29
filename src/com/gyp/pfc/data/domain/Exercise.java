@@ -1,5 +1,7 @@
 package com.gyp.pfc.data.domain;
 
+import java.io.Serializable;
+
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
@@ -10,11 +12,14 @@ import com.j256.ormlite.table.DatabaseTable;
  * 
  */
 @DatabaseTable
-public class Exercise {
+public class Exercise implements Serializable{
 
 	// Constants -----------------------------------------------------
-
+	
+	private static final long serialVersionUID = 3506529017983171193L;
+	
 	// Attributes ----------------------------------------------------
+	
 	@DatabaseField(generatedId = true)
 	private int id;
 	@DatabaseField
