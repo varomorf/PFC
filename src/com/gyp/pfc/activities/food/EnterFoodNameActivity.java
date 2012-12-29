@@ -7,10 +7,9 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.gyp.pfc.R;
-import com.gyp.pfc.data.domain.Food;
 
 /**
- * {@link Activity} for entering the name of a {@link Food} entity
+ * Activity for entering the name of a Food entity
  * 
  * @author Alvaro
  * 

@@ -10,11 +10,10 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.gyp.pfc.R;
-import com.gyp.pfc.activities.exercise.ExerciseListActivity;
 import com.gyp.pfc.data.domain.Exercise;
 
 /**
- * {@link ArrayAdapter} for the {@link ExerciseListActivity}
+ * ArrayAdapter for the ExerciseListActivity
  * 
  * @author Alvaro
  * 
