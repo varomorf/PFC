@@ -81,11 +81,7 @@ public class ExercisesListActivityTest extends BaseExerciseTest {
 		// THEN
 		// contextual menu is shown
 		TestContextMenu contextMenu = TestContextMenu.getLastContextMenu();
-		assertNotNull(contextMenu);
-		assertThat(contextMenu.getItem(0).getTitle().toString(),
-				is("@string/label_delete"));
-		assertThat(contextMenu.getItem(1).getTitle().toString(),
-				is("@string/label_edit"));
+		assertCRUDMenu(contextMenu);
 	}
 
 	// Package protected ---------------------------------------------
