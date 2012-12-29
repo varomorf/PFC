@@ -8,6 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import android.content.Intent;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -66,24 +67,27 @@ public class ExercisesListActivityTest {
 	@Test
 	public void shouldShowExerciseDetailsAfterClicking() {
 		// GIVEN
-		// list with exercises
+		listWithExercises();
 		// WHEN
-		// simple click on an item
+		ListView listView = (ListView) activity.findViewById(android.R.id.list);
+		shadowOf(listView).performItemClick(0);
 		// THEN
-		// FoodDetailActivity is shown
-		fail();
+		Intent next = activity.getNextStartedActivity();
+		assertNotNull(next);
+		assertThat(next.getComponent().getClassName(),
+				is(ExerciseDetailsActivity.class.getName()));
+		Exercise exercise = (Exercise) next
+				.getSerializableExtra(ExerciseListActivity.SELECTED_EXERCISE);
+		assertThat(exercise.getName(), is("foo"));
 	}
 
 	@Test
 	public void shouldShowInteractionMenuAfterLongClic() {
 		// GIVEN
-		insertExercise("foo", "foo desc");
-		insertExercise("bar", "bar desc");
-		activity.callOnCreate(null);
+		listWithExercises();
 		// WHEN
 		// long click on an item
-		View item = getItemFromListView(0);
-		item.performLongClick();
+		getItemFromListView(0).performLongClick();
 		// THEN
 		// contextual menu is shown
 		TestContextMenu contextMenu = TestContextMenu.getLastContextMenu();
@@ -114,6 +118,12 @@ public class ExercisesListActivityTest {
 	private View getItemFromListView(int index) {
 		ListView listView = (ListView) activity.findViewById(android.R.id.list);
 		return listView.getChildAt(index);
+	}
+
+	private void listWithExercises() {
+		insertExercise("foo", "foo desc");
+		insertExercise("bar", "bar desc");
+		activity.callOnCreate(null);
 	}
 
 	// Inner classes -------------------------------------------------
