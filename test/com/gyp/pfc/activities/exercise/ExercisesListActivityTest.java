@@ -20,8 +20,6 @@ import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
 import com.j256.ormlite.support.ConnectionSource;
 import com.xtremelabs.robolectric.shadows.ShadowListActivity;
-import com.xtremelabs.robolectric.shadows.ShadowListView;
-import com.xtremelabs.robolectric.shadows.ShadowView;
 import com.xtremelabs.robolectric.tester.android.view.TestContextMenu;
 
 /**
@@ -84,19 +82,16 @@ public class ExercisesListActivityTest {
 		activity.callOnCreate(null);
 		// WHEN
 		// long click on an item
-		ListView listView = (ListView) activity.findViewById(android.R.id.list);
-		listView.performLongClick();
-		ShadowListView shadow = shadowOf(listView);
-		shadow.performLongClick();
 		View item = getItemFromListView(0);
 		item.performLongClick();
-		ShadowView shadowItem = shadowOf(item);
-		shadowItem.performLongClick();
 		// THEN
 		// contextual menu is shown
 		TestContextMenu contextMenu = TestContextMenu.getLastContextMenu();
 		assertNotNull(contextMenu);
-		// TODO assert menu items' names
+		assertThat(contextMenu.getItem(0).getTitle().toString(),
+				is("@string/label_delete"));
+		assertThat(contextMenu.getItem(1).getTitle().toString(),
+				is("@string/label_edit"));
 	}
 
 	// Package protected ---------------------------------------------
