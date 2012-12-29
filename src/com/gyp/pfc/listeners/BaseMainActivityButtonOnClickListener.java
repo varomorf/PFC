@@ -29,7 +29,7 @@ public abstract class BaseMainActivityButtonOnClickListener implements
 	/**
 	 * The qualified name of the activity to be launched
 	 */
-	private String activityName;
+	private String entryName;
 
 	// Static --------------------------------------------------------
 
@@ -41,7 +41,7 @@ public abstract class BaseMainActivityButtonOnClickListener implements
 	 *            The value to be used for the activity
 	 */
 	public BaseMainActivityButtonOnClickListener(String entryName) {
-		activityName = prepareActivityQualifiedName(entryName);
+		this.entryName = entryName;
 	}
 
 	// Public --------------------------------------------------------
@@ -53,6 +53,8 @@ public abstract class BaseMainActivityButtonOnClickListener implements
 	 */
 	@SuppressWarnings("rawtypes")
 	public void onClick(View view) {
+		// get activity name from entry name
+		String activityName = prepareActivityQualifiedName(entryName);
 		// get context from the passed view
 		Context context = view.getContext();
 
