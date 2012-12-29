@@ -2,11 +2,13 @@ package com.gyp.pfc.activities.exercise;
 
 import java.util.List;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.MenuInflater;
 import android.view.View;
+import android.widget.ListView;
 
 import com.gyp.pfc.R;
 import com.gyp.pfc.adapters.ExerciseListViewAdapter;
@@ -24,6 +26,7 @@ public class ExerciseListActivity extends
 		OrmLiteBaseListActivity<DatabaseHelper> {
 
 	// Constants -----------------------------------------------------
+	static final String SELECTED_EXERCISE = "exercise";
 
 	// Attributes ----------------------------------------------------
 
@@ -53,6 +56,17 @@ public class ExerciseListActivity extends
 	// Package protected ---------------------------------------------
 
 	// Protected -----------------------------------------------------
+	@Override
+	protected void onListItemClick(ListView l, View v, int position, long id) {
+		// get clicked exercise
+		Exercise exercise = (Exercise) l.getItemAtPosition(position);
+		// create intent for details view
+		Intent intent = new Intent(getApplicationContext(), ExerciseDetailsActivity.class);
+		// put selected exercise on intent
+		intent.putExtra(SELECTED_EXERCISE, exercise);
+		//launch intent
+		startActivity(intent);
+	}
 
 	// Private -------------------------------------------------------
 
