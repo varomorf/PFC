@@ -2,6 +2,7 @@ package com.gyp.pfc.activities.exercise;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -44,6 +45,13 @@ public class ExerciseDetailsActivity extends
 				updateView(exercise);
 			}
 		}
+	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// inflate CRUD menu
+		getMenuInflater().inflate(R.menu.crud_context_menu, menu);
+		return true;
 	}
 
 	// Package protected ---------------------------------------------
