@@ -27,7 +27,6 @@ public class MainListAdapter extends ArrayAdapter<String> {
 	// Constants -----------------------------------------------------
 
 	// Attributes ----------------------------------------------------
-	private ViewHolder holder;
 	private LayoutInflater inflator;
 
 	// Static --------------------------------------------------------
@@ -55,33 +54,24 @@ public class MainListAdapter extends ArrayAdapter<String> {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		View view = convertView;
-
 		if (view == null) {
 			// generate view inflating the layout
 			view = inflator.inflate(R.layout.main_list_item, null);
-			// create a new holder
-			holder = new ViewHolder();
-			// populate holder
-			holder.title = (TextView) view.findViewById(R.id.entryName);
-			holder.addButton = (Button) view.findViewById(R.id.entryAddButton);
-			holder.listButton = (Button) view
-					.findViewById(R.id.entryListButton);
-			// set the holder as tag
-			view.setTag(holder);
-		} else {
-			// get the holder from the view
-			holder = (ViewHolder) view.getTag();
 		}
-		// fill holder with data
-		String str = getItem(position);
+		// get item's components from view
+		TextView title = (TextView) view.findViewById(R.id.entryName);
+		Button addButton = (Button) view.findViewById(R.id.entryAddButton);
+		Button listButton = (Button) view.findViewById(R.id.entryListButton);
 
-		holder.title.setText(str);
+		// fill item with data
+		String str = getItem(position);
+		title.setText(str);
 		// add click listener for list entities
 		OnClickListener listListener = new ListButtonOnClickListener(str);
-		holder.listButton.setOnClickListener(listListener);
+		listButton.setOnClickListener(listListener);
 		// add click listener for add entities
 		OnClickListener addListener = new AddButtonOnClickListener(str);
-		holder.addButton.setOnClickListener(addListener);
+		addButton.setOnClickListener(addListener);
 
 		return view;
 	}
@@ -93,11 +83,5 @@ public class MainListAdapter extends ArrayAdapter<String> {
 	// Private -------------------------------------------------------
 
 	// Inner classes -------------------------------------------------
-
-	private class ViewHolder {
-		TextView title;
-		Button addButton;
-		Button listButton;
-	}
 
 }

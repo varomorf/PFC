@@ -24,7 +24,6 @@ public class ExerciseListViewAdapter extends ArrayAdapter<Exercise> {
 	// Constants -----------------------------------------------------
 
 	// Attributes ----------------------------------------------------
-	private ViewHolder holder;
 	private LayoutInflater inflater = null;
 
 	// Static --------------------------------------------------------
@@ -54,21 +53,13 @@ public class ExerciseListViewAdapter extends ArrayAdapter<Exercise> {
 		if (view == null) {
 			// generate view inflating the layout
 			view = inflater.inflate(R.layout.exercise_list_item, null);
-			// create a new holder
-			holder = new ViewHolder();
-			// retrieve the widgets
-			holder.title = (TextView) view.findViewById(R.id.title);
-			// set the holder as tag
-			view.setTag(holder);
-		} else {
-			// get the holder from the view
-			holder = (ViewHolder) view.getTag();
 		}
+		// get title from view
+		TextView title = (TextView) view.findViewById(R.id.title);
 
-		// populate the holder with the data
+		// populate the item with the data
 		Exercise exercise = getItem(position);
-
-		holder.title.setText(exercise.getName());
+		title.setText(exercise.getName());
 
 		return view;
 	}
@@ -80,7 +71,4 @@ public class ExerciseListViewAdapter extends ArrayAdapter<Exercise> {
 	// Private -------------------------------------------------------
 
 	// Inner classes -------------------------------------------------
-	private class ViewHolder {
-		TextView title;
-	}
 }

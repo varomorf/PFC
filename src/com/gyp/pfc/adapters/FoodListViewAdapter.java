@@ -23,7 +23,6 @@ public class FoodListViewAdapter extends ArrayAdapter<Food> {
 	// Constants -----------------------------------------------------
 
 	// Attributes ----------------------------------------------------
-	private ViewHolder holder;
 	private LayoutInflater inflater = null;
 
 	// Static --------------------------------------------------------
@@ -54,22 +53,14 @@ public class FoodListViewAdapter extends ArrayAdapter<Food> {
 		if (view == null) {
 			// generate view inflating the layout
 			view = inflater.inflate(R.layout.food_list_item, null);
-			// create a new holder
-			holder = new ViewHolder();
-			// retrieve the widgets
-			holder.title = (TextView) view.findViewById(R.id.title);
-			// set the holder as tag
-			view.setTag(holder);
-		} else {
-			// get the holder from the view
-			holder = (ViewHolder) view.getTag();
 		}
+		// get title from view
+		TextView title = (TextView) view.findViewById(R.id.title);
 
-		// populate the holder with the data
+		// populate the item with the data
 		Food food = getItem(position);
-
-		holder.title.setText(food.getName());
-		holder.title.setBackgroundColor(food.getColor());
+		title.setText(food.getName());
+		title.setBackgroundColor(food.getColor());
 
 		return view;
 	}
@@ -91,9 +82,5 @@ public class FoodListViewAdapter extends ArrayAdapter<Food> {
 	// Private -------------------------------------------------------
 
 	// Inner classes -------------------------------------------------
-
-	private class ViewHolder {
-		TextView title;
-	}
 
 }
