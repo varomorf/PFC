@@ -73,16 +73,6 @@ public class ExerciseListViewAdapter extends ArrayAdapter<Exercise> {
 		return view;
 	}
 
-	/**
-	 * Sets the collection on the adapter to the contents of the passed list
-	 */
-	public void setFoods(List<Exercise> exercises) {
-		clear();
-		for (Exercise exercise : exercises) {
-			add(exercise);
-		}
-	}
-
 	// Package protected ---------------------------------------------
 
 	// Protected -----------------------------------------------------
