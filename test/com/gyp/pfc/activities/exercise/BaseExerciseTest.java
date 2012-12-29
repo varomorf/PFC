@@ -15,7 +15,8 @@ import com.j256.ormlite.dao.RuntimeExceptionDao;
 public abstract class BaseExerciseTest extends BaseActivityTest {
 
 	// Constants -----------------------------------------------------
-
+	public static final String EXERCISE_NAME = "Test exercise";
+	public static final String EXERCISE_DESC = "Test exercise description";
 	// Attributes ----------------------------------------------------
 
 	private RuntimeExceptionDao<Exercise, Integer> dao;

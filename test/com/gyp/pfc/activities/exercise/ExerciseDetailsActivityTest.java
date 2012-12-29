@@ -1,12 +1,21 @@
 package com.gyp.pfc.activities.exercise;
 
+import static org.hamcrest.CoreMatchers.*;
+import static org.junit.Assert.*;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.gyp.pfc.CustomTestRunner;
+import com.gyp.pfc.R;
+import com.gyp.pfc.data.domain.Exercise;
+import com.xtremelabs.robolectric.tester.android.view.TestMenu;
 
 /**
  * Tests for the ExerciseDetailsActivity
@@ -34,22 +43,27 @@ public class ExerciseDetailsActivityTest extends BaseExerciseTest {
 	@Test
 	public void shouldShowAllInfoOfPassedExercise() {
 		// GIVEN
-		// intent passed with Exercise
+		intentPassedWithExercise();
 		// WHEN
-		// activity is shown
+		activity.callOnCreate(null);
 		// THEN
-		// activity shows correct values
+		TextView name = (TextView) activity.findViewById(R.id.exerciseName);
+		EditText description = (EditText) activity
+				.findViewById(R.id.exerciseDescription);
+		assertThat(name.getText().toString(), is(EXERCISE_NAME));
+		assertThat(description.getText().toString(), is(EXERCISE_DESC));
 	}
 
 	@Test
 	public void shouldHaveMenuForCrudOptions() {
 		// GIVEN
-		// intent passed with Exercise
+		intentPassedWithExercise();
 		// WHEN
-		// activity is shown
-		// menu key is pressed
+		activity.callOnCreate(null);
+		activity.pressMenuKey();
 		// THEN
-		// CRUD menu must be shown
+		TestMenu menu = TestMenu.getLastMenu();
+		assertCRUDMenu(menu);
 	}
 
 	// Package protected ---------------------------------------------
@@ -62,6 +76,13 @@ public class ExerciseDetailsActivityTest extends BaseExerciseTest {
 	}
 
 	// Private -------------------------------------------------------
-
+	private void intentPassedWithExercise() {
+		Exercise exercise = new Exercise();
+		exercise.setName(EXERCISE_NAME);
+		exercise.setDescription(EXERCISE_DESC);
+		Intent intent = new Intent();
+		intent.putExtra(ExerciseListActivity.SELECTED_EXERCISE, exercise);
+		activity.setIntent(intent);
+	}
 	// Inner classes -------------------------------------------------
 }
