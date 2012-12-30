@@ -19,7 +19,7 @@ public abstract class BaseExerciseTest extends BaseActivityTest {
 	public static final String EXERCISE_DESC = "Test exercise description";
 	// Attributes ----------------------------------------------------
 
-	private RuntimeExceptionDao<Exercise, Integer> dao;
+	protected RuntimeExceptionDao<Exercise, Integer> dao;
 
 	// Static --------------------------------------------------------
 
