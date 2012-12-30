@@ -33,7 +33,7 @@ public class EnterFoodNameActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.enter_name);
+		setContentView(R.layout.enter_food_name);
 
 		getUIForms();
 	}
