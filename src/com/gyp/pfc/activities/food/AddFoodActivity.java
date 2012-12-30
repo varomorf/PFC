@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gyp.pfc.R;
+import com.gyp.pfc.UIUtils;
 import com.gyp.pfc.data.db.DatabaseHelper;
 import com.gyp.pfc.data.domain.Food;
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
@@ -175,9 +176,9 @@ public class AddFoodActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 	}
 
 	private void extractDataFromViewComponents() {
-		String caloriesValue = caloriesEditText.getText().toString();
-		String fatsValue = fatsEditText.getText().toString();
-		String sugarsValue = sugarsEditText.getText().toString();
+		String caloriesValue = UIUtils.getTextFromUI(caloriesEditText);
+		String fatsValue = UIUtils.getTextFromUI(fatsEditText);
+		String sugarsValue = UIUtils.getTextFromUI(sugarsEditText);
 		filled = false;
 		if (caloriesValue.length() != 0 && fatsValue.length() != 0
 				&& sugarsValue.length() != 0) {
@@ -212,16 +213,16 @@ public class AddFoodActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 		resultFinalText.setText(finalText);
 		resultFinalText.setBackgroundColor(food.getColor());
 		// set to initial state
-		caloriesEditText.setText("");
-		sugarsEditText.setText("");
-		fatsEditText.setText("");
+		UIUtils.clearView(caloriesEditText);
+		UIUtils.clearView(sugarsEditText);
+		UIUtils.clearView(fatsEditText);
 		addFoodButton.setVisibility(View.VISIBLE);
 	}
 
 	private void clearResultsView() {
-		resultSugarsText.setText("");
-		resultFatsText.setText("");
-		resultFinalText.setText("");
+		UIUtils.clearView(resultSugarsText);
+		UIUtils.clearView(resultFatsText);
+		UIUtils.clearView(resultFinalText);
 		resultSugarsText.setBackgroundColor(Color.WHITE);
 		resultFatsText.setBackgroundColor(Color.WHITE);
 		resultFinalText.setBackgroundColor(Color.WHITE);
