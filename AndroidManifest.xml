@@ -29,6 +29,7 @@
         <activity android:name=".activities.food.ShowFoodDetailsActivity"></activity>
         <activity android:name=".activities.exercise.ExerciseListActivity"></activity>
         <activity android:name=".activities.exercise.ExerciseDetailsActivity"></activity>
+        <activity android:name=".activities.exercise.AddExerciseActivity"></activity>
     </application>
 
 </manifest>
