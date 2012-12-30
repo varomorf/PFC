@@ -18,10 +18,16 @@ public class UIUtils {
 	// Static --------------------------------------------------------
 	public static String getTextFromUI(View view) {
 		String text = null;
-		if (view != null && view instanceof TextView) {
+		if (validTextView(view)) {
 			text = ((TextView) view).getText().toString();
 		}
 		return text;
+	}
+
+	public static void clearView(View view) {
+		if (validTextView(view)) {
+			((TextView) view).setText("");
+		}
 	}
 
 	// Constructors --------------------------------------------------
@@ -33,6 +39,10 @@ public class UIUtils {
 	// Protected -----------------------------------------------------
 
 	// Private -------------------------------------------------------
+
+	private static boolean validTextView(View view) {
+		return view != null && view instanceof TextView;
+	}
 
 	// Inner classes -------------------------------------------------
 }
