@@ -84,6 +84,25 @@ public class ExercisesListActivityTest extends BaseExerciseTest {
 		assertCRUDMenu(contextMenu);
 	}
 
+	@Test
+	public void shouldDeleteExerciseViaContextMenu() {
+		// GIVEN
+		listWithExercises();
+		// WHEN
+		// long click on first item
+		getItemFromListView(0).performLongClick();
+		// click on context menu delete (first)
+		TestContextMenu.getLastContextMenu().clickOn(0);
+		// THEN
+		// selected exercise is deleted
+		assertNull(dao.queryForId(1));
+		// toast with deletion message is shown
+		assertToastText(R.string.exerciseDeleted);
+		// assert item is no longer on the list
+		assertItemText(getItemFromListView(0), "bar");
+		assertNull(getItemFromListView(1));
+	}
+
 	// Package protected ---------------------------------------------
 
 	// Protected -----------------------------------------------------
