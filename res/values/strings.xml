@@ -26,7 +26,8 @@
     <string name="label_edit">Editar</string>
     <string name="deleteFoodMessage">ha sido eliminada</string>
     <string name="editFoodMessage">La comida ha sido actualizada</string>
-    <string name="food_name">Nombre:</string>
+    <string name="name">Nombre:</string>
     <string name="description">Descripción:</string>
+    <string name="addExerciseTitle">Añadir nuevo ejercicio</string>
 
 </resources>

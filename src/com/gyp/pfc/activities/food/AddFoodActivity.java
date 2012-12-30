@@ -30,7 +30,7 @@ import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
  */
 public class AddFoodActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 	// Constants -----------------------------------------------------
-	public static final int FOOD_NAME = 1;
+	public static final int name = 1;
 
 	// Attributes ----------------------------------------------------
 	// view components
@@ -81,11 +81,11 @@ public class AddFoodActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 		switch (requestCode) {
-		case FOOD_NAME:
+		case name:
 			if (resultCode == Activity.RESULT_OK) {
 				// food name was correctly entered -> extract food name
 				String foodName = data
-						.getStringExtra(EnterFoodNameActivity.FOOD_NAME_IDENTIFIER);
+						.getStringExtra(EnterFoodNameActivity.name_IDENTIFIER);
 				// save food with passed name
 				saveFoodData(foodName);
 			}
@@ -134,7 +134,7 @@ public class AddFoodActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 	public void enterFoodName(View view) {
 		if (food != null && !food.isEmpty()) {
 			Intent i = new Intent(this, EnterFoodNameActivity.class);
-			startActivityForResult(i, FOOD_NAME);
+			startActivityForResult(i, name);
 		}
 	}
 
