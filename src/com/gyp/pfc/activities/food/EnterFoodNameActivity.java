@@ -17,7 +17,7 @@ import com.gyp.pfc.R;
 public class EnterFoodNameActivity extends Activity {
 
 	// Constants -----------------------------------------------------
-	public static final String name_IDENTIFIER = "foodName";
+	public static final String FOOD_NAME_IDENTIFIER = "foodName";
 
 	// Attributes ----------------------------------------------------
 
@@ -50,7 +50,7 @@ public class EnterFoodNameActivity extends Activity {
 			// prepare return intent
 			Intent i = new Intent();
 			// put name on the intent
-			i.putExtra(name_IDENTIFIER, foodName);
+			i.putExtra(FOOD_NAME_IDENTIFIER, foodName);
 			// set result to OK
 			setResult(RESULT_OK, i);
 			// finish activity to return data
