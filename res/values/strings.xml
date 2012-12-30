@@ -32,5 +32,6 @@
     <string name="exerciseNameBlank">El nombre del ejercicio está vacío</string>
     <string name="exerciseNameDuplicated">El nombre del ejercicio está repetido</string>
     <string name="exerciseCreated">El ejercicio ha sido creado</string>
+    <string name="exerciseDeleted">El ejercicio ha sido eliminado</string>
 
 </resources>
