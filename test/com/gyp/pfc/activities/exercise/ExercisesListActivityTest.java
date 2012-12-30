@@ -48,7 +48,7 @@ public class ExercisesListActivityTest extends BaseExerciseTest {
 		insertExercise("foo", "foo desc");
 		insertExercise("bar", "bar desc");
 		// WHEN
-		activity.callOnCreate(null);
+		createActivity();
 		// THEN
 		assertItemText(getItemFromListView(0), "foo");
 		assertItemText(getItemFromListView(1), "bar");
@@ -89,7 +89,7 @@ public class ExercisesListActivityTest extends BaseExerciseTest {
 	// Protected -----------------------------------------------------
 
 	@Override
-	protected Activity createActivity() {
+	protected Activity newActivity() {
 		return new ExerciseListActivity();
 	}
 
@@ -108,7 +108,7 @@ public class ExercisesListActivityTest extends BaseExerciseTest {
 	private void listWithExercises() {
 		insertExercise("foo", "foo desc");
 		insertExercise("bar", "bar desc");
-		activity.callOnCreate(null);
+		createActivity();
 	}
 
 	// Inner classes -------------------------------------------------

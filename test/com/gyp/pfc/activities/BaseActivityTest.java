@@ -32,7 +32,7 @@ public abstract class BaseActivityTest {
 
 	// Public --------------------------------------------------------
 	public void before() {
-		realActivity = createActivity();
+		realActivity = newActivity();
 		activity = shadowOf(realActivity);
 		OpenHelperManager.getHelper(realActivity, DatabaseHelper.class);
 	}
@@ -42,11 +42,15 @@ public abstract class BaseActivityTest {
 		assertThat(menu.getItem(0).getTitle().toString(), is(DELETE));
 		assertThat(menu.getItem(1).getTitle().toString(), is(EDIT));
 	}
-
+	
+	public void createActivity(){
+		activity.callOnCreate(null);
+	}
+	
 	// Package protected ---------------------------------------------
 
 	// Protected -----------------------------------------------------
-	protected abstract Activity createActivity();
+	protected abstract Activity newActivity();
 
 	// Private -------------------------------------------------------
 	

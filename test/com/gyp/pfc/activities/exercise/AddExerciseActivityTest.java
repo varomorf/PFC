@@ -60,7 +60,7 @@ public class AddExerciseActivityTest extends BaseExerciseTest {
 	// Protected -----------------------------------------------------
 
 	@Override
-	protected Activity createActivity() {
+	protected Activity newActivity() {
 		return new AddExerciseActivity();
 	}
 

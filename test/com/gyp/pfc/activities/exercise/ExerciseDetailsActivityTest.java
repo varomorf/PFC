@@ -45,7 +45,7 @@ public class ExerciseDetailsActivityTest extends BaseExerciseTest {
 		// GIVEN
 		intentPassedWithExercise();
 		// WHEN
-		activity.callOnCreate(null);
+		createActivity();
 		// THEN
 		TextView name = (TextView) activity.findViewById(R.id.exerciseName);
 		TextView description = (TextView) activity
@@ -59,7 +59,7 @@ public class ExerciseDetailsActivityTest extends BaseExerciseTest {
 		// GIVEN
 		intentPassedWithExercise();
 		// WHEN
-		activity.callOnCreate(null);
+		createActivity();
 		activity.pressMenuKey();
 		// THEN
 		TestMenu menu = TestMenu.getLastMenu();
@@ -71,7 +71,7 @@ public class ExerciseDetailsActivityTest extends BaseExerciseTest {
 	// Protected -----------------------------------------------------
 
 	@Override
-	protected Activity createActivity() {
+	protected Activity newActivity() {
 		return new ExerciseDetailsActivity();
 	}
 
