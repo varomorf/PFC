@@ -9,6 +9,7 @@ import android.view.Menu;
 import com.gyp.pfc.data.db.DatabaseHelper;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.xtremelabs.robolectric.shadows.ShadowActivity;
+import com.xtremelabs.robolectric.shadows.ShadowToast;
 
 /**
  * Base class to gather common functionality for Activity testing
@@ -42,17 +43,23 @@ public abstract class BaseActivityTest {
 		assertThat(menu.getItem(0).getTitle().toString(), is(DELETE));
 		assertThat(menu.getItem(1).getTitle().toString(), is(EDIT));
 	}
-	
-	public void createActivity(){
+
+	public void createActivity() {
 		activity.callOnCreate(null);
 	}
-	
+
+	public void assertToastText(int id) {
+		CharSequence text = activity.getApplicationContext().getResources()
+				.getText(id);
+		assertThat(ShadowToast.getTextOfLatestToast(), is(text));
+	}
+
 	// Package protected ---------------------------------------------
 
 	// Protected -----------------------------------------------------
 	protected abstract Activity newActivity();
 
 	// Private -------------------------------------------------------
-	
+
 	// Inner classes -------------------------------------------------
 }

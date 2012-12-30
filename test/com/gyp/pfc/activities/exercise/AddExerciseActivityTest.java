@@ -1,8 +1,8 @@
 package com.gyp.pfc.activities.exercise;
 
-import static org.junit.Assert.*;
-import static org.hamcrest.CoreMatchers.*;
 import static com.xtremelabs.robolectric.Robolectric.*;
+import static org.hamcrest.CoreMatchers.*;
+import static org.junit.Assert.*;
 
 import java.util.List;
 
@@ -13,13 +13,11 @@ import org.junit.runner.RunWith;
 import android.app.Activity;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.gyp.pfc.CustomTestRunner;
 import com.gyp.pfc.R;
 import com.gyp.pfc.UIUtils;
 import com.gyp.pfc.data.domain.Exercise;
-import com.xtremelabs.robolectric.shadows.ShadowToast;
 
 @RunWith(CustomTestRunner.class)
 public class AddExerciseActivityTest extends BaseExerciseTest {
@@ -110,10 +108,5 @@ public class AddExerciseActivityTest extends BaseExerciseTest {
 		clickOn(button);
 	}
 
-	private void assertToastText(int id) {
-		CharSequence text = activity.getApplicationContext().getResources()
-				.getText(id);
-		assertThat(ShadowToast.getTextOfLatestToast(), is(text));
-	}
 	// Inner classes -------------------------------------------------
 }
