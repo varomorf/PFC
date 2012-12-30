@@ -95,7 +95,7 @@ public class ExercisesListActivityTest extends BaseExerciseTest {
 		TestContextMenu.getLastContextMenu().clickOn(0);
 		// THEN
 		// selected exercise is deleted
-		assertNull(dao.queryForId(1));
+		assertNull(dao.queryForId(0));
 		// toast with deletion message is shown
 		assertToastText(R.string.exerciseDeleted);
 		// assert item is no longer on the list

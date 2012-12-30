@@ -7,8 +7,11 @@ import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.gyp.pfc.R;
 import com.gyp.pfc.adapters.ExerciseListViewAdapter;
@@ -53,6 +56,19 @@ public class ExerciseListActivity extends
 		inflater.inflate(R.menu.crud_context_menu, menu);
 	}
 
+	@Override
+	public boolean onContextItemSelected(MenuItem item) {
+		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item
+				.getMenuInfo();
+		switch (item.getItemId()) {
+		case R.id.delete:
+			deleteExercise(info.position);
+			return true;
+		default:
+			return super.onContextItemSelected(item);
+		}
+	}
+
 	// Package protected ---------------------------------------------
 
 	// Protected -----------------------------------------------------
@@ -61,14 +77,31 @@ public class ExerciseListActivity extends
 		// get clicked exercise
 		Exercise exercise = (Exercise) l.getItemAtPosition(position);
 		// create intent for details view
-		Intent intent = new Intent(getApplicationContext(), ExerciseDetailsActivity.class);
+		Intent intent = new Intent(getApplicationContext(),
+				ExerciseDetailsActivity.class);
 		// put selected exercise on intent
 		intent.putExtra(SELECTED_EXERCISE, exercise);
-		//launch intent
+		// launch intent
 		startActivity(intent);
 	}
 
 	// Private -------------------------------------------------------
+	private void deleteExercise(int position) {
+		// get selected exercise from adapter
+		Exercise exercise = (Exercise) getListAdapter().getItem(position);
+		// delete exercise on DB
+		getHelper().getExerciseDao().delete(exercise);
+		// delete exercise on adapter
+		getAdapter().remove(exercise);
+		// refresh the adapter to update UI
+		getAdapter().notifyDataSetChanged();
+		// show deletion message
+		Toast.makeText(getApplicationContext(), R.string.exerciseDeleted,
+				Toast.LENGTH_SHORT).show();
+	}
 
+	private ExerciseListViewAdapter getAdapter() {
+		return (ExerciseListViewAdapter) getListAdapter();
+	}
 	// Inner classes -------------------------------------------------
 }
