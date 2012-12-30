@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.gyp.pfc.CustomTestRunner;
 import com.gyp.pfc.R;
+import com.gyp.pfc.UIUtils;
 import com.gyp.pfc.data.domain.Exercise;
 import com.xtremelabs.robolectric.shadows.ShadowToast;
 
@@ -52,6 +53,9 @@ public class AddExerciseActivityTest extends BaseExerciseTest {
 		assertThat(exercises.size(), is(1));
 		assertThat(exercises.get(0).getName(), is(EXERCISE_NAME));
 		assertThat(exercises.get(0).getDescription(), is(EXERCISE_DESC));
+		assertToastText(R.string.exerciseCreated);
+		assertThat(UIUtils.getTextFromUI(activity.findViewById(R.id.exerciseName)), is(""));
+		assertThat(UIUtils.getTextFromUI(activity.findViewById(R.id.exerciseDescription)), is(""));
 	}
 
 	@Test
