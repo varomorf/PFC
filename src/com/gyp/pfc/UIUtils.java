@@ -9,7 +9,7 @@ import android.widget.TextView;
  * @author Alvaro
  * 
  */
-public class UIUtils {
+public final class UIUtils {
 
 	// Constants -----------------------------------------------------
 
@@ -30,7 +30,7 @@ public class UIUtils {
 	public static String getTextFromUI(View view) {
 		// null will be returned if the view is not valid
 		String text = null;
-		if (validTextView(view)) {
+		if (view instanceof TextView) {
 			// get the text and convert to string
 			text = ((TextView) view).getText().toString();
 		}
@@ -44,7 +44,7 @@ public class UIUtils {
 	 *            The view to clear its text
 	 */
 	public static void clearView(View view) {
-		if (validTextView(view)) {
+		if (view instanceof TextView) {
 			// clear the view setting empty string
 			((TextView) view).setText("");
 		}
@@ -63,11 +63,6 @@ public class UIUtils {
 	// Protected -----------------------------------------------------
 
 	// Private -------------------------------------------------------
-
-	private static boolean validTextView(View view) {
-		// view is valid if not null and is a TextView
-		return view != null && view instanceof TextView;
-	}
 
 	// Inner classes -------------------------------------------------
 }
