@@ -47,7 +47,7 @@ public class ExerciseListActivity extends
 				R.layout.exercise_list_item, exercises));
 		registerForContextMenu(getListView());
 	}
-
+	
 	@Override
 	public void onCreateContextMenu(ContextMenu menu, View v,
 			ContextMenuInfo menuInfo) {
@@ -85,6 +85,19 @@ public class ExerciseListActivity extends
 		startActivity(intent);
 	}
 
+	@Override
+	protected void onResume() {
+		super.onResume();
+		// remove all exercises from adapter
+		getAdapter().clear();
+		// set list from DAO
+		for(Exercise exercise: getHelper().getExerciseDao().queryForAll()){
+			getAdapter().add(exercise);
+		}
+		// refresh the adapter to update UI
+		getAdapter().notifyDataSetChanged();
+	}
+	
 	// Private -------------------------------------------------------
 	private void deleteExercise(int position) {
 		// get selected exercise from adapter
