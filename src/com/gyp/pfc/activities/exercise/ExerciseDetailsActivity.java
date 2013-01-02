@@ -8,6 +8,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gyp.pfc.R;
+import com.gyp.pfc.UIUtils;
 import com.gyp.pfc.data.db.DatabaseHelper;
 import com.gyp.pfc.data.domain.Exercise;
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
@@ -73,12 +74,9 @@ public class ExerciseDetailsActivity extends
 
 	// Private -------------------------------------------------------
 	private void updateView(Exercise exercise) {
-		// get widgets from view
-		TextView name = (TextView) findViewById(R.id.exerciseName);
-		TextView description = (TextView) findViewById(R.id.exerciseDescription);
 		// populate widgets
-		name.setText(exercise.getName());
-		description.setText(exercise.getDescription());
+		UIUtils.setTextToUI(findViewById(R.id.exerciseName), exercise.getName());
+		UIUtils.setTextToUI(findViewById(R.id.exerciseDescription), exercise.getDescription());
 	}
 
 	private void deleteExercise() {
