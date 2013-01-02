@@ -54,6 +54,11 @@ public class TrainingExercise {
 		return pos;
 	}
 
+	/**
+	 * Sets the pos field if the passed amount is greater than or equal to 1
+	 * 
+	 * @param pos
+	 */
 	public void setPos(int pos) {
 		if (pos >= 1) {
 			this.pos = pos;
@@ -67,6 +72,11 @@ public class TrainingExercise {
 		return seconds;
 	}
 
+	/**
+	 * Sets the seconds field if the passed amount is greater than or equal to 0
+	 * 
+	 * @param seconds
+	 */
 	public void setSeconds(int seconds) {
 		if (seconds >= 0) {
 			this.seconds = seconds;
@@ -80,6 +90,11 @@ public class TrainingExercise {
 		return reps;
 	}
 
+	/**
+	 * Sets the reps field if the passed amount is greater than or equal to 1
+	 * 
+	 * @param reps
+	 */
 	public void setReps(int reps) {
 		if (reps >= 1) {
 			this.reps = reps;
