@@ -82,12 +82,19 @@ public class AddExerciseActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 				getText(R.string.addFoodButton));
 	}
 
-	// Private -------------------------------------------------------
-
-	private boolean assertExercise(Exercise exercise) {
+	/**
+	 * Assert if the passed exercise is valid
+	 * 
+	 * @param exercise
+	 *            The exercise to validate
+	 * @return True if valid. False otherwise.
+	 */
+	protected boolean assertExercise(Exercise exercise) {
 		return assertNotBlankName(exercise)
 				&& assertNotDuplicatedName(exercise);
 	}
+
+	// Private -------------------------------------------------------
 
 	private boolean assertNotBlankName(Exercise exercise) {
 		if (StringUtils.isBlank(exercise.getName())) {
