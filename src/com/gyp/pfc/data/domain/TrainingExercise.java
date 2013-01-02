@@ -20,12 +20,14 @@ public class TrainingExercise {
 	private int id;
 	@DatabaseField(canBeNull = false)
 	private int pos;
-	@DatabaseField(canBeNull = false, foreign = true)
-	private Exercise exercise;
 	@DatabaseField(canBeNull = false)
 	private int seconds;
 	@DatabaseField(canBeNull = false)
 	private int reps;
+	@DatabaseField(canBeNull = false, foreign = true)
+	private Exercise exercise;
+	@DatabaseField(canBeNull = false, foreign = true)
+	private Training training;
 
 	// Static --------------------------------------------------------
 
@@ -48,14 +50,6 @@ public class TrainingExercise {
 		this.id = id;
 	}
 
-	public Exercise getExercise() {
-		return exercise;
-	}
-
-	public void setExercise(Exercise exercise) {
-		this.exercise = exercise;
-	}
-
 	public int getPos() {
 		return pos;
 	}
@@ -63,7 +57,7 @@ public class TrainingExercise {
 	public void setPos(int pos) {
 		if (pos >= 1) {
 			this.pos = pos;
-		}else {
+		} else {
 			throw new IllegalArgumentException(
 					"Position must be greater or equal than 1");
 		}
@@ -93,6 +87,22 @@ public class TrainingExercise {
 			throw new IllegalArgumentException(
 					"Reps must be greater or equal than 1");
 		}
+	}
+
+	public Exercise getExercise() {
+		return exercise;
+	}
+
+	public void setExercise(Exercise exercise) {
+		this.exercise = exercise;
+	}
+
+	public Training getTraining() {
+		return training;
+	}
+
+	public void setTraining(Training training) {
+		this.training = training;
 	}
 
 	// Package protected ---------------------------------------------
