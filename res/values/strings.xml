@@ -40,5 +40,6 @@
     <string name="trainingCreated">El entrenamiento ha sido guardado</string>
     <string name="trainingNameBlank">El nombre del entrenamiento está vacío</string>
     <string name="trainingNameDuplicated">El nombre del entrenamiento está repetido</string>
+    <string name="training_label">Entrenamiento</string>
 
 </resources>
