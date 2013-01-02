@@ -26,6 +26,8 @@ public class AddTrainingActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 
 	// Attributes ----------------------------------------------------
 
+	private Training training;
+
 	// Static --------------------------------------------------------
 
 	// Constructors --------------------------------------------------
@@ -39,12 +41,15 @@ public class AddTrainingActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 	public void commitButton(View view) {
 		// get name from view
 		String name = UIUtils.getTextFromUI(findViewById(R.id.trainningName));
-		// create the new training and set its name
-		Training training = new Training();
+		if (training == null) {
+			// create the new training
+			training = new Training();
+		}
+		// set training name
 		training.setName(name);
 		if (assertTraining(training)) {
 			// persist the training
-			getHelper().getTrainingDao().create(training);
+			getHelper().getTrainingDao().createOrUpdate(training);
 			// show toast with OK message
 			Toast.makeText(getApplicationContext(), R.string.trainingCreated,
 					Toast.LENGTH_SHORT).show();
