@@ -33,32 +33,33 @@ public class EditExerciseActivityTest extends BaseExerciseTest {
 	@Before
 	public void before() {
 		super.before();
+		insertExercise(EXERCISE_NAME, EXERCISE_DESC);
 	}
 
 	@Test
 	public void shouldFillData() {
 		// GIVEN
 		// passed exercise
-		Exercise exercise = dao.queryForId(0);
+		Exercise exercise = dao.queryForId(1);
 		intentPassedWithExercise(exercise);
 		// WHEN
 		// activity shown
 		createActivity();
 		// THEN
 		// data is filled in form
-		assertThat(
-				UIUtils.getTextFromUI(activity.findViewById(R.id.exerciseName)),
-				is(exercise.getName()));
-		assertThat(UIUtils.getTextFromUI(activity
-				.findViewById(R.id.exerciseDescription)),
-				is(exercise.getDescription()));
+		String name = UIUtils.getTextFromUI(activity
+				.findViewById(R.id.exerciseName));
+		assertThat(name, is(exercise.getName()));
+		String description = UIUtils.getTextFromUI(activity
+				.findViewById(R.id.exerciseDescription));
+		assertThat(description, is(exercise.getDescription()));
 	}
 
 	@Test
 	public void shouldEditExercise() {
 		// GIVEN
 		// passed exercise
-		Exercise exercise = dao.queryForId(0);
+		Exercise exercise = dao.queryForId(1);
 		intentPassedWithExercise(exercise);
 		// activity shown
 		createActivity();
@@ -78,7 +79,7 @@ public class EditExerciseActivityTest extends BaseExerciseTest {
 	public void shouldNotAllowEmptyName() {
 		// GIVEN
 		// passed exercise
-		Exercise exercise = dao.queryForId(0);
+		Exercise exercise = dao.queryForId(1);
 		intentPassedWithExercise(exercise);
 		// activity shown
 		createActivity();
@@ -98,7 +99,7 @@ public class EditExerciseActivityTest extends BaseExerciseTest {
 	public void shouldNotAllowDuplicatedName() {
 		// GIVEN
 		// passed exercise
-		Exercise exercise = dao.queryForId(0);
+		Exercise exercise = dao.queryForId(1);
 		intentPassedWithExercise(exercise);
 		// activity shown
 		createActivity();
