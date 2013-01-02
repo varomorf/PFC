@@ -94,19 +94,14 @@ public class AddExerciseActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 				&& assertNotDuplicatedName(exercise);
 	}
 
-	// Private -------------------------------------------------------
-
-	private boolean assertNotBlankName(Exercise exercise) {
-		if (StringUtils.isBlank(exercise.getName())) {
-			// if name blank -> show toast and return false
-			Toast.makeText(getApplicationContext(), R.string.exerciseNameBlank,
-					Toast.LENGTH_SHORT).show();
-			return false;
-		}
-		return true;
-	}
-
-	private boolean assertNotDuplicatedName(Exercise exercise) {
+	/**
+	 * Assert if the passed exercise has duplicated name
+	 * 
+	 * @param exercise
+	 *            The exercise to validate
+	 * @return True if valid. False otherwise.
+	 */
+	protected boolean assertNotDuplicatedName(Exercise exercise) {
 		// query an exercise with the same name as the passed exercise
 		List<Exercise> tmp = getHelper().getExerciseDao().queryForEq("name",
 				exercise.getName());
@@ -119,5 +114,17 @@ public class AddExerciseActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 		}
 		return true;
 	}
+	// Private -------------------------------------------------------
+
+	private boolean assertNotBlankName(Exercise exercise) {
+		if (StringUtils.isBlank(exercise.getName())) {
+			// if name blank -> show toast and return false
+			Toast.makeText(getApplicationContext(), R.string.exerciseNameBlank,
+					Toast.LENGTH_SHORT).show();
+			return false;
+		}
+		return true;
+	}
+
 	// Inner classes -------------------------------------------------
 }
