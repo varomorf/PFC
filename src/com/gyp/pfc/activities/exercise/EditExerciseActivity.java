@@ -1,5 +1,7 @@
 package com.gyp.pfc.activities.exercise;
 
+import java.util.List;
+
 import android.content.Intent;
 import android.view.View;
 import android.widget.Toast;
@@ -65,6 +67,25 @@ public class EditExerciseActivity extends AddExerciseActivity {
 				updateView(view);
 			}
 		}
+	}
+
+	@Override
+	protected boolean assertNotDuplicatedName(Exercise exercise) {
+		// query an exercise with the same name as the passed exercise
+		List<Exercise> tmp = getHelper().getExerciseDao().queryForEq("name",
+				exercise.getName());
+		// if the list holds exercises -> name is duplicated
+		if (tmp.size() != 0) {
+			// if only returned exercise has same id than passed is ok
+			if(tmp.size() == 1 && tmp.get(0).getId()== exercise.getId()){
+				return true;
+			}
+			// duplicated name -> show toast and return false
+			Toast.makeText(getApplicationContext(),
+					R.string.exerciseNameDuplicated, Toast.LENGTH_SHORT).show();
+			return false;
+		}
+		return true;
 	}
 
 	// Private -------------------------------------------------------
