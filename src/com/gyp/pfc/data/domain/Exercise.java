@@ -30,13 +30,14 @@ public class Exercise implements Serializable{
 	// Static --------------------------------------------------------
 
 	// Constructors --------------------------------------------------
-
-	// Public --------------------------------------------------------
+	
 	/**
 	 * ORMLite needs a no-arg constructor
 	 */
 	public Exercise() {
 	}
+
+	// Public --------------------------------------------------------
 
 	public int getId() {
 		return id;
