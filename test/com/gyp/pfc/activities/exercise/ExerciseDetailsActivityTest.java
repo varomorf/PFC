@@ -46,11 +46,7 @@ public class ExerciseDetailsActivityTest extends BaseExerciseTest {
 		// WHEN
 		createActivity();
 		// THEN
-		TextView name = (TextView) activity.findViewById(R.id.exerciseName);
-		TextView description = (TextView) activity
-				.findViewById(R.id.exerciseDescription);
-		assertThat(name.getText().toString(), is(EXERCISE_NAME));
-		assertThat(description.getText().toString(), is(EXERCISE_DESC));
+		assertDataFilled(EXERCISE_NAME, EXERCISE_DESC);
 	}
 
 	@Test
@@ -116,6 +112,28 @@ public class ExerciseDetailsActivityTest extends BaseExerciseTest {
 		assertThat(exercise.getName(), is(dao.queryForId(1).getName()));
 	}
 
+	@Test
+	public void shouldRefreshViewWhenResumed() {
+		// GIVEN
+		// activity with exercise
+		// exercise on DB
+		insertExercise(EXERCISE_NAME, EXERCISE_DESC);
+		// pass DB exercise to activity
+		Exercise exercise = dao.queryForId(1);
+		intentPassedWithExercise(exercise);
+		createActivity();
+		// exercise changed
+		exercise.setName(NEW_NAME);
+		exercise.setDescription(NEW_DESC);
+		dao.update(exercise);
+		// WHEN
+		// activity resumed
+		activity.callOnResume();
+		// THEN
+		// new data of exercise is loaded
+		assertDataFilled(NEW_NAME,NEW_DESC);
+	}
+
 	// Package protected ---------------------------------------------
 
 	// Protected -----------------------------------------------------
@@ -126,6 +144,12 @@ public class ExerciseDetailsActivityTest extends BaseExerciseTest {
 	}
 
 	// Private -------------------------------------------------------
-
+	private void assertDataFilled(String expectedName, String expectedDesc) {
+		TextView name = (TextView) activity.findViewById(R.id.exerciseName);
+		TextView description = (TextView) activity
+				.findViewById(R.id.exerciseDescription);
+		assertThat(name.getText().toString(), is(expectedName));
+		assertThat(description.getText().toString(), is(expectedDesc));
+	}
 	// Inner classes -------------------------------------------------
 }
