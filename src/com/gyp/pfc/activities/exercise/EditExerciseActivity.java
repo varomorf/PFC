@@ -39,6 +39,7 @@ public class EditExerciseActivity extends AddExerciseActivity {
 			Toast.makeText(getApplicationContext(), R.string.exerciseEdited,
 					Toast.LENGTH_SHORT).show();
 		}
+		finish();
 	}
 
 	// Package protected ---------------------------------------------

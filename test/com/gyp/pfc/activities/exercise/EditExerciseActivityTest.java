@@ -76,6 +76,8 @@ public class EditExerciseActivityTest extends BaseExerciseTest {
 		exercise = dao.queryForId(1);
 		assertThat(exercise.getName(), is(NEW_NAME));
 		assertThat(exercise.getDescription(), is(NEW_DESC));
+		// activity is finished
+		assertTrue(activity.isFinishing());
 	}
 
 	@Test
