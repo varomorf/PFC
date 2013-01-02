@@ -74,6 +74,15 @@ public class ExerciseDetailsActivity extends
 
 	// Protected -----------------------------------------------------
 
+	@Override
+	protected void onResume() {
+		super.onResume();
+		// get exercise from DB
+		exercise = getHelper().getExerciseDao().queryForId(exercise.getId());
+		// fill the form
+		updateView(exercise);
+	}
+
 	// Private -------------------------------------------------------
 	private void updateView(Exercise exercise) {
 		// populate widgets
@@ -91,7 +100,7 @@ public class ExerciseDetailsActivity extends
 		// finish activity
 		finish();
 	}
-	
+
 	private void editExercise() {
 		// prepare intent for edition
 		Intent intent = new Intent(getApplicationContext(),
