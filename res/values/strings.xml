@@ -37,5 +37,6 @@
     <string name="exerciseEdited">El ejercicio ha sido editado</string>
     <string name="save">Guardar</string>
     <string name="exercises_label">Ejercicios</string>
+    <string name="trainingCreated">El entrenamiento ha sido guardado</string>
 
 </resources>
