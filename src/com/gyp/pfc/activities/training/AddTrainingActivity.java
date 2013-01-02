@@ -1,5 +1,7 @@
 package com.gyp.pfc.activities.training;
 
+import org.apache.commons.lang.StringUtils;
+
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -38,11 +40,13 @@ public class AddTrainingActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 		// create the new training and set its name
 		Training training = new Training();
 		training.setName(name);
-		// persist the training
-		getHelper().getTrainingDao().create(training);
-		// show toast with OK message
-		Toast.makeText(getApplicationContext(), R.string.trainingCreated,
-				Toast.LENGTH_SHORT).show();
+		if (assertNotBlankName(training)) {
+			// persist the training
+			getHelper().getTrainingDao().create(training);
+			// show toast with OK message
+			Toast.makeText(getApplicationContext(), R.string.trainingCreated,
+					Toast.LENGTH_SHORT).show();
+		}
 	}
 
 	// Package protected ---------------------------------------------
@@ -57,5 +61,14 @@ public class AddTrainingActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 
 	// Private -------------------------------------------------------
 
+	private boolean assertNotBlankName(Training training) {
+		if (StringUtils.isBlank(training.getName())) {
+			// if name blank -> show toast and return false
+			Toast.makeText(getApplicationContext(), R.string.trainingNameBlank,
+					Toast.LENGTH_SHORT).show();
+			return false;
+		}
+		return true;
+	}
 	// Inner classes -------------------------------------------------
 }
