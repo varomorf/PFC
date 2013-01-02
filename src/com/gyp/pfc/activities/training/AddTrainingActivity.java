@@ -1,9 +1,13 @@
 package com.gyp.pfc.activities.training;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Toast;
 
 import com.gyp.pfc.R;
+import com.gyp.pfc.UIUtils;
 import com.gyp.pfc.data.db.DatabaseHelper;
+import com.gyp.pfc.data.domain.Training;
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 
 /**
@@ -23,6 +27,23 @@ public class AddTrainingActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 	// Constructors --------------------------------------------------
 
 	// Public --------------------------------------------------------
+	/**
+	 * Callback for the commit button
+	 * 
+	 * @param view
+	 */
+	public void commitButton(View view) {
+		// get name from view
+		String name = UIUtils.getTextFromUI(findViewById(R.id.trainningName));
+		// create the new training and set its name
+		Training training = new Training();
+		training.setName(name);
+		// persist the training
+		getHelper().getTrainingDao().create(training);
+		// show toast with OK message
+		Toast.makeText(getApplicationContext(), R.string.trainingCreated,
+				Toast.LENGTH_SHORT).show();
+	}
 
 	// Package protected ---------------------------------------------
 
@@ -30,9 +51,10 @@ public class AddTrainingActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
 		setContentView(R.layout.training_data);
 	}
-	
+
 	// Private -------------------------------------------------------
 
 	// Inner classes -------------------------------------------------
