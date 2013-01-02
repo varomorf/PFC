@@ -62,6 +62,9 @@ public class ExerciseDetailsActivity extends
 		case R.id.delete:
 			deleteExercise();
 			return true;
+		case R.id.edit:
+			editExercise();
+			return true;
 		default:
 			return super.onOptionsItemSelected(item);
 		}
@@ -75,7 +78,8 @@ public class ExerciseDetailsActivity extends
 	private void updateView(Exercise exercise) {
 		// populate widgets
 		UIUtils.setTextToUI(findViewById(R.id.exerciseName), exercise.getName());
-		UIUtils.setTextToUI(findViewById(R.id.exerciseDescription), exercise.getDescription());
+		UIUtils.setTextToUI(findViewById(R.id.exerciseDescription),
+				exercise.getDescription());
 	}
 
 	private void deleteExercise() {
@@ -84,8 +88,18 @@ public class ExerciseDetailsActivity extends
 		// show deletion message
 		Toast.makeText(getApplicationContext(), R.string.exerciseDeleted,
 				Toast.LENGTH_SHORT).show();
-		//finish activity
+		// finish activity
 		finish();
+	}
+	
+	private void editExercise() {
+		// prepare intent for edition
+		Intent intent = new Intent(getApplicationContext(),
+				EditExerciseActivity.class);
+		// pass selected exercise
+		intent.putExtra(ExerciseListActivity.SELECTED_EXERCISE, exercise);
+		// launch activity
+		startActivity(intent);
 	}
 	// Inner classes -------------------------------------------------
 
