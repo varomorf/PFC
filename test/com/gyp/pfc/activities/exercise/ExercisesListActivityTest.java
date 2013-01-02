@@ -102,9 +102,9 @@ public class ExercisesListActivityTest extends BaseExerciseTest {
 		assertItemText(getItemFromListView(0), "bar");
 		assertNull(getItemFromListView(1));
 	}
-	
+
 	@Test
-	public void shouldRefreshListViewOnResume(){
+	public void shouldRefreshListViewOnResume() {
 		// GIVEN
 		listWithExercises();
 		// WHEN
@@ -116,6 +116,24 @@ public class ExercisesListActivityTest extends BaseExerciseTest {
 		// list must only show one Exercise
 		assertItemText(getItemFromListView(0), "bar");
 		assertNull(getItemFromListView(1));
+	}
+
+	@Test
+	public void shouldEditExerciseViaContextMenu() {
+		// GIVEN
+		listWithExercises();
+		// WHEN
+		// long click on first item
+		getItemFromListView(0).performLongClick();
+		// click on context edit delete (second)
+		TestContextMenu.getLastContextMenu().clickOn(1);
+		// THEN
+		// next activity is EditExerciseActivity
+		Intent nextIntent = activity.getNextStartedActivity();
+		assertThat(nextIntent.getComponent().getClassName(), is(EditExerciseActivity.class.getName()));
+		Exercise exercise = (Exercise) nextIntent
+				.getSerializableExtra(ExerciseListActivity.SELECTED_EXERCISE);
+		assertThat(exercise.getName(), is(dao.queryForId(1).getName()));
 	}
 
 	// Package protected ---------------------------------------------
