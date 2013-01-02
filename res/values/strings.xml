@@ -35,5 +35,7 @@
     <string name="exerciseCreated">El ejercicio ha sido creado</string>
     <string name="exerciseDeleted">El ejercicio ha sido eliminado</string>
     <string name="exerciseEdited">El ejercicio ha sido editado</string>
+    <string name="save">Guardar</string>
+    <string name="exercises_label">Ejercicios</string>
 
 </resources>
