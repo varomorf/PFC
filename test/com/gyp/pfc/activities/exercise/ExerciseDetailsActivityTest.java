@@ -8,6 +8,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.widget.TextView;
 
 import com.gyp.pfc.CustomTestRunner;
@@ -87,6 +88,32 @@ public class ExerciseDetailsActivityTest extends BaseExerciseTest {
 		assertNull(dao.queryForId(1));
 		// activity is finished
 		assertTrue(activity.isFinishing());
+	}
+
+	@Test
+	public void shouldEditExercise() {
+		// GIVEN
+		// exercise on DB
+		insertExercise(EXERCISE_NAME, EXERCISE_DESC);
+		// pass DB exercise to activity
+		Exercise exercise = dao.queryForId(1);
+		intentPassedWithExercise(exercise);
+		// WHEN
+		// activity is shown
+		createActivity();
+		// menu key is pressed
+		activity.pressMenuKey();
+		// edit option is clicked
+		TestMenu menu = TestMenu.getLastMenu();
+		menu.clickOn(1);
+		// THEN
+		// next activity is EditExerciseActivity passing exercise
+		Intent nextIntent = activity.getNextStartedActivity();
+		assertThat(nextIntent.getComponent().getClassName(),
+				is(EditExerciseActivity.class.getName()));
+		exercise = (Exercise) nextIntent
+				.getSerializableExtra(ExerciseListActivity.SELECTED_EXERCISE);
+		assertThat(exercise.getName(), is(dao.queryForId(1).getName()));
 	}
 
 	// Package protected ---------------------------------------------
