@@ -122,6 +122,29 @@ public class EditExerciseActivityTest extends BaseExerciseTest {
 		exerciseIsNotChanged(exercise);
 	}
 
+	@Test
+	public void shouldEditWithSameName() {
+		// GIVEN
+		// passed exercise
+		Exercise exercise = dao.queryForId(1);
+		intentPassedWithExercise(exercise);
+		// activity shown
+		createActivity();
+		// WHEN
+		// change description
+		enterDescription(NEW_DESC);
+		// edit button is clicked
+		commitButtonIsClicked();
+		// THEN
+		// assert toast is shown with error
+		assertToastText(R.string.exerciseEdited);
+		// exercise data is changed
+		exercise = dao.queryForId(1);
+		assertThat(exercise.getDescription(), is(NEW_DESC));
+		// activity is finished
+		assertTrue(activity.isFinishing());
+	}
+
 	// Package protected ---------------------------------------------
 
 	// Protected -----------------------------------------------------
