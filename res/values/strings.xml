@@ -29,6 +29,7 @@
     <string name="name">Nombre:</string>
     <string name="description">Descripción:</string>
     <string name="addExerciseTitle">Añadir nuevo ejercicio</string>
+    <string name="editExerciseTitle">Editar ejercicio</string>
     <string name="exerciseNameBlank">El nombre del ejercicio está vacío</string>
     <string name="exerciseNameDuplicated">El nombre del ejercicio está repetido</string>
     <string name="exerciseCreated">El ejercicio ha sido creado</string>
