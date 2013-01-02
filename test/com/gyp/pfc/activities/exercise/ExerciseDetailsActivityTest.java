@@ -8,7 +8,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.widget.TextView;
 
 import com.gyp.pfc.CustomTestRunner;
