@@ -70,6 +70,8 @@ public class EditExerciseActivityTest extends BaseExerciseTest {
 		// edit button is clicked
 		commitButtonIsClicked();
 		// THEN
+		// assert toast is shown with error
+		assertToastText(R.string.exerciseEdited);
 		// exercise data is changed
 		assertThat(exercise.getName(), is(NEW_NAME));
 		assertThat(exercise.getDescription(), is(NEW_DESC));
