@@ -17,6 +17,7 @@ import com.gyp.pfc.R;
 import com.gyp.pfc.UIUtils;
 import com.gyp.pfc.activities.BaseActivityTest;
 import com.gyp.pfc.data.db.DatabaseHelper;
+import com.gyp.pfc.data.domain.Exercise;
 import com.gyp.pfc.data.domain.Training;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
 
@@ -37,6 +38,8 @@ public class AddTrainingActivityTest extends BaseActivityTest {
 	public void before() {
 		super.before();
 		dao = new DatabaseHelper(realActivity).getTrainingDao();
+		List<Training> trainings = dao.queryForAll();
+		dao.delete(trainings);
 	}
 
 	@Test
@@ -77,6 +80,28 @@ public class AddTrainingActivityTest extends BaseActivityTest {
 		assertThat(trainings.size(), is(0));
 	}
 
+	@Test
+	public void shouldFailWithDuplicatedName() {
+		// GIVEN
+		// activity is shown
+		createActivity();
+		// training with duplicated name is on DB
+		Training tmp = new Training();
+		tmp.setName(TRAINING_NAME);
+		dao.create(tmp);
+		// WHEN
+		UIUtils.setTextToUI(activity.findViewById(R.id.trainningName),
+				TRAINING_NAME);
+		// save button is clicked
+		saveButtonIsClicked();
+		// THEN
+		// toast with fail message is shown
+		assertToastText(R.string.trainingNameDuplicated);
+		// no training is saved
+		List<Training> trainings = dao.queryForAll();
+		assertThat(trainings.size(), is(1));
+	}
+
 	// Package protected ---------------------------------------------
 
 	// Protected -----------------------------------------------------
@@ -87,7 +112,7 @@ public class AddTrainingActivityTest extends BaseActivityTest {
 	}
 
 	// Private -------------------------------------------------------
-	private void saveButtonIsClicked(){
+	private void saveButtonIsClicked() {
 		clickOn(activity.findViewById(R.id.commitButton));
 	}
 	// Inner classes -------------------------------------------------
