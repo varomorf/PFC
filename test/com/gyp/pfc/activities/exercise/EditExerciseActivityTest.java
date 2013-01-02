@@ -73,6 +73,7 @@ public class EditExerciseActivityTest extends BaseExerciseTest {
 		// assert toast is shown with error
 		assertToastText(R.string.exerciseEdited);
 		// exercise data is changed
+		exercise = dao.queryForId(1);
 		assertThat(exercise.getName(), is(NEW_NAME));
 		assertThat(exercise.getDescription(), is(NEW_DESC));
 	}
