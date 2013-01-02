@@ -9,7 +9,6 @@ import org.junit.runner.RunWith;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.gyp.pfc.CustomTestRunner;
