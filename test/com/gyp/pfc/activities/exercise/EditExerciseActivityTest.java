@@ -5,16 +5,16 @@ import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import android.app.Activity;
 
+import com.gyp.pfc.CustomTestRunner;
 import com.gyp.pfc.R;
+import com.gyp.pfc.UIUtils;
 import com.gyp.pfc.data.domain.Exercise;
 
-/**
- * @author Alvaro
- * 
- */
+@RunWith(CustomTestRunner.class)
 public class EditExerciseActivityTest extends BaseExerciseTest {
 
 	// Constants -----------------------------------------------------
@@ -33,6 +33,25 @@ public class EditExerciseActivityTest extends BaseExerciseTest {
 	@Before
 	public void before() {
 		super.before();
+	}
+
+	@Test
+	public void shouldFillData() {
+		// GIVEN
+		// passed exercise
+		Exercise exercise = dao.queryForId(0);
+		intentPassedWithExercise(exercise);
+		// WHEN
+		// activity shown
+		createActivity();
+		// THEN
+		// data is filled in form
+		assertThat(
+				UIUtils.getTextFromUI(activity.findViewById(R.id.exerciseName)),
+				is(exercise.getName()));
+		assertThat(UIUtils.getTextFromUI(activity
+				.findViewById(R.id.exerciseDescription)),
+				is(exercise.getDescription()));
 	}
 
 	@Test
