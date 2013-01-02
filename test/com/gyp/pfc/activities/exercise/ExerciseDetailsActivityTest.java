@@ -100,20 +100,6 @@ public class ExerciseDetailsActivityTest extends BaseExerciseTest {
 	}
 
 	// Private -------------------------------------------------------
-	private void intentPassedWithExercise() {
-		intentPassedWithExercise(null);
-	}
 
-	private void intentPassedWithExercise(Exercise exercise) {
-		Exercise theExercise = exercise;
-		if (theExercise == null) {
-			theExercise = new Exercise();
-			theExercise.setName(EXERCISE_NAME);
-			theExercise.setDescription(EXERCISE_DESC);
-		}
-		Intent intent = new Intent();
-		intent.putExtra(ExerciseListActivity.SELECTED_EXERCISE, theExercise);
-		activity.setIntent(intent);
-	}
 	// Inner classes -------------------------------------------------
 }

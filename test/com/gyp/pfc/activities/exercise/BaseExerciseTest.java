@@ -1,5 +1,7 @@
 package com.gyp.pfc.activities.exercise;
 
+import android.content.Intent;
+
 import com.gyp.pfc.activities.BaseActivityTest;
 import com.gyp.pfc.data.db.DatabaseHelper;
 import com.gyp.pfc.data.domain.Exercise;
@@ -42,6 +44,22 @@ public abstract class BaseExerciseTest extends BaseActivityTest {
 		exercise.setName(name);
 		exercise.setDescription(description);
 		dao.create(exercise);
+	}
+	
+	protected void intentPassedWithExercise() {
+		intentPassedWithExercise(null);
+	}
+
+	protected void intentPassedWithExercise(Exercise exercise) {
+		Exercise theExercise = exercise;
+		if (theExercise == null) {
+			theExercise = new Exercise();
+			theExercise.setName(EXERCISE_NAME);
+			theExercise.setDescription(EXERCISE_DESC);
+		}
+		Intent intent = new Intent();
+		intent.putExtra(ExerciseListActivity.SELECTED_EXERCISE, theExercise);
+		activity.setIntent(intent);
 	}
 
 	// Private -------------------------------------------------------
