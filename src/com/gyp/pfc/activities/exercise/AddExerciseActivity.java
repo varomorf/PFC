@@ -79,7 +79,7 @@ public class AddExerciseActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 				getText(R.string.addExerciseTitle));
 		// set button text
 		UIUtils.setTextToUI(view.findViewById(R.id.commitButton),
-				getText(R.string.addExerciseTitle));
+				getText(R.string.addFoodButton));
 	}
 
 	// Private -------------------------------------------------------
