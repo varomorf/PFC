@@ -32,21 +32,12 @@ public class AddExerciseActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 
 	// Public --------------------------------------------------------
 
-	// Package protected ---------------------------------------------
-
-	// Protected -----------------------------------------------------
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.add_exercise);
-	}
-
 	/**
-	 * Call back for the add button
+	 * Call back for the commit button
 	 * 
 	 * @param view
 	 */
-	public void addExercise(View view) {
+	public void commitExercise(View view) {
 		View name = findViewById(R.id.exerciseName);
 		View description = findViewById(R.id.exerciseDescription);
 		Exercise exercise = new Exercise();
@@ -61,7 +52,38 @@ public class AddExerciseActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 		}
 	}
 
+	// Package protected ---------------------------------------------
+
+	// Protected -----------------------------------------------------
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		// inflate layout
+		View view = getLayoutInflater().inflate(R.layout.exercise_data, null);
+		// customize the view
+		customizeView(view);
+		// set the view
+		setContentView(view);
+	}
+
+	/**
+	 * Customizes the passed view that will be the view set as content view for
+	 * the activity
+	 * 
+	 * @param view
+	 *            The view to be customized
+	 */
+	protected void customizeView(View view) {
+		// set title
+		UIUtils.setTextToUI(view.findViewById(R.id.exerciseDataTitle),
+				getText(R.string.addExerciseTitle));
+		// set button text
+		UIUtils.setTextToUI(view.findViewById(R.id.commitButton),
+				getText(R.string.addExerciseTitle));
+	}
+
 	// Private -------------------------------------------------------
+
 	private boolean assertExercise(Exercise exercise) {
 		return assertNotBlankName(exercise)
 				&& assertNotDuplicatedName(exercise);
@@ -69,6 +91,7 @@ public class AddExerciseActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 
 	private boolean assertNotBlankName(Exercise exercise) {
 		if (StringUtils.isBlank(exercise.getName())) {
+			// if name blank -> show toast and return false
 			Toast.makeText(getApplicationContext(), R.string.exerciseNameBlank,
 					Toast.LENGTH_SHORT).show();
 			return false;
@@ -77,9 +100,12 @@ public class AddExerciseActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 	}
 
 	private boolean assertNotDuplicatedName(Exercise exercise) {
+		// query an exercise with the same name as the passed exercise
 		List<Exercise> tmp = getHelper().getExerciseDao().queryForEq("name",
 				exercise.getName());
+		// if the list holds exercises -> name is duplicated
 		if (tmp.size() != 0) {
+			// duplicated name -> show toast and return false
 			Toast.makeText(getApplicationContext(),
 					R.string.exerciseNameDuplicated, Toast.LENGTH_SHORT).show();
 			return false;

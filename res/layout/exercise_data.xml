@@ -5,7 +5,7 @@
     android:orientation="vertical" >
 
     <TextView
-        android:id="@+id/addExerciseTitle"
+        android:id="@+id/exerciseDataTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -49,11 +49,11 @@
         android:singleLine="false" />
 
     <Button
-        android:id="@+id/addButton"
+        android:id="@+id/commitButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:onClick="addExercise"
+        android:onClick="commitExercise"
         android:text="@string/main_add" />
 
 </LinearLayout>

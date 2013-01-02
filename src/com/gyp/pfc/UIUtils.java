@@ -38,6 +38,24 @@ public final class UIUtils {
 	}
 
 	/**
+	 * <p>
+	 * Sets the passed string as the passed view's text as long as this view is
+	 * a {@link TextView}
+	 * </p>
+	 * 
+	 * @param view
+	 *            The view to which to set the text
+	 * @param text
+	 *            The text to be set
+	 */
+	public static void setTextToUI(View view, CharSequence text) {
+		if (view instanceof TextView) {
+			// get the text and convert to string
+			((TextView) view).setText(text);
+		}
+	}
+
+	/**
 	 * Clears the text of the passed view as long as it's a {@link TextView}
 	 * 
 	 * @param view

@@ -1,7 +1,11 @@
 package com.gyp.pfc.activities.exercise;
 
+import static com.xtremelabs.robolectric.Robolectric.*;
 import android.content.Intent;
+import android.widget.Button;
+import android.widget.EditText;
 
+import com.gyp.pfc.R;
 import com.gyp.pfc.activities.BaseActivityTest;
 import com.gyp.pfc.data.db.DatabaseHelper;
 import com.gyp.pfc.data.domain.Exercise;
@@ -45,7 +49,7 @@ public abstract class BaseExerciseTest extends BaseActivityTest {
 		exercise.setDescription(description);
 		dao.create(exercise);
 	}
-	
+
 	protected void intentPassedWithExercise() {
 		intentPassedWithExercise(null);
 	}
@@ -60,6 +64,24 @@ public abstract class BaseExerciseTest extends BaseActivityTest {
 		Intent intent = new Intent();
 		intent.putExtra(ExerciseListActivity.SELECTED_EXERCISE, theExercise);
 		activity.setIntent(intent);
+	}
+
+	protected void enterName(String name) {
+		enterText(R.id.exerciseName, name);
+	}
+
+	protected void enterDescription(String description) {
+		enterText(R.id.exerciseDescription, description);
+	}
+
+	protected void enterText(int id, String text) {
+		EditText edit = (EditText) activity.findViewById(id);
+		edit.setText(text);
+	}
+
+	protected void commitButtonIsClicked() {
+		Button button = (Button) activity.findViewById(R.id.commitButton);
+		clickOn(button);
 	}
 
 	// Private -------------------------------------------------------

@@ -1,6 +1,5 @@
 package com.gyp.pfc.activities.exercise;
 
-import static com.xtremelabs.robolectric.Robolectric.*;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 
@@ -11,7 +10,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import android.app.Activity;
-import android.widget.Button;
 import android.widget.EditText;
 
 import com.gyp.pfc.CustomTestRunner;
@@ -45,15 +43,18 @@ public class AddExerciseActivityTest extends BaseExerciseTest {
 		// WHEN
 		enterName(EXERCISE_NAME);
 		enterDescription(EXERCISE_DESC);
-		addButtonIsClicked();
+		commitButtonIsClicked();
 		// THEN
 		List<Exercise> exercises = dao.queryForAll();
 		assertThat(exercises.size(), is(1));
 		assertThat(exercises.get(0).getName(), is(EXERCISE_NAME));
 		assertThat(exercises.get(0).getDescription(), is(EXERCISE_DESC));
 		assertToastText(R.string.exerciseCreated);
-		assertThat(UIUtils.getTextFromUI(activity.findViewById(R.id.exerciseName)), is(""));
-		assertThat(UIUtils.getTextFromUI(activity.findViewById(R.id.exerciseDescription)), is(""));
+		assertThat(
+				UIUtils.getTextFromUI(activity.findViewById(R.id.exerciseName)),
+				is(""));
+		assertThat(UIUtils.getTextFromUI(activity
+				.findViewById(R.id.exerciseDescription)), is(""));
 	}
 
 	@Test
@@ -63,7 +64,7 @@ public class AddExerciseActivityTest extends BaseExerciseTest {
 		// WHEN
 		EditText name = (EditText) activity.findViewById(R.id.exerciseName);
 		assertThat(name.getText().toString(), is(""));
-		addButtonIsClicked();
+		commitButtonIsClicked();
 		// THEN
 		assertToastText(R.string.exerciseNameBlank);
 	}
@@ -75,7 +76,7 @@ public class AddExerciseActivityTest extends BaseExerciseTest {
 		insertExercise(EXERCISE_NAME, null);
 		// WHEN
 		enterName(EXERCISE_NAME);
-		addButtonIsClicked();
+		commitButtonIsClicked();
 		// THEN
 		assertToastText(R.string.exerciseNameDuplicated);
 	}
@@ -90,23 +91,6 @@ public class AddExerciseActivityTest extends BaseExerciseTest {
 	}
 
 	// Private -------------------------------------------------------
-	private void enterName(String name) {
-		enterText(R.id.exerciseName, name);
-	}
-
-	private void enterDescription(String description) {
-		enterText(R.id.exerciseDescription, description);
-	}
-
-	private void enterText(int id, String text) {
-		EditText edit = (EditText) activity.findViewById(id);
-		edit.setText(text);
-	}
-
-	private void addButtonIsClicked() {
-		Button button = (Button) activity.findViewById(R.id.addButton);
-		clickOn(button);
-	}
 
 	// Inner classes -------------------------------------------------
 }
