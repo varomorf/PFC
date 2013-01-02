@@ -23,6 +23,9 @@ public abstract class BaseExerciseTest extends BaseActivityTest {
 	// Constants -----------------------------------------------------
 	public static final String EXERCISE_NAME = "Test exercise";
 	public static final String EXERCISE_DESC = "Test exercise description";
+	public static final String NEW_NAME = "NEW_NAME";
+	public static final String NEW_DESC = "NEW_DESC";
+	public static final String DUPLICATED_NAME = "DUPLICATED_NAME";
 	// Attributes ----------------------------------------------------
 
 	protected RuntimeExceptionDao<Exercise, Integer> dao;

@@ -19,10 +19,6 @@ public class EditExerciseActivityTest extends BaseExerciseTest {
 
 	// Constants -----------------------------------------------------
 
-	private static final String NEW_NAME = "NEW_NAME";
-	private static final String NEW_DESC = "NEW_DESC";
-	private static final String DUPLICATED_NAME = "DUPLICATED_NAME";
-
 	// Attributes ----------------------------------------------------
 
 	// Static --------------------------------------------------------
