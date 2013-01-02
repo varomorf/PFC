@@ -49,7 +49,7 @@ public class AddTrainingActivityTest extends BaseActivityTest {
 		UIUtils.setTextToUI(activity.findViewById(R.id.trainningName),
 				TRAINING_NAME);
 		// save button is clicked
-		clickOn(activity.findViewById(R.id.commitButton));
+		saveButtonIsClicked();
 		// THEN
 		// toast with message is shown
 		assertToastText(R.string.trainingCreated);
@@ -58,6 +58,23 @@ public class AddTrainingActivityTest extends BaseActivityTest {
 		assertThat(trainings.size(), is(1));
 		Training training = trainings.get(0);
 		assertThat(training.getName(), is(TRAINING_NAME));
+	}
+
+	@Test
+	public void shouldFailWithEmptyName() {
+		// GIVEN
+		// activity is shown
+		createActivity();
+		// WHEN
+		UIUtils.setTextToUI(activity.findViewById(R.id.trainningName), "");
+		// save button is clicked
+		saveButtonIsClicked();
+		// THEN
+		// toast with fail message is shown
+		assertToastText(R.string.trainingNameBlank);
+		// no training is saved
+		List<Training> trainings = dao.queryForAll();
+		assertThat(trainings.size(), is(0));
 	}
 
 	// Package protected ---------------------------------------------
@@ -70,6 +87,8 @@ public class AddTrainingActivityTest extends BaseActivityTest {
 	}
 
 	// Private -------------------------------------------------------
-
+	private void saveButtonIsClicked(){
+		clickOn(activity.findViewById(R.id.commitButton));
+	}
 	// Inner classes -------------------------------------------------
 }
