@@ -65,6 +65,31 @@ public class ExerciseDetailsActivityTest extends BaseExerciseTest {
 		assertCRUDMenu(menu);
 	}
 
+	@Test
+	public void shouldDeleteExercises() {
+		// GIVEN
+		// exercise on DB
+		insertExercise(EXERCISE_NAME, EXERCISE_DESC);
+		// pass DB exercise to activity
+		Exercise exercise = dao.queryForId(1);
+		intentPassedWithExercise(exercise);
+		// WHEN
+		// activity is shown
+		createActivity();
+		// menu key is pressed
+		activity.pressMenuKey();
+		// delete option is clicked
+		TestMenu menu = TestMenu.getLastMenu();
+		menu.clickOn(0);
+		// THEN
+		// toast with deletion message is shown
+		assertToastText(R.string.exerciseDeleted);
+		// exercise no longer on DB
+		assertNull(dao.queryForId(1));
+		// activity is finished
+		assertTrue(activity.isFinishing());
+	}
+
 	// Package protected ---------------------------------------------
 
 	// Protected -----------------------------------------------------
@@ -76,11 +101,18 @@ public class ExerciseDetailsActivityTest extends BaseExerciseTest {
 
 	// Private -------------------------------------------------------
 	private void intentPassedWithExercise() {
-		Exercise exercise = new Exercise();
-		exercise.setName(EXERCISE_NAME);
-		exercise.setDescription(EXERCISE_DESC);
+		intentPassedWithExercise(null);
+	}
+
+	private void intentPassedWithExercise(Exercise exercise) {
+		Exercise theExercise = exercise;
+		if (theExercise == null) {
+			theExercise = new Exercise();
+			theExercise.setName(EXERCISE_NAME);
+			theExercise.setDescription(EXERCISE_DESC);
+		}
 		Intent intent = new Intent();
-		intent.putExtra(ExerciseListActivity.SELECTED_EXERCISE, exercise);
+		intent.putExtra(ExerciseListActivity.SELECTED_EXERCISE, theExercise);
 		activity.setIntent(intent);
 	}
 	// Inner classes -------------------------------------------------
