@@ -30,6 +30,7 @@
         <activity android:name=".activities.exercise.ExerciseListActivity"></activity>
         <activity android:name=".activities.exercise.ExerciseDetailsActivity"></activity>
         <activity android:name=".activities.exercise.AddExerciseActivity"></activity>
+        <activity android:name=".activities.exercise.EditExerciseActivity"></activity>
     </application>
 
 </manifest>
