@@ -47,7 +47,7 @@ public class ExerciseListActivity extends
 				R.layout.exercise_list_item, exercises));
 		registerForContextMenu(getListView());
 	}
-	
+
 	@Override
 	public void onCreateContextMenu(ContextMenu menu, View v,
 			ContextMenuInfo menuInfo) {
@@ -63,6 +63,9 @@ public class ExerciseListActivity extends
 		switch (item.getItemId()) {
 		case R.id.delete:
 			deleteExercise(info.position);
+			return true;
+		case R.id.edit:
+			editExercise(info.position);
 			return true;
 		default:
 			return super.onContextItemSelected(item);
@@ -91,13 +94,13 @@ public class ExerciseListActivity extends
 		// remove all exercises from adapter
 		getAdapter().clear();
 		// set list from DAO
-		for(Exercise exercise: getHelper().getExerciseDao().queryForAll()){
+		for (Exercise exercise : getHelper().getExerciseDao().queryForAll()) {
 			getAdapter().add(exercise);
 		}
 		// refresh the adapter to update UI
 		getAdapter().notifyDataSetChanged();
 	}
-	
+
 	// Private -------------------------------------------------------
 	private void deleteExercise(int position) {
 		// get selected exercise from adapter
@@ -115,6 +118,18 @@ public class ExerciseListActivity extends
 
 	private ExerciseListViewAdapter getAdapter() {
 		return (ExerciseListViewAdapter) getListAdapter();
+	}
+
+	private void editExercise(int position) {
+		// get selected exercise from adapter
+		Exercise exercise = (Exercise) getListAdapter().getItem(position);
+		// prepare intent for edition
+		Intent intent = new Intent(getApplicationContext(),
+				EditExerciseActivity.class);
+		// pass selected exercise
+		intent.putExtra(ExerciseListActivity.SELECTED_EXERCISE, exercise);
+		// launch activity
+		startActivity(intent);
 	}
 	// Inner classes -------------------------------------------------
 }
