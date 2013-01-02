@@ -1,5 +1,7 @@
 package com.gyp.pfc.activities.training;
 
+import java.util.List;
+
 import org.apache.commons.lang.StringUtils;
 
 import android.os.Bundle;
@@ -40,7 +42,7 @@ public class AddTrainingActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 		// create the new training and set its name
 		Training training = new Training();
 		training.setName(name);
-		if (assertNotBlankName(training)) {
+		if (assertTraining(training)) {
 			// persist the training
 			getHelper().getTrainingDao().create(training);
 			// show toast with OK message
@@ -61,11 +63,30 @@ public class AddTrainingActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 
 	// Private -------------------------------------------------------
 
+	private boolean assertTraining(Training training) {
+		return assertNotBlankName(training)
+				&& assertNotDuplicatedName(training);
+	}
+
 	private boolean assertNotBlankName(Training training) {
 		if (StringUtils.isBlank(training.getName())) {
 			// if name blank -> show toast and return false
 			Toast.makeText(getApplicationContext(), R.string.trainingNameBlank,
 					Toast.LENGTH_SHORT).show();
+			return false;
+		}
+		return true;
+	}
+
+	private boolean assertNotDuplicatedName(Training training) {
+		// query an exercise with the same name as the passed exercise
+		List<Training> tmp = getHelper().getTrainingDao().queryForEq("name",
+				training.getName());
+		// if the list holds exercises -> name is duplicated
+		if (tmp.size() != 0) {
+			// duplicated name -> show toast and return false
+			Toast.makeText(getApplicationContext(),
+					R.string.trainingNameDuplicated, Toast.LENGTH_SHORT).show();
 			return false;
 		}
 		return true;
