@@ -18,7 +18,7 @@ public class MainActivity extends OrmLiteBaseListActivity<DatabaseHelper> {
 
 	// Constants -----------------------------------------------------
 	private static final String[] MAIN_SECTIONS_NAMES = { "Foods", "Meals",
-			"Exercises", "Trainnings" };
+			"Exercises", "Trainings" };
 
 	// Attributes ----------------------------------------------------
 
