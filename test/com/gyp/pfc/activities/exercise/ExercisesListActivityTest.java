@@ -102,6 +102,21 @@ public class ExercisesListActivityTest extends BaseExerciseTest {
 		assertItemText(getItemFromListView(0), "bar");
 		assertNull(getItemFromListView(1));
 	}
+	
+	@Test
+	public void shouldRefreshListViewOnResume(){
+		// GIVEN
+		listWithExercises();
+		// WHEN
+		// one exercise is deleted
+		dao.deleteById(1);
+		// activity is resumed
+		activity.callOnResume();
+		// THEN
+		// list must only show one Exercise
+		assertItemText(getItemFromListView(0), "bar");
+		assertNull(getItemFromListView(1));
+	}
 
 	// Package protected ---------------------------------------------
 
