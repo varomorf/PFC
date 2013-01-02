@@ -3,7 +3,9 @@ package com.gyp.pfc.activities.exercise;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.gyp.pfc.R;
 import com.gyp.pfc.data.db.DatabaseHelper;
@@ -23,6 +25,8 @@ public class ExerciseDetailsActivity extends
 
 	// Attributes ----------------------------------------------------
 
+	private Exercise exercise;
+
 	// Static --------------------------------------------------------
 
 	// Constructors --------------------------------------------------
@@ -36,8 +40,7 @@ public class ExerciseDetailsActivity extends
 		// get intent to get data
 		Intent intent = getIntent();
 		if (null != intent) {
-			// if there's an intent -> get the exercise
-			Exercise exercise = (Exercise) intent
+			exercise = (Exercise) intent
 					.getSerializableExtra(ExerciseListActivity.SELECTED_EXERCISE);
 			if (null != exercise) {
 				// if there's an exercise -> update the view
@@ -45,12 +48,23 @@ public class ExerciseDetailsActivity extends
 			}
 		}
 	}
-	
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// inflate CRUD menu
 		getMenuInflater().inflate(R.menu.crud_context_menu, menu);
 		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.delete:
+			deleteExercise();
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
 	}
 
 	// Package protected ---------------------------------------------
@@ -65,6 +79,16 @@ public class ExerciseDetailsActivity extends
 		// populate widgets
 		name.setText(exercise.getName());
 		description.setText(exercise.getDescription());
+	}
+
+	private void deleteExercise() {
+		// delete exercise on DB
+		getHelper().getExerciseDao().delete(exercise);
+		// show deletion message
+		Toast.makeText(getApplicationContext(), R.string.exerciseDeleted,
+				Toast.LENGTH_SHORT).show();
+		//finish activity
+		finish();
 	}
 	// Inner classes -------------------------------------------------
 
