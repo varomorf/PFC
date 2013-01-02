@@ -24,7 +24,7 @@ public class Training implements Serializable {
 
 	@DatabaseField(generatedId = true)
 	private int id;
-	@DatabaseField
+	@DatabaseField(canBeNull = false)
 	private String name;
 	@ForeignCollectionField(eager = true)
 	private ForeignCollection<TrainingExercise> exercises;
