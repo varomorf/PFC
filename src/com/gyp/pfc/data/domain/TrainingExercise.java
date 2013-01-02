@@ -24,9 +24,9 @@ public class TrainingExercise {
 	private int seconds;
 	@DatabaseField(canBeNull = false)
 	private int reps;
-	@DatabaseField(canBeNull = false, foreign = true)
+	@DatabaseField(foreign = true, foreignAutoRefresh = true)
 	private Exercise exercise;
-	@DatabaseField(canBeNull = false, foreign = true)
+	@DatabaseField(foreign = true, foreignAutoRefresh = true)
 	private Training training;
 
 	// Static --------------------------------------------------------

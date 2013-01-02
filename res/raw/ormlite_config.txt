@@ -1,5 +1,5 @@
 #
-# generated on 2013/01/02 07:52:43
+# generated on 2013/01/02 08:25:21
 #
 # --table-start--
 dataClass=com.gyp.pfc.data.domain.Food
@@ -91,13 +91,13 @@ canBeNull=false
 # --field-end--
 # --field-start--
 fieldName=exercise
-canBeNull=false
 foreign=true
+foreignAutoRefresh=true
 # --field-end--
 # --field-start--
 fieldName=training
-canBeNull=false
 foreign=true
+foreignAutoRefresh=true
 # --field-end--
 # --table-fields-end--
 # --table-end--
