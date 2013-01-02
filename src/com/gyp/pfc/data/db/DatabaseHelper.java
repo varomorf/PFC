@@ -9,6 +9,8 @@ import android.util.Log;
 import com.gyp.pfc.R;
 import com.gyp.pfc.data.domain.Exercise;
 import com.gyp.pfc.data.domain.Food;
+import com.gyp.pfc.data.domain.Training;
+import com.gyp.pfc.data.domain.TrainingExercise;
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
 import com.j256.ormlite.support.ConnectionSource;
@@ -34,6 +36,8 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 	// Attributes ----------------------------------------------------
 	private RuntimeExceptionDao<Food, String> foodDao;
 	private RuntimeExceptionDao<Exercise, Integer> exerciseDao;
+	private RuntimeExceptionDao<Training, Integer> trainingDao;
+	private RuntimeExceptionDao<TrainingExercise, Integer> trainingExerciseDao;
 
 	// Static --------------------------------------------------------
 
@@ -105,6 +109,33 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 			exerciseDao = getRuntimeExceptionDao(Exercise.class);
 		}
 		return exerciseDao;
+	}
+
+	/**
+	 * Factory method for a {@link RuntimeExceptionDao} for the {@link Exercise}
+	 * entity
+	 * 
+	 * @return The {@link RuntimeExceptionDao} for the {@link Training} entity
+	 */
+	public RuntimeExceptionDao<Training, Integer> getTrainingDao() {
+		if (null == trainingDao) {
+			trainingDao = getRuntimeExceptionDao(Training.class);
+		}
+		return trainingDao;
+	}
+
+	/**
+	 * Factory method for a {@link RuntimeExceptionDao} for the
+	 * {@link TrainingExercise} entity
+	 * 
+	 * @return The {@link RuntimeExceptionDao} for the {@link TrainingExercise}
+	 *         entity
+	 */
+	public RuntimeExceptionDao<TrainingExercise, Integer> getTrainingExerciseDao() {
+		if (null == trainingExerciseDao) {
+			trainingExerciseDao = getRuntimeExceptionDao(TrainingExercise.class);
+		}
+		return trainingExerciseDao;
 	}
 
 	/**
