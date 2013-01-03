@@ -41,7 +41,7 @@ public class ExerciseListViewAdapter extends ArrayAdapter<Exercise> {
 	 */
 	public ExerciseListViewAdapter(Context context, int textViewResourceId,
 			List<Exercise> exercises) {
-		super(context, textViewResourceId, exercises);
+		super(context, textViewResourceId, R.id.title, exercises);
 		inflater = LayoutInflater.from(context);
 	}
 
