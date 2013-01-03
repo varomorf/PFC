@@ -25,7 +25,7 @@
 
         <Spinner
             android:id="@+id/exerciseSpinner"
-            android:layout_width="0dpi"
+            android:layout_width="0dip"
             android:layout_height="wrap_content"
             android:layout_weight="1" />
 
@@ -37,7 +37,7 @@
 
         <TextView
             android:id="@+id/textView3"
-            android:layout_width="0dp"
+            android:layout_width="0dip"
             android:layout_height="wrap_content"
             android:layout_weight="3"
             android:text="@string/duration"
@@ -45,7 +45,7 @@
 
         <EditText
             android:id="@+id/minutes"
-            android:layout_width="0dp"
+            android:layout_width="0dip"
             android:layout_height="wrap_content"
             android:layout_weight="2"
             android:ems="10"
@@ -56,7 +56,7 @@
 
         <TextView
             android:id="@+id/textView4"
-            android:layout_width="0dp"
+            android:layout_width="0dip"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginLeft="@dimen/defaultMargin"
@@ -66,7 +66,7 @@
 
         <EditText
             android:id="@+id/seconds"
-            android:layout_width="0dp"
+            android:layout_width="0dip"
             android:layout_height="wrap_content"
             android:layout_weight="2"
             android:ems="10"
@@ -74,7 +74,7 @@
 
         <TextView
             android:id="@+id/textView5"
-            android:layout_width="0dp"
+            android:layout_width="0dip"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/defaultMargin"
             android:layout_weight="2"
@@ -96,7 +96,7 @@
 
         <EditText
             android:id="@+id/editText1"
-            android:layout_width="60dp"
+            android:layout_width="60dip"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/defaultMargin"
             android:ems="10"
