@@ -1,10 +1,16 @@
 package com.gyp.pfc;
 
+import java.util.List;
+
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager.LayoutParams;
+import android.widget.Spinner;
+
+import com.gyp.pfc.adapters.ExerciseListViewAdapter;
+import com.gyp.pfc.data.domain.Exercise;
 
 /**
  * Dialog for adding exercises to a training
@@ -19,14 +25,17 @@ public class AddExerciseDialog extends Dialog {
 	// Attributes ----------------------------------------------------
 
 	private AddExerciseDialogListener listener;
+	private List<Exercise> exercises;
 
 	// Static --------------------------------------------------------
 
 	// Constructors --------------------------------------------------
 
-	public AddExerciseDialog(Context context, AddExerciseDialogListener listener) {
+	public AddExerciseDialog(Context context,
+			AddExerciseDialogListener listener, List<Exercise> exercises) {
 		super(context);
 		this.listener = listener;
+		this.exercises = exercises;
 	}
 
 	// Public --------------------------------------------------------
@@ -56,9 +65,27 @@ public class AddExerciseDialog extends Dialog {
 		params.width = LayoutParams.MATCH_PARENT;
 		getWindow().setAttributes(
 				(android.view.WindowManager.LayoutParams) params);
+		populateSpinner();
+		fillValues();
 	}
 
 	// Private -------------------------------------------------------
+
+	private void populateSpinner() {
+		// get spinner from view
+		Spinner spinner = (Spinner) findViewById(R.id.exerciseSpinner);
+		// prepare adapter for exercises list
+		ExerciseListViewAdapter adapter = new ExerciseListViewAdapter(
+				getContext(), R.layout.exercise_list_item, exercises);
+		// set adapter to spinner
+		spinner.setAdapter(adapter);
+	}
+	
+	private void fillValues(){
+		UIUtils.setTextToUI(findViewById(R.id.minutes), "0");
+		UIUtils.setTextToUI(findViewById(R.id.seconds), "0");
+		UIUtils.setTextToUI(findViewById(R.id.repetitions), "1");
+	}
 
 	// Inner classes -------------------------------------------------
 	public interface AddExerciseDialogListener {
