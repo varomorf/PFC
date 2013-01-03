@@ -3,10 +3,11 @@ package com.gyp.pfc;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.view.View;
 import android.view.WindowManager.LayoutParams;
 
 /**
- * Dialog for adding exercises to a trainning
+ * Dialog for adding exercises to a training
  * 
  * @author Alvaro
  * 
@@ -17,15 +18,29 @@ public class AddExerciseDialog extends Dialog {
 
 	// Attributes ----------------------------------------------------
 
+	private AddExerciseDialogListener listener;
+
 	// Static --------------------------------------------------------
 
 	// Constructors --------------------------------------------------
 
-	public AddExerciseDialog(Context context) {
+	public AddExerciseDialog(Context context, AddExerciseDialogListener listener) {
 		super(context);
+		this.listener = listener;
 	}
 
 	// Public --------------------------------------------------------
+
+	/**
+	 * Callback method for the save button
+	 * 
+	 * @param view
+	 */
+	public void commitButton(View view) {
+		// call the listener and dismiss
+		listener.onDialogClosing(this);
+		dismiss();
+	}
 
 	// Package protected ---------------------------------------------
 
@@ -46,4 +61,7 @@ public class AddExerciseDialog extends Dialog {
 	// Private -------------------------------------------------------
 
 	// Inner classes -------------------------------------------------
+	public interface AddExerciseDialogListener {
+		void onDialogClosing(AddExerciseDialog dialog);
+	}
 }
