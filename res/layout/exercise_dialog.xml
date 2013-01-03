@@ -50,9 +50,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="2"
             android:ems="10"
-            android:inputType="number" >
-
-            <requestFocus />
+            android:inputType="number"
+            android:selectAllOnFocus="true" >
         </EditText>
 
         <TextView
@@ -71,7 +70,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="2"
             android:ems="10"
-            android:inputType="number" />
+            android:inputType="number"
+            android:selectAllOnFocus="true" />
 
         <TextView
             android:id="@+id/textView5"
@@ -102,7 +102,8 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/defaultMargin"
             android:ems="10"
-            android:inputType="number" />
+            android:inputType="number"
+            android:selectAllOnFocus="true" />
 
     </LinearLayout>
 
