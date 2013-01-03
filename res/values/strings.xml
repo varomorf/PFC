@@ -37,9 +37,13 @@
     <string name="exerciseEdited">El ejercicio ha sido editado</string>
     <string name="save">Guardar</string>
     <string name="exercises_label">Ejercicios</string>
+    <string name="exercise_label">Ejercicio</string>
     <string name="trainingCreated">El entrenamiento ha sido guardado</string>
     <string name="trainingNameBlank">El nombre del entrenamiento está vacío</string>
     <string name="trainingNameDuplicated">El nombre del entrenamiento está repetido</string>
     <string name="training_label">Entrenamiento</string>
+    <string name="addExerciseToTraining">Añadir un ejercicio</string>
+    <string name="duration">Duración</string>
+    <string name="repetitions">Repeticiones</string>
 
 </resources>
