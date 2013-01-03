@@ -51,8 +51,8 @@ public class AddTrainingActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 			// persist the training
 			getHelper().getTrainingDao().createOrUpdate(training);
 			// show toast with OK message
-			Toast.makeText(getApplicationContext(), R.string.trainingCreated,
-					Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, R.string.trainingCreated, Toast.LENGTH_SHORT)
+					.show();
 		}
 	}
 
@@ -76,8 +76,8 @@ public class AddTrainingActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 	private boolean assertNotBlankName(Training training) {
 		if (StringUtils.isBlank(training.getName())) {
 			// if name blank -> show toast and return false
-			Toast.makeText(getApplicationContext(), R.string.trainingNameBlank,
-					Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, R.string.trainingNameBlank, Toast.LENGTH_SHORT)
+					.show();
 			return false;
 		}
 		return true;
@@ -90,8 +90,8 @@ public class AddTrainingActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 		// if the list holds exercises -> name is duplicated
 		if (tmp.size() != 0) {
 			// duplicated name -> show toast and return false
-			Toast.makeText(getApplicationContext(),
-					R.string.trainingNameDuplicated, Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, R.string.trainingNameDuplicated,
+					Toast.LENGTH_SHORT).show();
 			return false;
 		}
 		return true;
