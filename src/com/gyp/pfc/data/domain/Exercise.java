@@ -63,6 +63,11 @@ public class Exercise implements Serializable{
 		this.description = description;
 	}
 
+	@Override
+	public String toString() {
+		return name;
+	}
+	
 	// Package protected ---------------------------------------------
 
 	// Protected -----------------------------------------------------

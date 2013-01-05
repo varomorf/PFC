@@ -30,6 +30,7 @@
         android:layout_height="wrap_content"
         android:contentDescription="@string/label_delete"
         android:scaleType="center"
-        android:src="@drawable/delete" />
+        android:src="@drawable/delete"
+        android:onClick="deleteButton" />
 
 </LinearLayout>

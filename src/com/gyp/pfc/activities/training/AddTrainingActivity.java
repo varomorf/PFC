@@ -1,5 +1,7 @@
 package com.gyp.pfc.activities.training;
 
+import java.sql.SQLException;
+import java.util.Iterator;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
@@ -7,8 +9,10 @@ import org.apache.commons.lang.StringUtils;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gyp.pfc.R;
@@ -84,6 +88,25 @@ public class AddTrainingActivity extends OrmLiteBaseActivity<DatabaseHelper>
 	}
 
 	/**
+	 * Callback for the delete buttons of the added exercises
+	 * 
+	 * @param view
+	 */
+	public void deleteButton(View view) {
+		// get position of item for which button was pressed
+		LinearLayout exerciseList = (LinearLayout) findViewById(R.id.exercisesLayout); 
+		int pos = exerciseList.indexOfChild((View) view.getParent());
+		// remove item from layout
+		exerciseList.removeViewAt(pos);
+		// remove trainingExercise
+		TrainingExercise te = getTrainingExercise(pos);
+		getHelper().getTrainingExerciseDao().delete(te);
+		getHelper().getTrainingDao().refresh(training);
+		// fix position of the rest of exercises
+		fixExercisesPosition(pos);
+	}
+
+	/**
 	 * Extracts the data from the closing dialog and creates a TrainingExercise
 	 * entity with it
 	 */
@@ -95,12 +118,16 @@ public class AddTrainingActivity extends OrmLiteBaseActivity<DatabaseHelper>
 		// save TrainingExercise to DB
 		getHelper().getTrainingExerciseDao().create(te);
 		// inflate a training_exercise view
-		View view = getLayoutInflater().inflate(R.layout.training_exercise_item, null);
+		View view = getLayoutInflater().inflate(
+				R.layout.training_exercise_item, null);
 		// set title
-		UIUtils.setTextToUI(view.findViewById(R.id.title), te.getExercise().getName());
+		UIUtils.setTextToUI(view.findViewById(R.id.title), te.getExercise()
+				.getName());
 		// add new view to exercise list
 		LinearLayout exercises = (LinearLayout) findViewById(R.id.exercisesLayout);
 		exercises.addView(view);
+		// refresh training's exercise list
+		getHelper().getTrainingDao().refresh(training);
 	}
 
 	// Package protected ---------------------------------------------
@@ -187,6 +214,27 @@ public class AddTrainingActivity extends OrmLiteBaseActivity<DatabaseHelper>
 		// set pos to num
 		te.setPos(num);
 		return te;
+	}
+	
+	private TrainingExercise getTrainingExercise(int pos){
+		// prepare matcher object
+		TrainingExercise matcher = new TrainingExercise();
+		matcher.setPos(pos);
+		matcher.setTraining(training);
+		// get entity from DB
+		return getHelper().getTrainingExerciseDao().queryForMatching(matcher).get(0);
+	}
+	
+	private void fixExercisesPosition(int pos){
+		// iterate exercises to fix their pos
+		for (TrainingExercise te : training.getExercises()) {
+			// if position greater that passed -> fix
+			if(te.getPos() > pos){
+				// decrease position
+				te.setPos(te.getPos() - 1);
+				getHelper().getTrainingExerciseDao().update(te);
+			}
+		}
 	}
 	// Inner classes -------------------------------------------------
 }
