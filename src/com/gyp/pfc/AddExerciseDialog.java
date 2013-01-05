@@ -31,6 +31,16 @@ public class AddExerciseDialog extends Dialog {
 
 	// Constructors --------------------------------------------------
 
+	/**
+	 * Constructor
+	 * 
+	 * @param context
+	 *            the context passed to the super constructor
+	 * @param listener
+	 *            A listener for the dialog's commit button
+	 * @param exercises
+	 *            A list of exercises to populate the dialog's spinner
+	 */
 	public AddExerciseDialog(Context context,
 			AddExerciseDialogListener listener, List<Exercise> exercises) {
 		super(context);
@@ -80,15 +90,29 @@ public class AddExerciseDialog extends Dialog {
 		// set adapter to spinner
 		spinner.setAdapter(adapter);
 	}
-	
-	private void fillValues(){
+
+	private void fillValues() {
 		UIUtils.setTextToUI(findViewById(R.id.minutes), "0");
 		UIUtils.setTextToUI(findViewById(R.id.seconds), "0");
 		UIUtils.setTextToUI(findViewById(R.id.repetitions), "1");
 	}
 
 	// Inner classes -------------------------------------------------
+	/**
+	 * Defines a listener for the {@link AddExerciseDialog}
+	 * 
+	 * @author Alvaro
+	 * 
+	 */
 	public interface AddExerciseDialogListener {
+		/**
+		 * <p>
+		 * Callback method for when the dialog's commit button is clicked
+		 * </p>
+		 * 
+		 * @param dialog
+		 *            The dialog passes itself to the listener callback method
+		 */
 		void onDialogClosing(AddExerciseDialog dialog);
 	}
 }
