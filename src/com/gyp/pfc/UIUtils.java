@@ -1,6 +1,7 @@
 package com.gyp.pfc;
 
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 /**
@@ -66,6 +67,26 @@ public final class UIUtils {
 			// clear the view setting empty string
 			((TextView) view).setText("");
 		}
+	}
+
+	/**
+	 * <p>
+	 * Gets the child at pos from the passed view as long as the view is a
+	 * ViewGroup
+	 * </p>
+	 * 
+	 * @param view
+	 *            The view from which to get the child
+	 * @param pos
+	 *            The position from which to get the child
+	 * @return The child gotten
+	 */
+	public static View getChildFromView(View view, int pos) {
+		View child = null;
+		if(view instanceof ViewGroup){
+			child = ((ViewGroup)view).getChildAt(pos);
+		}
+		return child;
 	}
 
 	// Constructors --------------------------------------------------
