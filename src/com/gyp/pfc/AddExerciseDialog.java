@@ -18,7 +18,8 @@ import com.gyp.pfc.data.domain.Exercise;
  * @author Alvaro
  * 
  */
-public class AddExerciseDialog extends Dialog {
+public class AddExerciseDialog extends Dialog implements
+		android.view.View.OnClickListener {
 
 	// Constants -----------------------------------------------------
 
@@ -55,7 +56,7 @@ public class AddExerciseDialog extends Dialog {
 	 * 
 	 * @param view
 	 */
-	public void commitButton(View view) {
+	public void onClick(View v) {
 		// call the listener and dismiss
 		listener.onDialogClosing(this);
 		dismiss();
@@ -77,6 +78,8 @@ public class AddExerciseDialog extends Dialog {
 				(android.view.WindowManager.LayoutParams) params);
 		populateSpinner();
 		fillValues();
+		// on click listener for the button will be this
+		findViewById(R.id.commitButton).setOnClickListener(this);
 	}
 
 	// Private -------------------------------------------------------
