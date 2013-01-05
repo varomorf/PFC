@@ -11,14 +11,20 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import android.app.Activity;
+import android.app.Dialog;
+import android.widget.Spinner;
 
+import com.gyp.pfc.AddExerciseDialog;
 import com.gyp.pfc.CustomTestRunner;
 import com.gyp.pfc.R;
 import com.gyp.pfc.UIUtils;
 import com.gyp.pfc.activities.BaseActivityTest;
+import com.gyp.pfc.activities.exercise.BaseExerciseTest;
 import com.gyp.pfc.data.db.DatabaseHelper;
+import com.gyp.pfc.data.domain.Exercise;
 import com.gyp.pfc.data.domain.Training;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
+import com.xtremelabs.robolectric.shadows.ShadowDialog;
 
 @RunWith(CustomTestRunner.class)
 public class AddTrainingActivityTest extends BaseActivityTest {
@@ -26,7 +32,8 @@ public class AddTrainingActivityTest extends BaseActivityTest {
 	// Constants -----------------------------------------------------
 	private static final String TRAINING_NAME = "TRAINING_NAME";
 	// Attributes ----------------------------------------------------
-	private RuntimeExceptionDao<Training, Integer> dao;
+	private RuntimeExceptionDao<Training, Integer> trainingDao;
+	private RuntimeExceptionDao<Exercise, Integer> exerciseDao;
 
 	// Static --------------------------------------------------------
 
@@ -36,9 +43,10 @@ public class AddTrainingActivityTest extends BaseActivityTest {
 	@Before
 	public void before() {
 		super.before();
-		dao = new DatabaseHelper(realActivity).getTrainingDao();
-		List<Training> trainings = dao.queryForAll();
-		dao.delete(trainings);
+		trainingDao = new DatabaseHelper(realActivity).getTrainingDao();
+		exerciseDao = new DatabaseHelper(realActivity).getExerciseDao();
+		List<Training> trainings = trainingDao.queryForAll();
+		trainingDao.delete(trainings);
 	}
 
 	@Test
@@ -56,7 +64,7 @@ public class AddTrainingActivityTest extends BaseActivityTest {
 		// toast with message is shown
 		assertToastText(R.string.trainingCreated);
 		// training is saved
-		List<Training> trainings = dao.queryForAll();
+		List<Training> trainings = trainingDao.queryForAll();
 		assertThat(trainings.size(), is(1));
 		Training training = trainings.get(0);
 		assertThat(training.getName(), is(TRAINING_NAME));
@@ -75,7 +83,7 @@ public class AddTrainingActivityTest extends BaseActivityTest {
 		// toast with fail message is shown
 		assertToastText(R.string.trainingNameBlank);
 		// no training is saved
-		List<Training> trainings = dao.queryForAll();
+		List<Training> trainings = trainingDao.queryForAll();
 		assertThat(trainings.size(), is(0));
 	}
 
@@ -87,7 +95,7 @@ public class AddTrainingActivityTest extends BaseActivityTest {
 		// training with duplicated name is on DB
 		Training tmp = new Training();
 		tmp.setName(TRAINING_NAME);
-		dao.create(tmp);
+		trainingDao.create(tmp);
 		// WHEN
 		UIUtils.setTextToUI(activity.findViewById(R.id.trainningName),
 				TRAINING_NAME);
@@ -97,8 +105,32 @@ public class AddTrainingActivityTest extends BaseActivityTest {
 		// toast with fail message is shown
 		assertToastText(R.string.trainingNameDuplicated);
 		// no training is saved
-		List<Training> trainings = dao.queryForAll();
+		List<Training> trainings = trainingDao.queryForAll();
 		assertThat(trainings.size(), is(1));
+	}
+
+	@Test
+	public void shouldStartDialog() {
+		// GIVEN
+		// 1 exercise on DB
+		BaseExerciseTest.insertExercise(exerciseDao,
+				BaseExerciseTest.EXERCISE_NAME, BaseExerciseTest.EXERCISE_DESC);
+		// activity is shown
+		createActivity();
+		// WHEN
+		// add button is clicked
+		clickOn(activity.findViewById(R.id.addExerciseButton));
+		// THEN
+		// add exercise to training dialog is shown
+		Dialog dialog = ShadowDialog.getLatestDialog();
+		assertThat(dialog, is(AddExerciseDialog.class));
+		// dialog has list of exercises
+		Spinner spinner = (Spinner) dialog.findViewById(R.id.exerciseSpinner);
+		assertThat(spinner.getAdapter().getCount(), is(1));
+		Exercise exercise = (Exercise) spinner.getAdapter().getItem(0);
+		assertThat(exercise.getName(), is(BaseExerciseTest.EXERCISE_NAME));
+		assertThat(exercise.getDescription(),
+				is(BaseExerciseTest.EXERCISE_DESC));
 	}
 
 	// Package protected ---------------------------------------------
