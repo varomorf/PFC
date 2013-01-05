@@ -15,7 +15,6 @@ import android.app.Dialog;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 
-import com.gyp.pfc.AddExerciseDialog;
 import com.gyp.pfc.CustomTestRunner;
 import com.gyp.pfc.R;
 import com.gyp.pfc.UIUtils;
@@ -25,6 +24,7 @@ import com.gyp.pfc.data.db.DatabaseHelper;
 import com.gyp.pfc.data.domain.Exercise;
 import com.gyp.pfc.data.domain.Training;
 import com.gyp.pfc.data.domain.TrainingExercise;
+import com.gyp.pfc.dialogs.AddExerciseDialog;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
 import com.xtremelabs.robolectric.shadows.ShadowDialog;
 
