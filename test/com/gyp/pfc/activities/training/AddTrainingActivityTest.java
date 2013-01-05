@@ -122,11 +122,7 @@ public class AddTrainingActivityTest extends BaseActivityTest {
 	@Test
 	public void shouldStartDialog() {
 		// GIVEN
-		// 1 exercise on DB
-		BaseExerciseTest.insertExercise(exerciseDao,
-				BaseExerciseTest.EXERCISE_NAME, BaseExerciseTest.EXERCISE_DESC);
-		// activity is shown
-		createActivity();
+		prepareWithExerciseAndName();
 		// WHEN
 		// add button is clicked
 		clickOn(activity.findViewById(R.id.addExerciseButton));
@@ -150,6 +146,9 @@ public class AddTrainingActivityTest extends BaseActivityTest {
 		assertThat(exerciseDao.countOf(), is(0l));
 		// activity is shown
 		createActivity();
+		// name is set
+		UIUtils.setTextToUI(activity.findViewById(R.id.trainningName),
+				TRAINING_NAME);
 		// WHEN
 		// add button is clicked
 		clickOn(activity.findViewById(R.id.addExerciseButton));
@@ -162,16 +161,13 @@ public class AddTrainingActivityTest extends BaseActivityTest {
 
 	@Test
 	public void shouldAddExerciseToTraining() {
-		// 1 exercise on DB
-		BaseExerciseTest.insertExercise(exerciseDao,
-				BaseExerciseTest.EXERCISE_NAME, BaseExerciseTest.EXERCISE_DESC);
-		// activity is shown
-		createActivity();
+		prepareWithExerciseAndName();
 		// WHEN
 		// add button is clicked
 		clickOn(activity.findViewById(R.id.addExerciseButton));
 		// exercise is selected on dialog
-		AddExerciseDialog dialog = (AddExerciseDialog) ShadowDialog.getLatestDialog();
+		AddExerciseDialog dialog = (AddExerciseDialog) ShadowDialog
+				.getLatestDialog();
 		Spinner spinner = (Spinner) dialog.findViewById(R.id.exerciseSpinner);
 		spinner.setSelection(0);
 		// enter 1 minute
@@ -194,7 +190,8 @@ public class AddTrainingActivityTest extends BaseActivityTest {
 		assertThat(te.getPos(), is(0));
 		assertNotNull(te.getTraining());
 		// UI shows new exercise
-		LinearLayout exercisesList = (LinearLayout) activity.findViewById(R.id.exercisesLayout);
+		LinearLayout exercisesList = (LinearLayout) activity
+				.findViewById(R.id.exercisesLayout);
 		assertThat(exercisesList.getChildCount(), is(1));
 	}
 
@@ -210,6 +207,17 @@ public class AddTrainingActivityTest extends BaseActivityTest {
 	// Private -------------------------------------------------------
 	private void saveButtonIsClicked() {
 		clickOn(activity.findViewById(R.id.commitButton));
+	}
+
+	private void prepareWithExerciseAndName() {
+		// 1 exercise on DB
+		BaseExerciseTest.insertExercise(exerciseDao,
+				BaseExerciseTest.EXERCISE_NAME, BaseExerciseTest.EXERCISE_DESC);
+		// activity is shown
+		createActivity();
+		// name is set
+		UIUtils.setTextToUI(activity.findViewById(R.id.trainningName),
+				TRAINING_NAME);
 	}
 	// Inner classes -------------------------------------------------
 }
