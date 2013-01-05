@@ -45,5 +45,6 @@
     <string name="addExerciseToTraining">Añadir un ejercicio</string>
     <string name="duration">Duración</string>
     <string name="repetitions">Repeticiones</string>
+    <string name="emptyExercisesList">La lista de ejercicios está vacía.</string>
 
 </resources>

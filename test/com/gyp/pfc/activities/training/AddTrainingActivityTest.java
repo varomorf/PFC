@@ -43,10 +43,15 @@ public class AddTrainingActivityTest extends BaseActivityTest {
 	@Before
 	public void before() {
 		super.before();
+		// init DAOs
 		trainingDao = new DatabaseHelper(realActivity).getTrainingDao();
 		exerciseDao = new DatabaseHelper(realActivity).getExerciseDao();
 		List<Training> trainings = trainingDao.queryForAll();
 		trainingDao.delete(trainings);
+		List<Exercise> exercises = exerciseDao.queryForAll();
+		exerciseDao.delete(exercises);
+		// reset shadows for testing
+		ShadowDialog.reset();
 	}
 
 	@Test
@@ -131,6 +136,23 @@ public class AddTrainingActivityTest extends BaseActivityTest {
 		assertThat(exercise.getName(), is(BaseExerciseTest.EXERCISE_NAME));
 		assertThat(exercise.getDescription(),
 				is(BaseExerciseTest.EXERCISE_DESC));
+	}
+
+	@Test
+	public void shouldNotStartDialogAndShowToast() {
+		// GIVEN
+		// no exercises on DB
+		assertThat(exerciseDao.countOf(), is(0l));
+		// activity is shown
+		createActivity();
+		// WHEN
+		// add button is clicked
+		clickOn(activity.findViewById(R.id.addExerciseButton));
+		// THEN
+		// toast is shown with error message
+		assertToastText(R.string.emptyExercisesList);
+		// no dialog is shown
+		assertNull(ShadowDialog.getLatestDialog());
 	}
 
 	// Package protected ---------------------------------------------

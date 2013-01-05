@@ -69,11 +69,15 @@ public class AddTrainingActivity extends OrmLiteBaseActivity<DatabaseHelper>
 	public void addExercise(View view) {
 		// get list of exercises
 		List<Exercise> exercises = getHelper().getExerciseDao().queryForAll();
-		// create dialog for adding an exercise passing this activity as
-		// listener
-		Dialog dialog = new AddExerciseDialog(this, this, exercises);
-		// show the dialog
-		dialog.show();
+		if (exercises.size() > 0) {
+			// create dialog passing this activity as listener
+			Dialog dialog = new AddExerciseDialog(this, this, exercises);
+			// show the dialog
+			dialog.show();
+		} else {
+			//no exercises -> show toast with error message
+			Toast.makeText(this, R.string.emptyExercisesList, Toast.LENGTH_SHORT).show();
+		}
 	}
 
 	/**
