@@ -55,16 +55,16 @@ public class TrainingExercise {
 	}
 
 	/**
-	 * Sets the pos field if the passed amount is greater than or equal to 1
+	 * Sets the pos field if the passed amount is greater than or equal to 0
 	 * 
 	 * @param pos
 	 */
 	public void setPos(int pos) {
-		if (pos >= 1) {
+		if (pos >= 0) {
 			this.pos = pos;
 		} else {
 			throw new IllegalArgumentException(
-					"Position must be greater or equal than 1");
+					"Position must be greater or equal than 0");
 		}
 	}
 
