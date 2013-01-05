@@ -42,15 +42,28 @@ public abstract class BaseExerciseTest extends BaseActivityTest {
 		dao = new DatabaseHelper(realActivity).getExerciseDao();
 	}
 
+	/**
+	 * Inserts a new Exercise with the passed arguments into the passed dao
+	 * 
+	 * @param dao
+	 * @param name
+	 * @param description
+	 */
+	public static void insertExercise(
+			RuntimeExceptionDao<Exercise, Integer> dao, String name,
+			String description) {
+		Exercise exercise = new Exercise();
+		exercise.setName(name);
+		exercise.setDescription(description);
+		dao.create(exercise);
+	}
+
 	// Package protected ---------------------------------------------
 
 	// Protected -----------------------------------------------------
 
 	protected void insertExercise(String name, String description) {
-		Exercise exercise = new Exercise();
-		exercise.setName(name);
-		exercise.setDescription(description);
-		dao.create(exercise);
+		insertExercise(dao, name, description);
 	}
 
 	protected void intentPassedWithExercise() {
