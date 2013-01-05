@@ -1,7 +1,5 @@
 package com.gyp.pfc.activities.training;
 
-import java.sql.SQLException;
-import java.util.Iterator;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
@@ -9,10 +7,8 @@ import org.apache.commons.lang.StringUtils;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gyp.pfc.R;

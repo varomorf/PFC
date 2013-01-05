@@ -11,8 +11,6 @@ import android.widget.Spinner;
 
 import com.gyp.pfc.R;
 import com.gyp.pfc.UIUtils;
-import com.gyp.pfc.R.id;
-import com.gyp.pfc.R.layout;
 import com.gyp.pfc.adapters.ExerciseListViewAdapter;
 import com.gyp.pfc.data.domain.Exercise;
 
