@@ -161,6 +161,7 @@ public class AddTrainingActivityTest extends BaseActivityTest {
 
 	@Test
 	public void shouldAddExerciseToTraining() {
+		// GIVEN
 		prepareWithExerciseAndName();
 		// WHEN
 		// add button is clicked
@@ -177,7 +178,7 @@ public class AddTrainingActivityTest extends BaseActivityTest {
 		// enter 5 repetitions
 		UIUtils.setTextToUI(dialog.findViewById(R.id.repetitions), "5");
 		// click on dialog's commit button
-		dialog.commitButton(null);
+		clickOn(dialog.findViewById(R.id.commitButton));
 		// THEN
 		// exercise has been added to training with correct order
 		TrainingExercise te = trainingExerciseDao.queryForId(1);
