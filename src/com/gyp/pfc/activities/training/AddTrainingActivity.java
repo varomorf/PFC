@@ -4,13 +4,17 @@ import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import com.gyp.pfc.AddExerciseDialog;
+import com.gyp.pfc.AddExerciseDialog.AddExerciseDialogListener;
 import com.gyp.pfc.R;
 import com.gyp.pfc.UIUtils;
 import com.gyp.pfc.data.db.DatabaseHelper;
+import com.gyp.pfc.data.domain.Exercise;
 import com.gyp.pfc.data.domain.Training;
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 
@@ -20,7 +24,8 @@ import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
  * @author Alvaro
  * 
  */
-public class AddTrainingActivity extends OrmLiteBaseActivity<DatabaseHelper> {
+public class AddTrainingActivity extends OrmLiteBaseActivity<DatabaseHelper>
+		implements AddExerciseDialogListener {
 
 	// Constants -----------------------------------------------------
 
@@ -54,6 +59,29 @@ public class AddTrainingActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 			Toast.makeText(this, R.string.trainingCreated, Toast.LENGTH_SHORT)
 					.show();
 		}
+	}
+
+	/**
+	 * Callback method for the Add button
+	 * 
+	 * @param view
+	 */
+	public void addExercise(View view) {
+		// get list of exercises
+		List<Exercise> exercises = getHelper().getExerciseDao().queryForAll();
+		// create dialog for adding an exercise passing this activity as
+		// listener
+		Dialog dialog = new AddExerciseDialog(this, this, exercises);
+		// show the dialog
+		dialog.show();
+	}
+
+	/**
+	 * Extracts the data from the closing dialog and creates a TrainingExercise
+	 * entity with it
+	 */
+	public void onDialogClosing(AddExerciseDialog dialog) {
+
 	}
 
 	// Package protected ---------------------------------------------
