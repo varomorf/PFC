@@ -12,6 +12,7 @@ import org.junit.runner.RunWith;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 
@@ -164,6 +165,62 @@ public class AddTrainingActivityTest extends BaseActivityTest {
 		// GIVEN
 		prepareWithExerciseAndName();
 		// WHEN
+		addExerciseToTraining();
+		// THEN
+		// exercise has been added to training with correct order
+		TrainingExercise te = trainingExerciseDao.queryForId(1);
+		assertNotNull(te);
+		assertThat(te.getExercise().getName(), is(exerciseDao.queryForId(1)
+				.getName()));
+		// 90 seconds = 1 min 30 secs
+		assertThat(te.getSeconds(), is(90));
+		assertThat(te.getReps(), is(5));
+		assertThat(te.getPos(), is(0));
+		assertNotNull(te.getTraining());
+		// UI shows new exercise
+		assertChildrenNumber(activity.findViewById(R.id.exercisesLayout),1);
+	}
+
+	@Test
+	public void shouldRemoveExerciseFromList() {
+		// GIVEN
+		// activity ready with exercise on DB and name entered
+		prepareWithExerciseAndName();
+		// 2 exercises added to the training
+		addExerciseToTraining();
+		addExerciseToTraining();
+		assertChildrenNumber(activity.findViewById(R.id.exercisesLayout),2);
+		// WHEN
+		// delete button clicked on item 1
+		View item = UIUtils.getChildFromView(activity.findViewById(R.id.exercisesLayout), 0);
+		clickOn(item.findViewById(R.id.deleteButton));
+		// THEN
+		// training no longer has exercise
+		assertThat(trainingDao.queryForId(1).getExercises().size(), is(1));
+		// UI doesn't show exercise on list
+		assertChildrenNumber(activity.findViewById(R.id.exercisesLayout),1);
+		// remaining exercise has correct pos
+		assertThat(trainingExerciseDao.queryForId(2).getPos(), is(1));
+		// training exercise was deleted
+		assertThat(trainingExerciseDao.countOf(), is(1l));
+	}
+
+	// Package protected ---------------------------------------------
+
+	// Protected -----------------------------------------------------
+
+	@Override
+	protected Activity newActivity() {
+		return new AddTrainingActivity();
+	}
+
+	// Private -------------------------------------------------------
+
+	private void saveButtonIsClicked() {
+		clickOn(activity.findViewById(R.id.commitButton));
+	}
+
+	private void addExerciseToTraining() {
 		// add button is clicked
 		clickOn(activity.findViewById(R.id.addExerciseButton));
 		// exercise is selected on dialog
@@ -179,35 +236,11 @@ public class AddTrainingActivityTest extends BaseActivityTest {
 		UIUtils.setTextToUI(dialog.findViewById(R.id.repetitions), "5");
 		// click on dialog's commit button
 		clickOn(dialog.findViewById(R.id.commitButton));
-		// THEN
-		// exercise has been added to training with correct order
-		TrainingExercise te = trainingExerciseDao.queryForId(1);
-		assertNotNull(te);
-		assertThat(te.getExercise().getName(), is(exerciseDao.queryForId(1)
-				.getName()));
-		// 90 seconds = 1 min 30 secs
-		assertThat(te.getSeconds(), is(90));
-		assertThat(te.getReps(), is(5));
-		assertThat(te.getPos(), is(0));
-		assertNotNull(te.getTraining());
-		// UI shows new exercise
-		LinearLayout exercisesList = (LinearLayout) activity
-				.findViewById(R.id.exercisesLayout);
-		assertThat(exercisesList.getChildCount(), is(1));
 	}
 
-	// Package protected ---------------------------------------------
-
-	// Protected -----------------------------------------------------
-
-	@Override
-	protected Activity newActivity() {
-		return new AddTrainingActivity();
-	}
-
-	// Private -------------------------------------------------------
-	private void saveButtonIsClicked() {
-		clickOn(activity.findViewById(R.id.commitButton));
+	private void assertChildrenNumber(View view, int number) {
+		LinearLayout viewGroup = (LinearLayout) view;
+		assertThat(viewGroup.getChildCount(), is(number));
 	}
 
 	private void prepareWithExerciseAndName() {
