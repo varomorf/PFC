@@ -12,6 +12,7 @@ import org.junit.runner.RunWith;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 
 import com.gyp.pfc.AddExerciseDialog;
@@ -23,6 +24,7 @@ import com.gyp.pfc.activities.exercise.BaseExerciseTest;
 import com.gyp.pfc.data.db.DatabaseHelper;
 import com.gyp.pfc.data.domain.Exercise;
 import com.gyp.pfc.data.domain.Training;
+import com.gyp.pfc.data.domain.TrainingExercise;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
 import com.xtremelabs.robolectric.shadows.ShadowDialog;
 
@@ -34,6 +36,7 @@ public class AddTrainingActivityTest extends BaseActivityTest {
 	// Attributes ----------------------------------------------------
 	private RuntimeExceptionDao<Training, Integer> trainingDao;
 	private RuntimeExceptionDao<Exercise, Integer> exerciseDao;
+	private RuntimeExceptionDao<TrainingExercise, Integer> trainingExerciseDao;
 
 	// Static --------------------------------------------------------
 
@@ -46,6 +49,8 @@ public class AddTrainingActivityTest extends BaseActivityTest {
 		// init DAOs
 		trainingDao = new DatabaseHelper(realActivity).getTrainingDao();
 		exerciseDao = new DatabaseHelper(realActivity).getExerciseDao();
+		trainingExerciseDao = new DatabaseHelper(realActivity)
+				.getTrainingExerciseDao();
 		List<Training> trainings = trainingDao.queryForAll();
 		trainingDao.delete(trainings);
 		List<Exercise> exercises = exerciseDao.queryForAll();
@@ -153,6 +158,44 @@ public class AddTrainingActivityTest extends BaseActivityTest {
 		assertToastText(R.string.emptyExercisesList);
 		// no dialog is shown
 		assertNull(ShadowDialog.getLatestDialog());
+	}
+
+	@Test
+	public void shouldAddExerciseToTraining() {
+		// 1 exercise on DB
+		BaseExerciseTest.insertExercise(exerciseDao,
+				BaseExerciseTest.EXERCISE_NAME, BaseExerciseTest.EXERCISE_DESC);
+		// activity is shown
+		createActivity();
+		// WHEN
+		// add button is clicked
+		clickOn(activity.findViewById(R.id.addExerciseButton));
+		// exercise is selected on dialog
+		AddExerciseDialog dialog = (AddExerciseDialog) ShadowDialog.getLatestDialog();
+		Spinner spinner = (Spinner) dialog.findViewById(R.id.exerciseSpinner);
+		spinner.setSelection(0);
+		// enter 1 minute
+		UIUtils.setTextToUI(dialog.findViewById(R.id.minutes), "1");
+		// enter 30 seconds
+		UIUtils.setTextToUI(dialog.findViewById(R.id.seconds), "30");
+		// enter 5 repetitions
+		UIUtils.setTextToUI(dialog.findViewById(R.id.repetitions), "5");
+		// click on dialog's commit button
+		dialog.commitButton(null);
+		// THEN
+		// exercise has been added to training with correct order
+		TrainingExercise te = trainingExerciseDao.queryForId(1);
+		assertNotNull(te);
+		assertThat(te.getExercise().getName(), is(exerciseDao.queryForId(1)
+				.getName()));
+		// 90 seconds = 1 min 30 secs
+		assertThat(te.getSeconds(), is(90));
+		assertThat(te.getReps(), is(5));
+		assertThat(te.getPos(), is(0));
+		assertNotNull(te.getTraining());
+		// UI shows new exercise
+		LinearLayout exercisesList = (LinearLayout) activity.findViewById(R.id.exercisesLayout);
+		assertThat(exercisesList.getChildCount(), is(1));
 	}
 
 	// Package protected ---------------------------------------------
