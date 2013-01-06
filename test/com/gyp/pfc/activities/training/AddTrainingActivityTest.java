@@ -246,7 +246,7 @@ public class AddTrainingActivityTest extends BaseActivityTest {
 		assertThat(te.getSeconds(),is(300));
 		assertThat(te.getReps(),is(10));
 		// UI shows changes
-		View itemTitle = UIUtils.getSibling(item, 0);
+		View itemTitle = UIUtils.getChildFromView(item, 0);
 		assertThat(UIUtils.getTextFromUI(itemTitle), is(NEW_EXERCISE_NAME));
 	}
 
