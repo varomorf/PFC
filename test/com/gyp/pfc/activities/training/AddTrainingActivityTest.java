@@ -34,6 +34,8 @@ public class AddTrainingActivityTest extends BaseActivityTest {
 
 	// Constants -----------------------------------------------------
 	private static final String TRAINING_NAME = "TRAINING_NAME";
+	private static final String NEW_EXERCISE_NAME = "NEW_EXERCISE_NAME";
+	private static final String NEW_EXERCISE_DESC = "NEW_EXERCISE_DESC";
 	// Attributes ----------------------------------------------------
 	private RuntimeExceptionDao<Training, Integer> trainingDao;
 	private RuntimeExceptionDao<Exercise, Integer> exerciseDao;
@@ -178,7 +180,7 @@ public class AddTrainingActivityTest extends BaseActivityTest {
 		assertThat(te.getPos(), is(0));
 		assertNotNull(te.getTraining());
 		// UI shows new exercise
-		assertChildrenNumber(activity.findViewById(R.id.exercisesLayout),1);
+		assertChildrenNumber(activity.findViewById(R.id.exercisesLayout), 1);
 	}
 
 	@Test
@@ -189,20 +191,63 @@ public class AddTrainingActivityTest extends BaseActivityTest {
 		// 2 exercises added to the training
 		addExerciseToTraining();
 		addExerciseToTraining();
-		assertChildrenNumber(activity.findViewById(R.id.exercisesLayout),2);
+		assertChildrenNumber(activity.findViewById(R.id.exercisesLayout), 2);
 		// WHEN
 		// delete button clicked on item 1
-		View item = UIUtils.getChildFromView(activity.findViewById(R.id.exercisesLayout), 0);
+		View item = UIUtils.getChildFromView(
+				activity.findViewById(R.id.exercisesLayout), 0);
 		clickOn(item.findViewById(R.id.deleteButton));
 		// THEN
 		// training no longer has exercise
 		assertThat(trainingDao.queryForId(1).getExercises().size(), is(1));
 		// UI doesn't show exercise on list
-		assertChildrenNumber(activity.findViewById(R.id.exercisesLayout),1);
+		assertChildrenNumber(activity.findViewById(R.id.exercisesLayout), 1);
 		// remaining exercise has correct pos
 		assertThat(trainingExerciseDao.queryForId(2).getPos(), is(1));
 		// training exercise was deleted
 		assertThat(trainingExerciseDao.countOf(), is(1l));
+	}
+
+	@Test
+	public void shouldEditExerciseFromList() {
+		// GIVEN
+		// activity ready with exercise on DB and name entered
+		prepareWithExerciseAndName();
+		// new exercise
+		BaseExerciseTest.insertExercise(exerciseDao, NEW_EXERCISE_NAME,
+				NEW_EXERCISE_DESC);
+		// 2 exercises added to the training
+		addExerciseToTraining();
+		addExerciseToTraining();
+		assertChildrenNumber(activity.findViewById(R.id.exercisesLayout), 2);
+		// WHEN
+		// edit button clicked on item 1
+		View item = UIUtils.getChildFromView(
+				activity.findViewById(R.id.exercisesLayout), 0);
+		clickOn(item.findViewById(R.id.editButton));
+		// new data is entered
+		// second exercise is selected on dialog
+		AddExerciseDialog dialog = (AddExerciseDialog) ShadowDialog
+				.getLatestDialog();
+		Spinner spinner = (Spinner) dialog.findViewById(R.id.exerciseSpinner);
+		spinner.setSelection(1);
+		// enter 5 minutes
+		UIUtils.setTextToUI(dialog.findViewById(R.id.minutes), "5");
+		// enter 0 seconds
+		UIUtils.setTextToUI(dialog.findViewById(R.id.seconds), "0");
+		// enter 10 repetitions
+		UIUtils.setTextToUI(dialog.findViewById(R.id.repetitions), "10");
+		// click on dialog's commit button
+		clickOn(dialog.findViewById(R.id.commitButton));
+		// THEN
+		// trainingExercise updated
+		TrainingExercise te = trainingExerciseDao.queryForId(1);
+		assertThat(te.getExercise().getName(),is(NEW_EXERCISE_NAME));
+		assertThat(te.getSeconds(),is(300));
+		assertThat(te.getReps(),is(10));
+		// UI shows changes
+		View itemTitle = UIUtils.getSibling(item, 0);
+		assertThat(UIUtils.getTextFromUI(itemTitle), is(NEW_EXERCISE_NAME));
 	}
 
 	// Package protected ---------------------------------------------
