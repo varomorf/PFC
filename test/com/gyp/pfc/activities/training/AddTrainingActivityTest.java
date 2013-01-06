@@ -203,7 +203,7 @@ public class AddTrainingActivityTest extends BaseActivityTest {
 		// UI doesn't show exercise on list
 		assertChildrenNumber(activity.findViewById(R.id.exercisesLayout), 1);
 		// remaining exercise has correct pos
-		assertThat(trainingExerciseDao.queryForId(2).getPos(), is(1));
+		assertThat(trainingExerciseDao.queryForId(2).getPos(), is(0));
 		// training exercise was deleted
 		assertThat(trainingExerciseDao.countOf(), is(1l));
 	}
