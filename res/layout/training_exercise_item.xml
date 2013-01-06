@@ -5,6 +5,12 @@
     android:contentDescription="@string/label_edit"
     android:orientation="horizontal" >
 
+    <ImageView
+        android:id="@+id/drag_handle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" 
+        android:src="@drawable/slide_vertical"/>
+
     <TextView
         android:id="@+id/title"
         android:layout_width="0dip"
@@ -20,9 +26,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="@string/label_edit"
+        android:onClick="editButton"
         android:scaleType="center"
-        android:src="@drawable/pencil" 
-        android:onClick="editButton"/>
+        android:src="@drawable/pencil" />
 
     <ImageButton
         android:id="@+id/deleteButton"
@@ -30,8 +36,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="@string/label_delete"
+        android:onClick="deleteButton"
         android:scaleType="center"
-        android:src="@drawable/delete"
-        android:onClick="deleteButton" />
+        android:src="@drawable/delete" />
 
 </LinearLayout>
