@@ -4,6 +4,8 @@ import java.io.File;
 
 import org.junit.runners.model.InitializationError;
 
+import com.gyp.pfc.shadows.ShadowDragSortListView;
+import com.xtremelabs.robolectric.Robolectric;
 import com.xtremelabs.robolectric.RobolectricTestRunner;
 
 /**
@@ -21,15 +23,24 @@ public class CustomTestRunner extends RobolectricTestRunner {
 	// Static --------------------------------------------------------
 
 	// Constructors --------------------------------------------------
+	@SuppressWarnings("rawtypes")
 	public CustomTestRunner(Class testClass) throws InitializationError {
 		// defaults to "AndroidManifest.xml", "res" in the current directory
 		super(testClass, new File("../PersonalFitnessCoach"));
+		addClassOrPackageToInstrument("com.mobeta.android.dslv.DragSortListView");
 	}
+
 	// Public --------------------------------------------------------
 
 	// Package protected ---------------------------------------------
 
 	// Protected -----------------------------------------------------
+
+	@Override
+	protected void bindShadowClasses() {
+		super.bindShadowClasses();
+		Robolectric.bindShadowClass(ShadowDragSortListView.class);
+	}
 
 	// Private -------------------------------------------------------
 
