@@ -11,8 +11,10 @@ import android.widget.Spinner;
 
 import com.gyp.pfc.R;
 import com.gyp.pfc.UIUtils;
+import com.gyp.pfc.activities.training.AddTrainingActivity;
 import com.gyp.pfc.adapters.ExerciseListViewAdapter;
 import com.gyp.pfc.data.domain.Exercise;
+import com.gyp.pfc.data.domain.TrainingExercise;
 
 /**
  * Dialog for adding exercises to a training
@@ -29,6 +31,7 @@ public class AddExerciseDialog extends Dialog implements
 
 	private AddExerciseDialogListener listener;
 	private List<Exercise> exercises;
+	private TrainingExercise te;
 
 	// Static --------------------------------------------------------
 
@@ -45,10 +48,12 @@ public class AddExerciseDialog extends Dialog implements
 	 *            A list of exercises to populate the dialog's spinner
 	 */
 	public AddExerciseDialog(Context context,
-			AddExerciseDialogListener listener, List<Exercise> exercises) {
+			AddExerciseDialogListener listener, List<Exercise> exercises,
+			TrainingExercise te) {
 		super(context);
 		this.listener = listener;
 		this.exercises = exercises;
+		this.te = te;
 	}
 
 	// Public --------------------------------------------------------
@@ -60,8 +65,16 @@ public class AddExerciseDialog extends Dialog implements
 	 */
 	public void onClick(View v) {
 		// call the listener and dismiss
-		listener.onDialogClosing(this);
+		if (te == null) {
+			listener.addNewExercise(this);
+		} else {
+			listener.updateExercise(this);
+		}
 		dismiss();
+	}
+	
+	public TrainingExercise getTrainingExercise() {
+		return te;
 	}
 
 	// Package protected ---------------------------------------------
@@ -97,9 +110,29 @@ public class AddExerciseDialog extends Dialog implements
 	}
 
 	private void fillValues() {
-		UIUtils.setTextToUI(findViewById(R.id.minutes), "0");
-		UIUtils.setTextToUI(findViewById(R.id.seconds), "0");
-		UIUtils.setTextToUI(findViewById(R.id.repetitions), "1");
+		if (te == null) {
+			UIUtils.setTextToUI(findViewById(R.id.minutes), "0");
+			UIUtils.setTextToUI(findViewById(R.id.seconds), "0");
+			UIUtils.setTextToUI(findViewById(R.id.repetitions), "1");
+		} else {
+			// get spinner from view
+			Spinner spinner = (Spinner) findViewById(R.id.exerciseSpinner);
+			// get position of the exercise on the spinner
+			int pos = ((ExerciseListViewAdapter) spinner.getAdapter())
+					.getPosition(te.getExercise());
+			// select the exercise on the spinner
+			spinner.setSelection(pos);
+			// calculate and set minutes
+			int minutes = te.getSeconds()
+					/ AddTrainingActivity.SECONDS_PER_MINUTE;
+			UIUtils.setTextToUI(findViewById(R.id.minutes), minutes);
+			// calculate and set seconds
+			int seconds = te.getSeconds()
+					- (minutes * AddTrainingActivity.SECONDS_PER_MINUTE);
+			UIUtils.setTextToUI(findViewById(R.id.seconds), seconds);
+			// set repetitions
+			UIUtils.setTextToUI(findViewById(R.id.repetitions), te.getReps());
+		}
 	}
 
 	// Inner classes -------------------------------------------------
@@ -112,12 +145,24 @@ public class AddExerciseDialog extends Dialog implements
 	public interface AddExerciseDialogListener {
 		/**
 		 * <p>
-		 * Callback method for when the dialog's commit button is clicked
+		 * Callback method for when the dialog's commit button is clicked for
+		 * adding a new exercise
 		 * </p>
 		 * 
 		 * @param dialog
 		 *            The dialog passes itself to the listener callback method
 		 */
-		void onDialogClosing(AddExerciseDialog dialog);
+		void addNewExercise(AddExerciseDialog dialog);
+
+		/**
+		 * <p>
+		 * Callback method for when the dialog's commit button is clicked for
+		 * updating an existing exercise
+		 * </p>
+		 * 
+		 * @param dialog
+		 *            The dialog passes itself to the listener callback method
+		 */
+		void updateExercise(AddExerciseDialog dialog);
 	}
 }

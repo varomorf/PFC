@@ -31,7 +31,7 @@ public class AddTrainingActivity extends OrmLiteBaseActivity<DatabaseHelper>
 		implements AddExerciseDialogListener {
 
 	// Constants -----------------------------------------------------
-	private static final int SECONDS_PER_MINUTE = 60;
+	public static final int SECONDS_PER_MINUTE = 60;
 	// Attributes ----------------------------------------------------
 
 	private Training training;
@@ -67,19 +67,7 @@ public class AddTrainingActivity extends OrmLiteBaseActivity<DatabaseHelper>
 		// assure training
 		getTraining();
 		if (assertTraining()) {
-			// get list of exercises
-			List<Exercise> exercises = getHelper().getExerciseDao()
-					.queryForAll();
-			if (exercises.size() > 0) {
-				// create dialog passing this activity as listener
-				Dialog dialog = new AddExerciseDialog(this, this, exercises);
-				// show the dialog
-				dialog.show();
-			} else {
-				// no exercises -> show toast with error message
-				Toast.makeText(this, R.string.emptyExercisesList,
-						Toast.LENGTH_SHORT).show();
-			}
+			prepareAndShowDialog(null);
 		}
 	}
 
@@ -89,10 +77,9 @@ public class AddTrainingActivity extends OrmLiteBaseActivity<DatabaseHelper>
 	 * @param view
 	 */
 	public void deleteButton(View view) {
-		// get position of item for which button was pressed
-		LinearLayout exerciseList = (LinearLayout) findViewById(R.id.exercisesLayout); 
-		int pos = exerciseList.indexOfChild((View) view.getParent());
+		int pos = getPositionOfItemForPressedButton(view);
 		// remove item from layout
+		LinearLayout exerciseList = (LinearLayout) findViewById(R.id.exercisesLayout);
 		exerciseList.removeViewAt(pos);
 		// remove trainingExercise
 		TrainingExercise te = getTrainingExercise(pos);
@@ -103,10 +90,23 @@ public class AddTrainingActivity extends OrmLiteBaseActivity<DatabaseHelper>
 	}
 
 	/**
+	 * Callback for the edit buttons of the added exercises
+	 * 
+	 * @param view
+	 */
+	public void editButton(View view) {
+		int pos = getPositionOfItemForPressedButton(view);
+		// get trainingExercise for that pos
+		TrainingExercise selected = getTrainingExercise(pos);
+		// prepare and show dialog for edition
+		prepareAndShowDialog(selected);
+	}
+
+	/**
 	 * Extracts the data from the closing dialog and creates a TrainingExercise
 	 * entity with it
 	 */
-	public void onDialogClosing(AddExerciseDialog dialog) {
+	public void addNewExercise(AddExerciseDialog dialog) {
 		// save training so it can be assigned on the TrainingExercise
 		getHelper().getTrainingDao().createOrUpdate(training);
 		// create new TrainingExercise entity
@@ -124,6 +124,23 @@ public class AddTrainingActivity extends OrmLiteBaseActivity<DatabaseHelper>
 		exercises.addView(view);
 		// refresh training's exercise list
 		getHelper().getTrainingDao().refresh(training);
+	}
+
+	/**
+	 * Extracts the data from the closing dialog and updates the
+	 * TrainingExercise entity with it
+	 */
+	public void updateExercise(AddExerciseDialog dialog) {
+		// get trainingExercise from dialog
+		TrainingExercise te = dialog.getTrainingExercise();
+		setExerciseSecondsAndReps(dialog, te);
+		// update on DB
+		getHelper().getTrainingExerciseDao().update(te);
+		// update UI
+		LinearLayout exercises = (LinearLayout) findViewById(R.id.exercisesLayout);
+		View item = exercises.getChildAt(te.getPos());
+		UIUtils.setTextToUI(item.findViewById(R.id.title), te.getExercise()
+				.getName());
 	}
 
 	// Package protected ---------------------------------------------
@@ -189,6 +206,17 @@ public class AddTrainingActivity extends OrmLiteBaseActivity<DatabaseHelper>
 		training = getTraining();
 		// set training
 		te.setTraining(training);
+		setExerciseSecondsAndReps(dialog, te);
+		// get number of exercises entered
+		int num = ((LinearLayout) findViewById(R.id.exercisesLayout))
+				.getChildCount();
+		// set pos to num
+		te.setPos(num);
+		return te;
+	}
+
+	private void setExerciseSecondsAndReps(AddExerciseDialog dialog,
+			TrainingExercise te) {
 		// set exercise from spinner
 		Spinner spinner = (Spinner) dialog.findViewById(R.id.exerciseSpinner);
 		te.setExercise((Exercise) spinner.getSelectedItem());
@@ -204,33 +232,51 @@ public class AddTrainingActivity extends OrmLiteBaseActivity<DatabaseHelper>
 		String seconds = UIUtils.getTextFromUI(dialog
 				.findViewById(R.id.seconds));
 		te.setSeconds(te.getSeconds() + Integer.parseInt(seconds));
-		// get number of exercises entered
-		int num = ((LinearLayout) findViewById(R.id.exercisesLayout))
-				.getChildCount();
-		// set pos to num
-		te.setPos(num);
-		return te;
 	}
-	
-	private TrainingExercise getTrainingExercise(int pos){
+
+	private TrainingExercise getTrainingExercise(int pos) {
 		// prepare matcher object
 		TrainingExercise matcher = new TrainingExercise();
 		matcher.setPos(pos);
 		matcher.setTraining(training);
 		// get entity from DB
-		return getHelper().getTrainingExerciseDao().queryForMatching(matcher).get(0);
+		return getHelper().getTrainingExerciseDao().queryForMatching(matcher)
+				.get(0);
 	}
-	
-	private void fixExercisesPosition(int pos){
+
+	private void fixExercisesPosition(int pos) {
 		// iterate exercises to fix their pos
 		for (TrainingExercise te : training.getExercises()) {
 			// if position greater that passed -> fix
-			if(te.getPos() > pos){
+			if (te.getPos() > pos) {
 				// decrease position
 				te.setPos(te.getPos() - 1);
 				getHelper().getTrainingExerciseDao().update(te);
 			}
 		}
 	}
+
+	private void prepareAndShowDialog(TrainingExercise selected) {
+		// get list of exercises
+		List<Exercise> exercises = getHelper().getExerciseDao().queryForAll();
+		if (exercises.size() > 0) {
+			// create dialog passing this activity as listener
+			Dialog dialog = new AddExerciseDialog(this, this, exercises,
+					selected);
+			// show the dialog
+			dialog.show();
+		} else {
+			// no exercises -> show toast with error message
+			Toast.makeText(this, R.string.emptyExercisesList,
+					Toast.LENGTH_SHORT).show();
+		}
+	}
+
+	private int getPositionOfItemForPressedButton(View view) {
+		// get position of item for which button was pressed
+		LinearLayout exerciseList = (LinearLayout) findViewById(R.id.exercisesLayout);
+		return exerciseList.indexOfChild((View) view.getParent());
+	}
 	// Inner classes -------------------------------------------------
+
 }
