@@ -58,6 +58,20 @@ public final class UIUtils {
 	}
 
 	/**
+	 * <p>
+	 * Overloaded setTextToUI(View view, CharSequence text) that receives an int
+	 * </p>
+	 * 
+	 * @param view
+	 *            The view to which to set the text
+	 * @param value
+	 *            The int value to be converted to text
+	 */
+	public static void setTextToUI(View view, int value) {
+		setTextToUI(view, Integer.toString(value));
+	}
+
+	/**
 	 * Clears the text of the passed view as long as it's a {@link TextView}
 	 * 
 	 * @param view
@@ -105,7 +119,7 @@ public final class UIUtils {
 	public static View getSibling(View view, int pos) {
 		View sibling = null;
 		ViewParent parent = view.getParent();
-		if(parent instanceof ViewGroup){
+		if (parent instanceof ViewGroup) {
 			sibling = getChildFromView((View) parent, pos);
 		}
 		return sibling;
