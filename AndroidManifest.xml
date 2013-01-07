@@ -32,6 +32,7 @@
         <activity android:name=".activities.exercise.AddExerciseActivity"></activity>
         <activity android:name=".activities.exercise.EditExerciseActivity"></activity>
         <activity android:name=".activities.training.AddTrainingActivity"></activity>
+        <activity android:name=".activities.training.TrainingListActivity"></activity>
     </application>
 
 </manifest>
