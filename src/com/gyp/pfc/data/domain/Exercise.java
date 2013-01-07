@@ -12,14 +12,14 @@ import com.j256.ormlite.table.DatabaseTable;
  * 
  */
 @DatabaseTable
-public class Exercise implements Serializable{
+public class Exercise implements Serializable {
 
 	// Constants -----------------------------------------------------
-	
+
 	private static final long serialVersionUID = 3506529017983171193L;
-	
+
 	// Attributes ----------------------------------------------------
-	
+
 	@DatabaseField(generatedId = true)
 	private int id;
 	@DatabaseField
@@ -30,7 +30,7 @@ public class Exercise implements Serializable{
 	// Static --------------------------------------------------------
 
 	// Constructors --------------------------------------------------
-	
+
 	/**
 	 * ORMLite needs a no-arg constructor
 	 */
@@ -67,7 +67,20 @@ public class Exercise implements Serializable{
 	public String toString() {
 		return name;
 	}
-	
+
+	@Override
+	public boolean equals(Object o) {
+		if (o instanceof Exercise) {
+			return ((Exercise) o).getId() == id;
+		}
+		return false;
+	}
+
+	@Override
+	public int hashCode() {
+		return id;
+	}
+
 	// Package protected ---------------------------------------------
 
 	// Protected -----------------------------------------------------

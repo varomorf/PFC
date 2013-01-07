@@ -127,15 +127,17 @@ public class TrainingExercise {
 
 	@Override
 	public boolean equals(Object o) {
-		TrainingExercise other = (TrainingExercise) o;
-		return id == other.getId();
+		if (o instanceof TrainingExercise) {
+			return id == ((TrainingExercise) o).getId();
+		}
+		return false;
 	}
 
 	@Override
 	public int hashCode() {
 		return id;
 	}
-	
+
 	// Package protected ---------------------------------------------
 
 	// Protected -----------------------------------------------------
