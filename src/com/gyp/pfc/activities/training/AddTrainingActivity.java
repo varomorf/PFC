@@ -1,5 +1,6 @@
 package com.gyp.pfc.activities.training;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
@@ -7,12 +8,13 @@ import org.apache.commons.lang.StringUtils;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.gyp.pfc.R;
 import com.gyp.pfc.UIUtils;
+import com.gyp.pfc.adapters.TrainingExerciseAdapter;
 import com.gyp.pfc.data.db.DatabaseHelper;
 import com.gyp.pfc.data.domain.Exercise;
 import com.gyp.pfc.data.domain.Training;
@@ -20,6 +22,7 @@ import com.gyp.pfc.data.domain.TrainingExercise;
 import com.gyp.pfc.dialogs.AddExerciseDialog;
 import com.gyp.pfc.dialogs.AddExerciseDialog.AddExerciseDialogListener;
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
+import com.mobeta.android.dslv.DragSortListView;
 
 /**
  * Activity to add trainings and reference exercises to trainings.
@@ -34,7 +37,15 @@ public class AddTrainingActivity extends OrmLiteBaseActivity<DatabaseHelper>
 	public static final int SECONDS_PER_MINUTE = 60;
 	// Attributes ----------------------------------------------------
 
+	private TrainingExerciseAdapter adapter;
 	private Training training;
+	private DragSortListView.DropListener onDrop = new DragSortListView.DropListener() {
+		@Override
+		public void drop(int from, int to) {
+			System.out.println(from);
+			System.out.println(to);
+		}
+	};
 
 	// Static --------------------------------------------------------
 
@@ -78,9 +89,10 @@ public class AddTrainingActivity extends OrmLiteBaseActivity<DatabaseHelper>
 	 */
 	public void deleteButton(View view) {
 		int pos = getPositionOfItemForPressedButton(view);
-		// remove item from layout
-		LinearLayout exerciseList = (LinearLayout) findViewById(R.id.exercisesLayout);
-		exerciseList.removeViewAt(pos);
+		// remove item from list's adapter
+		adapter.remove(getTrainingExercise(pos));
+		// refresh the adapter to update UI
+		adapter.notifyDataSetChanged();
 		// remove trainingExercise
 		TrainingExercise te = getTrainingExercise(pos);
 		getHelper().getTrainingExerciseDao().delete(te);
@@ -113,15 +125,10 @@ public class AddTrainingActivity extends OrmLiteBaseActivity<DatabaseHelper>
 		TrainingExercise te = createTrainingExercise(dialog);
 		// save TrainingExercise to DB
 		getHelper().getTrainingExerciseDao().create(te);
-		// inflate a training_exercise view
-		View view = getLayoutInflater().inflate(
-				R.layout.training_exercise_item, null);
-		// set title
-		UIUtils.setTextToUI(view.findViewById(R.id.title), te.getExercise()
-				.getName());
-		// add new view to exercise list
-		LinearLayout exercises = (LinearLayout) findViewById(R.id.exercisesLayout);
-		exercises.addView(view);
+		// add new exercise to list's adapter
+		adapter.add(te);
+		// refresh the adapter to update UI
+		adapter.notifyDataSetChanged();
 		// refresh training's exercise list
 		getHelper().getTrainingDao().refresh(training);
 	}
@@ -136,11 +143,13 @@ public class AddTrainingActivity extends OrmLiteBaseActivity<DatabaseHelper>
 		setExerciseSecondsAndReps(dialog, te);
 		// update on DB
 		getHelper().getTrainingExerciseDao().update(te);
-		// update UI
-		LinearLayout exercises = (LinearLayout) findViewById(R.id.exercisesLayout);
-		View item = exercises.getChildAt(te.getPos());
-		UIUtils.setTextToUI(item.findViewById(R.id.title), te.getExercise()
-				.getName());
+		// refresh training and update UI
+		getHelper().getTrainingDao().refresh(training);
+		adapter.clear();
+		for (TrainingExercise obj : training.getExercises()) {
+			adapter.add(obj);
+		}
+		adapter.notifyDataSetChanged();
 	}
 
 	// Package protected ---------------------------------------------
@@ -151,6 +160,14 @@ public class AddTrainingActivity extends OrmLiteBaseActivity<DatabaseHelper>
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.training_data);
+
+		// create adapter for the list view
+		adapter = new TrainingExerciseAdapter(this,
+				new ArrayList<TrainingExercise>());
+		// retrieve the drag'n'drop list view to set listener and adapter
+		DragSortListView lv = (DragSortListView) findViewById(R.id.exercisesLayout);
+		lv.setDropListener(onDrop);
+		lv.setAdapter(adapter);
 	}
 
 	// Private -------------------------------------------------------
@@ -208,7 +225,7 @@ public class AddTrainingActivity extends OrmLiteBaseActivity<DatabaseHelper>
 		te.setTraining(training);
 		setExerciseSecondsAndReps(dialog, te);
 		// get number of exercises entered
-		int num = ((LinearLayout) findViewById(R.id.exercisesLayout))
+		int num = ((ListView) findViewById(R.id.exercisesLayout))
 				.getChildCount();
 		// set pos to num
 		te.setPos(num);
@@ -274,9 +291,10 @@ public class AddTrainingActivity extends OrmLiteBaseActivity<DatabaseHelper>
 
 	private int getPositionOfItemForPressedButton(View view) {
 		// get position of item for which button was pressed
-		LinearLayout exerciseList = (LinearLayout) findViewById(R.id.exercisesLayout);
-		return exerciseList.indexOfChild((View) view.getParent());
+		DragSortListView exerciseList = (DragSortListView) findViewById(R.id.exercisesLayout);
+		return exerciseList.indexOfChild((View) view.getParent().getParent());
 	}
+
 	// Inner classes -------------------------------------------------
 
 }

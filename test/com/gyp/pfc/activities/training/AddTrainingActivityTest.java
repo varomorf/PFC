@@ -13,7 +13,7 @@ import org.junit.runner.RunWith;
 import android.app.Activity;
 import android.app.Dialog;
 import android.view.View;
-import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.Spinner;
 
 import com.gyp.pfc.CustomTestRunner;
@@ -26,7 +26,9 @@ import com.gyp.pfc.data.domain.Exercise;
 import com.gyp.pfc.data.domain.Training;
 import com.gyp.pfc.data.domain.TrainingExercise;
 import com.gyp.pfc.dialogs.AddExerciseDialog;
+import com.gyp.pfc.shadows.ShadowDragSortListView;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
+import com.xtremelabs.robolectric.Robolectric;
 import com.xtremelabs.robolectric.shadows.ShadowDialog;
 
 @RunWith(CustomTestRunner.class)
@@ -242,11 +244,13 @@ public class AddTrainingActivityTest extends BaseActivityTest {
 		// THEN
 		// trainingExercise updated
 		TrainingExercise te = trainingExerciseDao.queryForId(1);
-		assertThat(te.getExercise().getName(),is(NEW_EXERCISE_NAME));
-		assertThat(te.getSeconds(),is(300));
-		assertThat(te.getReps(),is(10));
+		assertThat(te.getExercise().getName(), is(NEW_EXERCISE_NAME));
+		assertThat(te.getSeconds(), is(300));
+		assertThat(te.getReps(), is(10));
 		// UI shows changes
-		View itemTitle = UIUtils.getChildFromView(item, 0);
+		item = UIUtils.getChildFromView(
+				activity.findViewById(R.id.exercisesLayout), 0);
+		View itemTitle = UIUtils.getChildFromView(UIUtils.getChildFromView(item,0), 1);
 		assertThat(UIUtils.getTextFromUI(itemTitle), is(NEW_EXERCISE_NAME));
 	}
 
@@ -284,7 +288,7 @@ public class AddTrainingActivityTest extends BaseActivityTest {
 	}
 
 	private void assertChildrenNumber(View view, int number) {
-		LinearLayout viewGroup = (LinearLayout) view;
+		ListView viewGroup = (ListView) view;
 		assertThat(viewGroup.getChildCount(), is(number));
 	}
 

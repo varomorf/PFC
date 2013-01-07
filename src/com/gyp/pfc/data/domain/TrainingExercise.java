@@ -120,6 +120,21 @@ public class TrainingExercise {
 		this.training = training;
 	}
 
+	public String toString() {
+		return exercise.getName();
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		TrainingExercise other = (TrainingExercise) o;
+		return id == other.getId();
+	}
+
+	@Override
+	public int hashCode() {
+		return id;
+	}
+	
 	// Package protected ---------------------------------------------
 
 	// Protected -----------------------------------------------------

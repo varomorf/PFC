@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:dslv="http://schemas.android.com/apk/res/com.mobeta.android.demodslv"
     android:id="@+id/mainLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -24,7 +25,6 @@
             android:layout_margin="@dimen/defaultMargin"
             android:onClick="commitButton"
             android:text="@string/save" />
-
     </LinearLayout>
 
     <LinearLayout
@@ -78,23 +78,14 @@
                 android:layout_marginLeft="@dimen/defaultMargin"
                 android:onClick="addExercise"
                 android:text="@string/addFoodButton" />
-
         </LinearLayout>
 
-        <ScrollView
-            android:id="@+id/scrollView1"
+        <com.mobeta.android.dslv.DragSortListView
+            android:id="@+id/exercisesLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
-
-            <LinearLayout
-                android:id="@+id/exercisesLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/defaultMargin"
-                android:orientation="vertical" >
-
-            </LinearLayout>
-        </ScrollView>
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/defaultMargin"
+            android:orientation="vertical" />
     </LinearLayout>
 
 </LinearLayout>
