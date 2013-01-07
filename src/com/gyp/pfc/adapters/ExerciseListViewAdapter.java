@@ -7,9 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.TextView;
 
 import com.gyp.pfc.R;
+import com.gyp.pfc.UIUtils;
 import com.gyp.pfc.data.domain.Exercise;
 
 /**
@@ -53,12 +53,9 @@ public class ExerciseListViewAdapter extends ArrayAdapter<Exercise> {
 			// generate view inflating the layout
 			view = inflater.inflate(R.layout.exercise_list_item, null);
 		}
-		// get title from view
-		TextView title = (TextView) view.findViewById(R.id.title);
-
 		// populate the item with the data
 		Exercise exercise = getItem(position);
-		title.setText(exercise.getName());
+		UIUtils.setTextToUI(view.findViewById(R.id.title), exercise.getName());
 
 		return view;
 	}
