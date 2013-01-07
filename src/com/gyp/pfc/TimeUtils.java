@@ -1,5 +1,7 @@
 package com.gyp.pfc;
 
+import android.annotation.SuppressLint;
+
 /**
  * Utility methods to handle time
  * 
@@ -76,6 +78,14 @@ public final class TimeUtils {
 		return secondsFromMinutesAndSeconds(mins, secs);
 	}
 
+	/**
+	 * Formats the passed seconds in mm:ss time format
+	 * 
+	 * @param seconds
+	 *            The number of seconds to be formatted
+	 * @return The formatted time
+	 */
+	@SuppressLint("DefaultLocale")
 	public static String formatTime(int seconds) {
 		int mins = minutesFromSeconds(seconds);
 		int secs = restingSecondsFromSeconds(seconds);
