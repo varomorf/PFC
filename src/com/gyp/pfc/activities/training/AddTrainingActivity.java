@@ -22,6 +22,7 @@ import com.gyp.pfc.data.domain.TrainingExercise;
 import com.gyp.pfc.dialogs.AddExerciseDialog;
 import com.gyp.pfc.dialogs.AddExerciseDialog.AddExerciseDialogListener;
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
+import com.mobeta.android.dslv.DragSortController;
 import com.mobeta.android.dslv.DragSortListView;
 
 /**
@@ -42,8 +43,7 @@ public class AddTrainingActivity extends OrmLiteBaseActivity<DatabaseHelper>
 	private DragSortListView.DropListener onDrop = new DragSortListView.DropListener() {
 		@Override
 		public void drop(int from, int to) {
-			System.out.println(from);
-			System.out.println(to);
+			moveExercise(from,to);
 		}
 	};
 
@@ -166,8 +166,7 @@ public class AddTrainingActivity extends OrmLiteBaseActivity<DatabaseHelper>
 				new ArrayList<TrainingExercise>());
 		// retrieve the drag'n'drop list view to set listener and adapter
 		DragSortListView lv = (DragSortListView) findViewById(R.id.exercisesLayout);
-		lv.setDropListener(onDrop);
-		lv.setAdapter(adapter);
+		configureDragSortListView(lv);
 	}
 
 	// Private -------------------------------------------------------
@@ -214,6 +213,17 @@ public class AddTrainingActivity extends OrmLiteBaseActivity<DatabaseHelper>
 		// set training name
 		training.setName(name);
 		return training;
+	}
+
+	private void configureDragSortListView(DragSortListView lv) {
+		lv.setDropListener(onDrop);
+		lv.setDragEnabled(true);
+		DragSortController controller = new DragSortController(lv);
+		controller.setDragHandleId(R.id.drag_handle);
+		controller.setRemoveEnabled(false);
+		controller.setSortEnabled(true);
+		lv.setOnTouchListener(controller);
+		lv.setAdapter(adapter);
 	}
 
 	private TrainingExercise createTrainingExercise(AddExerciseDialog dialog) {
@@ -293,6 +303,21 @@ public class AddTrainingActivity extends OrmLiteBaseActivity<DatabaseHelper>
 		// get position of item for which button was pressed
 		DragSortListView exerciseList = (DragSortListView) findViewById(R.id.exercisesLayout);
 		return exerciseList.indexOfChild((View) view.getParent().getParent());
+	}
+	
+	private void moveExercise(int from, int to) {
+		// get affected training exercises
+		TrainingExercise fromTE = adapter.getItem(from);
+		TrainingExercise toTE = adapter.getItem(to);
+		// swap positions
+		fromTE.setPos(to);
+		toTE.setPos(from);
+		// update on DB
+		getHelper().getTrainingExerciseDao().update(fromTE);
+		getHelper().getTrainingExerciseDao().update(toTE);
+		// update UI
+		adapter.remove(fromTE);
+        adapter.insert(fromTE, to);
 	}
 
 	// Inner classes -------------------------------------------------
