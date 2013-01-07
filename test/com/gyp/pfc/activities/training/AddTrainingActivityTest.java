@@ -19,27 +19,21 @@ import android.widget.Spinner;
 
 import com.gyp.pfc.CustomTestRunner;
 import com.gyp.pfc.R;
-import com.gyp.pfc.activities.BaseActivityTest;
 import com.gyp.pfc.activities.exercise.BaseExerciseTest;
-import com.gyp.pfc.data.db.DatabaseHelper;
 import com.gyp.pfc.data.domain.Exercise;
 import com.gyp.pfc.data.domain.Training;
 import com.gyp.pfc.data.domain.TrainingExercise;
 import com.gyp.pfc.dialogs.AddExerciseDialog;
-import com.j256.ormlite.dao.RuntimeExceptionDao;
 import com.xtremelabs.robolectric.shadows.ShadowDialog;
 
 @RunWith(CustomTestRunner.class)
-public class AddTrainingActivityTest extends BaseActivityTest {
+public class AddTrainingActivityTest extends BaseTrainingTest {
 
 	// Constants -----------------------------------------------------
-	private static final String TRAINING_NAME = "TRAINING_NAME";
 	private static final String NEW_EXERCISE_NAME = "NEW_EXERCISE_NAME";
 	private static final String NEW_EXERCISE_DESC = "NEW_EXERCISE_DESC";
 	// Attributes ----------------------------------------------------
-	private RuntimeExceptionDao<Training, Integer> trainingDao;
-	private RuntimeExceptionDao<Exercise, Integer> exerciseDao;
-	private RuntimeExceptionDao<TrainingExercise, Integer> trainingExerciseDao;
+	
 
 	// Static --------------------------------------------------------
 
@@ -49,15 +43,6 @@ public class AddTrainingActivityTest extends BaseActivityTest {
 	@Before
 	public void before() {
 		super.before();
-		// init DAOs
-		trainingDao = new DatabaseHelper(realActivity).getTrainingDao();
-		exerciseDao = new DatabaseHelper(realActivity).getExerciseDao();
-		trainingExerciseDao = new DatabaseHelper(realActivity)
-				.getTrainingExerciseDao();
-		List<Training> trainings = trainingDao.queryForAll();
-		trainingDao.delete(trainings);
-		List<Exercise> exercises = exerciseDao.queryForAll();
-		exerciseDao.delete(exercises);
 		// reset shadows for testing
 		ShadowDialog.reset();
 	}

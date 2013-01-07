@@ -10,9 +10,7 @@ import org.junit.runner.RunWith;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.view.View;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.gyp.pfc.CustomTestRunner;
 import com.gyp.pfc.R;
@@ -50,8 +48,8 @@ public class ExercisesListActivityTest extends BaseExerciseTest {
 		// WHEN
 		createActivity();
 		// THEN
-		assertItemText(getItemFromListView(0), "foo");
-		assertItemText(getItemFromListView(1), "bar");
+		assertItemTitle(getItemFromListView(0), "foo");
+		assertItemTitle(getItemFromListView(1), "bar");
 	}
 
 	@Test
@@ -99,7 +97,7 @@ public class ExercisesListActivityTest extends BaseExerciseTest {
 		// toast with deletion message is shown
 		assertToastText(R.string.exerciseDeleted);
 		// assert item is no longer on the list
-		assertItemText(getItemFromListView(0), "bar");
+		assertItemTitle(getItemFromListView(0), "bar");
 		assertNull(getItemFromListView(1));
 	}
 
@@ -114,7 +112,7 @@ public class ExercisesListActivityTest extends BaseExerciseTest {
 		activity.callOnResume();
 		// THEN
 		// list must only show one Exercise
-		assertItemText(getItemFromListView(0), "bar");
+		assertItemTitle(getItemFromListView(0), "bar");
 		assertNull(getItemFromListView(1));
 	}
 
@@ -146,16 +144,6 @@ public class ExercisesListActivityTest extends BaseExerciseTest {
 	}
 
 	// Private -------------------------------------------------------
-
-	private void assertItemText(View item, String text) {
-		TextView title = (TextView) item.findViewById(R.id.title);
-		assertThat(title.getText().toString(), is(text));
-	}
-
-	private View getItemFromListView(int index) {
-		ListView listView = (ListView) activity.findViewById(android.R.id.list);
-		return listView.getChildAt(index);
-	}
 
 	private void listWithExercises() {
 		insertExercise("foo", "foo desc");

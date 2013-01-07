@@ -5,7 +5,11 @@ import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 import android.app.Activity;
 import android.view.Menu;
+import android.view.View;
+import android.widget.ListView;
+import android.widget.TextView;
 
+import com.gyp.pfc.R;
 import com.gyp.pfc.data.db.DatabaseHelper;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.xtremelabs.robolectric.shadows.ShadowActivity;
@@ -58,6 +62,29 @@ public abstract class BaseActivityTest {
 
 	// Protected -----------------------------------------------------
 	protected abstract Activity newActivity();
+	
+	protected void assertTitleOfChild(int pos, String text){
+		assertItemTitle(getItemFromListView(pos), text);
+	}
+	
+	protected void assertTextOfListChild(int pos, int id, String text){
+		View item = getItemFromListView(pos);
+		assertItemText(item, id, text);
+	}
+	
+	protected void assertItemText(View item, int id, String text){
+		TextView textView = (TextView) item.findViewById(id);
+		assertThat(textView.getText().toString(), is(text));
+	}
+
+	protected void assertItemTitle(View item, String text) {
+		assertItemText(item, R.id.title, text);
+	}
+
+	protected View getItemFromListView(int index) {
+		ListView listView = (ListView) activity.findViewById(android.R.id.list);
+		return listView.getChildAt(index);
+	}
 
 	// Private -------------------------------------------------------
 
