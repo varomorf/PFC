@@ -46,5 +46,6 @@
     <string name="duration">Duración</string>
     <string name="repetitions">Repeticiones</string>
     <string name="emptyExercisesList">La lista de ejercicios está vacía.</string>
+    <string name="label_play">Ejecutar</string>
 
 </resources>
