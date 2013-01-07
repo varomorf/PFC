@@ -120,6 +120,7 @@ public class TrainingExercise {
 		this.training = training;
 	}
 
+	@Override
 	public String toString() {
 		return exercise.getName();
 	}
