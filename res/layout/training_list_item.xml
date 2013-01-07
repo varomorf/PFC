@@ -8,6 +8,7 @@
         android:id="@+id/title"
         android:layout_width="0dip"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_weight="3"
         android:textAppearance="?android:attr/textAppearanceMedium" />
     
@@ -15,6 +16,7 @@
         android:id="@+id/time"
         android:layout_width="0dip"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_weight="1"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -22,6 +24,7 @@
         android:id="@+id/playButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        style="?android:attr/buttonStyleSmall"
         android:contentDescription="@string/label_play"
         android:src="@drawable/play" />
 
@@ -29,6 +32,7 @@
         android:id="@+id/editButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        style="?android:attr/buttonStyleSmall"
         android:contentDescription="@string/label_edit"
         android:src="@drawable/pencil" />
 
@@ -36,6 +40,7 @@
         android:id="@+id/deleteButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        style="?android:attr/buttonStyleSmall"
         android:contentDescription="@string/label_delete"
         android:src="@drawable/delete" />
 
