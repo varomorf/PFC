@@ -43,7 +43,7 @@ public class AddTrainingActivity extends OrmLiteBaseActivity<DatabaseHelper>
 	private DragSortListView.DropListener onDrop = new DragSortListView.DropListener() {
 		@Override
 		public void drop(int from, int to) {
-			moveExercise(from,to);
+			moveExercise(from, to);
 		}
 	};
 
@@ -98,7 +98,7 @@ public class AddTrainingActivity extends OrmLiteBaseActivity<DatabaseHelper>
 		getHelper().getTrainingExerciseDao().delete(te);
 		getHelper().getTrainingDao().refresh(training);
 		// fix position of the rest of exercises
-		fixExercisesPosition(pos);
+		fixExercisesPosition(pos, adapter.getCount() + 1);
 	}
 
 	/**
@@ -143,13 +143,8 @@ public class AddTrainingActivity extends OrmLiteBaseActivity<DatabaseHelper>
 		setExerciseSecondsAndReps(dialog, te);
 		// update on DB
 		getHelper().getTrainingExerciseDao().update(te);
-		// refresh training and update UI
-		getHelper().getTrainingDao().refresh(training);
-		adapter.clear();
-		for (TrainingExercise obj : training.getExercises()) {
-			adapter.add(obj);
-		}
-		adapter.notifyDataSetChanged();
+		// refresh training and update UI list
+		updateUIList();
 	}
 
 	// Package protected ---------------------------------------------
@@ -169,11 +164,20 @@ public class AddTrainingActivity extends OrmLiteBaseActivity<DatabaseHelper>
 		configureDragSortListView(lv);
 	}
 
-	// Private -------------------------------------------------------
-
-	private boolean assertTraining() {
-		return assertNotBlankName() && assertNotDuplicatedName();
+	protected void moveExercise(int from, int to) {
+		// fix positions
+		fixExercisesPosition(from, to);
+		// get affected training exercises
+		TrainingExercise te = adapter.getItem(from);
+		// swap positions
+		te.setPos(to);
+		// update on DB
+		getHelper().getTrainingExerciseDao().update(te);
+		// refresh training and update UI list
+		updateUIList();
 	}
+
+	// Private -------------------------------------------------------
 
 	private boolean assertNotBlankName() {
 		if (StringUtils.isBlank(training.getName())) {
@@ -203,16 +207,10 @@ public class AddTrainingActivity extends OrmLiteBaseActivity<DatabaseHelper>
 		return true;
 	}
 
-	private Training getTraining() {
-		if (training == null) {
-			// create the new training
-			training = new Training();
-		}
-		// get name from view
-		String name = UIUtils.getTextFromUI(findViewById(R.id.trainningName));
-		// set training name
-		training.setName(name);
-		return training;
+	// Private -------------------------------------------------------
+
+	private boolean assertTraining() {
+		return assertNotBlankName() && assertNotDuplicatedName();
 	}
 
 	private void configureDragSortListView(DragSortListView lv) {
@@ -242,6 +240,77 @@ public class AddTrainingActivity extends OrmLiteBaseActivity<DatabaseHelper>
 		return te;
 	}
 
+	private void fixExercisesPosition(int from, int to) {
+		// get min and max to now operation
+		int min = Math.min(from, to);
+		int max = Math.max(from, to);
+		// iterate exercises to fix their pos
+		for (TrainingExercise te : training.getExercises()) {
+			// get position
+			int pos = te.getPos();
+			// if position between affected -> fix
+			if ((pos > min && pos < max) || pos == to) {
+				if (max == from) {
+					// increase position
+					te.setPos(pos + 1);
+				} else {
+					// decrease position
+					te.setPos(pos - 1);
+				}
+				// update on DB
+				getHelper().getTrainingExerciseDao().update(te);
+			}
+			if (pos > max) {
+				// there will be no more affected -> exit loop
+				break;
+			}
+		}
+	}
+
+	private int getPositionOfItemForPressedButton(View view) {
+		// get position of item for which button was pressed
+		DragSortListView exerciseList = (DragSortListView) findViewById(R.id.exercisesLayout);
+		return exerciseList.indexOfChild((View) view.getParent().getParent());
+	}
+
+	private Training getTraining() {
+		if (training == null) {
+			// create the new training
+			training = new Training();
+		}
+		// get name from view
+		String name = UIUtils.getTextFromUI(findViewById(R.id.trainningName));
+		// set training name
+		training.setName(name);
+		return training;
+	}
+
+	private TrainingExercise getTrainingExercise(int pos) {
+		// prepare matcher object
+		TrainingExercise matcher = new TrainingExercise();
+		matcher.setPos(pos);
+		matcher.setTraining(training);
+		// get entity from DB
+		return getHelper().getTrainingExerciseDao().queryForMatching(matcher)
+				.get(0);
+	}
+
+	private void prepareAndShowDialog(TrainingExercise selected) {
+		// get list of exercises
+		List<Exercise> exercises = getHelper().getExerciseDao().queryForAll();
+		if (exercises.size() > 0) {
+			// create dialog passing this activity as listener
+			Dialog dialog = new AddExerciseDialog(this, this, exercises,
+					selected);
+			// show the dialog
+			dialog.show();
+		} else {
+			// no exercises -> show toast with error message
+			Toast.makeText(this, R.string.emptyExercisesList,
+					Toast.LENGTH_SHORT).show();
+		}
+	}
+
 	private void setExerciseSecondsAndReps(AddExerciseDialog dialog,
 			TrainingExercise te) {
 		// set exercise from spinner
@@ -261,63 +330,13 @@ public class AddTrainingActivity extends OrmLiteBaseActivity<DatabaseHelper>
 		te.setSeconds(te.getSeconds() + Integer.parseInt(seconds));
 	}
 
-	private TrainingExercise getTrainingExercise(int pos) {
-		// prepare matcher object
-		TrainingExercise matcher = new TrainingExercise();
-		matcher.setPos(pos);
-		matcher.setTraining(training);
-		// get entity from DB
-		return getHelper().getTrainingExerciseDao().queryForMatching(matcher)
-				.get(0);
-	}
-
-	private void fixExercisesPosition(int pos) {
-		// iterate exercises to fix their pos
-		for (TrainingExercise te : training.getExercises()) {
-			// if position greater that passed -> fix
-			if (te.getPos() > pos) {
-				// decrease position
-				te.setPos(te.getPos() - 1);
-				getHelper().getTrainingExerciseDao().update(te);
-			}
+	private void updateUIList() {
+		getHelper().getTrainingDao().refresh(training);
+		adapter.clear();
+		for (TrainingExercise obj : training.getExercises()) {
+			adapter.add(obj);
 		}
-	}
-
-	private void prepareAndShowDialog(TrainingExercise selected) {
-		// get list of exercises
-		List<Exercise> exercises = getHelper().getExerciseDao().queryForAll();
-		if (exercises.size() > 0) {
-			// create dialog passing this activity as listener
-			Dialog dialog = new AddExerciseDialog(this, this, exercises,
-					selected);
-			// show the dialog
-			dialog.show();
-		} else {
-			// no exercises -> show toast with error message
-			Toast.makeText(this, R.string.emptyExercisesList,
-					Toast.LENGTH_SHORT).show();
-		}
-	}
-
-	private int getPositionOfItemForPressedButton(View view) {
-		// get position of item for which button was pressed
-		DragSortListView exerciseList = (DragSortListView) findViewById(R.id.exercisesLayout);
-		return exerciseList.indexOfChild((View) view.getParent().getParent());
-	}
-	
-	private void moveExercise(int from, int to) {
-		// get affected training exercises
-		TrainingExercise fromTE = adapter.getItem(from);
-		TrainingExercise toTE = adapter.getItem(to);
-		// swap positions
-		fromTE.setPos(to);
-		toTE.setPos(from);
-		// update on DB
-		getHelper().getTrainingExerciseDao().update(fromTE);
-		getHelper().getTrainingExerciseDao().update(toTE);
-		// update UI
-		adapter.remove(fromTE);
-        adapter.insert(fromTE, to);
+		adapter.notifyDataSetChanged();
 	}
 
 	// Inner classes -------------------------------------------------
