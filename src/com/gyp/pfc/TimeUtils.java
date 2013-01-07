@@ -76,6 +76,12 @@ public final class TimeUtils {
 		return secondsFromMinutesAndSeconds(mins, secs);
 	}
 
+	public static String formatTime(int seconds) {
+		int mins = minutesFromSeconds(seconds);
+		int secs = restingSecondsFromSeconds(seconds);
+		return String.format("%02d:%02d", mins, secs);
+	}
+
 	// Constructors --------------------------------------------------
 	private TimeUtils() {
 		// NOOP
