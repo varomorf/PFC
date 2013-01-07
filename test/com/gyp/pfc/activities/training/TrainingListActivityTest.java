@@ -50,9 +50,9 @@ public class TrainingListActivityTest extends BaseTrainingTest {
 		assertTitleOfChild(0, "foo");
 		assertTextOfListChild(0, R.id.time, "01:40");
 		assertTitleOfChild(1, "bar");
-		assertTextOfListChild(0, R.id.time, "03:20");
+		assertTextOfListChild(1, R.id.time, "06:40");
 		assertTitleOfChild(2, "xyz");
-		assertTextOfListChild(0, R.id.time, "05:00");
+		assertTextOfListChild(2, R.id.time, "15:00");
 	}
 
 	// Package protected ---------------------------------------------
@@ -68,7 +68,8 @@ public class TrainingListActivityTest extends BaseTrainingTest {
 	private void createTraining(String name, int reps, int seconds) {
 		// prepare new training
 		Training training = new Training();
-		training.setName(TRAINING_NAME);
+		training.setName(name);
+		trainingDao.create(training);
 		// add exercise to training with passed seconds
 		TrainingExercise te = new TrainingExercise();
 		te.setTraining(training);
@@ -77,7 +78,6 @@ public class TrainingListActivityTest extends BaseTrainingTest {
 		te.setReps(reps);
 		// save entities
 		trainingExerciseDao.create(te);
-		trainingDao.create(training);
 	}
 
 	// Inner classes -------------------------------------------------
