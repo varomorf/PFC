@@ -26,7 +26,7 @@ public class Training implements Serializable {
 	private int id;
 	@DatabaseField(canBeNull = false)
 	private String name;
-	@ForeignCollectionField(eager = true)
+	@ForeignCollectionField(eager = true, orderColumnName="pos")
 	private ForeignCollection<TrainingExercise> exercises;
 
 	// Static --------------------------------------------------------

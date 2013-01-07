@@ -1,5 +1,5 @@
 #
-# generated on 2013/01/02 08:39:47
+# generated on 2013/01/07 12:04:40
 #
 # --table-start--
 dataClass=com.gyp.pfc.data.domain.Food
@@ -66,6 +66,7 @@ canBeNull=false
 fieldName=exercises
 foreignCollection=true
 foreignCollectionEager=true
+foreignCollectionOrderColumnName=pos
 # --field-end--
 # --table-fields-end--
 # --table-end--
