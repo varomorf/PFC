@@ -41,7 +41,7 @@ public class ExerciseListActivity extends
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.exercise_list);
+		setContentView(R.layout.entity_list);
 		List<Exercise> exercises = getHelper().getExerciseDao().queryForAll();
 		setListAdapter(new ExerciseListViewAdapter(this,
 				R.layout.exercise_list_item, exercises));

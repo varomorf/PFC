@@ -40,7 +40,7 @@ public class FoodListActivity extends OrmLiteBaseListActivity<DatabaseHelper> {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.foods_list);
+		setContentView(R.layout.entity_list);
 		setListAdapter(new FoodListViewAdapter(this, R.layout.food_list_item,
 				getFoods()));
 		registerForContextMenu(getListView());
