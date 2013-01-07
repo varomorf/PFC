@@ -1,5 +1,6 @@
 package com.gyp.pfc.activities.training;
 
+import static com.gyp.pfc.UIUtils.*;
 import static com.xtremelabs.robolectric.Robolectric.*;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
@@ -18,7 +19,6 @@ import android.widget.Spinner;
 
 import com.gyp.pfc.CustomTestRunner;
 import com.gyp.pfc.R;
-import com.gyp.pfc.UIUtils;
 import com.gyp.pfc.activities.BaseActivityTest;
 import com.gyp.pfc.activities.exercise.BaseExerciseTest;
 import com.gyp.pfc.data.db.DatabaseHelper;
@@ -26,9 +26,7 @@ import com.gyp.pfc.data.domain.Exercise;
 import com.gyp.pfc.data.domain.Training;
 import com.gyp.pfc.data.domain.TrainingExercise;
 import com.gyp.pfc.dialogs.AddExerciseDialog;
-import com.gyp.pfc.shadows.ShadowDragSortListView;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
-import com.xtremelabs.robolectric.Robolectric;
 import com.xtremelabs.robolectric.shadows.ShadowDialog;
 
 @RunWith(CustomTestRunner.class)
@@ -71,8 +69,7 @@ public class AddTrainingActivityTest extends BaseActivityTest {
 		createActivity();
 		// WHEN
 		// name is set
-		UIUtils.setTextToUI(activity.findViewById(R.id.trainningName),
-				TRAINING_NAME);
+		setTextToUI(activity.findViewById(R.id.trainningName), TRAINING_NAME);
 		// save button is clicked
 		saveButtonIsClicked();
 		// THEN
@@ -91,7 +88,7 @@ public class AddTrainingActivityTest extends BaseActivityTest {
 		// activity is shown
 		createActivity();
 		// WHEN
-		UIUtils.setTextToUI(activity.findViewById(R.id.trainningName), "");
+		setTextToUI(activity.findViewById(R.id.trainningName), "");
 		// save button is clicked
 		saveButtonIsClicked();
 		// THEN
@@ -112,8 +109,7 @@ public class AddTrainingActivityTest extends BaseActivityTest {
 		tmp.setName(TRAINING_NAME);
 		trainingDao.create(tmp);
 		// WHEN
-		UIUtils.setTextToUI(activity.findViewById(R.id.trainningName),
-				TRAINING_NAME);
+		setTextToUI(activity.findViewById(R.id.trainningName), TRAINING_NAME);
 		// save button is clicked
 		saveButtonIsClicked();
 		// THEN
@@ -152,8 +148,7 @@ public class AddTrainingActivityTest extends BaseActivityTest {
 		// activity is shown
 		createActivity();
 		// name is set
-		UIUtils.setTextToUI(activity.findViewById(R.id.trainningName),
-				TRAINING_NAME);
+		setTextToUI(activity.findViewById(R.id.trainningName), TRAINING_NAME);
 		// WHEN
 		// add button is clicked
 		clickOn(activity.findViewById(R.id.addExerciseButton));
@@ -196,7 +191,7 @@ public class AddTrainingActivityTest extends BaseActivityTest {
 		assertChildrenNumber(activity.findViewById(R.id.exercisesLayout), 2);
 		// WHEN
 		// delete button clicked on item 1
-		View item = UIUtils.getChildFromView(
+		View item = getChildFromView(
 				activity.findViewById(R.id.exercisesLayout), 0);
 		clickOn(item.findViewById(R.id.deleteButton));
 		// THEN
@@ -224,7 +219,7 @@ public class AddTrainingActivityTest extends BaseActivityTest {
 		assertChildrenNumber(activity.findViewById(R.id.exercisesLayout), 2);
 		// WHEN
 		// edit button clicked on item 1
-		View item = UIUtils.getChildFromView(
+		View item = getChildFromView(
 				activity.findViewById(R.id.exercisesLayout), 0);
 		clickOn(item.findViewById(R.id.editButton));
 		// new data is entered
@@ -234,11 +229,11 @@ public class AddTrainingActivityTest extends BaseActivityTest {
 		Spinner spinner = (Spinner) dialog.findViewById(R.id.exerciseSpinner);
 		spinner.setSelection(1);
 		// enter 5 minutes
-		UIUtils.setTextToUI(dialog.findViewById(R.id.minutes), "5");
+		setTextToUI(dialog.findViewById(R.id.minutes), "5");
 		// enter 0 seconds
-		UIUtils.setTextToUI(dialog.findViewById(R.id.seconds), "0");
+		setTextToUI(dialog.findViewById(R.id.seconds), "0");
 		// enter 10 repetitions
-		UIUtils.setTextToUI(dialog.findViewById(R.id.repetitions), "10");
+		setTextToUI(dialog.findViewById(R.id.repetitions), "10");
 		// click on dialog's commit button
 		clickOn(dialog.findViewById(R.id.commitButton));
 		// THEN
@@ -248,10 +243,36 @@ public class AddTrainingActivityTest extends BaseActivityTest {
 		assertThat(te.getSeconds(), is(300));
 		assertThat(te.getReps(), is(10));
 		// UI shows changes
-		item = UIUtils.getChildFromView(
-				activity.findViewById(R.id.exercisesLayout), 0);
-		View itemTitle = UIUtils.getChildFromView(UIUtils.getChildFromView(item,0), 1);
-		assertThat(UIUtils.getTextFromUI(itemTitle), is(NEW_EXERCISE_NAME));
+		item = getChildFromView(activity.findViewById(R.id.exercisesLayout), 0);
+		View itemTitle = getChildFromView(getChildFromView(item, 0), 1);
+		assertThat(getTextFromUI(itemTitle), is(NEW_EXERCISE_NAME));
+	}
+
+	@Test
+	public void shouldMoveExercises() {
+		// GIVEN
+		// activity ready with exercise on DB and name entered
+		prepareWithExerciseAndName();
+		// new exercise
+		BaseExerciseTest.insertExercise(exerciseDao, NEW_EXERCISE_NAME,
+				NEW_EXERCISE_DESC);
+		// 2 exercises added to the training
+		addExerciseToTraining();
+		addExerciseToTraining();
+		addExerciseToTraining();
+		addExerciseToTraining();
+		assertChildrenNumber(activity.findViewById(R.id.exercisesLayout), 4);
+		// WHEN
+		// move third to first
+		((AddTrainingActivity)realActivity).moveExercise(2, 0);
+		// move first to last
+		((AddTrainingActivity)realActivity).moveExercise(0, 3);
+		// THEN
+		// positions are correct
+		assertThat(trainingExerciseDao.queryForId(1).getPos(), is(0));
+		assertThat(trainingExerciseDao.queryForId(2).getPos(), is(1));
+		assertThat(trainingExerciseDao.queryForId(3).getPos(), is(3));
+		assertThat(trainingExerciseDao.queryForId(4).getPos(), is(2));
 	}
 
 	// Package protected ---------------------------------------------
@@ -278,11 +299,11 @@ public class AddTrainingActivityTest extends BaseActivityTest {
 		Spinner spinner = (Spinner) dialog.findViewById(R.id.exerciseSpinner);
 		spinner.setSelection(0);
 		// enter 1 minute
-		UIUtils.setTextToUI(dialog.findViewById(R.id.minutes), "1");
+		setTextToUI(dialog.findViewById(R.id.minutes), "1");
 		// enter 30 seconds
-		UIUtils.setTextToUI(dialog.findViewById(R.id.seconds), "30");
+		setTextToUI(dialog.findViewById(R.id.seconds), "30");
 		// enter 5 repetitions
-		UIUtils.setTextToUI(dialog.findViewById(R.id.repetitions), "5");
+		setTextToUI(dialog.findViewById(R.id.repetitions), "5");
 		// click on dialog's commit button
 		clickOn(dialog.findViewById(R.id.commitButton));
 	}
@@ -299,8 +320,8 @@ public class AddTrainingActivityTest extends BaseActivityTest {
 		// activity is shown
 		createActivity();
 		// name is set
-		UIUtils.setTextToUI(activity.findViewById(R.id.trainningName),
-				TRAINING_NAME);
+		setTextToUI(activity.findViewById(R.id.trainningName), TRAINING_NAME);
 	}
+
 	// Inner classes -------------------------------------------------
 }
