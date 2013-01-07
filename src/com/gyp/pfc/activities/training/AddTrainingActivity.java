@@ -13,6 +13,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.gyp.pfc.R;
+import com.gyp.pfc.TimeUtils;
 import com.gyp.pfc.UIUtils;
 import com.gyp.pfc.adapters.TrainingExerciseAdapter;
 import com.gyp.pfc.data.db.DatabaseHelper;
@@ -35,7 +36,7 @@ public class AddTrainingActivity extends OrmLiteBaseActivity<DatabaseHelper>
 		implements AddExerciseDialogListener {
 
 	// Constants -----------------------------------------------------
-	public static final int SECONDS_PER_MINUTE = 60;
+
 	// Attributes ----------------------------------------------------
 
 	private TrainingExerciseAdapter adapter;
@@ -320,14 +321,15 @@ public class AddTrainingActivity extends OrmLiteBaseActivity<DatabaseHelper>
 		String repetitions = UIUtils.getTextFromUI(dialog
 				.findViewById(R.id.repetitions));
 		te.setReps(Integer.parseInt(repetitions));
-		// set seconds from minutes
+		// get minutes
 		String minutes = UIUtils.getTextFromUI(dialog
 				.findViewById(R.id.minutes));
-		te.setSeconds(Integer.parseInt(minutes) * SECONDS_PER_MINUTE);
-		// add the seconds
+		// get seconds
 		String seconds = UIUtils.getTextFromUI(dialog
 				.findViewById(R.id.seconds));
 		te.setSeconds(te.getSeconds() + Integer.parseInt(seconds));
+		// add seconds to trainingExercise
+		te.setSeconds(TimeUtils.secondsFromMinutesAndSeconds(minutes, seconds));
 	}
 
 	private void updateUIList() {

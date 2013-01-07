@@ -9,29 +9,73 @@ package com.gyp.pfc;
 public final class TimeUtils {
 
 	// Constants -----------------------------------------------------
-	
+
 	public static final int SECONDS_PER_MINUTE = 60;
-	
+
 	// Attributes ----------------------------------------------------
 
 	// Static --------------------------------------------------------
-	public static int minutesFromSeconds(int seconds){
+	/**
+	 * Returns the number of integer minutes from the passed seconds
+	 * 
+	 * @param seconds
+	 *            The seconds from which to calculate
+	 * @return the number of integer minutes
+	 */
+	public static int minutesFromSeconds(int seconds) {
 		return seconds / SECONDS_PER_MINUTE;
 	}
-	
-	public static int restingSecondsFromSeconds(int seconds){
+
+	/**
+	 * <p>
+	 * Returns the number of seconds after removing the seconds corresponding to
+	 * integer minutes.
+	 * </p>
+	 * 
+	 * <p>
+	 * Eg. 90 seconds -> 1 minute and 30 seconds, so it will return 30
+	 * </p>
+	 * 
+	 * @param seconds
+	 *            The seconds from which to calculate
+	 * @return The number of seconds
+	 */
+	public static int restingSecondsFromSeconds(int seconds) {
 		return seconds % SECONDS_PER_MINUTE;
 	}
-	
-	public static int secondsFromMinutesAndSeconds(int minutes, int seconds){
+
+	/**
+	 * <p>
+	 * Calculates the total of seconds from adding the passed minutes converted
+	 * to seconds and the passed seconds
+	 * </p>
+	 * 
+	 * @param minutes
+	 *            The minutes to be added
+	 * @param seconds
+	 *            The seconds to be added
+	 * @return The total seconds
+	 */
+	public static int secondsFromMinutesAndSeconds(int minutes, int seconds) {
 		return (minutes * SECONDS_PER_MINUTE) + seconds;
 	}
-	
-	public static int secondsFromMinutesAndSeconds(String minutes, String seconds){
+
+	/**
+	 * Overload to use strings instead of integers
+	 * 
+	 * @param minutes
+	 *            The minutes to be added
+	 * @param seconds
+	 *            The seconds to be added
+	 * @return The total seconds
+	 */
+	public static int secondsFromMinutesAndSeconds(String minutes,
+			String seconds) {
 		int mins = Integer.parseInt(minutes);
 		int secs = Integer.parseInt(seconds);
 		return secondsFromMinutesAndSeconds(mins, secs);
 	}
+
 	// Constructors --------------------------------------------------
 	private TimeUtils() {
 		// NOOP

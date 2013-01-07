@@ -10,8 +10,8 @@ import android.view.WindowManager.LayoutParams;
 import android.widget.Spinner;
 
 import com.gyp.pfc.R;
+import com.gyp.pfc.TimeUtils;
 import com.gyp.pfc.UIUtils;
-import com.gyp.pfc.activities.training.AddTrainingActivity;
 import com.gyp.pfc.adapters.ExerciseListViewAdapter;
 import com.gyp.pfc.data.domain.Exercise;
 import com.gyp.pfc.data.domain.TrainingExercise;
@@ -72,7 +72,7 @@ public class AddExerciseDialog extends Dialog implements
 		}
 		dismiss();
 	}
-	
+
 	public TrainingExercise getTrainingExercise() {
 		return te;
 	}
@@ -123,12 +123,10 @@ public class AddExerciseDialog extends Dialog implements
 			// select the exercise on the spinner
 			spinner.setSelection(pos);
 			// calculate and set minutes
-			int minutes = te.getSeconds()
-					/ AddTrainingActivity.SECONDS_PER_MINUTE;
+			int minutes = TimeUtils.minutesFromSeconds(te.getSeconds());
 			UIUtils.setTextToUI(findViewById(R.id.minutes), minutes);
 			// calculate and set seconds
-			int seconds = te.getSeconds()
-					- (minutes * AddTrainingActivity.SECONDS_PER_MINUTE);
+			int seconds = TimeUtils.restingSecondsFromSeconds(te.getSeconds());
 			UIUtils.setTextToUI(findViewById(R.id.seconds), seconds);
 			// set repetitions
 			UIUtils.setTextToUI(findViewById(R.id.repetitions), te.getReps());

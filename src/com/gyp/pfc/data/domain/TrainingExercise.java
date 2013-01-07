@@ -1,5 +1,7 @@
 package com.gyp.pfc.data.domain;
 
+import static com.gyp.pfc.TimeUtils.*;
+
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
@@ -122,7 +124,18 @@ public class TrainingExercise {
 
 	@Override
 	public String toString() {
-		return exercise.getName();
+		StringBuffer buffer = new StringBuffer(exercise.getName());
+		buffer.append(' ');
+		buffer.append(reps);
+		buffer.append('x');
+		buffer.append(minutesFromSeconds(seconds));
+		buffer.append(':');
+		int restingSeconds = restingSecondsFromSeconds(seconds);
+		if(restingSeconds < 10){
+			buffer.append('0');
+		}
+		buffer.append(restingSeconds);
+		return buffer.toString();
 	}
 
 	@Override
