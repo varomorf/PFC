@@ -1,5 +1,8 @@
 package com.gyp.pfc.activities.training;
 
+import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.*;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -39,9 +42,7 @@ public class TrainingListActivityTest extends BaseTrainingTest {
 	public void shouldListAllTrainingsWithTotalTime() {
 		// GIVEN
 		// trainings with exercises on DB
-		createTraining("foo", 1, 100);
-		createTraining("bar", 2, 200);
-		createTraining("xyz", 3, 300);
+		trainingsWithWxercisesOnDB();
 		// WHEN
 		// activity is shown
 		createActivity();
@@ -53,6 +54,25 @@ public class TrainingListActivityTest extends BaseTrainingTest {
 		assertTextOfListChild(1, R.id.time, "06:40");
 		assertTitleOfChild(2, "xyz");
 		assertTextOfListChild(2, R.id.time, "15:00");
+	}
+
+	@Test
+	public void shouldDeleteTrainings() {
+		// GIVEN
+		// activity with items
+		activityWithItems();
+		// WHEN
+		// delete button pressed on item 1
+		clickOnListItemButton(1, R.id.deleteButton);
+		// THEN
+		// toast with message is shown
+		assertToastText(R.string.trainingDeleted);
+		// item 1 has text of training 3
+		assertTitleOfChild(1, trainingDao.queryForId(3).getName());
+		// training 1 no longer on DB
+		assertNull(trainingDao.queryForId(2));
+		// trainingExercises of training 1 no longer on DB
+		assertThat(trainingExerciseDao.queryForEq("training_id", 2).size(), is(0));
 	}
 
 	// Package protected ---------------------------------------------
@@ -78,6 +98,17 @@ public class TrainingListActivityTest extends BaseTrainingTest {
 		te.setReps(reps);
 		// save entities
 		trainingExerciseDao.create(te);
+	}
+
+	private void trainingsWithWxercisesOnDB() {
+		createTraining("foo", 1, 100);
+		createTraining("bar", 2, 200);
+		createTraining("xyz", 3, 300);
+	}
+
+	private void activityWithItems() {
+		trainingsWithWxercisesOnDB();
+		createActivity();
 	}
 
 	// Inner classes -------------------------------------------------
