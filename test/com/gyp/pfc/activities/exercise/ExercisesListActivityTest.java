@@ -1,6 +1,5 @@
 package com.gyp.pfc.activities.exercise;
 
-import static com.xtremelabs.robolectric.Robolectric.*;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 
@@ -10,7 +9,6 @@ import org.junit.runner.RunWith;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.widget.ListView;
 
 import com.gyp.pfc.CustomTestRunner;
 import com.gyp.pfc.R;
@@ -57,8 +55,7 @@ public class ExercisesListActivityTest extends BaseExerciseTest {
 		// GIVEN
 		listWithExercises();
 		// WHEN
-		ListView listView = (ListView) activity.findViewById(android.R.id.list);
-		shadowOf(listView).performItemClick(0);
+		clickOnListItem(0);
 		// THEN
 		Intent next = activity.getNextStartedActivity();
 		assertNotNull(next);
@@ -75,7 +72,7 @@ public class ExercisesListActivityTest extends BaseExerciseTest {
 		listWithExercises();
 		// WHEN
 		// long click on an item
-		getItemFromListView(0).performLongClick();
+		longClickOnListItem(0);
 		// THEN
 		// contextual menu is shown
 		TestContextMenu contextMenu = TestContextMenu.getLastContextMenu();
@@ -88,7 +85,7 @@ public class ExercisesListActivityTest extends BaseExerciseTest {
 		listWithExercises();
 		// WHEN
 		// long click on first item
-		getItemFromListView(0).performLongClick();
+		longClickOnListItem(0);
 		// click on context menu delete (first)
 		TestContextMenu.getLastContextMenu().clickOn(0);
 		// THEN
@@ -122,7 +119,7 @@ public class ExercisesListActivityTest extends BaseExerciseTest {
 		listWithExercises();
 		// WHEN
 		// long click on first item
-		getItemFromListView(0).performLongClick();
+		longClickOnListItem(0);
 		// click on context edit delete (second)
 		TestContextMenu.getLastContextMenu().clickOn(1);
 		// THEN

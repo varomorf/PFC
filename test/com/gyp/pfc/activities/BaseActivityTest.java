@@ -42,37 +42,37 @@ public abstract class BaseActivityTest {
 		OpenHelperManager.getHelper(realActivity, DatabaseHelper.class);
 	}
 
-	public void assertCRUDMenu(Menu menu) {
+	// Package protected ---------------------------------------------
+
+	// Protected -----------------------------------------------------
+	protected abstract Activity newActivity();
+
+	protected void assertCRUDMenu(Menu menu) {
 		assertNotNull(menu);
 		assertThat(menu.getItem(0).getTitle().toString(), is(DELETE));
 		assertThat(menu.getItem(1).getTitle().toString(), is(EDIT));
 	}
 
-	public void createActivity() {
+	protected void createActivity() {
 		activity.callOnCreate(null);
 	}
 
-	public void assertToastText(int id) {
+	protected void assertToastText(int id) {
 		CharSequence text = activity.getApplicationContext().getResources()
 				.getText(id);
 		assertThat(ShadowToast.getTextOfLatestToast(), is(text));
 	}
 
-	// Package protected ---------------------------------------------
-
-	// Protected -----------------------------------------------------
-	protected abstract Activity newActivity();
-	
-	protected void assertTitleOfChild(int pos, String text){
+	protected void assertTitleOfChild(int pos, String text) {
 		assertItemTitle(getItemFromListView(pos), text);
 	}
-	
-	protected void assertTextOfListChild(int pos, int id, String text){
+
+	protected void assertTextOfListChild(int pos, int id, String text) {
 		View item = getItemFromListView(pos);
 		assertItemText(item, id, text);
 	}
-	
-	protected void assertItemText(View item, int id, String text){
+
+	protected void assertItemText(View item, int id, String text) {
 		TextView textView = (TextView) item.findViewById(id);
 		assertThat(textView.getText().toString(), is(text));
 	}
@@ -84,6 +84,21 @@ public abstract class BaseActivityTest {
 	protected View getItemFromListView(int index) {
 		ListView listView = (ListView) activity.findViewById(android.R.id.list);
 		return listView.getChildAt(index);
+	}
+
+	protected void clickOnListItem(int itemIndex) {
+		ListView listView = (ListView) activity.findViewById(android.R.id.list);
+		shadowOf(listView).performItemClick(itemIndex);
+	}
+	
+	protected void longClickOnListItem(int itemIndex) {
+		View item = getItemFromListView(itemIndex);
+		item.performLongClick();
+	}
+
+	protected void clickOnListItemButton(int itemIndex, int buttonId) {
+		View item = getItemFromListView(itemIndex);
+		clickOn(item.findViewById(buttonId));
 	}
 
 	// Private -------------------------------------------------------
