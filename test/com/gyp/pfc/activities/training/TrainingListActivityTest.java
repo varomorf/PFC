@@ -13,9 +13,7 @@ import android.content.Intent;
 import com.gyp.pfc.CustomTestRunner;
 import com.gyp.pfc.R;
 import com.gyp.pfc.activities.exercise.BaseExerciseTest;
-import com.gyp.pfc.data.domain.Exercise;
 import com.gyp.pfc.data.domain.Training;
-import com.gyp.pfc.data.domain.TrainingExercise;
 
 @RunWith(CustomTestRunner.class)
 public class TrainingListActivityTest extends BaseTrainingTest {
@@ -23,7 +21,6 @@ public class TrainingListActivityTest extends BaseTrainingTest {
 	// Constants -----------------------------------------------------
 
 	// Attributes ----------------------------------------------------
-	private Exercise exercise;
 
 	// Static --------------------------------------------------------
 
@@ -123,20 +120,6 @@ public class TrainingListActivityTest extends BaseTrainingTest {
 	}
 
 	// Private -------------------------------------------------------
-	private void createTraining(String name, int reps, int seconds) {
-		// prepare new training
-		Training training = new Training();
-		training.setName(name);
-		trainingDao.create(training);
-		// add exercise to training with passed seconds
-		TrainingExercise te = new TrainingExercise();
-		te.setTraining(training);
-		te.setExercise(exercise);
-		te.setSeconds(seconds);
-		te.setReps(reps);
-		// save entities
-		trainingExerciseDao.create(te);
-	}
 
 	private void trainingsWithWxercisesOnDB() {
 		createTraining("foo", 1, 100);

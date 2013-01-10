@@ -19,6 +19,8 @@ public abstract class BaseTrainingTest extends BaseActivityTest {
 	protected RuntimeExceptionDao<Exercise, Integer> exerciseDao;
 	protected RuntimeExceptionDao<TrainingExercise, Integer> trainingExerciseDao;
 
+	protected Exercise exercise;
+
 	// Static --------------------------------------------------------
 
 	// Constructors --------------------------------------------------
@@ -41,6 +43,22 @@ public abstract class BaseTrainingTest extends BaseActivityTest {
 	// Package protected ---------------------------------------------
 
 	// Protected -----------------------------------------------------
+
+	protected Training createTraining(String name, int reps, int seconds) {
+		// prepare new training
+		Training training = new Training();
+		training.setName(name);
+		trainingDao.create(training);
+		// add exercise to training with passed seconds
+		TrainingExercise te = new TrainingExercise();
+		te.setTraining(training);
+		te.setExercise(exercise);
+		te.setSeconds(seconds);
+		te.setReps(reps);
+		// save entities
+		trainingExerciseDao.create(te);
+		return training;
+	}
 
 	// Private -------------------------------------------------------
 
