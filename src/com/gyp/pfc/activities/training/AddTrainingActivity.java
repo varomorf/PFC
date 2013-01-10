@@ -36,7 +36,9 @@ public class AddTrainingActivity extends OrmLiteBaseActivity<DatabaseHelper>
 		implements AddExerciseDialogListener {
 
 	// Constants -----------------------------------------------------
-
+	
+	public static final String TRAINING = "TRAINING";
+	
 	// Attributes ----------------------------------------------------
 
 	private TrainingExerciseAdapter adapter;

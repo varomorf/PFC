@@ -1,13 +1,14 @@
 package com.gyp.pfc.activities.training;
 
-import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
+import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import android.app.Activity;
+import android.content.Intent;
 
 import com.gyp.pfc.CustomTestRunner;
 import com.gyp.pfc.R;
@@ -73,6 +74,21 @@ public class TrainingListActivityTest extends BaseTrainingTest {
 		assertNull(trainingDao.queryForId(2));
 		// trainingExercises of training 1 no longer on DB
 		assertThat(trainingExerciseDao.queryForEq("training_id", 2).size(), is(0));
+	}
+	
+	@Test
+	public void shouldEditTrainings() {
+		// GIVEN
+		// activity with items
+		activityWithItems();
+		// WHEN
+		// delete button pressed on item 1
+		clickOnListItemButton(1, R.id.editButton);
+		// THEN
+		// add training activity is shown passing the selected training
+		Intent next = assertAndReturnNextActivity(AddTrainingActivity.class);
+		Training training = (Training) next.getSerializableExtra(AddTrainingActivity.TRAINING);
+		assertThat(training, is(trainingDao.queryForId(2)));
 	}
 
 	// Package protected ---------------------------------------------
