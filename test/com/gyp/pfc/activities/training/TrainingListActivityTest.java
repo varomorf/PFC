@@ -73,9 +73,10 @@ public class TrainingListActivityTest extends BaseTrainingTest {
 		// training 1 no longer on DB
 		assertNull(trainingDao.queryForId(2));
 		// trainingExercises of training 1 no longer on DB
-		assertThat(trainingExerciseDao.queryForEq("training_id", 2).size(), is(0));
+		assertThat(trainingExerciseDao.queryForEq("training_id", 2).size(),
+				is(0));
 	}
-	
+
 	@Test
 	public void shouldEditTrainings() {
 		// GIVEN
@@ -87,8 +88,29 @@ public class TrainingListActivityTest extends BaseTrainingTest {
 		// THEN
 		// add training activity is shown passing the selected training
 		Intent next = assertAndReturnNextActivity(AddTrainingActivity.class);
-		Training training = (Training) next.getSerializableExtra(AddTrainingActivity.TRAINING);
+		Training training = (Training) next
+				.getSerializableExtra(AddTrainingActivity.TRAINING);
 		assertThat(training, is(trainingDao.queryForId(2)));
+	}
+
+	@Test
+	public void shouldRefreshListOnResume() {
+		// GIVEN
+		// activity with items
+		activityWithItems();
+		// WHEN
+		// one training is deleted
+		Training training = trainingDao.queryForId(2);
+		trainingExerciseDao.delete(training.getExercises());
+		trainingDao.delete(training);
+		// activity is resumed
+		activity.callOnResume();
+		// THEN
+		// list shown only resting trainings
+		assertTitleOfChild(0, "foo");
+		assertTextOfListChild(0, R.id.time, "01:40");
+		assertTitleOfChild(1, "xyz");
+		assertTextOfListChild(1, R.id.time, "15:00");
 	}
 
 	// Package protected ---------------------------------------------
