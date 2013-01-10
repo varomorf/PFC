@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.commons.lang.StringUtils;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
@@ -36,9 +37,9 @@ public class AddTrainingActivity extends OrmLiteBaseActivity<DatabaseHelper>
 		implements AddExerciseDialogListener {
 
 	// Constants -----------------------------------------------------
-	
+
 	public static final String TRAINING = "TRAINING";
-	
+
 	// Attributes ----------------------------------------------------
 
 	private TrainingExerciseAdapter adapter;
@@ -165,6 +166,17 @@ public class AddTrainingActivity extends OrmLiteBaseActivity<DatabaseHelper>
 		// retrieve the drag'n'drop list view to set listener and adapter
 		DragSortListView lv = (DragSortListView) findViewById(R.id.exercisesLayout);
 		configureDragSortListView(lv);
+
+		// get intent to get data
+		Intent intent = getIntent();
+		if (null != intent) {
+			training = (Training) intent
+					.getSerializableExtra(TRAINING);
+			if (null != training) {
+				// if there's an exercise -> update the view
+				updateView();
+			}
+		}
 	}
 
 	protected void moveExercise(int from, int to) {
@@ -341,6 +353,13 @@ public class AddTrainingActivity extends OrmLiteBaseActivity<DatabaseHelper>
 			adapter.add(obj);
 		}
 		adapter.notifyDataSetChanged();
+	}
+	
+	private void updateView(){
+		// set the name form field
+		UIUtils.setTextToUI(findViewById(R.id.trainningName), training.getName());
+		// update the list of exercises
+		updateUIList();
 	}
 
 	// Inner classes -------------------------------------------------
