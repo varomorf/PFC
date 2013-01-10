@@ -19,6 +19,7 @@ import android.widget.Spinner;
 
 import com.gyp.pfc.CustomTestRunner;
 import com.gyp.pfc.R;
+import com.gyp.pfc.UIUtils;
 import com.gyp.pfc.activities.exercise.BaseExerciseTest;
 import com.gyp.pfc.data.domain.Exercise;
 import com.gyp.pfc.data.domain.Training;
@@ -32,8 +33,8 @@ public class AddTrainingActivityTest extends BaseTrainingTest {
 	// Constants -----------------------------------------------------
 	private static final String NEW_EXERCISE_NAME = "NEW_EXERCISE_NAME";
 	private static final String NEW_EXERCISE_DESC = "NEW_EXERCISE_DESC";
+
 	// Attributes ----------------------------------------------------
-	
 
 	// Static --------------------------------------------------------
 
@@ -249,15 +250,40 @@ public class AddTrainingActivityTest extends BaseTrainingTest {
 		assertChildrenNumber(activity.findViewById(R.id.exercisesLayout), 4);
 		// WHEN
 		// move third to first
-		((AddTrainingActivity)realActivity).moveExercise(2, 0);
+		((AddTrainingActivity) realActivity).moveExercise(2, 0);
 		// move first to last
-		((AddTrainingActivity)realActivity).moveExercise(0, 3);
+		((AddTrainingActivity) realActivity).moveExercise(0, 3);
 		// THEN
 		// positions are correct
 		assertThat(trainingExerciseDao.queryForId(1).getPos(), is(0));
 		assertThat(trainingExerciseDao.queryForId(2).getPos(), is(1));
 		assertThat(trainingExerciseDao.queryForId(3).getPos(), is(3));
 		assertThat(trainingExerciseDao.queryForId(4).getPos(), is(2));
+	}
+
+	@Test
+	public void shouldLoadDataOfPassedIntent() {
+		// GIVEN
+		// one exercise on DB
+		BaseExerciseTest.insertExercise(exerciseDao,
+				BaseExerciseTest.EXERCISE_NAME, BaseExerciseTest.EXERCISE_DESC);
+		exercise = exerciseDao.queryForId(1);
+		// training on DB
+		Training training = createTraining("foo", 1, 100);
+		// intent is passed with training 1
+		intentPassedWithTraining(1);
+		// WHEN
+		// activity is created
+		createActivity();
+		// THEN
+		// training data is shown
+		assertThat(UIUtils.getTextFromUI(activity
+				.findViewById(R.id.trainningName)), is(training.getName()));
+		assertChildrenNumber(activity.findViewById(R.id.exercisesLayout), 1);
+		View item = getChildFromView(
+				activity.findViewById(R.id.exercisesLayout), 0);
+		View itemTitle = getChildFromView(getChildFromView(item, 0), 1);
+		assertThat(getTextFromUI(itemTitle), is(BaseExerciseTest.EXERCISE_NAME + " 1x1:40"));
 	}
 
 	// Package protected ---------------------------------------------

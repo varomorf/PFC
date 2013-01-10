@@ -2,6 +2,8 @@ package com.gyp.pfc.activities.training;
 
 import java.util.List;
 
+import android.content.Intent;
+
 import com.gyp.pfc.activities.BaseActivityTest;
 import com.gyp.pfc.data.db.DatabaseHelper;
 import com.gyp.pfc.data.domain.Exercise;
@@ -58,6 +60,13 @@ public abstract class BaseTrainingTest extends BaseActivityTest {
 		// save entities
 		trainingExerciseDao.create(te);
 		return training;
+	}
+
+	protected void intentPassedWithTraining(int id) {
+		Training training = trainingDao.queryForId(id);
+		Intent intent = new Intent();
+		intent.putExtra(AddTrainingActivity.TRAINING, training);
+		activity.setIntent(intent);
 	}
 
 	// Private -------------------------------------------------------
