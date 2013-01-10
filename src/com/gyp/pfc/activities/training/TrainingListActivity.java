@@ -82,6 +82,19 @@ public class TrainingListActivity extends
 		setListAdapter(new TrainingAdapter(this, trainings));
 	}
 
+	@Override
+	protected void onResume() {
+		super.onResume();
+		// clear the list
+		getAdapter().clear();
+		// add all trainings
+		for (Training training : getHelper().getTrainingDao().queryForAll()) {
+			getAdapter().add(training);
+		}
+		// refresh UI
+		getAdapter().notifyDataSetChanged();
+	}
+
 	// Private -------------------------------------------------------
 
 	private int getIndexOfItemForPressedButton(View view) {
