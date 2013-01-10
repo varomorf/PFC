@@ -42,6 +42,7 @@
         android:layout_height="wrap_content"
         style="?android:attr/buttonStyleSmall"
         android:contentDescription="@string/label_delete"
-        android:src="@drawable/delete" />
+        android:src="@drawable/delete" 
+        android:onClick="deleteButton"/>
 
 </LinearLayout>
