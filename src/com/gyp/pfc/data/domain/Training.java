@@ -65,6 +65,19 @@ public class Training implements Serializable {
 		this.exercises = exercises;
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		if(o instanceof Training){
+			return ((Training)o).getId() == id;
+		}
+		return false;
+	}
+
+	@Override
+	public int hashCode() {
+		return id;
+	}
+	
 	// Package protected ---------------------------------------------
 
 	// Protected -----------------------------------------------------

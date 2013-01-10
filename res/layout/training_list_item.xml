@@ -34,7 +34,8 @@
         android:layout_height="wrap_content"
         style="?android:attr/buttonStyleSmall"
         android:contentDescription="@string/label_edit"
-        android:src="@drawable/pencil" />
+        android:src="@drawable/pencil"
+        android:onClick="editButton" />
 
     <ImageButton
         android:id="@+id/deleteButton"

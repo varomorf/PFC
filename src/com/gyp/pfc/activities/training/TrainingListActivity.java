@@ -2,6 +2,7 @@ package com.gyp.pfc.activities.training;
 
 import java.util.List;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
@@ -38,10 +39,8 @@ public class TrainingListActivity extends
 	 * @param view
 	 */
 	public void deleteButton(View view) {
-		// get index item of button pressed
-		int index = getIndexOfItemForPressedButton(view);
-		// get the training from the adapter
-		Training training = getAdapter().getItem(index);
+		// get the training from item of button pressed
+		Training training = getTrainingForClickedButtonListItem(view);
 		// remove related TrainginExercises
 		getHelper().getTrainingExerciseDao().delete(training.getExercises());
 		// remove from DB
@@ -52,6 +51,22 @@ public class TrainingListActivity extends
 		// show deletion message
 		Toast.makeText(getApplicationContext(), R.string.trainingDeleted,
 				Toast.LENGTH_SHORT).show();
+	}
+
+	/**
+	 * Callback for the edit button
+	 * 
+	 * @param view
+	 */
+	public void editButton(View view) {
+		// get the training from item of button pressed
+		Training training = getTrainingForClickedButtonListItem(view);
+		// prepare intent
+		Intent intent = new Intent(this, AddTrainingActivity.class);
+		// add training to intent
+		intent.putExtra(AddTrainingActivity.TRAINING, training);
+		// launch activity
+		startActivity(intent);
 	}
 
 	// Package protected ---------------------------------------------
@@ -77,6 +92,13 @@ public class TrainingListActivity extends
 
 	private TrainingAdapter getAdapter() {
 		return (TrainingAdapter) getListAdapter();
+	}
+
+	private Training getTrainingForClickedButtonListItem(View view) {
+		// get index item of button pressed
+		int index = getIndexOfItemForPressedButton(view);
+		// get the training from the adapter
+		return getAdapter().getItem(index);
 	}
 
 	// Inner classes -------------------------------------------------

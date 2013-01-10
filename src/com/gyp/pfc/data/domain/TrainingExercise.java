@@ -2,6 +2,8 @@ package com.gyp.pfc.data.domain;
 
 import static com.gyp.pfc.TimeUtils.*;
 
+import java.io.Serializable;
+
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
@@ -12,9 +14,11 @@ import com.j256.ormlite.table.DatabaseTable;
  * 
  */
 @DatabaseTable
-public class TrainingExercise {
+public class TrainingExercise implements Serializable{
 
 	// Constants -----------------------------------------------------
+	
+	private static final long serialVersionUID = 5196789157868525622L;
 
 	// Attributes ----------------------------------------------------
 
