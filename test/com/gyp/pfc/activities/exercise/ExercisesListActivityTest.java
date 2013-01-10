@@ -57,10 +57,7 @@ public class ExercisesListActivityTest extends BaseExerciseTest {
 		// WHEN
 		clickOnListItem(0);
 		// THEN
-		Intent next = activity.getNextStartedActivity();
-		assertNotNull(next);
-		assertThat(next.getComponent().getClassName(),
-				is(ExerciseDetailsActivity.class.getName()));
+		Intent next = assertAndReturnNextActivity(ExerciseDetailsActivity.class);
 		Exercise exercise = (Exercise) next
 				.getSerializableExtra(ExerciseListActivity.SELECTED_EXERCISE);
 		assertThat(exercise.getName(), is("foo"));

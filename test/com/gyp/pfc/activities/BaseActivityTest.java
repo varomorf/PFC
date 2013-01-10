@@ -4,6 +4,7 @@ import static com.xtremelabs.robolectric.Robolectric.*;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 import android.app.Activity;
+import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ListView;
@@ -99,6 +100,15 @@ public abstract class BaseActivityTest {
 	protected void clickOnListItemButton(int itemIndex, int buttonId) {
 		View item = getItemFromListView(itemIndex);
 		clickOn(item.findViewById(buttonId));
+	}
+	
+	@SuppressWarnings("rawtypes")
+	protected Intent assertAndReturnNextActivity(Class activityClass){
+		Intent next = activity.getNextStartedActivity();
+		assertNotNull(next);
+		assertEquals(activityClass.getName(), next.getComponent()
+				.getClassName());
+		return next;
 	}
 
 	// Private -------------------------------------------------------
