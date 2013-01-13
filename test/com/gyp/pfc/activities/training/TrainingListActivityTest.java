@@ -110,6 +110,22 @@ public class TrainingListActivityTest extends BaseTrainingTest {
 		assertTextOfListChild(1, R.id.time, "15:00");
 	}
 
+	@Test
+	public void shouldExecuteTrainings() {
+		// GIVEN
+		// activity with items
+		activityWithItems();
+		// WHEN
+		// execute button pressed on item 1
+		clickOnListItemButton(1, R.id.playButton);
+		// THEN
+		// add training activity is shown passing the selected training
+		Intent next = assertAndReturnNextActivity(ExecuteTrainingActivity.class);
+		Training training = (Training) next
+				.getSerializableExtra(AddTrainingActivity.TRAINING);
+		assertThat(training, is(trainingDao.queryForId(2)));
+	}
+
 	// Package protected ---------------------------------------------
 
 	// Protected -----------------------------------------------------
