@@ -48,5 +48,9 @@
     <string name="repetitions">Repeticiones</string>
     <string name="emptyExercisesList">La lista de ejercicios está vacía.</string>
     <string name="label_play">Ejecutar</string>
+    <string name="totalTimeLeft">Total restante:</string>
+    <string name="resumePause">Continuar/Pausa</string>
+    <string name="next">Siguiente</string>
+    <string name="previous">Anterior</string>
 
 </resources>
