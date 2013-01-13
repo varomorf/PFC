@@ -69,6 +69,22 @@ public class TrainingListActivity extends
 		startActivity(intent);
 	}
 
+	/**
+	 * Callback for the play button
+	 * 
+	 * @param view
+	 */
+	public void playButton(View view) {
+		// get the training from item of button pressed
+		Training training = getTrainingForClickedButtonListItem(view);
+		// prepare intent
+		Intent intent = new Intent(this, ExecuteTrainingActivity.class);
+		// add training to intent
+		intent.putExtra(AddTrainingActivity.TRAINING, training);
+		// launch activity
+		startActivity(intent);
+	}
+
 	// Package protected ---------------------------------------------
 
 	// Protected -----------------------------------------------------

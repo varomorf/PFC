@@ -26,7 +26,8 @@
         android:layout_height="wrap_content"
         style="?android:attr/buttonStyleSmall"
         android:contentDescription="@string/label_play"
-        android:src="@drawable/play" />
+        android:src="@drawable/play" 
+        android:onClick="playButton"/>
 
     <ImageButton
         android:id="@+id/editButton"
