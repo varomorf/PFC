@@ -77,13 +77,13 @@ public class ExecuteTrainingActivityTest extends BaseTrainingTest {
 		// activity is created
 		createActivity();
 		// WHEN
-		// next button is clicked 
+		// next button is clicked
 		clickOn(activity.findViewById(R.id.nextButton));
 		// THEN
 		// next exercise data should be loaded
 		assertViewText(R.id.exerciseName, exercise2.getName());
 	}
-	
+
 	@Test
 	public void nextButtonLimitShouldWork() {
 		// GIVEN
@@ -98,6 +98,38 @@ public class ExecuteTrainingActivityTest extends BaseTrainingTest {
 		// THEN
 		// next exercise data should be loaded
 		assertViewText(R.id.exerciseName, exercise2.getName());
+	}
+
+	@Test
+	public void previousButtonShouldWork() {
+		// GIVEN
+		// one training is passed via intent to the activity
+		passTrainingToActivity();
+		// activity is created
+		createActivity();
+		// WHEN
+		// next button is clicked
+		clickOn(activity.findViewById(R.id.nextButton));
+		// previous button is clicked
+		clickOn(activity.findViewById(R.id.previousButton));
+		// THEN
+		// next exercise data should be loaded
+		assertViewText(R.id.exerciseName, exercise1.getName());
+	}
+
+	@Test
+	public void previousButtonLimitShouldWork() {
+		// GIVEN
+		// one training is passed via intent to the activity
+		passTrainingToActivity();
+		// activity is created
+		createActivity();
+		// WHEN
+		// previous button is clicked from start
+		clickOn(activity.findViewById(R.id.previousButton));
+		// THEN
+		// initial exercise data should be loaded
+		assertViewText(R.id.exerciseName, exercise1.getName());
 	}
 
 	// Package protected ---------------------------------------------
