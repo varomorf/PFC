@@ -24,7 +24,10 @@ public class ExecuteTrainingActivity extends Activity {
 	// Attributes ----------------------------------------------------
 
 	private Training training;
+	private int exerciseIndex;
 	private TrainingExercise[] exercises = new TrainingExercise[0];
+	
+	
 	private CountdownTimer timer;
 
 	// Static --------------------------------------------------------
@@ -33,6 +36,13 @@ public class ExecuteTrainingActivity extends Activity {
 
 	// Public --------------------------------------------------------
 
+	public void nextButton(View view){
+		// increment exercise index
+		exerciseIndex++;
+		// update the view
+		updateView();
+	}
+	
 	// Package protected ---------------------------------------------
 
 	// Protected -----------------------------------------------------
@@ -48,6 +58,8 @@ public class ExecuteTrainingActivity extends Activity {
 			training = (Training) intent
 					.getSerializableExtra(AddTrainingActivity.TRAINING);
 			if (null != training) {
+				// initialize exercise index
+				exerciseIndex = 0;
 				// if there's an exercise -> update the view
 				updateView();
 			}
@@ -60,7 +72,7 @@ public class ExecuteTrainingActivity extends Activity {
 		// get training exercises
 		exercises = training.getExercises().toArray(exercises);
 		// fill data
-		TrainingExercise te = exercises[0];
+		TrainingExercise te = exercises[exerciseIndex];
 		UIUtils.setTextToUI(findViewById(R.id.trainingName), training.getName());
 		UIUtils.setTextToUI(findViewById(R.id.exerciseName), te.getExercise()
 				.getName());

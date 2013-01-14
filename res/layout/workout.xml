@@ -75,7 +75,8 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:contentDescription="@string/next"
-            android:src="@drawable/play" />
+            android:src="@drawable/play"
+            android:onClick="nextButton" />
     </RelativeLayout>
 
 </RelativeLayout>
