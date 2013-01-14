@@ -11,7 +11,6 @@ import android.app.Activity;
 
 import com.gyp.pfc.CustomTestRunner;
 import com.gyp.pfc.R;
-import com.gyp.pfc.UIUtils;
 import com.gyp.pfc.data.domain.Exercise;
 
 @RunWith(CustomTestRunner.class)
@@ -43,12 +42,8 @@ public class EditExerciseActivityTest extends BaseExerciseTest {
 		createActivity();
 		// THEN
 		// data is filled in form
-		String name = UIUtils.getTextFromUI(activity
-				.findViewById(R.id.exerciseName));
-		assertThat(name, is(exercise.getName()));
-		String description = UIUtils.getTextFromUI(activity
-				.findViewById(R.id.exerciseDescription));
-		assertThat(description, is(exercise.getDescription()));
+		assertViewText(R.id.exerciseName, exercise.getName());
+		assertViewText(R.id.exerciseDescription, exercise.getDescription());
 	}
 
 	@Test

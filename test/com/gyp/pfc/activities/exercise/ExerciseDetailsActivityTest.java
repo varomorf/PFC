@@ -9,7 +9,6 @@ import org.junit.runner.RunWith;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.widget.TextView;
 
 import com.gyp.pfc.CustomTestRunner;
 import com.gyp.pfc.R;
@@ -129,7 +128,7 @@ public class ExerciseDetailsActivityTest extends BaseExerciseTest {
 		activity.callOnResume();
 		// THEN
 		// new data of exercise is loaded
-		assertDataFilled(NEW_NAME,NEW_DESC);
+		assertDataFilled(NEW_NAME, NEW_DESC);
 	}
 
 	// Package protected ---------------------------------------------
@@ -143,11 +142,8 @@ public class ExerciseDetailsActivityTest extends BaseExerciseTest {
 
 	// Private -------------------------------------------------------
 	private void assertDataFilled(String expectedName, String expectedDesc) {
-		TextView name = (TextView) activity.findViewById(R.id.exerciseName);
-		TextView description = (TextView) activity
-				.findViewById(R.id.exerciseDescription);
-		assertThat(name.getText().toString(), is(expectedName));
-		assertThat(description.getText().toString(), is(expectedDesc));
+		assertViewText(R.id.exerciseName, expectedName);
+		assertViewText(R.id.exerciseDescription, expectedDesc);
 	}
 	// Inner classes -------------------------------------------------
 }

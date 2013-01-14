@@ -46,11 +46,16 @@ public abstract class BaseTrainingTest extends BaseActivityTest {
 
 	// Protected -----------------------------------------------------
 
-	protected Training createTraining(String name, int reps, int seconds) {
+	protected Training createTraining(String name) {
 		// prepare new training
 		Training training = new Training();
 		training.setName(name);
 		trainingDao.create(training);
+		return training;
+	}
+
+	protected TrainingExercise addExerciseToTraining(Training training,
+			Exercise exercise, int reps, int seconds) {
 		// add exercise to training with passed seconds
 		TrainingExercise te = new TrainingExercise();
 		te.setTraining(training);
@@ -59,6 +64,14 @@ public abstract class BaseTrainingTest extends BaseActivityTest {
 		te.setReps(reps);
 		// save entities
 		trainingExerciseDao.create(te);
+		return te;
+	}
+
+	protected Training createTraining(String name, int reps, int seconds) {
+		// prepare new training
+		Training training = createTraining(name);
+		// add exercise to training with passed seconds
+		addExerciseToTraining(training,exercise, reps, seconds);
 		return training;
 	}
 

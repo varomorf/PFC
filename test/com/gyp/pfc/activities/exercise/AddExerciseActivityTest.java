@@ -10,11 +10,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import android.app.Activity;
-import android.widget.EditText;
 
 import com.gyp.pfc.CustomTestRunner;
 import com.gyp.pfc.R;
-import com.gyp.pfc.UIUtils;
 import com.gyp.pfc.data.domain.Exercise;
 
 @RunWith(CustomTestRunner.class)
@@ -50,11 +48,8 @@ public class AddExerciseActivityTest extends BaseExerciseTest {
 		assertThat(exercises.get(0).getName(), is(EXERCISE_NAME));
 		assertThat(exercises.get(0).getDescription(), is(EXERCISE_DESC));
 		assertToastText(R.string.exerciseCreated);
-		assertThat(
-				UIUtils.getTextFromUI(activity.findViewById(R.id.exerciseName)),
-				is(""));
-		assertThat(UIUtils.getTextFromUI(activity
-				.findViewById(R.id.exerciseDescription)), is(""));
+		assertViewText(R.id.exerciseName, "");
+		assertViewText(R.id.exerciseDescription, "");
 	}
 
 	@Test
@@ -62,8 +57,7 @@ public class AddExerciseActivityTest extends BaseExerciseTest {
 		// GIVEN
 		createActivity();
 		// WHEN
-		EditText name = (EditText) activity.findViewById(R.id.exerciseName);
-		assertThat(name.getText().toString(), is(""));
+		assertViewText(R.id.exerciseName, "");
 		commitButtonIsClicked();
 		// THEN
 		assertToastText(R.string.exerciseNameBlank);

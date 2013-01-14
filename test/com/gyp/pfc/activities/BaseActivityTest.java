@@ -11,6 +11,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.gyp.pfc.R;
+import com.gyp.pfc.UIUtils;
 import com.gyp.pfc.data.db.DatabaseHelper;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.xtremelabs.robolectric.shadows.ShadowActivity;
@@ -109,6 +110,12 @@ public abstract class BaseActivityTest {
 		assertEquals(activityClass.getName(), next.getComponent()
 				.getClassName());
 		return next;
+	}
+	
+	protected void assertViewText(int id, String expected){
+		View view = activity.findViewById(id);
+		String text = UIUtils.getTextFromUI(view);
+		assertThat(text, is(expected));
 	}
 
 	// Private -------------------------------------------------------
