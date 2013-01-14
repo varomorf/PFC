@@ -26,8 +26,7 @@ public class ExecuteTrainingActivity extends Activity {
 	private Training training;
 	private int exerciseIndex;
 	private TrainingExercise[] exercises = new TrainingExercise[0];
-	
-	
+
 	private CountdownTimer timer;
 
 	// Static --------------------------------------------------------
@@ -36,13 +35,18 @@ public class ExecuteTrainingActivity extends Activity {
 
 	// Public --------------------------------------------------------
 
-	public void nextButton(View view){
+	/**
+	 * Callback for the next button
+	 * 
+	 * @param view
+	 */
+	public void nextButton(View view) {
 		// increment exercise index
 		incrementExerciseIndex();
 		// update the view
 		updateView();
 	}
-	
+
 	// Package protected ---------------------------------------------
 
 	// Protected -----------------------------------------------------
@@ -101,9 +105,9 @@ public class ExecuteTrainingActivity extends Activity {
 		buffer.append(secondNumber);
 		UIUtils.setTextToUI(view, buffer.toString());
 	}
-	
-	private void incrementExerciseIndex(){
-		if(exerciseIndex < exercises.length -1){
+
+	private void incrementExerciseIndex() {
+		if (exerciseIndex < exercises.length - 1) {
 			exerciseIndex++;
 		}
 	}
