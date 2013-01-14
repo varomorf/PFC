@@ -80,6 +80,23 @@ public class ExecuteTrainingActivityTest extends BaseTrainingTest {
 		// next button is clicked 
 		clickOn(activity.findViewById(R.id.nextButton));
 		// THEN
+		// next exercise data should be loaded
+		assertViewText(R.id.exerciseName, exercise2.getName());
+	}
+	
+	@Test
+	public void nextButtonLimitShouldWork() {
+		// GIVEN
+		// one training is passed via intent to the activity
+		passTrainingToActivity();
+		// activity is created
+		createActivity();
+		// WHEN
+		// next button is clicked 2 times
+		clickOn(activity.findViewById(R.id.nextButton));
+		clickOn(activity.findViewById(R.id.nextButton));
+		// THEN
+		// next exercise data should be loaded
 		assertViewText(R.id.exerciseName, exercise2.getName());
 	}
 
