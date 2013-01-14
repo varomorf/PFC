@@ -55,7 +55,7 @@ public class AddTrainingActivityTest extends BaseTrainingTest {
 		createActivity();
 		// WHEN
 		// name is set
-		setTextToUI(activity.findViewById(R.id.trainningName), TRAINING_NAME);
+		setTextToUI(activity.findViewById(R.id.trainingName), TRAINING_NAME);
 		// save button is clicked
 		saveButtonIsClicked();
 		// THEN
@@ -74,7 +74,7 @@ public class AddTrainingActivityTest extends BaseTrainingTest {
 		// activity is shown
 		createActivity();
 		// WHEN
-		setTextToUI(activity.findViewById(R.id.trainningName), "");
+		setTextToUI(activity.findViewById(R.id.trainingName), "");
 		// save button is clicked
 		saveButtonIsClicked();
 		// THEN
@@ -95,7 +95,7 @@ public class AddTrainingActivityTest extends BaseTrainingTest {
 		tmp.setName(TRAINING_NAME);
 		trainingDao.create(tmp);
 		// WHEN
-		setTextToUI(activity.findViewById(R.id.trainningName), TRAINING_NAME);
+		setTextToUI(activity.findViewById(R.id.trainingName), TRAINING_NAME);
 		// save button is clicked
 		saveButtonIsClicked();
 		// THEN
@@ -134,7 +134,7 @@ public class AddTrainingActivityTest extends BaseTrainingTest {
 		// activity is shown
 		createActivity();
 		// name is set
-		setTextToUI(activity.findViewById(R.id.trainningName), TRAINING_NAME);
+		setTextToUI(activity.findViewById(R.id.trainingName), TRAINING_NAME);
 		// WHEN
 		// add button is clicked
 		clickOn(activity.findViewById(R.id.addExerciseButton));
@@ -278,7 +278,7 @@ public class AddTrainingActivityTest extends BaseTrainingTest {
 		// THEN
 		// training data is shown
 		assertThat(UIUtils.getTextFromUI(activity
-				.findViewById(R.id.trainningName)), is(training.getName()));
+				.findViewById(R.id.trainingName)), is(training.getName()));
 		assertChildrenNumber(activity.findViewById(R.id.exercisesLayout), 1);
 		View item = getChildFromView(
 				activity.findViewById(R.id.exercisesLayout), 0);
@@ -330,7 +330,7 @@ public class AddTrainingActivityTest extends BaseTrainingTest {
 		// activity is shown
 		createActivity();
 		// name is set
-		setTextToUI(activity.findViewById(R.id.trainningName), TRAINING_NAME);
+		setTextToUI(activity.findViewById(R.id.trainingName), TRAINING_NAME);
 	}
 
 	// Inner classes -------------------------------------------------

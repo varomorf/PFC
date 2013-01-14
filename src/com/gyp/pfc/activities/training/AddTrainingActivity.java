@@ -294,7 +294,7 @@ public class AddTrainingActivity extends OrmLiteBaseActivity<DatabaseHelper>
 			training = new Training();
 		}
 		// get name from view
-		String name = UIUtils.getTextFromUI(findViewById(R.id.trainningName));
+		String name = UIUtils.getTextFromUI(findViewById(R.id.trainingName));
 		// set training name
 		training.setName(name);
 		return training;
@@ -357,7 +357,7 @@ public class AddTrainingActivity extends OrmLiteBaseActivity<DatabaseHelper>
 	
 	private void updateView(){
 		// set the name form field
-		UIUtils.setTextToUI(findViewById(R.id.trainningName), training.getName());
+		UIUtils.setTextToUI(findViewById(R.id.trainingName), training.getName());
 		// update the list of exercises
 		updateUIList();
 	}
