@@ -1,5 +1,7 @@
 package com.gyp.pfc.activities.training;
 
+import static com.xtremelabs.robolectric.Robolectric.*;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -57,11 +59,28 @@ public class ExecuteTrainingActivityTest extends BaseTrainingTest {
 		// seconds of first exercise is shown
 		assertViewText(R.id.timer, "01:00");
 		// reps of first exercise is shown
-		assertViewText(R.id.repetitionNumber, activity.getText(R.string.repetition) + " 1/10");
+		assertViewText(R.id.repetitionNumber,
+				activity.getText(R.string.repetition) + " 1/10");
 		// total exercises are shown
-		assertViewText(R.id.exerciseNumberFraction, activity.getText(R.string.exercise_label) + " 1/2");
+		assertViewText(R.id.exerciseNumberFraction,
+				activity.getText(R.string.exercise_label) + " 1/2");
 		// button shows resume/pause text
-		assertViewText(R.id.actionButton, activity.getText(R.string.resumePause).toString());
+		assertViewText(R.id.actionButton, activity
+				.getText(R.string.resumePause).toString());
+	}
+
+	@Test
+	public void nextButtonShouldWork() {
+		// GIVEN
+		// one training is passed via intent to the activity
+		passTrainingToActivity();
+		// activity is created
+		createActivity();
+		// WHEN
+		// next button is clicked 
+		clickOn(activity.findViewById(R.id.nextButton));
+		// THEN
+		assertViewText(R.id.exerciseName, exercise2.getName());
 	}
 
 	// Package protected ---------------------------------------------
