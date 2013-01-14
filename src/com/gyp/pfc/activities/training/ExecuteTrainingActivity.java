@@ -38,7 +38,7 @@ public class ExecuteTrainingActivity extends Activity {
 
 	public void nextButton(View view){
 		// increment exercise index
-		exerciseIndex++;
+		incrementExerciseIndex();
 		// update the view
 		updateView();
 	}
@@ -100,6 +100,12 @@ public class ExecuteTrainingActivity extends Activity {
 		buffer.append("/");
 		buffer.append(secondNumber);
 		UIUtils.setTextToUI(view, buffer.toString());
+	}
+	
+	private void incrementExerciseIndex(){
+		if(exerciseIndex < exercises.length -1){
+			exerciseIndex++;
+		}
 	}
 
 	// Inner classes -------------------------------------------------
