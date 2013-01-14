@@ -19,7 +19,6 @@ import android.widget.Spinner;
 
 import com.gyp.pfc.CustomTestRunner;
 import com.gyp.pfc.R;
-import com.gyp.pfc.UIUtils;
 import com.gyp.pfc.activities.exercise.BaseExerciseTest;
 import com.gyp.pfc.data.domain.Exercise;
 import com.gyp.pfc.data.domain.Training;
@@ -277,8 +276,7 @@ public class AddTrainingActivityTest extends BaseTrainingTest {
 		createActivity();
 		// THEN
 		// training data is shown
-		assertThat(UIUtils.getTextFromUI(activity
-				.findViewById(R.id.trainingName)), is(training.getName()));
+		assertViewText(R.id.trainingName, training.getName());
 		assertChildrenNumber(activity.findViewById(R.id.exercisesLayout), 1);
 		View item = getChildFromView(
 				activity.findViewById(R.id.exercisesLayout), 0);
