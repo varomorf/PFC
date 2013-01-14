@@ -18,6 +18,14 @@
         android:layout_below="@id/trainingName"
         android:layout_centerHorizontal="true"
         android:textAppearance="?android:attr/textAppearanceLarge" />
+    
+    <com.gyp.pfc.widgets.CountdownTimer
+        android:id="@+id/timer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:textSize="@dimen/timerTextSize" />
 
     <TextView
         android:id="@+id/repetitionNumber"
@@ -69,13 +77,5 @@
             android:contentDescription="@string/next"
             android:src="@drawable/play" />
     </RelativeLayout>
-
-    <com.gyp.pfc.widgets.CountdownTimer
-        android:id="@+id/timer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:textSize="@dimen/timerTextSize" />
 
 </RelativeLayout>

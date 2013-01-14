@@ -3,9 +3,10 @@ package com.gyp.pfc.widgets;
 import android.content.Context;
 import android.os.CountDownTimer;
 import android.os.SystemClock;
-import android.text.format.DateUtils;
 import android.util.AttributeSet;
 import android.widget.Chronometer;
+
+import com.gyp.pfc.TimeUtils;
 
 /**
  * Chronometer extension for counting down seconds.
@@ -75,7 +76,7 @@ public class CountdownTimer extends Chronometer {
 		// set remaining milliseconds from passed arg
 		remainingMillis = seconds * MILLIS_IN_ONE_SECOND;
 		// set text of chronometer to total time to be counted down
-        String text = DateUtils.formatElapsedTime(seconds);
+        String text = TimeUtils.formatTime(seconds);
         setText(text);
 	}
 
