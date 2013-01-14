@@ -57,7 +57,8 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:contentDescription="@string/previous"
-            android:src="@drawable/previous" />
+            android:src="@drawable/previous"
+            android:onClick="previousButton" />
 
         <TextView
             android:id="@+id/exerciseNumberFraction"

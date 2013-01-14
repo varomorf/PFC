@@ -45,6 +45,22 @@ public class ExecuteTrainingActivity extends Activity {
 		incrementExerciseIndex();
 		// update the view
 		updateView();
+		// stop the timer
+		timer.stop();
+	}
+
+	/**
+	 * Callback for the previous button
+	 * 
+	 * @param view
+	 */
+	public void previousButton(View view) {
+		// decrement exercise index
+		decrementExerciseIndex();
+		// update the view
+		updateView();
+		// stop the timer
+		timer.stop();
 	}
 
 	// Package protected ---------------------------------------------
@@ -109,6 +125,12 @@ public class ExecuteTrainingActivity extends Activity {
 	private void incrementExerciseIndex() {
 		if (exerciseIndex < exercises.length - 1) {
 			exerciseIndex++;
+		}
+	}
+
+	private void decrementExerciseIndex() {
+		if (exerciseIndex > 0) {
+			exerciseIndex--;
 		}
 	}
 

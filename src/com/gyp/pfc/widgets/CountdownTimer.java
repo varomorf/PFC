@@ -25,6 +25,7 @@ public class CountdownTimer extends Chronometer {
 	private long remainingMillis;
 	private int ticksFreq = 500;
 	private CountDownTimer timer;
+	private boolean running;
 
 	// Static --------------------------------------------------------
 
@@ -110,6 +111,7 @@ public class CountdownTimer extends Chronometer {
 				remainingMillis = 0;
 			}
 		}.start();
+		running = true;
 	}
 
 	/**
@@ -117,8 +119,13 @@ public class CountdownTimer extends Chronometer {
 	 */
 	public void pause() {
 		timer.cancel();
+		running = false;
 	}
 
+	public boolean isRunning() {
+		return running;
+	}
+	
 	// Package protected ---------------------------------------------
 
 	// Protected -----------------------------------------------------
