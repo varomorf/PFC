@@ -2,7 +2,6 @@ package com.gyp.pfc.widgets;
 
 import android.content.Context;
 import android.os.CountDownTimer;
-import android.os.SystemClock;
 import android.util.AttributeSet;
 import android.widget.Chronometer;
 
@@ -77,8 +76,7 @@ public class CountdownTimer extends Chronometer {
 		// set remaining milliseconds from passed arg
 		remainingMillis = seconds * MILLIS_IN_ONE_SECOND;
 		// set text of chronometer to total time to be counted down
-        String text = TimeUtils.formatTime(seconds);
-        setText(text);
+		setTimeText();
 	}
 
 	/**
@@ -88,7 +86,7 @@ public class CountdownTimer extends Chronometer {
 	 */
 	@Override
 	public void start() {
-		if(timer != null){
+		if (timer != null) {
 			// cancel previous timer if present
 			pause();
 		}
@@ -97,18 +95,18 @@ public class CountdownTimer extends Chronometer {
 
 			@Override
 			public void onTick(long millisUntilFinished) {
-				// set text of the chronometer to show the change
-				setBase(SystemClock.elapsedRealtime() - millisUntilFinished);
 				// set remaining milliseconds to allow resuming
 				remainingMillis = millisUntilFinished;
+				// set text of the chronometer to show the change
+				setTimeText();
 			}
 
 			@Override
 			public void onFinish() {
-				// set text of the chronometer to zero
-				setBase(SystemClock.elapsedRealtime());
 				// assure that the remaining milliseconds will be 0
 				remainingMillis = 0;
+				// set text of the chronometer to show the change
+				setTimeText();
 			}
 		}.start();
 		running = true;
@@ -118,19 +116,27 @@ public class CountdownTimer extends Chronometer {
 	 * Pauses the count down timer
 	 */
 	public void pause() {
-		timer.cancel();
+		if (timer != null) {
+			timer.cancel();
+		}
 		running = false;
 	}
 
 	public boolean isRunning() {
 		return running;
 	}
-	
+
 	// Package protected ---------------------------------------------
 
 	// Protected -----------------------------------------------------
 
 	// Private -------------------------------------------------------
+	
+	private void setTimeText(){
+		long seconds = remainingMillis / MILLIS_IN_ONE_SECOND;
+		String text = TimeUtils.formatTime((int) seconds);
+		setText(text);
+	}
 
 	// Inner classes -------------------------------------------------
 }
