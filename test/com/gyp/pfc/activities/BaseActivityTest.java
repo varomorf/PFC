@@ -117,6 +117,12 @@ public abstract class BaseActivityTest {
 		String text = UIUtils.getTextFromUI(view);
 		assertThat(text, is(expected));
 	}
+	
+	protected void assertViewTextIsNot(int id, String expected){
+		View view = activity.findViewById(id);
+		String text = UIUtils.getTextFromUI(view);
+		assertThat(text, is(not(expected)));
+	}
 
 	// Private -------------------------------------------------------
 

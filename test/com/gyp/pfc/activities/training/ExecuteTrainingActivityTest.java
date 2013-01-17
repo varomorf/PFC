@@ -13,6 +13,7 @@ import com.gyp.pfc.R;
 import com.gyp.pfc.activities.exercise.BaseExerciseTest;
 import com.gyp.pfc.data.domain.Exercise;
 import com.gyp.pfc.data.domain.Training;
+import com.xtremelabs.robolectric.shadows.ShadowCountDownTimer;
 
 @RunWith(CustomTestRunner.class)
 public class ExecuteTrainingActivityTest extends BaseTrainingTest {
@@ -130,6 +131,23 @@ public class ExecuteTrainingActivityTest extends BaseTrainingTest {
 		// THEN
 		// initial exercise data should be loaded
 		assertViewText(R.id.exerciseName, exercise1.getName());
+	}
+
+	@Test
+	public void resumePauseButtonShouldStartTimer() {
+		// GIVEN
+		// one training is passed via intent to the activity
+		passTrainingToActivity();
+		// activity is created
+		createActivity();
+		// WHEN
+		// resume/pause button is clicked from start
+		clickOn(activity.findViewById(R.id.actionButton));
+		// THEN
+		// timer text should change
+		ShadowCountDownTimer shadow = ShadowCountDownTimer.getLast();
+		shadow.invokeTick(2000); // fake the passing of time
+		assertViewTextIsNot(R.id.timer, "01:00");
 	}
 
 	// Package protected ---------------------------------------------
