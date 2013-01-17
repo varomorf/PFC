@@ -46,7 +46,7 @@ public class ExecuteTrainingActivity extends Activity {
 		// update the view
 		updateView();
 		// stop the timer
-		timer.stop();
+		timer.pause();
 	}
 
 	/**
@@ -60,7 +60,19 @@ public class ExecuteTrainingActivity extends Activity {
 		// update the view
 		updateView();
 		// stop the timer
-		timer.stop();
+		timer.pause();
+	}
+
+	/**
+	 * Callback for the action button
+	 * 
+	 * @param view
+	 */
+	public void actionButton(View view) {
+		if (!timer.isRunning()) {
+			// start the timer if it's not running
+			timer.start();
+		}
 	}
 
 	// Package protected ---------------------------------------------

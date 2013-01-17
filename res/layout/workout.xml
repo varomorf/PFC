@@ -41,7 +41,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:text="@string/resumePause" />
+        android:text="@string/resumePause"
+        android:onClick="actionButton" />
 
     <RelativeLayout
         android:id="@+id/buttonsLayout"
