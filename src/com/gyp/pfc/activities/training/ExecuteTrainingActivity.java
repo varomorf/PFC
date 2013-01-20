@@ -76,6 +76,10 @@ public class ExecuteTrainingActivity extends Activity implements
 	 * @param view
 	 */
 	public void actionButton(View view) {
+		// if exercise has no duration -> goto next exercise
+		if(exercises[exerciseIndex].getSeconds() == 0){
+			nextButton(null);
+		}
 		if (!timer.isRunning()) {
 			// start the timer if it's not running
 			timer.start();
@@ -143,6 +147,8 @@ public class ExecuteTrainingActivity extends Activity implements
 		setExerciseNumberFraction(te);
 		if(seconds == 0){
 			UIUtils.setTextToUI(findViewById(R.id.actionButton), getText(R.string.done));
+		}else{
+			UIUtils.setTextToUI(findViewById(R.id.actionButton), getText(R.string.resumePause));
 		}
 	}
 
