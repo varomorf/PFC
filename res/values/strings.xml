@@ -50,6 +50,7 @@
     <string name="label_play">Ejecutar</string>
     <string name="totalTimeLeft">Total restante:</string>
     <string name="resumePause">Continuar/Pausa</string>
+    <string name="done">Hecho</string>
     <string name="next">Siguiente</string>
     <string name="previous">Anterior</string>
     <string name="repetition">Repetición</string>

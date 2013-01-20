@@ -199,12 +199,12 @@ public class ExecuteTrainingActivityTest extends BaseTrainingTest {
 		// timer should be running
 		assertTrue(ShadowCountDownTimer.getLast().hasStarted());
 	}
-	
+
 	@Test
 	public void shouldPassAutomaticallyToTheNextTrainingWithTimerStopped() {
 		// GIVEN
-		// one training is passed via intent to the activity with second exercise with no duration
-		passTrainingToActivity(0);
+		// one training passed via intent with second exercise with no duration
+		passTrainingToActivity(SECS, 0);
 		// activity is created
 		createActivity();
 		// WHEN
@@ -224,6 +224,21 @@ public class ExecuteTrainingActivityTest extends BaseTrainingTest {
 		assertFalse(ShadowCountDownTimer.getLast().hasStarted());
 	}
 
+	@Test
+	public void actionButtonShouldBeDoneButtonForExercisesWithoutDuration() {
+		// GIVEN
+		// one training passed via intent with exercises w/o duration
+		passTrainingToActivity(0, 0);
+		// activity is created
+		createActivity();
+		// WHEN
+		// next button is clicked
+		clickOn(activity.findViewById(R.id.nextButton));
+		// THEN
+		// action button should be done button
+		assertViewText(R.id.actionButton, activity.getText(R.string.done).toString());
+	}
+
 	// Package protected ---------------------------------------------
 
 	// Protected -----------------------------------------------------
@@ -234,19 +249,20 @@ public class ExecuteTrainingActivityTest extends BaseTrainingTest {
 	}
 
 	// Private -------------------------------------------------------
-	
-	private void passTrainingToActivity(){
-		passTrainingToActivity(SECS + 1);
+
+	private void passTrainingToActivity() {
+		passTrainingToActivity(SECS, SECS + 1);
 	}
 
-	private void passTrainingToActivity(int secondsOfExercise2) {
+	private void passTrainingToActivity(int secondsOfExercise1,
+			int secondsOfExercise2) {
 		training = createTraining(TRAINING_NAME);
 		BaseExerciseTest.insertExercise(exerciseDao,
 				BaseExerciseTest.EXERCISE_NAME, BaseExerciseTest.EXERCISE_DESC);
 		BaseExerciseTest.insertExercise(exerciseDao, EXERCISE2_NAME,
 				EXERCISE2_DESC);
 		exercise1 = exerciseDao.queryForId(1);
-		addExerciseToTraining(training, exercise1, REPS, SECS);
+		addExerciseToTraining(training, exercise1, REPS, secondsOfExercise1);
 		exercise2 = exerciseDao.queryForId(2);
 		addExerciseToTraining(training, exercise2, REPS + 1, secondsOfExercise2);
 		trainingDao.refresh(training);
