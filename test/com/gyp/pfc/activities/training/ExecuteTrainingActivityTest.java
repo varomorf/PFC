@@ -236,7 +236,26 @@ public class ExecuteTrainingActivityTest extends BaseTrainingTest {
 		clickOn(activity.findViewById(R.id.nextButton));
 		// THEN
 		// action button should be done button
-		assertViewText(R.id.actionButton, activity.getText(R.string.done).toString());
+		assertViewText(R.id.actionButton, activity.getText(R.string.done)
+				.toString());
+	}
+
+	@Test
+	public void doneButtonShouldWorkAsNextButton() {
+		// GIVEN
+		// one training passed via intent with exercise1 w/o duration and
+		// exercise2 with duration
+		passTrainingToActivity(0, 10);
+		// activity is created
+		createActivity();
+		// WHEN
+		// done button is clicked
+		clickOn(activity.findViewById(R.id.actionButton));
+		// THEN
+		// next exercise data should be loaded
+		assertViewText(R.id.exerciseName, exercise2.getName());
+		// timer should be running
+				assertTrue(ShadowCountDownTimer.getLast().hasStarted());
 	}
 
 	// Package protected ---------------------------------------------
