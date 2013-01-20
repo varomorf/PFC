@@ -25,6 +25,9 @@ public final class TimeUtils {
 	 * @return the number of integer minutes
 	 */
 	public static int minutesFromSeconds(int seconds) {
+		if(seconds < 60){
+			return 0;
+		}
 		return seconds / SECONDS_PER_MINUTE;
 	}
 
@@ -43,6 +46,9 @@ public final class TimeUtils {
 	 * @return The number of seconds
 	 */
 	public static int restingSecondsFromSeconds(int seconds) {
+		if(seconds < 60){
+			return seconds;
+		}
 		return seconds % SECONDS_PER_MINUTE;
 	}
 

@@ -94,8 +94,10 @@ public class ExecuteTrainingActivity extends Activity implements
 			// when timer ends behave like if next button is pressed
 			nextButton(null);
 		}
-		// and then start again the timer
-		timer.start();
+		// and then start again the timer if exercise has duration
+		if (exercises[exerciseIndex].getSeconds() > 0) {
+			timer.start();
+		}
 	}
 
 	// Package protected ---------------------------------------------
