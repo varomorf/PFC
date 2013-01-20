@@ -137,9 +137,13 @@ public class ExecuteTrainingActivity extends Activity implements
 		UIUtils.setTextToUI(findViewById(R.id.trainingName), training.getName());
 		UIUtils.setTextToUI(findViewById(R.id.exerciseName), te.getExercise()
 				.getName());
-		timer.setSeconds(te.getSeconds());
+		int seconds = te.getSeconds();
+		timer.setSeconds(seconds);
 		setRepetitionNumber(te);
 		setExerciseNumberFraction(te);
+		if(seconds == 0){
+			UIUtils.setTextToUI(findViewById(R.id.actionButton), getText(R.string.done));
+		}
 	}
 
 	private void setRepetitionNumber(TrainingExercise te) {
