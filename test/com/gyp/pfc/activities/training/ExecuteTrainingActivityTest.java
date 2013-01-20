@@ -168,11 +168,60 @@ public class ExecuteTrainingActivityTest extends BaseTrainingTest {
 		shadow.invokeFinish(); // fake the finishing of time
 		// THEN
 		// next repetitions should be loaded
-		assertViewText(R.id.repetitionNumber, activity.getText(R.string.repetition) + " 2/2");
+		assertViewText(R.id.repetitionNumber,
+				activity.getText(R.string.repetition) + " 2/2");
 		// timer time should be reset
 		assertViewText(R.id.timer, "01:00");
 		// timer should be running
 		assertTrue(ShadowCountDownTimer.getLast().hasStarted());
+	}
+
+	@Test
+	public void shouldPassToTheNextTrainingWhenTimerFinishesAndNoMoreReps() {
+		// GIVEN
+		// one training is passed via intent to the activity
+		passTrainingToActivity();
+		// activity is created
+		createActivity();
+		// WHEN
+		// resume/pause button is clicked from start
+		clickOn(activity.findViewById(R.id.actionButton));
+		// time ends two times
+		ShadowCountDownTimer shadow = ShadowCountDownTimer.getLast();
+		assertTrue(shadow.hasStarted());
+		shadow.invokeFinish(); // fake the finishing of time
+		shadow.invokeFinish(); // fake the finishing of time again
+		// THEN
+		// next exercise data should be loaded
+		assertViewText(R.id.exerciseName, exercise2.getName());
+		// timer time should be reset
+		assertViewText(R.id.timer, "01:01");
+		// timer should be running
+		assertTrue(ShadowCountDownTimer.getLast().hasStarted());
+	}
+	
+	@Test
+	public void shouldPassAutomaticallyToTheNextTrainingWithTimerStopped() {
+		// GIVEN
+		// one training is passed via intent to the activity with second exercise with no duration
+		passTrainingToActivity(0);
+		// activity is created
+		createActivity();
+		// WHEN
+		// resume/pause button is clicked from start
+		clickOn(activity.findViewById(R.id.actionButton));
+		// time ends two times
+		ShadowCountDownTimer shadow = ShadowCountDownTimer.getLast();
+		assertTrue(shadow.hasStarted());
+		shadow.invokeFinish(); // fake the finishing of time
+		shadow.invokeFinish(); // fake the finishing of time again
+		// THEN
+		// next exercise data should be loaded
+		assertViewText(R.id.exerciseName, exercise2.getName());
+		// timer time should be reset
+		assertViewText(R.id.timer, "00:00");
+		// timer should be stopped
+		assertFalse(ShadowCountDownTimer.getLast().hasStarted());
 	}
 
 	// Package protected ---------------------------------------------
@@ -185,8 +234,12 @@ public class ExecuteTrainingActivityTest extends BaseTrainingTest {
 	}
 
 	// Private -------------------------------------------------------
+	
+	private void passTrainingToActivity(){
+		passTrainingToActivity(SECS + 1);
+	}
 
-	private void passTrainingToActivity() {
+	private void passTrainingToActivity(int secondsOfExercise2) {
 		training = createTraining(TRAINING_NAME);
 		BaseExerciseTest.insertExercise(exerciseDao,
 				BaseExerciseTest.EXERCISE_NAME, BaseExerciseTest.EXERCISE_DESC);
@@ -195,7 +248,8 @@ public class ExecuteTrainingActivityTest extends BaseTrainingTest {
 		exercise1 = exerciseDao.queryForId(1);
 		addExerciseToTraining(training, exercise1, REPS, SECS);
 		exercise2 = exerciseDao.queryForId(2);
-		addExerciseToTraining(training, exercise2, REPS + 1, SECS + 1);
+		addExerciseToTraining(training, exercise2, REPS + 1, secondsOfExercise2);
+		trainingDao.refresh(training);
 		intentPassedWithTraining(1);
 	}
 
