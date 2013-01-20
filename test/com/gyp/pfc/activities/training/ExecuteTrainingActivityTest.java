@@ -22,7 +22,7 @@ public class ExecuteTrainingActivityTest extends BaseTrainingTest {
 	// Constants -----------------------------------------------------
 
 	private static final int SECS = 60;
-	private static final int REPS = 10;
+	private static final int REPS = 2;
 	private static final String EXERCISE2_NAME = "Exercise 2";
 	private static final String EXERCISE2_DESC = "Exercise 2 Description";
 
@@ -62,7 +62,7 @@ public class ExecuteTrainingActivityTest extends BaseTrainingTest {
 		assertViewText(R.id.timer, "01:00");
 		// reps of first exercise is shown
 		assertViewText(R.id.repetitionNumber,
-				activity.getText(R.string.repetition) + " 1/10");
+				activity.getText(R.string.repetition) + " 1/2");
 		// total exercises are shown
 		assertViewText(R.id.exerciseNumberFraction,
 				activity.getText(R.string.exercise_label) + " 1/2");
@@ -153,7 +153,7 @@ public class ExecuteTrainingActivityTest extends BaseTrainingTest {
 	}
 
 	@Test
-	public void shouldPassToTheNextExerciseWhenTimerFinishes() {
+	public void shouldPassToTheNextRepetitionWhenTimerFinishes() {
 		// GIVEN
 		// one training is passed via intent to the activity
 		passTrainingToActivity();
@@ -167,8 +167,10 @@ public class ExecuteTrainingActivityTest extends BaseTrainingTest {
 		assertTrue(shadow.hasStarted());
 		shadow.invokeFinish(); // fake the finishing of time
 		// THEN
-		// next exercise data should be loaded
-		assertViewText(R.id.exerciseName, exercise2.getName());
+		// next repetitions should be loaded
+		assertViewText(R.id.repetitionNumber, activity.getText(R.string.repetition) + " 2/2");
+		// timer time should be reset
+		assertViewText(R.id.timer, "01:00");
 		// timer should be running
 		assertTrue(ShadowCountDownTimer.getLast().hasStarted());
 	}
