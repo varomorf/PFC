@@ -1,6 +1,7 @@
 package com.gyp.pfc.activities.training;
 
 import static com.xtremelabs.robolectric.Robolectric.*;
+import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -22,8 +23,8 @@ public class ExecuteTrainingActivityTest extends BaseTrainingTest {
 
 	private static final int SECS = 60;
 	private static final int REPS = 10;
-	private static final String EXERCISE2_NAME = "Foo";
-	private static final String EXERCISE2_DESC = "Bar";
+	private static final String EXERCISE2_NAME = "Exercise 2";
+	private static final String EXERCISE2_DESC = "Exercise 2 Description";
 
 	// Attributes ----------------------------------------------------
 
@@ -146,8 +147,30 @@ public class ExecuteTrainingActivityTest extends BaseTrainingTest {
 		// THEN
 		// timer text should change
 		ShadowCountDownTimer shadow = ShadowCountDownTimer.getLast();
+		assertTrue(shadow.hasStarted());
 		shadow.invokeTick(2000); // fake the passing of time
 		assertViewTextIsNot(R.id.timer, "01:00");
+	}
+
+	@Test
+	public void shouldPassToTheNextExerciseWhenTimerFinishes() {
+		// GIVEN
+		// one training is passed via intent to the activity
+		passTrainingToActivity();
+		// activity is created
+		createActivity();
+		// WHEN
+		// resume/pause button is clicked from start
+		clickOn(activity.findViewById(R.id.actionButton));
+		// time ends
+		ShadowCountDownTimer shadow = ShadowCountDownTimer.getLast();
+		assertTrue(shadow.hasStarted());
+		shadow.invokeFinish(); // fake the finishing of time
+		// THEN
+		// next exercise data should be loaded
+		assertViewText(R.id.exerciseName, exercise2.getName());
+		// timer should be running
+		assertTrue(ShadowCountDownTimer.getLast().hasStarted());
 	}
 
 	// Package protected ---------------------------------------------
