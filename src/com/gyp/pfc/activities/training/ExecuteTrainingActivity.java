@@ -10,6 +10,7 @@ import com.gyp.pfc.UIUtils;
 import com.gyp.pfc.data.domain.Training;
 import com.gyp.pfc.data.domain.TrainingExercise;
 import com.gyp.pfc.widgets.CountdownTimer;
+import com.gyp.pfc.widgets.CountdownTimer.CountdownTimerListener;
 
 /**
  * Activity for executing a training
@@ -17,7 +18,7 @@ import com.gyp.pfc.widgets.CountdownTimer;
  * @author Alvaro
  * 
  */
-public class ExecuteTrainingActivity extends Activity {
+public class ExecuteTrainingActivity extends Activity implements CountdownTimerListener {
 
 	// Constants -----------------------------------------------------
 
@@ -74,7 +75,15 @@ public class ExecuteTrainingActivity extends Activity {
 			timer.start();
 		}
 	}
-
+	
+	@Override
+	public void onFinish() {
+		// when timer ends behave like if next button is pressed
+		nextButton(null);
+		// and then start again the timer
+		timer.start();
+	}
+	
 	// Package protected ---------------------------------------------
 
 	// Protected -----------------------------------------------------
@@ -83,7 +92,9 @@ public class ExecuteTrainingActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.workout);
+		// set activity as timer listener
 		timer = (CountdownTimer) findViewById(R.id.timer);
+		timer.setListener(this);
 		// get data from intent
 		Intent intent = getIntent();
 		if (null != intent) {
