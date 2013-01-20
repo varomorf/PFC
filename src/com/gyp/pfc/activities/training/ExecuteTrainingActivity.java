@@ -18,7 +18,8 @@ import com.gyp.pfc.widgets.CountdownTimer.CountdownTimerListener;
  * @author Alvaro
  * 
  */
-public class ExecuteTrainingActivity extends Activity implements CountdownTimerListener {
+public class ExecuteTrainingActivity extends Activity implements
+		CountdownTimerListener {
 
 	// Constants -----------------------------------------------------
 
@@ -27,6 +28,7 @@ public class ExecuteTrainingActivity extends Activity implements CountdownTimerL
 	private Training training;
 	private int exerciseIndex;
 	private TrainingExercise[] exercises = new TrainingExercise[0];
+	private int repetition;
 
 	private CountdownTimer timer;
 
@@ -44,6 +46,8 @@ public class ExecuteTrainingActivity extends Activity implements CountdownTimerL
 	public void nextButton(View view) {
 		// increment exercise index
 		incrementExerciseIndex();
+		// reset repetition number
+		repetition = 1;
 		// update the view
 		updateView();
 		// stop the timer
@@ -58,6 +62,8 @@ public class ExecuteTrainingActivity extends Activity implements CountdownTimerL
 	public void previousButton(View view) {
 		// decrement exercise index
 		decrementExerciseIndex();
+		// reset repetition number
+		repetition = 1;
 		// update the view
 		updateView();
 		// stop the timer
@@ -75,15 +81,23 @@ public class ExecuteTrainingActivity extends Activity implements CountdownTimerL
 			timer.start();
 		}
 	}
-	
+
 	@Override
 	public void onFinish() {
-		// when timer ends behave like if next button is pressed
-		nextButton(null);
+		// if not last repetition
+		if (repetition < exercises[exerciseIndex].getReps()) {
+			// increment the repetition number
+			repetition++;
+			// update UI
+			updateView();
+		} else {
+			// when timer ends behave like if next button is pressed
+			nextButton(null);
+		}
 		// and then start again the timer
 		timer.start();
 	}
-	
+
 	// Package protected ---------------------------------------------
 
 	// Protected -----------------------------------------------------
@@ -103,6 +117,8 @@ public class ExecuteTrainingActivity extends Activity implements CountdownTimerL
 			if (null != training) {
 				// initialize exercise index
 				exerciseIndex = 0;
+				// initializa repetition number
+				repetition = 1;
 				// if there's an exercise -> update the view
 				updateView();
 			}
@@ -120,12 +136,12 @@ public class ExecuteTrainingActivity extends Activity implements CountdownTimerL
 		UIUtils.setTextToUI(findViewById(R.id.exerciseName), te.getExercise()
 				.getName());
 		timer.setSeconds(te.getSeconds());
-		setRepetitionNumber(te, 1);
+		setRepetitionNumber(te);
 		setExerciseNumberFraction(te);
 	}
 
-	private void setRepetitionNumber(TrainingExercise te, int number) {
-		setFractionText(R.id.repetitionNumber, R.string.repetition, number,
+	private void setRepetitionNumber(TrainingExercise te) {
+		setFractionText(R.id.repetitionNumber, R.string.repetition, repetition,
 				te.getReps());
 	}
 
