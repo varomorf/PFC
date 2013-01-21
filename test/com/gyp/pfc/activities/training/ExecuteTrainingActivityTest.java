@@ -255,7 +255,29 @@ public class ExecuteTrainingActivityTest extends BaseTrainingTest {
 		// next exercise data should be loaded
 		assertViewText(R.id.exerciseName, exercise2.getName());
 		// timer should be running
-				assertTrue(ShadowCountDownTimer.getLast().hasStarted());
+		assertTrue(ShadowCountDownTimer.getLast().hasStarted());
+	}
+
+	@Test
+	public void resumePauseButtonShouldPause() {
+		// GIVEN
+		// one training is passed via intent to the activity
+		passTrainingToActivity();
+		// activity is created
+		createActivity();
+		// timer is running
+		clickOn(activity.findViewById(R.id.actionButton));
+		ShadowCountDownTimer shadow = ShadowCountDownTimer.getLast();
+		assertTrue(shadow.hasStarted());
+		shadow.invokeTick(2000); // fake the passing of time
+		// WHEN
+		// resume/pause button is clicked from start
+		clickOn(activity.findViewById(R.id.actionButton));
+		// THEN
+		// timer should be paused
+		assertFalse(ShadowCountDownTimer.getLast().hasStarted());
+		// timer is not reset
+		assertViewText(R.id.timer, "00:02");
 	}
 
 	// Package protected ---------------------------------------------
