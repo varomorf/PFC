@@ -42,6 +42,7 @@
     <string name="trainingDeleted">El entrenamiento ha sido borrado</string>
     <string name="trainingNameBlank">El nombre del entrenamiento está vacío</string>
     <string name="trainingNameDuplicated">El nombre del entrenamiento está repetido</string>
+    <string name="trainingEnded">El entrenamiento ha finalizado</string>
     <string name="training_label">Entrenamiento</string>
     <string name="addExerciseToTraining">Añadir un ejercicio</string>
     <string name="duration">Duración</string>

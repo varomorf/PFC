@@ -280,6 +280,30 @@ public class ExecuteTrainingActivityTest extends BaseTrainingTest {
 		assertViewText(R.id.timer, "00:02");
 	}
 
+	@Test
+	public void shouldFinishTrainingWhenLastExerciseTimeAndRepetitionsEnds() {
+		// GIVEN
+		// one training is passed via intent to the activity
+		passTrainingToActivity();
+		// activity is created
+		createActivity();
+		// timer is running
+		clickOn(activity.findViewById(R.id.actionButton));
+		ShadowCountDownTimer shadow = ShadowCountDownTimer.getLast();
+		assertTrue(shadow.hasStarted());
+		// WHEN
+		shadow.invokeFinish(); // fake the end of one rep
+		shadow.invokeFinish(); // fake the end of exercise
+		shadow.invokeFinish(); // fake the end of one rep
+		shadow.invokeFinish(); // fake the end of another rep
+		shadow.invokeFinish(); // fake the end of exercise
+		// THEN
+		// toast of completion should be shown
+		assertToastText(R.string.trainingEnded);
+		// activity is finished
+		assertTrue(activity.isFinishing());
+	}
+
 	// Package protected ---------------------------------------------
 
 	// Protected -----------------------------------------------------
