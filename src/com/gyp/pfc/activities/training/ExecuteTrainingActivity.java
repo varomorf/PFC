@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import com.gyp.pfc.R;
 import com.gyp.pfc.UIUtils;
@@ -98,8 +99,16 @@ public class ExecuteTrainingActivity extends Activity implements
 			// update UI
 			updateView();
 		} else {
-			// when timer ends behave like if next button is pressed
-			nextButton(null);
+			// if not last exercise
+			if (exerciseIndex < exercises.length - 1) {
+				// when timer ends behave like if next button is pressed
+				nextButton(null);
+			}else{
+				// show completion toast
+				Toast.makeText(this, R.string.trainingEnded, Toast.LENGTH_SHORT).show();
+				// exit from activity
+				finish();
+			}
 		}
 		// and then start again the timer if exercise has duration
 		if (exercises[exerciseIndex].getSeconds() > 0) {
