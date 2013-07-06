@@ -22,7 +22,7 @@ public class CountdownTimer extends TextView {
 	// Attributes ----------------------------------------------------
 
 	private long remainingMillis;
-	private int ticksFreq = 500;
+	private int ticksFreq = 100;
 	private CountDownTimer timer;
 	private boolean running;
 	private CountdownTimerListener listener;
@@ -108,7 +108,7 @@ public class CountdownTimer extends TextView {
 				// set text of the chronometer to show the change
 				setTimeText();
 				// notify listener if any
-				if(null != listener){
+				if (null != listener) {
 					listener.onFinish();
 				}
 			}
@@ -129,11 +129,11 @@ public class CountdownTimer extends TextView {
 	public boolean isRunning() {
 		return running;
 	}
-	
+
 	public CountdownTimerListener getListener() {
 		return listener;
 	}
-	
+
 	public void setListener(CountdownTimerListener listener) {
 		this.listener = listener;
 	}
@@ -145,7 +145,7 @@ public class CountdownTimer extends TextView {
 	// Private -------------------------------------------------------
 
 	private void setTimeText() {
-		long seconds = remainingMillis / MILLIS_IN_ONE_SECOND;
+		long seconds = (long) Math.ceil(remainingMillis / MILLIS_IN_ONE_SECOND);
 		String text = TimeUtils.formatTime((int) seconds);
 		setText(text);
 	}

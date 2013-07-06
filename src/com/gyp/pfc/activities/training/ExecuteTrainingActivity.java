@@ -2,6 +2,9 @@ package com.gyp.pfc.activities.training;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -96,6 +99,8 @@ public class ExecuteTrainingActivity extends Activity implements
 		if (repetition < exercises[exerciseIndex].getReps()) {
 			// increment the repetition number
 			repetition++;
+			// play notification sound
+			playNotificationSound();
 			// update UI
 			updateView();
 		} else {
@@ -197,6 +202,14 @@ public class ExecuteTrainingActivity extends Activity implements
 		if (exerciseIndex > 0) {
 			exerciseIndex--;
 		}
+	}
+	
+	private void playNotificationSound(){
+		try {
+	        Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+	        Ringtone r = RingtoneManager.getRingtone(getApplicationContext(), notification);
+	        r.play();
+	    } catch (Exception e) {}
 	}
 
 	// Inner classes -------------------------------------------------
