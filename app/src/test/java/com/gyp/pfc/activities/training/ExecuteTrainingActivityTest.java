@@ -257,6 +257,22 @@ public class ExecuteTrainingActivityTest extends BaseTrainingTest {
 		// timer should be running
 		assertTrue(ShadowCountDownTimer.getLast().hasStarted());
 	}
+	
+	
+	@Test
+	public void shouldOnlyShowNumberOfRepsIfExerciseHasNoDuraction() {
+		// GIVEN
+		// one training passed via intent with exercises w/o duration 
+		passTrainingToActivity(0, 0);
+		// WHEN
+		// activity is created
+		createActivity();
+		// THEN
+		// number of reps are shown
+		assertViewText(R.id.repetitionNumber, "2 Repeticiones");
+		// timer should be zero
+		assertViewText(R.id.timer, "00:00");
+	}
 
 	@Test
 	public void resumePauseButtonShouldPause() {

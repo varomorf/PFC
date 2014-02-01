@@ -2,9 +2,11 @@ package com.gyp.pfc.activities.training;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.media.Ringtone;
-import android.media.RingtoneManager;
-import android.net.Uri;
+import android.media.MediaPlayer.OnPreparedListener;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -35,6 +37,9 @@ public class ExecuteTrainingActivity extends Activity implements
 	private int repetition;
 
 	private CountdownTimer timer;
+	private SoundPool soundPool;
+	private int whistleShort;
+	private int whistleLong;
 
 	// Static --------------------------------------------------------
 
@@ -87,6 +92,7 @@ public class ExecuteTrainingActivity extends Activity implements
 		if (!timer.isRunning()) {
 			// start the timer if it's not running
 			timer.start();
+			soundPool.play(whistleLong, 1, 1, 0, 0, 1);
 		} else {
 			// pause the timer if it's running
 			timer.pause();
@@ -100,17 +106,21 @@ public class ExecuteTrainingActivity extends Activity implements
 			// increment the repetition number
 			repetition++;
 			// play notification sound
-			playNotificationSound();
+			soundPool.play(whistleShort, 1, 1, 0, 0, 1);
 			// update UI
 			updateView();
 		} else {
 			// if not last exercise
 			if (exerciseIndex < exercises.length - 1) {
+				// play notification sound
+				soundPool.play(whistleShort, 1, 1, 0, 0, 1);
 				// when timer ends behave like if next button is pressed
 				nextButton(null);
-			}else{
+			} else {
+				soundPool.play(whistleLong, 1, 1, 0, 0, 1);
 				// show completion toast
-				Toast.makeText(this, R.string.trainingEnded, Toast.LENGTH_SHORT).show();
+				Toast.makeText(this, R.string.trainingEnded, Toast.LENGTH_SHORT)
+						.show();
 				// exit from activity
 				finish();
 			}
@@ -132,6 +142,10 @@ public class ExecuteTrainingActivity extends Activity implements
 		// set activity as timer listener
 		timer = (CountdownTimer) findViewById(R.id.timer);
 		timer.setListener(this);
+		// prepare sounds
+		soundPool = new SoundPool(8, AudioManager.STREAM_MUSIC, 100);
+		whistleShort = soundPool.load(this, R.raw.whistle_short, 1);
+		whistleLong = soundPool.load(this, R.raw.whistle_long, 1);
 		// get data from intent
 		Intent intent = getIntent();
 		if (null != intent) {
@@ -140,14 +154,14 @@ public class ExecuteTrainingActivity extends Activity implements
 			if (null != training) {
 				// initialize exercise index
 				exerciseIndex = 0;
-				// initializa repetition number
+				// initialize repetition number
 				repetition = 1;
 				// if there's an exercise -> update the view
 				updateView();
 			}
 		}
 	}
-
+	
 	// Private -------------------------------------------------------
 
 	private void updateView() {
@@ -172,8 +186,13 @@ public class ExecuteTrainingActivity extends Activity implements
 	}
 
 	private void setRepetitionNumber(TrainingExercise te) {
-		setFractionText(R.id.repetitionNumber, R.string.repetition, repetition,
-				te.getReps());
+		if (te.getSeconds() != 0) {
+			setFractionText(R.id.repetitionNumber, R.string.repetition,
+					repetition, te.getReps());
+		} else {
+			UIUtils.setTextToUI(findViewById(R.id.repetitionNumber),
+					te.getReps() + " " + getText(R.string.repetitions));
+		}
 	}
 
 	private void setExerciseNumberFraction(TrainingExercise te) {
@@ -204,13 +223,5 @@ public class ExecuteTrainingActivity extends Activity implements
 		}
 	}
 	
-	private void playNotificationSound(){
-		try {
-	        Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-	        Ringtone r = RingtoneManager.getRingtone(getApplicationContext(), notification);
-	        r.play();
-	    } catch (Exception e) {}
-	}
-
 	// Inner classes -------------------------------------------------
 }

@@ -55,5 +55,6 @@
     <string name="next">Siguiente</string>
     <string name="previous">Anterior</string>
     <string name="repetition">Repetición</string>
+    <string name="repetitions">Repeticiones</string>
 
 </resources>
