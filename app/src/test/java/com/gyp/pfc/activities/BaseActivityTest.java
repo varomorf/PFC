@@ -123,6 +123,10 @@ public abstract class BaseActivityTest {
 		String text = UIUtils.getTextFromUI(view);
 		assertThat(text, is(not(expected)));
 	}
+	
+	protected void assertAlertDialogText(int id){
+		
+	}
 
 	// Private -------------------------------------------------------
 

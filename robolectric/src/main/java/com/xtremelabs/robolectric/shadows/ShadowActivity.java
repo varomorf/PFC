@@ -644,6 +644,10 @@ public class ShadowActivity extends ShadowContextWrapper {
     	realActivity.onCreateOptionsMenu(new TestMenu(realActivity));
     }
     
+    public void pressBackButton(){
+    	realActivity.onBackPressed();
+    }
+    
     private final class ActivityInvoker {
         private Method method;
 

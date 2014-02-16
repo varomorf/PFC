@@ -1,11 +1,10 @@
 package com.gyp.pfc.activities.training;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.AudioManager;
-import android.media.MediaPlayer;
-import android.media.Ringtone;
-import android.media.MediaPlayer.OnPreparedListener;
 import android.media.SoundPool;
 import android.os.Bundle;
 import android.view.View;
@@ -131,6 +130,26 @@ public class ExecuteTrainingActivity extends Activity implements
 		}
 	}
 
+	@Override
+	public void onBackPressed() {
+		new AlertDialog.Builder(this)
+				.setMessage(R.string.assureExit)
+				.setCancelable(false)
+				.setPositiveButton(android.R.string.yes,
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog, int id) {
+								//exit is confirmed -> finish
+								finish();
+							}
+						})
+				.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+						//do not exit -> close dialog
+						dialog.cancel();
+					}
+				}).create().show();
+	}
+
 	// Package protected ---------------------------------------------
 
 	// Protected -----------------------------------------------------
@@ -161,7 +180,7 @@ public class ExecuteTrainingActivity extends Activity implements
 			}
 		}
 	}
-	
+
 	// Private -------------------------------------------------------
 
 	private void updateView() {
@@ -222,6 +241,6 @@ public class ExecuteTrainingActivity extends Activity implements
 			exerciseIndex--;
 		}
 	}
-	
+
 	// Inner classes -------------------------------------------------
 }

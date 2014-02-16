@@ -319,6 +319,24 @@ public class ExecuteTrainingActivityTest extends BaseTrainingTest {
 		// activity is finished
 		assertTrue(activity.isFinishing());
 	}
+	
+	public void shouldAskConfirmationBeforeExitWhenPressingBackButton(){
+		// GIVEN
+		// one training is passed via intent to the activity
+		passTrainingToActivity();
+		// activity is created
+		createActivity();
+		// timer is running
+		clickOn(activity.findViewById(R.id.actionButton));
+		ShadowCountDownTimer shadow = ShadowCountDownTimer.getLast();
+		assertTrue(shadow.hasStarted());
+		// WHEN
+		//press back button
+		activity.pressBackButton();
+		// THEN
+		// question is asked for exiting
+		assertAlertDialogText(R.string.assureExit);
+	}
 
 	// Package protected ---------------------------------------------
 

@@ -56,5 +56,6 @@
     <string name="previous">Anterior</string>
     <string name="repetition">Repetición</string>
     <string name="repetitions">Repeticiones</string>
+    <string name="assureExit">¿Realmente desea salir?</string>
 
 </resources>
