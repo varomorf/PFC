@@ -1,5 +1,5 @@
 #
-# generated on 2013/01/07 12:04:40
+# generated on 2014/03/06 01:04:52
 #
 # --table-start--
 dataClass=com.gyp.pfc.data.domain.Food
@@ -11,24 +11,40 @@ generatedId=true
 # --field-end--
 # --field-start--
 fieldName=name
+canBeNull=false
+# --field-end--
+# --field-start--
+fieldName=brandName
+columnName=brandname
 # --field-end--
 # --field-start--
 fieldName=calories
+canBeNull=false
 # --field-end--
 # --field-start--
-fieldName=sugars
+fieldName=protein
+canBeNull=false
+# --field-end--
+# --field-start--
+fieldName=carbs
+canBeNull=false
+# --field-end--
+# --field-start--
+fieldName=sugar
+# --field-end--
+# --field-start--
+fieldName=fiber
 # --field-end--
 # --field-start--
 fieldName=fats
+canBeNull=false
 # --field-end--
 # --field-start--
-fieldName=color
+fieldName=saturatedFats
+columnName=saturatedfats
 # --field-end--
 # --field-start--
-fieldName=sugarColor
-# --field-end--
-# --field-start--
-fieldName=fatsColor
+fieldName=sodium
 # --field-end--
 # --table-fields-end--
 # --table-end--

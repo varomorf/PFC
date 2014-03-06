@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -125,7 +126,17 @@ public abstract class BaseActivityTest {
 	}
 	
 	protected void assertAlertDialogText(int id){
-		
+		// TODO this
+	}
+	
+	protected void enterText(int id, String text) {
+		EditText edit = (EditText) activity.findViewById(id);
+		edit.setText(text);
+	}
+	
+	protected void enterText(int id, double text) {
+		EditText edit = (EditText) activity.findViewById(id);
+		edit.setText(Double.toString(text));
 	}
 
 	// Private -------------------------------------------------------

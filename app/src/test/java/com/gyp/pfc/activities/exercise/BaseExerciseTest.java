@@ -1,9 +1,8 @@
 package com.gyp.pfc.activities.exercise;
 
-import static com.xtremelabs.robolectric.Robolectric.*;
+import static com.xtremelabs.robolectric.Robolectric.clickOn;
 import android.content.Intent;
 import android.widget.Button;
-import android.widget.EditText;
 
 import com.gyp.pfc.R;
 import com.gyp.pfc.activities.BaseActivityTest;
@@ -88,11 +87,6 @@ public abstract class BaseExerciseTest extends BaseActivityTest {
 
 	protected void enterDescription(String description) {
 		enterText(R.id.exerciseDescription, description);
-	}
-
-	protected void enterText(int id, String text) {
-		EditText edit = (EditText) activity.findViewById(id);
-		edit.setText(text);
 	}
 
 	protected void commitButtonIsClicked() {

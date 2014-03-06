@@ -2,8 +2,6 @@ package com.gyp.pfc.data.domain;
 
 import java.io.Serializable;
 
-import android.graphics.Color;
-
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
@@ -15,36 +13,44 @@ import com.j256.ormlite.table.DatabaseTable;
  */
 @DatabaseTable
 public class Food implements Serializable {
-	private static final int RED_MARGIN_FOR_FATS = 30;
-	private static final int YELLOW_MARGIN_FOR_FATS = 10;
-	private static final int RED_MARGIN_FOR_SUGAR = 50;
-	private static final int YELLOW_MARGIN_FOR_SUGAR = 15;
+	
 	private static final int CALORIES_PER_FAT_GRAM = 9;
 	private static final int CALORIES_PER_SUGAR_GRAM = 4;
+	private static final int CALORIES_PER_PROTEIN_GRAM = 4;
+	
 	// Constants -----------------------------------------------------
+	
 	private static final long serialVersionUID = 1L;
 
 	// Attributes ----------------------------------------------------
+	
 	@DatabaseField(generatedId = true)
-	private int id;
-	@DatabaseField
+	private Integer id;
+	@DatabaseField(canBeNull=false)
 	private String name;
+	@DatabaseField(columnName="brandname")
+	private String brandName;
+	@DatabaseField(canBeNull=false)
+	private Double calories;
+	@DatabaseField(canBeNull=false)
+	private Double protein;
+	@DatabaseField(canBeNull=false)
+	private Double carbs;
 	@DatabaseField
-	private int calories;
+	private Double sugar;
 	@DatabaseField
-	private int sugars;
+	private Double fiber;
+	@DatabaseField(canBeNull=false)
+	private Double fats;
+	@DatabaseField(columnName="saturatedfats")
+	private Double saturatedFats;
 	@DatabaseField
-	private int fats;
-	@DatabaseField
-	private int color;
-	@DatabaseField
-	private int sugarColor;
-	@DatabaseField
-	private int fatsColor;
+	private Double sodium;
 
 	// Static --------------------------------------------------------
 
 	// Constructors --------------------------------------------------
+	
 	/**
 	 * ORMLite needs a no-arg constructor
 	 */
@@ -69,130 +75,223 @@ public class Food implements Serializable {
 		this.name = name;
 	}
 
-	public int getCalories() {
+	public double getCalories() {
 		return calories;
 	}
 
-	public void setCalories(int calories) {
+	public void setCalories(double calories) {
 		this.calories = calories;
 	}
-
-	public int getSugars() {
-		return sugars;
+	
+	/**
+	 * Sets the calories trying to parse an int from the passed String.
+	 * If no int can be parsed, null will be set.
+	 * 
+	 * @param calories the string with the amount of calories
+	 */
+	public void setCalories(String calories){
+		try{
+			this.calories = Double.parseDouble(calories);
+		}catch(NumberFormatException e){
+			this.calories = null;
+		}
 	}
 
-	public void setSugars(int sugars) {
-		this.sugars = sugars;
+	public Double getSugar() {
+		return sugar;
 	}
 
-	public int getFats() {
+	public void setSugar(Double sugar) {
+		this.sugar = sugar;
+	}
+	
+	/**
+	 * Sets the sugar trying to parse a double from the passed String.
+	 * If no double can be parsed, null will be set.
+	 * 
+	 * @param sugar the string with the amount of sugar
+	 */
+	public void setSugar(String sugar){
+		try{
+			this.sugar = Double.parseDouble(sugar);
+		}catch(NumberFormatException e){
+			this.sugar = null;
+		}
+	}
+
+	public Double getFats() {
 		return fats;
 	}
 
-	public void setFats(int fats) {
+	public void setFats(Double fats) {
 		this.fats = fats;
+	}
+	
+	/**
+	 * Sets the fats trying to parse a double from the passed String.
+	 * If no double can be parsed, null will be set.
+	 * 
+	 * @param fats the string with the amount of fats
+	 */
+	public void setFats(String fats){
+		try{
+			this.fats = Double.parseDouble(fats);
+		}catch(NumberFormatException e){
+			this.fats = null;
+		}
+	}
+
+	public String getBrandName() {
+		return brandName;
+	}
+
+	public void setBrandName(String brandName) {
+		this.brandName = brandName;
+	}
+
+	public Double getProtein() {
+		return protein;
+	}
+
+	public void setProtein(Double protein) {
+		this.protein = protein;
+	}
+	
+	/**
+	 * Sets the protein trying to parse a double from the passed String.
+	 * If no double can be parsed, null will be set.
+	 * 
+	 * @param protein the string with the amount of protein
+	 */
+	public void setProtein(String protein){
+		try{
+			this.protein = Double.parseDouble(protein);
+		}catch(NumberFormatException e){
+			this.protein = null;
+		}
+	}
+
+	public Double getCarbs() {
+		return carbs;
+	}
+
+	public void setCarbs(Double carbs) {
+		this.carbs = carbs;
+	}
+	
+	/**
+	 * Sets the carbs trying to parse a double from the passed String.
+	 * If no double can be parsed, null will be set.
+	 * 
+	 * @param carbs the string with the amount of carbs
+	 */
+	public void setCarbs(String carbs){
+		try{
+			this.carbs = Double.parseDouble(carbs);
+		}catch(NumberFormatException e){
+			this.carbs = null;
+		}
+	}
+
+	public Double getFiber() {
+		return fiber;
+	}
+
+	public void setFiber(Double fiber) {
+		this.fiber = fiber;
+	}
+	
+	/**
+	 * Sets the fiber trying to parse a double from the passed String.
+	 * If no double can be parsed, null will be set.
+	 * 
+	 * @param fiber the string with the amount of fiber
+	 */
+	public void setFiber(String fiber){
+		try{
+			this.fiber = Double.parseDouble(fiber);
+		}catch(NumberFormatException e){
+			this.fiber = null;
+		}
+	}
+
+	public Double getSaturatedFats() {
+		return saturatedFats;
+	}
+
+	public void setSaturatedFats(Double saturatedFats) {
+		this.saturatedFats = saturatedFats;
+	}
+	
+	/**
+	 * Sets the saturatedFats trying to parse a double from the passed String.
+	 * If no double can be parsed, null will be set.
+	 * 
+	 * @param saturatedFats the string with the amount of saturatedFats
+	 */
+	public void setSaturatedFats(String saturatedFats){
+		try{
+			this.saturatedFats = Double.parseDouble(saturatedFats);
+		}catch(NumberFormatException e){
+			this.saturatedFats = null;
+		}
+	}
+
+	public Double getSodium() {
+		return sodium;
+	}
+
+	public void setSodium(Double sodium) {
+		this.sodium = sodium;
+	}
+	
+	/**
+	 * Sets the sodium trying to parse a double from the passed String.
+	 * If no double can be parsed, null will be set.
+	 * 
+	 * @param sodium the string with the amount of sodium
+	 */
+	public void setSodium(String sodium){
+		try{
+			this.sodium = Double.parseDouble(sodium);
+		}catch(NumberFormatException e){
+			this.sodium = null;
+		}
 	}
 
 	/**
 	 * Calculates the amount of calories from sugar
 	 * 
-	 * @return The amount of calories from sugar
+	 * @return the amount of calories from sugar
 	 */
-	public int getSugarCalories() {
-		return sugars * CALORIES_PER_SUGAR_GRAM;
+	public double getSugarCalories() {
+		return sugar * CALORIES_PER_SUGAR_GRAM;
 	}
 
 	/**
 	 * Calculates the amount of calories from fats
 	 * 
-	 * @return The amount of calories from fats
+	 * @return the amount of calories from fats
 	 */
-	public int getFatsCalories() {
+	public double getFatsCalories() {
 		return fats * CALORIES_PER_FAT_GRAM;
 	}
-
+	
 	/**
-	 * Calculates the percentage of calories from sugar
+	 * Calculates the amount of calories from proteins
 	 * 
-	 * @return the percentage of calories from sugar
+	 * @return the amount of calories from proteins
 	 */
-	public int getSugarPercentage() {
-		return percentage(getSugarCalories());
-	}
-
-	/**
-	 * Calculates the percentage of calories from fats
-	 * 
-	 * @return the percentage of calories from fats
-	 */
-	public int getFatsPercentage() {
-		return percentage(getFatsCalories());
-	}
-
-	/**
-	 * Returns the color of the food calculating it if necessary
-	 * 
-	 * @return the color of the food
-	 */
-	public int getColor() {
-		if (color == 0) {
-			calculateColor();
-		}
-		return color;
-	}
-
-	public void setColor(int color) {
-		this.color = color;
-	}
-
-	/**
-	 * Returns the color of the sugar calculating it if necessary
-	 * 
-	 * @return the color of the sugar
-	 */
-	public int getSugarColor() {
-		if (sugarColor == 0) {
-			calculateSugarColor();
-		}
-		return sugarColor;
-	}
-
-	public void setSugarColor(int sugarColor) {
-		this.sugarColor = sugarColor;
-	}
-
-	/**
-	 * Returns the color of the fats calculating it if necessary
-	 * 
-	 * @return the color of the fats
-	 */
-	public int getFatsColor() {
-		if (fatsColor == 0) {
-			calculateFatsColor();
-		}
-		return fatsColor;
-	}
-
-	public void setFatsColor(int fatsColor) {
-		this.fatsColor = fatsColor;
-	}
-
-	/**
-	 * Returns whether the food has no field set
-	 * 
-	 * @return True if calories, sugars and fats are 0. False otherwise
-	 */
-	public boolean isEmpty() {
-		return (calories | sugars | fats) == 0;
+	public double getProteinCalories(){
+		return protein * CALORIES_PER_PROTEIN_GRAM;
 	}
 
 	@Override
 	public String toString() {
 		String ret = "";
 		ret += calories + "calories\n";
-		ret += sugars + "sugars\n";
+		ret += sugar + "sugars\n";
 		ret += fats + "fats\n";
-		ret += color + "color\n";
 		return ret;
 	}
 
@@ -201,51 +300,6 @@ public class Food implements Serializable {
 	// Protected -----------------------------------------------------
 
 	// Private -------------------------------------------------------
-	private int percentage(int value) {
-		return (int) ((value * 100) / calories);
-	}
-
-	private void calculateSugarColor() {
-		int sugarPercentage = getSugarPercentage();
-		if (sugarPercentage > YELLOW_MARGIN_FOR_SUGAR) {
-			if (sugarPercentage > RED_MARGIN_FOR_SUGAR) {
-				sugarColor = Color.RED;
-			} else {
-				sugarColor = Color.YELLOW;
-			}
-		} else {
-			sugarColor = Color.GREEN;
-		}
-	}
-
-	private void calculateFatsColor() {
-		int fatsPercentage = getFatsPercentage();
-		if (fatsPercentage > YELLOW_MARGIN_FOR_FATS) {
-			if (fatsPercentage > RED_MARGIN_FOR_FATS) {
-				fatsColor = Color.RED;
-			} else {
-				fatsColor = Color.YELLOW;
-			}
-		} else {
-			fatsColor = Color.GREEN;
-		}
-	}
-
-	private void calculateColor() {
-		if (sugarColor == 0) {
-			calculateSugarColor();
-		}
-		if (fatsColor == 0) {
-			calculateFatsColor();
-		}
-		if (sugarColor == Color.GREEN && fatsColor == Color.GREEN) {
-			color = Color.GREEN;
-		} else if (sugarColor == Color.RED || fatsColor == Color.RED) {
-			color = Color.RED;
-		} else {
-			color = Color.YELLOW;
-		}
-	}
 
 	// Inner classes -------------------------------------------------
 

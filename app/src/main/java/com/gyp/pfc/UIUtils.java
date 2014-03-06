@@ -18,6 +18,7 @@ public final class UIUtils {
 	// Attributes ----------------------------------------------------
 
 	// Static --------------------------------------------------------
+	
 	/**
 	 * <p>
 	 * Returns the String representation of the text held by the passed view as
@@ -38,7 +39,7 @@ public final class UIUtils {
 		}
 		return text;
 	}
-
+	
 	/**
 	 * <p>
 	 * Sets the passed string as the passed view's text as long as this view is

@@ -59,7 +59,6 @@ public class FoodListViewAdapter extends ArrayAdapter<Food> {
 		// populate the item with the data
 		Food food = getItem(position);
 		title.setText(food.getName());
-		title.setBackgroundColor(food.getColor());
 
 		return view;
 	}

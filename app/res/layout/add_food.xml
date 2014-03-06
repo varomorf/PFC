@@ -6,7 +6,6 @@
     android:orientation="vertical" >
 
     <TextView
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/instructionsText"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -20,6 +19,52 @@
         android:orientation="vertical" >
 
         <LinearLayout
+            android:id="@+id/nameDataEnterLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/label_foodName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/name"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <EditText
+                android:id="@+id/foodNameText"
+                android:layout_width="100dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:inputType="text" />
+        </LinearLayout>
+        
+        <LinearLayout
+            android:id="@+id/brandDataEnterLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/label_foodBrand"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/label_brandName"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <EditText
+                android:id="@+id/foodBrandText"
+                android:layout_width="100dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:inputType="text" />
+        </LinearLayout>
+        
+        <LinearLayout
             android:id="@+id/caloriesDataEnterLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
@@ -30,7 +75,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/label_calories"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
+                android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <EditText
                 android:id="@+id/caloriesText"
@@ -40,6 +85,52 @@
                 android:focusable="true"
                 android:focusableInTouchMode="true"
                 android:inputType="number" />
+        </LinearLayout>
+        
+        <LinearLayout
+            android:id="@+id/proteinsDataEnterLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/label_proteins"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/label_proteins"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <EditText
+                android:id="@+id/proteinsText"
+                android:layout_width="100dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:inputType="numberDecimal" />
+        </LinearLayout>
+        
+        <LinearLayout
+            android:id="@+id/carbsDataEnterLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/label_carbs"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/label_carbs"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <EditText
+                android:id="@+id/carbsText"
+                android:layout_width="100dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:inputType="numberDecimal" />
         </LinearLayout>
 
         <LinearLayout
@@ -53,7 +144,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/label_sugars"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
+                android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <EditText
                 android:id="@+id/sugarsText"
@@ -62,8 +153,31 @@
                 android:layout_weight="1"
                 android:focusable="true"
                 android:focusableInTouchMode="true"
-                android:inputType="number"
-                android:nextFocusUp="@id/caloriesText" >
+                android:inputType="numberDecimal" >
+            </EditText>
+        </LinearLayout>
+        
+        <LinearLayout
+            android:id="@+id/fiberDataEnterLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/label_fiber"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/label_fiber"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <EditText
+                android:id="@+id/fiberText"
+                android:layout_width="100dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:inputType="numberDecimal" >
             </EditText>
         </LinearLayout>
 
@@ -79,7 +193,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/label_fats"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
+                android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <EditText
                 android:id="@+id/fatsText"
@@ -88,52 +202,63 @@
                 android:layout_weight="1"
                 android:focusableInTouchMode="true"
                 android:freezesText="true"
-                android:inputType="number"
-                android:nextFocusUp="@id/sugarsText" />
+                android:inputType="numberDecimal" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/saturatedFatsDataEnterLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/label_saturatedFats"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/label_saturatedFats"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <EditText
+                android:id="@+id/saturatedFatsText"
+                android:layout_width="100dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:focusableInTouchMode="true"
+                android:freezesText="true"
+                android:inputType="numberDecimal" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/sodiumFatsDataEnterLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/label_sodium"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/label_sodium"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <EditText
+                android:id="@+id/sodiumText"
+                android:layout_width="100dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:focusableInTouchMode="true"
+                android:freezesText="true"
+                android:inputType="numberDecimal" />
         </LinearLayout>
 
         <Button
-            android:id="@+id/calculateButton"
+            android:id="@+id/commitButton"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:onClick="calculate"
+            android:onClick="saveFood"
             android:text="@string/button_calculate" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/resultsLayout"
-        android:layout_width="match_parent"
-        android:layout_height="fill_parent"
-        android:orientation="vertical" >
-
-        <TextView
-            android:id="@+id/resultSugarsText"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/resultSugarsText"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-
-        <TextView
-            android:id="@+id/resultFatsText"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/resultFatsText"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-
-        <TextView
-            android:id="@+id/resultFinalText"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/resultFinalText"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-
-        <Button
-            android:id="@+id/addFoodButton"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:onClick="enterFoodName"
-            android:text="@string/addFoodButton"
-            android:visibility="invisible" />
     </LinearLayout>
 
 </LinearLayout>

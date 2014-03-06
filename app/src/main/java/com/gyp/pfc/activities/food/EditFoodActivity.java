@@ -61,8 +61,8 @@ public class EditFoodActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 		// set new food values
 		food.setName(foodName.getText().toString());
 		food.setCalories(Integer.parseInt(foodCalories.getText().toString()));
-		food.setSugars(Integer.parseInt(foodSugars.getText().toString()));
-		food.setFats(Integer.parseInt(foodFats.getText().toString()));
+		food.setSugar(Double.parseDouble(foodSugars.getText().toString()));
+		food.setFats(Double.parseDouble(foodFats.getText().toString()));
 		// update the food on DB
 		getHelper().getFoodDao().update(food);
 		// prepare intent for return
@@ -87,9 +87,9 @@ public class EditFoodActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 
 	private void updateUI() {
 		foodName.setText(food.getName());
-		foodCalories.setText(Integer.toString(food.getCalories()));
-		foodSugars.setText(Integer.toString(food.getSugars()));
-		foodFats.setText(Integer.toString(food.getFats()));
+		foodCalories.setText(Double.toString(food.getCalories()));
+		foodSugars.setText(Double.toString(food.getSugar()));
+		foodFats.setText(Double.toString(food.getFats()));
 	}
 
 	// Inner classes -------------------------------------------------

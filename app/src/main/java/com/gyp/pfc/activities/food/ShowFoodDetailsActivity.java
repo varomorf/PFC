@@ -104,15 +104,11 @@ public class ShowFoodDetailsActivity extends
 
 	private void updateUI() {
 		nameText.setText(food.getName());
-		nameText.setTextColor(food.getColor());
 		caloriesText.setText(food.getCalories() + " KCal");
-		sugarsText.setText(food.getSugars() + " gr. / "
-				+ food.getSugarCalories() + " KCal - "
-				+ food.getSugarPercentage() + "%");
-		sugarsText.setBackgroundColor(food.getSugarColor());
+		sugarsText.setText(food.getSugar() + " gr. / "
+				+ food.getSugarCalories() + " KCal - ");
 		fatsText.setText(food.getFats() + " gr. / " + food.getFatsCalories()
-				+ " Kcal - " + food.getFatsPercentage() + "%");
-		fatsText.setBackgroundColor(food.getFatsColor());
+				+ " Kcal - ");
 	}
 
 	private void editFood() {
