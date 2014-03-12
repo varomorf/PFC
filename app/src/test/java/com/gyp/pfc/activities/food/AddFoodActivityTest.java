@@ -82,6 +82,48 @@ public class AddFoodActivityTest extends BaseFoodTest {
 		assertTrue(activity.isFinishing());
 	}
 	
+	@Test
+	public void shouldAssureObligatoryFields() {
+		// GIVEN
+		createActivity();
+		// WHEN
+		saveFood();
+		// THEN
+		List<Food> foods = dao.queryForAll();
+		assertThat(foods.size(), is(0));
+		// AND
+		enterFoodName(FOOD_NAME);
+		saveFood();
+		// THEN
+		foods = dao.queryForAll();
+		assertThat(foods.size(), is(0));
+		// AND
+		enterFoodCalories(FOOD_CALORIES);
+		saveFood();
+		// THEN
+		foods = dao.queryForAll();
+		assertThat(foods.size(), is(0));
+		// AND
+		enterFoodCarbs(FOOD_CARBS);
+		saveFood();
+		// THEN
+		foods = dao.queryForAll();
+		assertThat(foods.size(), is(0));
+		// AND
+		enterFoodFats(FOOD_FATS);
+		saveFood();
+		// THEN
+		foods = dao.queryForAll();
+		assertThat(foods.size(), is(0));
+		// AND
+		enterFoodProteins(FOOD_PROTEINS);
+		saveFood();
+		// THEN
+		foods = dao.queryForAll();
+		// all required fields are filled -> food is created
+		assertThat(foods.size(), is(1));
+	}
+	
 	// Package protected ---------------------------------------------
 
 	// Protected -----------------------------------------------------

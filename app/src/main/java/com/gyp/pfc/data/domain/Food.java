@@ -13,36 +13,36 @@ import com.j256.ormlite.table.DatabaseTable;
  */
 @DatabaseTable
 public class Food implements Serializable {
-	
+
 	private static final int CALORIES_PER_FAT_GRAM = 9;
 	private static final int CALORIES_PER_SUGAR_GRAM = 4;
 	private static final int CALORIES_PER_PROTEIN_GRAM = 4;
-	
+
 	// Constants -----------------------------------------------------
-	
+
 	private static final long serialVersionUID = 1L;
 
 	// Attributes ----------------------------------------------------
-	
+
 	@DatabaseField(generatedId = true)
 	private Integer id;
-	@DatabaseField(canBeNull=false)
+	@DatabaseField(canBeNull = false)
 	private String name;
-	@DatabaseField(columnName="brandname")
+	@DatabaseField(columnName = "brandname")
 	private String brandName;
-	@DatabaseField(canBeNull=false)
+	@DatabaseField(canBeNull = false)
 	private Double calories;
-	@DatabaseField(canBeNull=false)
+	@DatabaseField(canBeNull = false)
 	private Double protein;
-	@DatabaseField(canBeNull=false)
+	@DatabaseField(canBeNull = false)
 	private Double carbs;
 	@DatabaseField
 	private Double sugar;
 	@DatabaseField
 	private Double fiber;
-	@DatabaseField(canBeNull=false)
+	@DatabaseField(canBeNull = false)
 	private Double fats;
-	@DatabaseField(columnName="saturatedfats")
+	@DatabaseField(columnName = "saturatedfats")
 	private Double saturatedFats;
 	@DatabaseField
 	private Double sodium;
@@ -50,7 +50,7 @@ public class Food implements Serializable {
 	// Static --------------------------------------------------------
 
 	// Constructors --------------------------------------------------
-	
+
 	/**
 	 * ORMLite needs a no-arg constructor
 	 */
@@ -82,17 +82,18 @@ public class Food implements Serializable {
 	public void setCalories(double calories) {
 		this.calories = calories;
 	}
-	
+
 	/**
-	 * Sets the calories trying to parse an int from the passed String.
-	 * If no int can be parsed, null will be set.
+	 * Sets the calories trying to parse an int from the passed String. If no
+	 * int can be parsed, null will be set.
 	 * 
-	 * @param calories the string with the amount of calories
+	 * @param calories
+	 *            the string with the amount of calories
 	 */
-	public void setCalories(String calories){
-		try{
+	public void setCalories(String calories) {
+		try {
 			this.calories = Double.parseDouble(calories);
-		}catch(NumberFormatException e){
+		} catch (Exception e) {
 			this.calories = null;
 		}
 	}
@@ -104,17 +105,18 @@ public class Food implements Serializable {
 	public void setSugar(Double sugar) {
 		this.sugar = sugar;
 	}
-	
+
 	/**
-	 * Sets the sugar trying to parse a double from the passed String.
-	 * If no double can be parsed, null will be set.
+	 * Sets the sugar trying to parse a double from the passed String. If no
+	 * double can be parsed, null will be set.
 	 * 
-	 * @param sugar the string with the amount of sugar
+	 * @param sugar
+	 *            the string with the amount of sugar
 	 */
-	public void setSugar(String sugar){
-		try{
+	public void setSugar(String sugar) {
+		try {
 			this.sugar = Double.parseDouble(sugar);
-		}catch(NumberFormatException e){
+		} catch (Exception e) {
 			this.sugar = null;
 		}
 	}
@@ -126,17 +128,18 @@ public class Food implements Serializable {
 	public void setFats(Double fats) {
 		this.fats = fats;
 	}
-	
+
 	/**
-	 * Sets the fats trying to parse a double from the passed String.
-	 * If no double can be parsed, null will be set.
+	 * Sets the fats trying to parse a double from the passed String. If no
+	 * double can be parsed, null will be set.
 	 * 
-	 * @param fats the string with the amount of fats
+	 * @param fats
+	 *            the string with the amount of fats
 	 */
-	public void setFats(String fats){
-		try{
+	public void setFats(String fats) {
+		try {
 			this.fats = Double.parseDouble(fats);
-		}catch(NumberFormatException e){
+		} catch (Exception e) {
 			this.fats = null;
 		}
 	}
@@ -156,17 +159,18 @@ public class Food implements Serializable {
 	public void setProtein(Double protein) {
 		this.protein = protein;
 	}
-	
+
 	/**
-	 * Sets the protein trying to parse a double from the passed String.
-	 * If no double can be parsed, null will be set.
+	 * Sets the protein trying to parse a double from the passed String. If no
+	 * double can be parsed, null will be set.
 	 * 
-	 * @param protein the string with the amount of protein
+	 * @param protein
+	 *            the string with the amount of protein
 	 */
-	public void setProtein(String protein){
-		try{
+	public void setProtein(String protein) {
+		try {
 			this.protein = Double.parseDouble(protein);
-		}catch(NumberFormatException e){
+		} catch (Exception e) {
 			this.protein = null;
 		}
 	}
@@ -178,17 +182,18 @@ public class Food implements Serializable {
 	public void setCarbs(Double carbs) {
 		this.carbs = carbs;
 	}
-	
+
 	/**
-	 * Sets the carbs trying to parse a double from the passed String.
-	 * If no double can be parsed, null will be set.
+	 * Sets the carbs trying to parse a double from the passed String. If no
+	 * double can be parsed, null will be set.
 	 * 
-	 * @param carbs the string with the amount of carbs
+	 * @param carbs
+	 *            the string with the amount of carbs
 	 */
-	public void setCarbs(String carbs){
-		try{
+	public void setCarbs(String carbs) {
+		try {
 			this.carbs = Double.parseDouble(carbs);
-		}catch(NumberFormatException e){
+		} catch (Exception e) {
 			this.carbs = null;
 		}
 	}
@@ -200,17 +205,18 @@ public class Food implements Serializable {
 	public void setFiber(Double fiber) {
 		this.fiber = fiber;
 	}
-	
+
 	/**
-	 * Sets the fiber trying to parse a double from the passed String.
-	 * If no double can be parsed, null will be set.
+	 * Sets the fiber trying to parse a double from the passed String. If no
+	 * double can be parsed, null will be set.
 	 * 
-	 * @param fiber the string with the amount of fiber
+	 * @param fiber
+	 *            the string with the amount of fiber
 	 */
-	public void setFiber(String fiber){
-		try{
+	public void setFiber(String fiber) {
+		try {
 			this.fiber = Double.parseDouble(fiber);
-		}catch(NumberFormatException e){
+		} catch (Exception e) {
 			this.fiber = null;
 		}
 	}
@@ -222,17 +228,18 @@ public class Food implements Serializable {
 	public void setSaturatedFats(Double saturatedFats) {
 		this.saturatedFats = saturatedFats;
 	}
-	
+
 	/**
 	 * Sets the saturatedFats trying to parse a double from the passed String.
 	 * If no double can be parsed, null will be set.
 	 * 
-	 * @param saturatedFats the string with the amount of saturatedFats
+	 * @param saturatedFats
+	 *            the string with the amount of saturatedFats
 	 */
-	public void setSaturatedFats(String saturatedFats){
-		try{
+	public void setSaturatedFats(String saturatedFats) {
+		try {
 			this.saturatedFats = Double.parseDouble(saturatedFats);
-		}catch(NumberFormatException e){
+		} catch (Exception e) {
 			this.saturatedFats = null;
 		}
 	}
@@ -244,17 +251,18 @@ public class Food implements Serializable {
 	public void setSodium(Double sodium) {
 		this.sodium = sodium;
 	}
-	
+
 	/**
-	 * Sets the sodium trying to parse a double from the passed String.
-	 * If no double can be parsed, null will be set.
+	 * Sets the sodium trying to parse a double from the passed String. If no
+	 * double can be parsed, null will be set.
 	 * 
-	 * @param sodium the string with the amount of sodium
+	 * @param sodium
+	 *            the string with the amount of sodium
 	 */
-	public void setSodium(String sodium){
-		try{
+	public void setSodium(String sodium) {
+		try {
 			this.sodium = Double.parseDouble(sodium);
-		}catch(NumberFormatException e){
+		} catch (Exception e) {
 			this.sodium = null;
 		}
 	}
@@ -276,13 +284,13 @@ public class Food implements Serializable {
 	public double getFatsCalories() {
 		return fats * CALORIES_PER_FAT_GRAM;
 	}
-	
+
 	/**
 	 * Calculates the amount of calories from proteins
 	 * 
 	 * @return the amount of calories from proteins
 	 */
-	public double getProteinCalories(){
+	public double getProteinCalories() {
 		return protein * CALORIES_PER_PROTEIN_GRAM;
 	}
 

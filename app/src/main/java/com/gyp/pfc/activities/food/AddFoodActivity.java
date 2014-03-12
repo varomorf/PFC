@@ -1,7 +1,10 @@
 package com.gyp.pfc.activities.food;
 
+import org.apache.commons.lang.StringUtils;
+
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.gyp.pfc.R;
@@ -46,25 +49,18 @@ public class AddFoodActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 	 *            The view
 	 */
 	public void saveFood(View view) {
-		// get new food data
-		Food food = new Food();
-		food.setName(UIUtils.getTextFromUI(findViewById(R.id.foodNameText)));
-		food.setBrandName(UIUtils.getTextFromUI(findViewById(R.id.foodBrandText)));
-		food.setCalories(UIUtils.getTextFromUI(findViewById(R.id.caloriesText)));
-		food.setCarbs(UIUtils.getTextFromUI(findViewById(R.id.carbsText)));
-		food.setSugar(UIUtils.getTextFromUI(findViewById(R.id.sugarsText)));
-		food.setFiber(UIUtils.getTextFromUI(findViewById(R.id.fiberText)));
-		food.setFats(UIUtils.getTextFromUI(findViewById(R.id.fatsText)));
-		food.setSaturatedFats(UIUtils.getTextFromUI(findViewById(R.id.saturatedFatsText)));
-		food.setProtein(UIUtils.getTextFromUI(findViewById(R.id.proteinsText)));
-		food.setSodium(UIUtils.getTextFromUI(findViewById(R.id.sodiumText)));
-		// save food on DB
-		getHelper().getFoodDao().create(food);
-		// show toast
-		Toast.makeText(getApplicationContext(), R.string.newFoodInserted,
-				Toast.LENGTH_SHORT).show();
-		// close activity
-		finish();
+		try {
+			Food food = createFood();
+			// save food on DB
+			getHelper().getFoodDao().create(food);
+			// show toast
+			Toast.makeText(getApplicationContext(), R.string.newFoodInserted,
+					Toast.LENGTH_SHORT).show();
+			// close activity
+			finish();
+		} catch (IllegalArgumentException e) {
+			// NOOP
+		}
 	}
 
 	// Package protected ---------------------------------------------
@@ -72,6 +68,61 @@ public class AddFoodActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 	// Protected -----------------------------------------------------
 
 	// Private -------------------------------------------------------
+
+	/**
+	 * Creates a new food with the data from the add_food form
+	 * 
+	 * @return the food created
+	 * @throws IllegalArgumentException
+	 *             if a required field is not filled
+	 */
+	private Food createFood() throws IllegalArgumentException {
+		Food food = new Food();
+		// get required food data
+		food.setName(getEditTextViewAsserting(R.id.foodNameText,
+				R.string.foodNameHint));
+		food.setCalories(getEditTextViewAsserting(R.id.caloriesText,
+				R.string.caloriesHint));
+		food.setCarbs(getEditTextViewAsserting(R.id.carbsText,
+				R.string.carbsHint));
+		food.setFats(getEditTextViewAsserting(R.id.fatsText,
+				R.string.fatsHint));
+		food.setProtein(getEditTextViewAsserting(R.id.proteinsText,
+				R.string.proteinsHint));
+		// get the rest of the data
+		food.setBrandName(UIUtils
+				.getTextFromUI(findViewById(R.id.foodBrandText)));
+		food.setSugar(UIUtils.getTextFromUI(findViewById(R.id.sugarsText)));
+		food.setFiber(UIUtils.getTextFromUI(findViewById(R.id.fiberText)));
+		food.setSaturatedFats(UIUtils
+				.getTextFromUI(findViewById(R.id.saturatedFatsText)));
+		food.setSodium(UIUtils.getTextFromUI(findViewById(R.id.sodiumText)));
+		return food;
+	}
+
+	/**
+	 * Returns the value of the EditText with the passed id. If the value is
+	 * blank, a hint and error will be shown for the specified string id and an
+	 * IllegalArgumentException will be thrown
+	 * 
+	 * @param viewId
+	 *            the id of the EditText
+	 * @param hintId
+	 *            the id of the string for the hint
+	 * @return the value of the EditText
+	 * @throws IllegalArgumentException
+	 *             if the name is not filled
+	 */
+	private String getEditTextViewAsserting(int viewId, int hintId) {
+		EditText et = (EditText) findViewById(viewId);
+		String value = et.getText().toString();
+		if (StringUtils.isBlank(value)) {
+			et.setHint(hintId);
+			et.setError(getString(hintId));
+			throw new IllegalArgumentException();
+		}
+		return value;
+	}
 
 	// Inner classes -------------------------------------------------
 

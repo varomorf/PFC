@@ -5,26 +5,27 @@
     <string name="menu_settings">Settings</string>
     <string name="main_add">Añadir</string>
     <string name="main_list">Listar</string>
-    <string name="green">verde</string>
-    <string name="yellow">amarillo</string>
-    <string name="red">rojo</string>
+    
+    <!-- add_food related -->
     <string name="hello">Rellena los valores y dale al botón</string>
+    <string name="foodNameHint">Introduce el nombre del alimento</string>
     <string name="label_brandName">Marca</string>
     <string name="label_calories">Calorias</string>
+    <string name="caloriesHint">Introduce las calorías</string>
     <string name="label_proteins">Proteínas</string>
+    <string name="proteinsHint">Introduce los gramos de proteínas</string>
     <string name="label_carbs">Hidratos de carbono</string>
+    <string name="carbsHint">Introduce los gramos de hidratos de carbono</string>
     <string name="label_sugars">Azúcares</string>
     <string name="label_fiber">Fibra</string>
     <string name="label_fats">Grasa</string>
+    <string name="fatsHint">Introduce los gramos de grasa</string>
     <string name="label_saturatedFats">Grasa Sat</string>
     <string name="label_sodium">Sodio</string>
     <string name="button_calculate">Calcular</string>
     <string name="addFoodButton">Añadir</string>
-    <string name="resultSugarsText">Azúcares</string>
-    <string name="resultFatsText">Grasas</string>
-    <string name="resultFinalText">El alimento es</string>
-    <string name="notFilledAlert">Debes rellenar los tres valores.</string>
-    <string name="addFoodNameText">Introduce el nombre de la comida</string>
+    
+    
     <string name="mainMenuFoodsList">Lista de comidas</string>
     <string name="foodsListMenuMain">Inicio</string>
     <string name="newFoodInserted">El nuevo alimento ha sido añadido.</string>
