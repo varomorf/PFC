@@ -2,7 +2,11 @@ package com.gyp.pfc.activities.food;
 
 import org.apache.commons.lang.StringUtils;
 
+import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.SpannableStringBuilder;
+import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -80,15 +84,15 @@ public class AddFoodActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 		Food food = new Food();
 		// get required food data
 		food.setName(getEditTextViewAsserting(R.id.foodNameText,
-				R.string.foodNameHint));
+				R.string.foodNameError));
 		food.setCalories(getEditTextViewAsserting(R.id.caloriesText,
-				R.string.caloriesHint));
-		food.setCarbs(getEditTextViewAsserting(R.id.carbsText,
-				R.string.carbsHint));
-		food.setFats(getEditTextViewAsserting(R.id.fatsText,
-				R.string.fatsHint));
+				R.string.caloriesError));
 		food.setProtein(getEditTextViewAsserting(R.id.proteinsText,
-				R.string.proteinsHint));
+				R.string.proteinsError));
+		food.setCarbs(getEditTextViewAsserting(R.id.carbsText,
+				R.string.carbsError));
+		food.setFats(getEditTextViewAsserting(R.id.fatsText,
+				R.string.fatsError));
 		// get the rest of the data
 		food.setBrandName(UIUtils
 				.getTextFromUI(findViewById(R.id.foodBrandText)));
@@ -102,23 +106,23 @@ public class AddFoodActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 
 	/**
 	 * Returns the value of the EditText with the passed id. If the value is
-	 * blank, a hint and error will be shown for the specified string id and an
+	 * blank, an error will be shown for the specified string id and an
 	 * IllegalArgumentException will be thrown
 	 * 
 	 * @param viewId
 	 *            the id of the EditText
-	 * @param hintId
-	 *            the id of the string for the hint
+	 * @param errorId
+	 *            the id of the string for the error
 	 * @return the value of the EditText
 	 * @throws IllegalArgumentException
 	 *             if the name is not filled
 	 */
-	private String getEditTextViewAsserting(int viewId, int hintId) {
+	private String getEditTextViewAsserting(int viewId, int errorId) {
 		EditText et = (EditText) findViewById(viewId);
 		String value = et.getText().toString();
 		if (StringUtils.isBlank(value)) {
-			et.setHint(hintId);
-			et.setError(getString(hintId));
+			et.requestFocus();
+			et.setError(getString(errorId));
 			throw new IllegalArgumentException();
 		}
 		return value;

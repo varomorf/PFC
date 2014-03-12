@@ -15,7 +15,6 @@
     <string name="label_sugars">Azúcares</string>
     <string name="label_fiber">Fibra</string>
     <string name="label_fats">Grasa</string>
-    <string name="fatsHint">Introduce los gramos de grasa</string>
     <string name="label_saturatedFats">Grasa Sat</string>
     <string name="label_sodium">Sodio</string>
     <string name="button_calculate">Calcular</string>
@@ -24,11 +23,17 @@
     <string name="brandNameHint">Nombre de la marca del alimento</string>
     <string name="caloriesHint">Calorías del alimento</string>
     <string name="proteinsHint">Gramos de proteínas</string>
+    <string name="fatsHint">Introduce los gramos de grasa</string>
     <string name="carbsHint">Gramos de hidratos de carbono</string>
     <string name="sugarsHint">Gramos de azúcares</string>
     <string name="fiberHint">Gramos de fibra</string>
     <string name="saturatedFatsHint">Gramos de grasas saturadas</string>
     <string name="sodiumHint">Gramos de sodio</string>
+    <string name="foodNameError">El nombre es obligatorio</string>
+    <string name="caloriesError">Las calorías son obligatorias</string>
+    <string name="fatsError">Las grasas son obligatorias</string>
+    <string name="proteinsError">Las proteínas son obligatorias</string>
+    <string name="carbsError">Los hidratos son obligatorios</string>
     
     <string name="mainMenuFoodsList">Lista de comidas</string>
     <string name="foodsListMenuMain">Inicio</string>
