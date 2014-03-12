@@ -7,15 +7,11 @@
     <string name="main_list">Listar</string>
     
     <!-- add_food related -->
-    <string name="hello">Rellena los valores y dale al botón</string>
-    <string name="foodNameHint">Introduce el nombre del alimento</string>
+    <string name="hello">Rellena los valores por cada 100gr. de alimento</string>
     <string name="label_brandName">Marca</string>
     <string name="label_calories">Calorias</string>
-    <string name="caloriesHint">Introduce las calorías</string>
     <string name="label_proteins">Proteínas</string>
-    <string name="proteinsHint">Introduce los gramos de proteínas</string>
     <string name="label_carbs">Hidratos de carbono</string>
-    <string name="carbsHint">Introduce los gramos de hidratos de carbono</string>
     <string name="label_sugars">Azúcares</string>
     <string name="label_fiber">Fibra</string>
     <string name="label_fats">Grasa</string>
@@ -24,7 +20,15 @@
     <string name="label_sodium">Sodio</string>
     <string name="button_calculate">Calcular</string>
     <string name="addFoodButton">Añadir</string>
-    
+    <string name="foodNameHint">Nombre del alimento</string>
+    <string name="brandNameHint">Nombre de la marca del alimento</string>
+    <string name="caloriesHint">Calorías del alimento</string>
+    <string name="proteinsHint">Gramos de proteínas</string>
+    <string name="carbsHint">Gramos de hidratos de carbono</string>
+    <string name="sugarsHint">Gramos de azúcares</string>
+    <string name="fiberHint">Gramos de fibra</string>
+    <string name="saturatedFatsHint">Gramos de grasas saturadas</string>
+    <string name="sodiumHint">Gramos de sodio</string>
     
     <string name="mainMenuFoodsList">Lista de comidas</string>
     <string name="foodsListMenuMain">Inicio</string>
