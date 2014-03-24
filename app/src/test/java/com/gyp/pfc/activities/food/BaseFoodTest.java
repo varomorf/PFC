@@ -25,7 +25,7 @@ public abstract class BaseFoodTest extends BaseActivityTest {
 	protected static final double FOOD_SUGAR = 20;
 	protected static final double FOOD_FIBER = 10;
 	protected static final double FOOD_FATS = 10;
-	protected static final double FOOT_SATURATED_FATS = 2;
+	protected static final double FOOD_SATURATED_FATS = 2;
 	protected static final double FOOD_PROTEINS = 1;
 	protected static final double FOOD_SODIUM = 100;
 

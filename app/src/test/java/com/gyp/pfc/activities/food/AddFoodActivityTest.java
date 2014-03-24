@@ -56,7 +56,7 @@ public class AddFoodActivityTest extends BaseFoodTest {
 		enterFoodSugar(FOOD_SUGAR);
 		enterFoodFiber(FOOD_FIBER);
 		enterFoodFats(FOOD_FATS);
-		enterFoodSaturatedFats(FOOT_SATURATED_FATS);
+		enterFoodSaturatedFats(FOOD_SATURATED_FATS);
 		enterFoodProteins(FOOD_PROTEINS);
 		enterFoodSodium(FOOD_SODIUM);
 		saveFood();
@@ -74,7 +74,7 @@ public class AddFoodActivityTest extends BaseFoodTest {
 		assertThat(food.getSugar(), is(FOOD_SUGAR));
 		assertThat(food.getFiber(), is(FOOD_FIBER));
 		assertThat(food.getFats(), is(FOOD_FATS));
-		assertThat(food.getSaturatedFats(), is(FOOT_SATURATED_FATS));
+		assertThat(food.getSaturatedFats(), is(FOOD_SATURATED_FATS));
 		assertThat(food.getSodium(), is(FOOD_SODIUM));
 		// toast is shown
 		assertToastText(R.string.newFoodInserted);
