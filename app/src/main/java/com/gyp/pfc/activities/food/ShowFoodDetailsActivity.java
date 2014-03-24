@@ -5,10 +5,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gyp.pfc.R;
+import com.gyp.pfc.UIUtils;
 import com.gyp.pfc.data.db.DatabaseHelper;
 import com.gyp.pfc.data.domain.Food;
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
@@ -26,11 +26,6 @@ public class ShowFoodDetailsActivity extends
 
 	// Attributes ----------------------------------------------------
 
-	private TextView nameText;
-	private TextView caloriesText;
-	private TextView sugarsText;
-	private TextView fatsText;
-
 	private Food food;
 
 	// Static --------------------------------------------------------
@@ -38,16 +33,16 @@ public class ShowFoodDetailsActivity extends
 	// Constructors --------------------------------------------------
 
 	// Public --------------------------------------------------------
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.show_food_details);
+		setContentView(R.layout.food_details);
 
 		// retrieve the food to be shown from the intent
 		Intent sender = getIntent();
 		food = (Food) sender.getExtras().getSerializable(
 				EditFoodActivity.FOOD_TO_EDIT);
-		getUIForms();
 		updateUI();
 	}
 
@@ -95,20 +90,15 @@ public class ShowFoodDetailsActivity extends
 	}
 
 	// Private -------------------------------------------------------
-	private void getUIForms() {
-		nameText = (TextView) findViewById(R.id.nameTextView);
-		caloriesText = (TextView) findViewById(R.id.caloriesText);
-		sugarsText = (TextView) findViewById(R.id.sugarsText);
-		fatsText = (TextView) findViewById(R.id.fatsText);
-	}
 
 	private void updateUI() {
-		nameText.setText(food.getName());
-		caloriesText.setText(food.getCalories() + " KCal");
-		sugarsText.setText(food.getSugar() + " gr. / "
-				+ food.getSugarCalories() + " KCal - ");
-		fatsText.setText(food.getFats() + " gr. / " + food.getFatsCalories()
-				+ " Kcal - ");
+		UIUtils.setTextToUI(findViewById(R.id.foodDetailsName), food.getName());
+		UIUtils.setTextToUI(findViewById(R.id.caloriesText),
+				Double.toString(food.getCalories()));
+		UIUtils.setTextToUI(findViewById(R.id.sugarsText),
+				Double.toString(food.getSugar()) + "g");
+		UIUtils.setTextToUI(findViewById(R.id.fatsText),
+				Double.toString(food.getFats()) + "g");
 	}
 
 	private void editFood() {
@@ -117,6 +107,7 @@ public class ShowFoodDetailsActivity extends
 		editFoodIntent.putExtra(EditFoodActivity.FOOD_TO_EDIT, food);
 		startActivityForResult(editFoodIntent, EditFoodActivity.EDIT_FOOD);
 	}
+
 	// Inner classes -------------------------------------------------
 
 }
