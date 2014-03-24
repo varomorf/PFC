@@ -2,11 +2,7 @@ package com.gyp.pfc.activities.food;
 
 import org.apache.commons.lang.StringUtils;
 
-import android.graphics.Color;
 import android.os.Bundle;
-import android.text.Html;
-import android.text.SpannableStringBuilder;
-import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -43,7 +39,7 @@ public class AddFoodActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.add_food);
+		setContentView(R.layout.food_add_food);
 	}
 
 	/**
