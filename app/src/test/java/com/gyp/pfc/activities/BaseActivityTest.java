@@ -1,9 +1,14 @@
 package com.gyp.pfc.activities;
 
-import static com.xtremelabs.robolectric.Robolectric.*;
-import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.*;
+import static com.xtremelabs.robolectric.Robolectric.clickOn;
+import static com.xtremelabs.robolectric.Robolectric.shadowOf;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
@@ -16,6 +21,7 @@ import com.gyp.pfc.UIUtils;
 import com.gyp.pfc.data.db.DatabaseHelper;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.xtremelabs.robolectric.shadows.ShadowActivity;
+import com.xtremelabs.robolectric.shadows.ShadowAlertDialog;
 import com.xtremelabs.robolectric.shadows.ShadowToast;
 
 /**
@@ -126,7 +132,11 @@ public abstract class BaseActivityTest {
 	}
 	
 	protected void assertAlertDialogText(int id){
-		// TODO this
+		AlertDialog dialog = ShadowAlertDialog.getLatestAlertDialog();
+		assertNotNull("There wasn't even a dialog", dialog);
+		ShadowAlertDialog shadowDialog = shadowOf(dialog);
+		assertEquals("Dialog text does not match", activity.getText(id),
+				shadowDialog.getMessage());
 	}
 	
 	protected void enterText(int id, String text) {

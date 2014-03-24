@@ -3,6 +3,8 @@
  */
 package com.gyp.pfc.activities.food;
 
+import android.content.Intent;
+
 import com.gyp.pfc.activities.BaseActivityTest;
 import com.gyp.pfc.data.db.DatabaseHelper;
 import com.gyp.pfc.data.domain.Food;
@@ -48,6 +50,29 @@ public abstract class BaseFoodTest extends BaseActivityTest {
 	// Package protected ---------------------------------------------
 
 	// Protected -----------------------------------------------------
+	
+	protected Food createFood() {
+		// prepare new training
+		Food food = new Food();
+		food.setName(FOOD_NAME);
+		food.setBrandName(FOOD_BRAND);
+		food.setCalories(FOOD_CALORIES);
+		food.setProtein(FOOD_PROTEINS);
+		food.setCarbs(FOOD_CARBS);
+		food.setSugar(FOOD_SUGAR);
+		food.setFiber(FOOD_FIBER);
+		food.setFats(FOOD_FATS);
+		food.setSaturatedFats(FOOD_SATURATED_FATS);
+		food.setSodium(FOOD_SODIUM);
+		dao.create(food);
+		return food;
+	}
+	
+	protected void intentPassedWithFood(Food food) {
+		Intent intent = new Intent();
+		intent.putExtra(EditFoodActivity.FOOD_TO_EDIT, food);
+		activity.setIntent(intent);
+	}
 
 	// Private -------------------------------------------------------
 

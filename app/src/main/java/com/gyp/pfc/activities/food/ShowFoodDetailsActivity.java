@@ -1,6 +1,8 @@
 package com.gyp.pfc.activities.food;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -56,8 +58,7 @@ public class ShowFoodDetailsActivity extends
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.delete:
-			getHelper().getFoodDao().delete(food);
-			finish();
+			deleteWithDialog();
 			return true;
 		case R.id.edit:
 			editFood();
@@ -106,6 +107,26 @@ public class ShowFoodDetailsActivity extends
 				EditFoodActivity.class);
 		editFoodIntent.putExtra(EditFoodActivity.FOOD_TO_EDIT, food);
 		startActivityForResult(editFoodIntent, EditFoodActivity.EDIT_FOOD);
+	}
+	
+	private void deleteWithDialog(){
+		new AlertDialog.Builder(this)
+		.setMessage(R.string.assureFoodDeletion)
+		.setCancelable(false)
+		.setPositiveButton(android.R.string.yes,
+				new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+						//deletion is confirmed -> delete
+						getHelper().getFoodDao().delete(food);
+						finish();
+					}
+				})
+		.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int id) {
+				//do not delete -> close dialog
+				dialog.cancel();
+			}
+		}).create().show();
 	}
 
 	// Inner classes -------------------------------------------------

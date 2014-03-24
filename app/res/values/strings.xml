@@ -37,6 +37,9 @@
     <string name="proteinsError">Las proteínas son obligatorias</string>
     <string name="carbsError">Los hidratos son obligatorios</string>
     
+    <!-- Show food details related -->
+    <string name="assureFoodDeletion">¿Seguro que desea eliminar el alimento?</string>
+    
     <string name="mainMenuFoodsList">Lista de comidas</string>
     <string name="foodsListMenuMain">Inicio</string>
     <string name="newFoodInserted">El nuevo alimento ha sido añadido.</string>
