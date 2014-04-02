@@ -96,10 +96,20 @@ public class ShowFoodDetailsActivity extends
 		UIUtils.setTextToUI(findViewById(R.id.foodDetailsName), food.getName());
 		UIUtils.setTextToUI(findViewById(R.id.caloriesText),
 				Double.toString(food.getCalories()));
-		UIUtils.setTextToUI(findViewById(R.id.sugarsText),
+		UIUtils.setTextToUI(findViewById(R.id.proteinText),
+				Double.toString(food.getProtein()) + "g");
+		UIUtils.setTextToUI(findViewById(R.id.carbsText),
+				Double.toString(food.getCarbs()) + "g");
+		UIUtils.setTextToUI(findViewById(R.id.sugarText),
 				Double.toString(food.getSugar()) + "g");
+		UIUtils.setTextToUI(findViewById(R.id.fiberText),
+				Double.toString(food.getFiber()) + "g");
 		UIUtils.setTextToUI(findViewById(R.id.fatsText),
 				Double.toString(food.getFats()) + "g");
+		UIUtils.setTextToUI(findViewById(R.id.saturatedFatsText),
+				Double.toString(food.getSaturatedFats()) + "g");
+		UIUtils.setTextToUI(findViewById(R.id.sodiumText),
+				Double.toString(food.getSodium()) + "g");
 	}
 
 	private void editFood() {
