@@ -53,17 +53,23 @@ public abstract class BaseFoodTest extends BaseActivityTest {
 	
 	protected Food createFood() {
 		// prepare new training
+		Food food = createFoodWithOnlyObligatoryFields();
+		food.setBrandName(FOOD_BRAND);
+		food.setSugar(FOOD_SUGAR);
+		food.setFiber(FOOD_FIBER);
+		food.setSaturatedFats(FOOD_SATURATED_FATS);
+		food.setSodium(FOOD_SODIUM);
+		dao.update(food);
+		return food;
+	}
+	
+	protected Food createFoodWithOnlyObligatoryFields(){
 		Food food = new Food();
 		food.setName(FOOD_NAME);
-		food.setBrandName(FOOD_BRAND);
 		food.setCalories(FOOD_CALORIES);
 		food.setProtein(FOOD_PROTEINS);
 		food.setCarbs(FOOD_CARBS);
-		food.setSugar(FOOD_SUGAR);
-		food.setFiber(FOOD_FIBER);
 		food.setFats(FOOD_FATS);
-		food.setSaturatedFats(FOOD_SATURATED_FATS);
-		food.setSodium(FOOD_SODIUM);
 		dao.create(food);
 		return food;
 	}

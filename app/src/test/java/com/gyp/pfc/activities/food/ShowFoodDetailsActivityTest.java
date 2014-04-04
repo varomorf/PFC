@@ -61,6 +61,19 @@ public class ShowFoodDetailsActivityTest extends BaseFoodTest {
 		assertAlertDialogText(R.string.assureFoodDeletion);
 	}
 
+	@Test
+	public void shouldShowFoodDetailsOnlyWithObligatoryData() {
+		// GIVEN
+		// a food is passed via intent to the activity
+		passFoodWithOnlyObligatoryFieldsToActivity();
+		// activity is created
+		createActivity();
+		// WHEN
+
+		// THEN
+
+	}
+
 	// Package protected ---------------------------------------------
 
 	// Protected -----------------------------------------------------
@@ -71,9 +84,14 @@ public class ShowFoodDetailsActivityTest extends BaseFoodTest {
 	}
 
 	// Private -------------------------------------------------------
-
+	
 	private void passFoodToActivity() {
 		food = createFood();
+		intentPassedWithFood(food);
+	}
+
+	private void passFoodWithOnlyObligatoryFieldsToActivity() {
+		food = createFoodWithOnlyObligatoryFields();
 		intentPassedWithFood(food);
 	}
 
