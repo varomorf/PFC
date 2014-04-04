@@ -75,7 +75,7 @@ public class Food implements Serializable {
 		this.name = name;
 	}
 
-	public double getCalories() {
+	public Double getCalories() {
 		return calories;
 	}
 
