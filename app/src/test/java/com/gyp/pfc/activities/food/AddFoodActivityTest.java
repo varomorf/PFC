@@ -17,6 +17,7 @@ import android.widget.Button;
 import com.gyp.pfc.CustomTestRunner;
 import com.gyp.pfc.R;
 import com.gyp.pfc.data.domain.Food;
+import com.gyp.pfc.data.domain.manager.FoodManager;
 
 /**
  * Test for the {@link AddFoodActivity}
@@ -36,12 +37,13 @@ public class AddFoodActivityTest extends BaseFoodTest {
 	// Constructors --------------------------------------------------
 
 	// Public --------------------------------------------------------
-
+	
 	@Before
-	public void clearFoodDB() {
+	public void before() {
 		super.before();
 		List<Food> foods = dao.queryForAll();
 		dao.delete(foods);
+		FoodManager.getInstance().setFoodDao(dao);
 	}
 	
 	@Test

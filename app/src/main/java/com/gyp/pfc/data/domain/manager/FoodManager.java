@@ -124,6 +124,51 @@ public class FoodManager {
 		foodDAO.create(food);
 		return food;
 	}
+	
+	/**
+	 * Creates a new food specifying its name, brand name, calories, grams of
+	 * protein, grams of carbs, grams of sugar, grams of fiber, grams of fats,
+	 * grams of saturated fats and grams of sodium
+	 * 
+	 * @param name
+	 *            the name of the food
+	 * @param brandName
+	 *            the name of the brand of the food
+	 * @param calories
+	 *            the amount of calories
+	 * @param protein
+	 *            the grams of protein
+	 * @param carbs
+	 *            the grams of carbs
+	 * @param sugar
+	 *            the grams of sugar
+	 * @param fiber
+	 *            the grams of fiber
+	 * @param fat
+	 *            the grams of fat of the food
+	 * @param saturatedFat
+	 *            the grams of saturated fats
+	 * @param sodium
+	 *            the grams of sodium
+	 * @return the created food
+	 */
+	public Food createFood(String name, String brandName, String calories,
+			String protein, String carbs, String sugar, String fiber,
+			String fat, String saturatedFat, String sodium) {
+		Food food = new Food();
+		food.setName(name);
+		food.setBrandName(brandName);
+		food.setCalories(calories);
+		food.setProtein(protein);
+		food.setCarbs(carbs);
+		food.setSugar(sugar);
+		food.setFiber(fiber);
+		food.setFats(fat);
+		food.setSaturatedFats(saturatedFat);
+		food.setSodium(sodium);
+		foodDAO.create(food);
+		return food;
+	}
 
 	// Package protected ---------------------------------------------
 

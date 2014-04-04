@@ -11,6 +11,7 @@ import com.gyp.pfc.R;
 import com.gyp.pfc.UIUtils;
 import com.gyp.pfc.data.db.DatabaseHelper;
 import com.gyp.pfc.data.domain.Food;
+import com.gyp.pfc.data.domain.manager.FoodManager;
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 
 /**
@@ -50,10 +51,9 @@ public class AddFoodActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 	 */
 	public void saveFood(View view) {
 		try {
-			Food food = createFood();
 			// save food on DB
-			getHelper().getFoodDao().create(food);
-			// show toast
+			createFood();
+			// show toast notifying food creation
 			Toast.makeText(getApplicationContext(), R.string.newFoodInserted,
 					Toast.LENGTH_SHORT).show();
 			// close activity
@@ -72,32 +72,30 @@ public class AddFoodActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 	/**
 	 * Creates a new food with the data from the add_food form
 	 * 
-	 * @return the food created
 	 * @throws IllegalArgumentException
 	 *             if a required field is not filled
 	 */
-	private Food createFood() throws IllegalArgumentException {
-		Food food = new Food();
+	private void createFood() throws IllegalArgumentException {
 		// get required food data
-		food.setName(getEditTextViewAsserting(R.id.foodNameText,
-				R.string.foodNameError));
-		food.setCalories(getEditTextViewAsserting(R.id.caloriesText,
-				R.string.caloriesError));
-		food.setProtein(getEditTextViewAsserting(R.id.proteinsText,
-				R.string.proteinsError));
-		food.setCarbs(getEditTextViewAsserting(R.id.carbsText,
-				R.string.carbsError));
-		food.setFats(getEditTextViewAsserting(R.id.fatsText,
-				R.string.fatsError));
+		String name = getEditTextViewAsserting(R.id.foodNameText,
+				R.string.foodNameError);
+		String calories = getEditTextViewAsserting(R.id.caloriesText,
+				R.string.caloriesError);
+		String protein = getEditTextViewAsserting(R.id.proteinsText,
+				R.string.proteinsError);
+		String carbs = getEditTextViewAsserting(R.id.carbsText,
+				R.string.carbsError);
+		String fat = getEditTextViewAsserting(R.id.fatsText, R.string.fatsError);
 		// get the rest of the data
-		food.setBrandName(UIUtils
-				.getTextFromUI(findViewById(R.id.foodBrandText)));
-		food.setSugar(UIUtils.getTextFromUI(findViewById(R.id.sugarsText)));
-		food.setFiber(UIUtils.getTextFromUI(findViewById(R.id.fiberText)));
-		food.setSaturatedFats(UIUtils
-				.getTextFromUI(findViewById(R.id.saturatedFatsText)));
-		food.setSodium(UIUtils.getTextFromUI(findViewById(R.id.sodiumText)));
-		return food;
+		String brandName = UIUtils
+				.getTextFromUI(findViewById(R.id.foodBrandText));
+		String sugar = UIUtils.getTextFromUI(findViewById(R.id.sugarsText));
+		String fiber = UIUtils.getTextFromUI(findViewById(R.id.fiberText));
+		String saturatedFat = UIUtils
+				.getTextFromUI(findViewById(R.id.saturatedFatsText));
+		String sodium = UIUtils.getTextFromUI(findViewById(R.id.sodiumText));
+		FoodManager.getInstance().createFood(name, brandName, calories,
+				protein, carbs, sugar, fiber, fat, saturatedFat, sodium);
 	}
 
 	/**
