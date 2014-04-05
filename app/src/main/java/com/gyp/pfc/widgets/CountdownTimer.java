@@ -97,7 +97,6 @@ public class CountdownTimer extends TextView {
 			public void onTick(long millisUntilFinished) {
 				// set remaining milliseconds to allow resuming
 				remainingMillis = millisUntilFinished;
-				// set text of the chronometer to show the change
 				setTimeText();
 			}
 
@@ -105,7 +104,6 @@ public class CountdownTimer extends TextView {
 			public void onFinish() {
 				// assure that the remaining milliseconds will be 0
 				remainingMillis = 0;
-				// set text of the chronometer to show the change
 				setTimeText();
 				// notify listener if any
 				if (null != listener) {
@@ -144,6 +142,9 @@ public class CountdownTimer extends TextView {
 
 	// Private -------------------------------------------------------
 
+	/**
+	 * Set text of the chronometer to show the change
+	 */
 	private void setTimeText() {
 		long seconds = (long) Math.ceil(remainingMillis / MILLIS_IN_ONE_SECOND);
 		String text = TimeUtils.formatTime((int) seconds);
