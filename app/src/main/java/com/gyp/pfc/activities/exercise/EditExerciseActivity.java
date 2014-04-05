@@ -75,7 +75,7 @@ public class EditExerciseActivity extends AddExerciseActivity {
 		List<Exercise> tmp = getHelper().getExerciseDao().queryForEq("name",
 				exercise.getName());
 		// if the list holds exercises -> name is duplicated
-		if (tmp.size() != 0) {
+		if (!tmp.isEmpty()) {
 			// if only returned exercise has same id than passed is ok
 			if(tmp.size() == 1 && tmp.get(0).getId()== exercise.getId()){
 				return true;

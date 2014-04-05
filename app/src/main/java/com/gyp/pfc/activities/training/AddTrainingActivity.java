@@ -209,7 +209,7 @@ public class AddTrainingActivity extends OrmLiteBaseActivity<DatabaseHelper>
 		List<Training> tmp = getHelper().getTrainingDao().queryForEq("name",
 				training.getName());
 		// if the list holds trainings -> name is duplicated
-		if (tmp.size() != 0) {
+		if (!tmp.isEmpty()) {
 			// if only returned training has same id than passed is ok
 			if (tmp.size() == 1 && tmp.get(0).getId() == training.getId()) {
 				return true;
@@ -313,7 +313,7 @@ public class AddTrainingActivity extends OrmLiteBaseActivity<DatabaseHelper>
 	private void prepareAndShowDialog(TrainingExercise selected) {
 		// get list of exercises
 		List<Exercise> exercises = getHelper().getExerciseDao().queryForAll();
-		if (exercises.size() > 0) {
+		if (!exercises.isEmpty()) {
 			// create dialog passing this activity as listener
 			Dialog dialog = new AddExerciseDialog(this, this, exercises,
 					selected);

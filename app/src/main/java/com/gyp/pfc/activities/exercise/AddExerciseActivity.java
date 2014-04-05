@@ -106,7 +106,7 @@ public class AddExerciseActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 		List<Exercise> tmp = getHelper().getExerciseDao().queryForEq("name",
 				exercise.getName());
 		// if the list holds exercises -> name is duplicated
-		if (tmp.size() != 0) {
+		if (!tmp.isEmpty()) {
 			// duplicated name -> show toast and return false
 			Toast.makeText(getApplicationContext(),
 					R.string.exerciseNameDuplicated, Toast.LENGTH_SHORT).show();
