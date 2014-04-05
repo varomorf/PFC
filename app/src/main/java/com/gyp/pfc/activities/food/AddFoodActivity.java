@@ -3,6 +3,7 @@ package com.gyp.pfc.activities.food;
 import org.apache.commons.lang.StringUtils;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -11,7 +12,6 @@ import com.gyp.pfc.R;
 import com.gyp.pfc.UIUtils;
 import com.gyp.pfc.data.db.DatabaseHelper;
 import com.gyp.pfc.data.domain.Food;
-import com.gyp.pfc.data.domain.manager.FoodManager;
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 
 /**
@@ -51,15 +51,18 @@ public class AddFoodActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 	 */
 	public void saveFood(View view) {
 		try {
+			Food food = createFood();
 			// save food on DB
-			createFood();
-			// show toast notifying food creation
+			getHelper().getFoodDao().create(food);
+			// show toast
 			Toast.makeText(getApplicationContext(), R.string.newFoodInserted,
 					Toast.LENGTH_SHORT).show();
 			// close activity
 			finish();
-		} catch (IllegalArgumentException e) {
-			// NOOP
+		} catch (MandatoryFieldNotFilledException e) {
+			e.getField().requestFocus();
+			e.getField().setError(e.getErrorMessage());
+			Log.v(AddFoodActivity.class.getName(), "Mandatory field not set", e);
 		}
 	}
 
@@ -72,30 +75,32 @@ public class AddFoodActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 	/**
 	 * Creates a new food with the data from the add_food form
 	 * 
-	 * @throws IllegalArgumentException
+	 * @return the food created
+	 * @throws MandatoryFieldNotFilledException
 	 *             if a required field is not filled
 	 */
-	private void createFood() throws IllegalArgumentException {
+	private Food createFood() throws MandatoryFieldNotFilledException {
+		Food food = new Food();
 		// get required food data
-		String name = getEditTextViewAsserting(R.id.foodNameText,
-				R.string.foodNameError);
-		String calories = getEditTextViewAsserting(R.id.caloriesText,
-				R.string.caloriesError);
-		String protein = getEditTextViewAsserting(R.id.proteinsText,
-				R.string.proteinsError);
-		String carbs = getEditTextViewAsserting(R.id.carbsText,
-				R.string.carbsError);
-		String fat = getEditTextViewAsserting(R.id.fatsText, R.string.fatsError);
+		food.setName(getEditTextViewAsserting(R.id.foodNameText,
+				R.string.foodNameError));
+		food.setCalories(getEditTextViewAsserting(R.id.caloriesText,
+				R.string.caloriesError));
+		food.setProtein(getEditTextViewAsserting(R.id.proteinsText,
+				R.string.proteinsError));
+		food.setCarbs(getEditTextViewAsserting(R.id.carbsText,
+				R.string.carbsError));
+		food.setFats(getEditTextViewAsserting(R.id.fatsText,
+				R.string.fatsError));
 		// get the rest of the data
-		String brandName = UIUtils
-				.getTextFromUI(findViewById(R.id.foodBrandText));
-		String sugar = UIUtils.getTextFromUI(findViewById(R.id.sugarsText));
-		String fiber = UIUtils.getTextFromUI(findViewById(R.id.fiberText));
-		String saturatedFat = UIUtils
-				.getTextFromUI(findViewById(R.id.saturatedFatsText));
-		String sodium = UIUtils.getTextFromUI(findViewById(R.id.sodiumText));
-		FoodManager.getInstance().createFood(name, brandName, calories,
-				protein, carbs, sugar, fiber, fat, saturatedFat, sodium);
+		food.setBrandName(UIUtils
+				.getTextFromUI(findViewById(R.id.foodBrandText)));
+		food.setSugar(UIUtils.getTextFromUI(findViewById(R.id.sugarsText)));
+		food.setFiber(UIUtils.getTextFromUI(findViewById(R.id.fiberText)));
+		food.setSaturatedFats(UIUtils
+				.getTextFromUI(findViewById(R.id.saturatedFatsText)));
+		food.setSodium(UIUtils.getTextFromUI(findViewById(R.id.sodiumText)));
+		return food;
 	}
 
 	/**
@@ -108,16 +113,14 @@ public class AddFoodActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 	 * @param errorId
 	 *            the id of the string for the error
 	 * @return the value of the EditText
-	 * @throws IllegalArgumentException
+	 * @throws MandatoryFieldNotFilledException
 	 *             if the name is not filled
 	 */
 	private String getEditTextViewAsserting(int viewId, int errorId) {
 		EditText et = (EditText) findViewById(viewId);
 		String value = et.getText().toString();
 		if (StringUtils.isBlank(value)) {
-			et.requestFocus();
-			et.setError(getString(errorId));
-			throw new IllegalArgumentException();
+			throw new MandatoryFieldNotFilledException(et, getString(errorId));
 		}
 		return value;
 	}
