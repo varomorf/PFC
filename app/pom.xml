@@ -18,6 +18,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<android.device>Pruebas</android.device>
+		<sonar.exclusions>**/*generated*/**,**/unpack/**</sonar.exclusions>
 	</properties>
 
 	<dependencies>
