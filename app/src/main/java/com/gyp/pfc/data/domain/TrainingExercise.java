@@ -1,6 +1,7 @@
 package com.gyp.pfc.data.domain;
 
-import static com.gyp.pfc.TimeUtils.*;
+import static com.gyp.pfc.TimeUtils.minutesFromSeconds;
+import static com.gyp.pfc.TimeUtils.restingSecondsFromSeconds;
 
 import java.io.Serializable;
 
@@ -128,7 +129,7 @@ public class TrainingExercise implements Serializable{
 
 	@Override
 	public String toString() {
-		StringBuffer buffer = new StringBuffer(exercise.getName());
+		StringBuilder buffer = new StringBuilder(exercise.getName());
 		buffer.append(' ');
 		buffer.append(reps);
 		buffer.append('x');

@@ -138,16 +138,17 @@ public class ExecuteTrainingActivity extends Activity implements
 				.setPositiveButton(android.R.string.yes,
 						new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog, int id) {
-								//exit is confirmed -> finish
+								// exit is confirmed -> finish
 								finish();
 							}
 						})
-				.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int id) {
-						//do not exit -> close dialog
-						dialog.cancel();
-					}
-				}).create().show();
+				.setNegativeButton(android.R.string.no,
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog, int id) {
+								// do not exit -> close dialog
+								dialog.cancel();
+							}
+						}).create().show();
 	}
 
 	// Package protected ---------------------------------------------
@@ -222,7 +223,7 @@ public class ExecuteTrainingActivity extends Activity implements
 	private void setFractionText(int viewId, int textId, int firstNumber,
 			int secondNumber) {
 		View view = findViewById(viewId);
-		StringBuffer buffer = new StringBuffer(getText(textId));
+		StringBuilder buffer = new StringBuilder(getText(textId));
 		buffer.append(" ");
 		buffer.append(firstNumber);
 		buffer.append("/");

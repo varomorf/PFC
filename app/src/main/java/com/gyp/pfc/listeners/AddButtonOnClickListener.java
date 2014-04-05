@@ -40,7 +40,7 @@ public class AddButtonOnClickListener extends
 	protected String prepareActivityQualifiedName(String packageName,
 			String entityName) {
 		// prepare qualified name putting the pieces together
-		StringBuffer buffer = new StringBuffer(PRE);
+		StringBuilder buffer = new StringBuilder(PRE);
 		buffer.append(packageName);
 		buffer.append(MIDDLE);
 		buffer.append(entityName);
