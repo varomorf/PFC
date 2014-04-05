@@ -45,6 +45,7 @@ public abstract class BaseMainActivityButtonOnClickListener implements
 	}
 
 	// Public --------------------------------------------------------
+
 	/**
 	 * Called when a view has been clicked.
 	 * 
@@ -89,17 +90,14 @@ public abstract class BaseMainActivityButtonOnClickListener implements
 		String entityName = StringUtils.chop(entryName);
 		// package name is entity name in small caps
 		String packageName = StringUtils.uncapitalize(entityName);
-
 		// get qualified name calling to the abstract method
-		String qualifiedName = prepareActivityQualifiedName(packageName,
-				entityName);
-
-		return qualifiedName;
+		return prepareActivityQualifiedName(packageName, entityName);
 	}
 
 	// Package protected ---------------------------------------------
 
 	// Protected -----------------------------------------------------
+
 	/**
 	 * <p>
 	 * Must return the qualified name of the activity to be called for the
@@ -115,6 +113,7 @@ public abstract class BaseMainActivityButtonOnClickListener implements
 	 */
 	protected abstract String prepareActivityQualifiedName(String packageName,
 			String entityName);
+
 	// Private -------------------------------------------------------
 
 	// Inner classes -------------------------------------------------
