@@ -74,19 +74,9 @@ public class ShowFoodDetailsActivity extends
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		switch (requestCode) {
-		case EditFoodActivity.EDIT_FOOD:
-			if (resultCode == Activity.RESULT_OK) {
-				// get updated food from intent
-				food = (Food) data.getExtras().get(
-						EditFoodActivity.FOOD_TO_EDIT);
-				// refresh UI
-				updateUI();
-				Toast.makeText(getApplicationContext(),
-						getString(R.string.editFoodMessage), Toast.LENGTH_SHORT)
-						.show();
-			}
-			break;
+		if (requestCode == EditFoodActivity.EDIT_FOOD
+				&& resultCode == Activity.RESULT_OK) {
+			onFoodEdited(data);
 		}
 	}
 
@@ -158,6 +148,21 @@ public class ShowFoodDetailsActivity extends
 	private void setGramsField(int fieldId, Double value) {
 		Double finalValue = value != null ? value : new Double(0);
 		UIUtils.setTextToUI(findViewById(fieldId), finalValue.toString() + "g");
+	}
+
+	/**
+	 * Callback for when a food has been correctly edited
+	 * 
+	 * @param data
+	 *            the data from the edition
+	 */
+	private void onFoodEdited(Intent data) {
+		// get updated food from intent
+		food = (Food) data.getExtras().get(EditFoodActivity.FOOD_TO_EDIT);
+		// refresh UI
+		updateUI();
+		Toast.makeText(getApplicationContext(),
+				getString(R.string.editFoodMessage), Toast.LENGTH_SHORT).show();
 	}
 
 	// Inner classes -------------------------------------------------

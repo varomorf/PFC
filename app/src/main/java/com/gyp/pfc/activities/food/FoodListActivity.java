@@ -37,6 +37,7 @@ public class FoodListActivity extends OrmLiteBaseListActivity<DatabaseHelper> {
 	// Constructors --------------------------------------------------
 
 	// Public --------------------------------------------------------
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -55,12 +56,11 @@ public class FoodListActivity extends OrmLiteBaseListActivity<DatabaseHelper> {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle item selection
-		switch (item.getItemId()) {
-		case R.id.foodsListMenuMain:
+		if (item.getItemId() == R.id.foodsListMenuMain) {
 			// go back
 			finish();
 			return true;
-		default:
+		} else {
 			return super.onOptionsItemSelected(item);
 		}
 	}
@@ -91,18 +91,10 @@ public class FoodListActivity extends OrmLiteBaseListActivity<DatabaseHelper> {
 
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-		switch (requestCode) {
-		case EditFoodActivity.EDIT_FOOD:
+		if (requestCode == EditFoodActivity.EDIT_FOOD) {
 			if (resultCode == Activity.RESULT_OK) {
-				// refresh UI
-				refreshAdapter();
-				Toast.makeText(getApplicationContext(),
-						getString(R.string.editFoodMessage), Toast.LENGTH_SHORT)
-						.show();
+				onFoodEdited();
 			}
-			break;
-		default:
-			break;
 		}
 	}
 
@@ -163,6 +155,17 @@ public class FoodListActivity extends OrmLiteBaseListActivity<DatabaseHelper> {
 		adapter.setFoods(getFoods());
 		adapter.notifyDataSetChanged();
 	}
+
+	/**
+	 * Callback for when a food has been correctly edited
+	 */
+	private void onFoodEdited() {
+		// refresh UI
+		refreshAdapter();
+		Toast.makeText(getApplicationContext(),
+				getString(R.string.editFoodMessage), Toast.LENGTH_SHORT).show();
+	}
+
 	// Inner classes -------------------------------------------------
 
 }
