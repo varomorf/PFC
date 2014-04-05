@@ -76,10 +76,8 @@ public class AddFoodActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 	 * Creates a new food with the data from the add_food form
 	 * 
 	 * @return the food created
-	 * @throws MandatoryFieldNotFilledException
-	 *             if a required field is not filled
 	 */
-	private Food createFood() throws MandatoryFieldNotFilledException {
+	private Food createFood() {
 		Food food = new Food();
 		// get required food data
 		food.setName(getEditTextViewAsserting(R.id.foodNameText,
