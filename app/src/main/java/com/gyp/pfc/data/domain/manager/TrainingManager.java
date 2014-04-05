@@ -3,7 +3,9 @@
  */
 package com.gyp.pfc.data.domain.manager;
 
+import com.gyp.pfc.data.domain.Exercise;
 import com.gyp.pfc.data.domain.Training;
+import com.gyp.pfc.data.domain.TrainingExercise;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
 
 /**
@@ -20,6 +22,9 @@ public class TrainingManager {
 
 	/** The DAO to use when creating Training entities */
 	private RuntimeExceptionDao<Training, Integer> trainingDao;
+
+	/** The DAO to use when creating TrainingExercise entities */
+	private RuntimeExceptionDao<TrainingExercise, Integer> trainingExerciseDao;
 
 	// Static --------------------------------------------------------
 
@@ -61,6 +66,17 @@ public class TrainingManager {
 	}
 
 	/**
+	 * Sets the TrainingExercise DAO to be used
+	 * 
+	 * @param trainingExerciseDao
+	 *            the trainingExerciseDao DAO to be used
+	 */
+	public void setTrainingExerciseDao(
+			RuntimeExceptionDao<TrainingExercise, Integer> trainingExerciseDao) {
+		this.trainingExerciseDao = trainingExerciseDao;
+	}
+
+	/**
 	 * Creates a new training specifying its name
 	 * 
 	 * @param name
@@ -72,6 +88,33 @@ public class TrainingManager {
 		training.setName(name);
 		trainingDao.create(training);
 		return training;
+	}
+
+	/**
+	 * Adds an exercise to a training with the specified number of repetitions
+	 * and duration
+	 * 
+	 * @param training
+	 *            the training to add the exercise
+	 * @param exercise
+	 *            the exercise to be added
+	 * @param seconds
+	 *            the seconds that the exercise must be performed
+	 * @param reps
+	 *            the the repetitions of the exercise
+	 */
+	public void addExerciseToTraining(Training training, Exercise exercise,
+			int seconds, int reps) {
+		trainingDao.refresh(training);
+		int currentExercisesNum = training.getExercises().size();
+		TrainingExercise te = new TrainingExercise();
+		te.setTraining(training);
+		te.setExercise(exercise);
+		te.setSeconds(seconds);
+		te.setReps(reps);
+		te.setPos(currentExercisesNum);
+		trainingExerciseDao.create(te);
+		trainingDao.update(training);
 	}
 
 	// Package protected ---------------------------------------------

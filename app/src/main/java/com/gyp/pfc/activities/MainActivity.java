@@ -6,6 +6,8 @@ import android.view.Menu;
 import com.gyp.pfc.R;
 import com.gyp.pfc.adapters.MainListAdapter;
 import com.gyp.pfc.data.db.DatabaseHelper;
+import com.gyp.pfc.data.domain.Exercise;
+import com.gyp.pfc.data.domain.Training;
 import com.gyp.pfc.data.domain.manager.ExerciseManager;
 import com.gyp.pfc.data.domain.manager.FoodManager;
 import com.gyp.pfc.data.domain.manager.TrainingManager;
@@ -63,23 +65,43 @@ public class MainActivity extends OrmLiteBaseListActivity<DatabaseHelper> {
 		FoodManager.getInstance().createFood("Pan blanco", "Mercadona", 261,
 				8.47, 51.50, 0, 3.5, 1.6, 0.39, 0.540);
 		// load test exercises
-		ExerciseManager
+		Exercise exercise1 = ExerciseManager
 				.getInstance()
 				.createExercise(
 						"Planchas",
 						"Boca abajo, apoyamos las manos contra el suelo a la altura de los hombros y elevamos el cuerpo mediante una extensión de los brazos. Mediante una flexión controlada, volvemos a la posición de partida.");
-		ExerciseManager
+		Exercise exercise2 = ExerciseManager
 				.getInstance()
 				.createExercise(
 						"Abdominales",
 						"Boca arriba, flexionamos las piernas de modo que los pies toquen el suelo. Elevamos el tronco hasta erguirnos. Bajamos el tronco a la posición de partida de forma controlada.");
-		ExerciseManager
+		Exercise exercise3 = ExerciseManager
 				.getInstance()
 				.createExercise(
 						"Zancadas",
 						"De pie, damos un paso con una pierna, dejando la otra en el sitio. Flexionamos la rodilla adelantada, de tal modo que la rodilla atrasada llegue a tocar el suelo. Volvemos a la posición de partida.");
 		// load test trainings
-		TrainingManager.getInstance().createTraining("Serie de abdominales");
+		Training training1 = TrainingManager.getInstance().createTraining(
+				"Pirámide de abdominales");
+		TrainingManager.getInstance().addExerciseToTraining(training1, exercise2, 0, 20);
+		TrainingManager.getInstance().addExerciseToTraining(training1, exercise2, 0, 30);
+		TrainingManager.getInstance().addExerciseToTraining(training1, exercise2, 0, 40);
+		TrainingManager.getInstance().addExerciseToTraining(training1, exercise2, 0, 30);
+		TrainingManager.getInstance().addExerciseToTraining(training1, exercise2, 0, 20);
+		Training training2 = TrainingManager.getInstance().createTraining(
+				"Serie de flexiones");
+		TrainingManager.getInstance().addExerciseToTraining(training2, exercise1, 0, 10);
+		TrainingManager.getInstance().addExerciseToTraining(training2, exercise1, 0, 10);
+		TrainingManager.getInstance().addExerciseToTraining(training2, exercise1, 0, 10);
+		TrainingManager.getInstance().addExerciseToTraining(training2, exercise1, 0, 10);
+		Training training3 = TrainingManager.getInstance().createTraining(
+				"Serie variada");
+		TrainingManager.getInstance().addExerciseToTraining(training3, exercise1, 30, 1);
+		TrainingManager.getInstance().addExerciseToTraining(training3, exercise2, 30, 1);
+		TrainingManager.getInstance().addExerciseToTraining(training3, exercise3, 30, 1);
+		TrainingManager.getInstance().addExerciseToTraining(training3, exercise1, 30, 1);
+		TrainingManager.getInstance().addExerciseToTraining(training3, exercise2, 30, 1);
+		TrainingManager.getInstance().addExerciseToTraining(training3, exercise3, 30, 1);
 	}
 
 	// Private -------------------------------------------------------
@@ -90,6 +112,8 @@ public class MainActivity extends OrmLiteBaseListActivity<DatabaseHelper> {
 	private void initializeManagers() {
 		TrainingManager.getInstance().setTrainingDao(
 				getHelper().getTrainingDao());
+		TrainingManager.getInstance().setTrainingExerciseDao(
+				getHelper().getTrainingExerciseDao());
 		FoodManager.getInstance().setFoodDao(getHelper().getFoodDao());
 		ExerciseManager.getInstance().setExerciseDao(
 				getHelper().getExerciseDao());
