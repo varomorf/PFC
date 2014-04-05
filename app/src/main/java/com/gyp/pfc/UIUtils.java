@@ -18,7 +18,7 @@ public final class UIUtils {
 	// Attributes ----------------------------------------------------
 
 	// Static --------------------------------------------------------
-	
+
 	/**
 	 * <p>
 	 * Returns the String representation of the text held by the passed view as
@@ -39,7 +39,7 @@ public final class UIUtils {
 		}
 		return text;
 	}
-	
+
 	/**
 	 * <p>
 	 * Sets the passed string as the passed view's text as long as this view is
@@ -124,6 +124,26 @@ public final class UIUtils {
 			sibling = getChildFromView((View) parent, pos);
 		}
 		return sibling;
+	}
+
+	/**
+	 * Parses the passed String as a double and returns its parsed value as long
+	 * as it's not null nor unparseable.
+	 * 
+	 * @param value
+	 *            String to be parsed
+	 * @return Double value of the String or <code>null</code> if unparseable
+	 */
+	public static Double parseDouble(String value) {
+		Double output = null;
+		if(null != value){
+			try{
+				output = Double.valueOf(value);
+			}catch(NumberFormatException e){
+				// output will stay being null
+			}
+		}
+		return output;
 	}
 
 	// Constructors --------------------------------------------------

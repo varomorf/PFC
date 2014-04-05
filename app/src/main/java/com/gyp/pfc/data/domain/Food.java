@@ -2,6 +2,7 @@ package com.gyp.pfc.data.domain;
 
 import java.io.Serializable;
 
+import com.gyp.pfc.UIUtils;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
@@ -91,11 +92,7 @@ public class Food implements Serializable {
 	 *            the string with the amount of calories
 	 */
 	public void setCalories(String calories) {
-		try {
-			this.calories = Double.parseDouble(calories);
-		} catch (Exception e) {
-			this.calories = null;
-		}
+		this.calories = UIUtils.parseDouble(calories);
 	}
 
 	public Double getSugar() {
@@ -114,11 +111,7 @@ public class Food implements Serializable {
 	 *            the string with the amount of sugar
 	 */
 	public void setSugar(String sugar) {
-		try {
-			this.sugar = Double.parseDouble(sugar);
-		} catch (Exception e) {
-			this.sugar = null;
-		}
+		this.sugar = UIUtils.parseDouble(sugar);
 	}
 
 	public Double getFats() {
@@ -137,11 +130,7 @@ public class Food implements Serializable {
 	 *            the string with the amount of fats
 	 */
 	public void setFats(String fats) {
-		try {
-			this.fats = Double.parseDouble(fats);
-		} catch (Exception e) {
-			this.fats = null;
-		}
+		this.fats = UIUtils.parseDouble(fats);
 	}
 
 	public String getBrandName() {
@@ -168,11 +157,7 @@ public class Food implements Serializable {
 	 *            the string with the amount of protein
 	 */
 	public void setProtein(String protein) {
-		try {
-			this.protein = Double.parseDouble(protein);
-		} catch (Exception e) {
-			this.protein = null;
-		}
+		this.protein = UIUtils.parseDouble(protein);
 	}
 
 	public Double getCarbs() {
@@ -191,11 +176,7 @@ public class Food implements Serializable {
 	 *            the string with the amount of carbs
 	 */
 	public void setCarbs(String carbs) {
-		try {
-			this.carbs = Double.parseDouble(carbs);
-		} catch (Exception e) {
-			this.carbs = null;
-		}
+		this.carbs = UIUtils.parseDouble(carbs);
 	}
 
 	public Double getFiber() {
@@ -214,11 +195,7 @@ public class Food implements Serializable {
 	 *            the string with the amount of fiber
 	 */
 	public void setFiber(String fiber) {
-		try {
-			this.fiber = Double.parseDouble(fiber);
-		} catch (Exception e) {
-			this.fiber = null;
-		}
+		this.fiber = UIUtils.parseDouble(fiber);
 	}
 
 	public Double getSaturatedFats() {
@@ -237,11 +214,7 @@ public class Food implements Serializable {
 	 *            the string with the amount of saturatedFats
 	 */
 	public void setSaturatedFats(String saturatedFats) {
-		try {
-			this.saturatedFats = Double.parseDouble(saturatedFats);
-		} catch (Exception e) {
-			this.saturatedFats = null;
-		}
+		this.saturatedFats = UIUtils.parseDouble(saturatedFats);
 	}
 
 	public Double getSodium() {
@@ -260,11 +233,7 @@ public class Food implements Serializable {
 	 *            the string with the amount of sodium
 	 */
 	public void setSodium(String sodium) {
-		try {
-			this.sodium = Double.parseDouble(sodium);
-		} catch (Exception e) {
-			this.sodium = null;
-		}
+		this.sodium = UIUtils.parseDouble(sodium);
 	}
 
 	/**
