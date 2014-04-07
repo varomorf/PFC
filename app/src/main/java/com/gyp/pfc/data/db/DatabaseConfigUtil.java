@@ -25,8 +25,8 @@ public class DatabaseConfigUtil extends OrmLiteConfigUtil {
 	/**
 	 * Which classes to use for the configuration writing
 	 */
-	private static final Class<?>[] CLASSES = new Class[] { Food.class,
-			Exercise.class, Training.class, TrainingExercise.class };
+	private static final Class<?>[] CLASSES = new Class[] { Food.class, Exercise.class, Training.class,
+			TrainingExercise.class };
 
 	/**
 	 * This method must be launched with each modification to entity classes.
@@ -38,7 +38,7 @@ public class DatabaseConfigUtil extends OrmLiteConfigUtil {
 	// Constructors --------------------------------------------------
 
 	// Public --------------------------------------------------------
-	
+
 	// Package protected ---------------------------------------------
 
 	// Protected -----------------------------------------------------

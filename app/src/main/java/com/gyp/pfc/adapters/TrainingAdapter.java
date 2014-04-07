@@ -57,8 +57,7 @@ public class TrainingAdapter extends ArrayAdapter<Training> {
 		// populate the item with the data
 		Training training = getItem(position);
 		UIUtils.setTextToUI(view.findViewById(R.id.title), training.getName());
-		UIUtils.setTextToUI(view.findViewById(R.id.time),
-				TimeUtils.formatTime(sumSeconds(training)));
+		UIUtils.setTextToUI(view.findViewById(R.id.time), TimeUtils.formatTime(sumSeconds(training)));
 
 		return view;
 	}

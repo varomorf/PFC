@@ -31,8 +31,8 @@ public class TrainingListActivityTest extends BaseTrainingTest {
 	public void before() {
 		super.before();
 		// one exercise on DB
-		BaseExerciseTest.insertExercise(exerciseDao,
-				BaseExerciseTest.EXERCISE_NAME, BaseExerciseTest.EXERCISE_DESC);
+		BaseExerciseTest.insertExercise(exerciseDao, BaseExerciseTest.EXERCISE_NAME,
+				BaseExerciseTest.EXERCISE_DESC);
 		exercise = exerciseDao.queryForId(1);
 	}
 
@@ -70,8 +70,7 @@ public class TrainingListActivityTest extends BaseTrainingTest {
 		// training 1 no longer on DB
 		assertNull(trainingDao.queryForId(2));
 		// trainingExercises of training 1 no longer on DB
-		assertThat(trainingExerciseDao.queryForEq("training_id", 2).size(),
-				is(0));
+		assertThat(trainingExerciseDao.queryForEq("training_id", 2).size(), is(0));
 	}
 
 	@Test
@@ -85,8 +84,7 @@ public class TrainingListActivityTest extends BaseTrainingTest {
 		// THEN
 		// add training activity is shown passing the selected training
 		Intent next = assertAndReturnNextActivity(AddTrainingActivity.class);
-		Training training = (Training) next
-				.getSerializableExtra(AddTrainingActivity.TRAINING);
+		Training training = (Training) next.getSerializableExtra(AddTrainingActivity.TRAINING);
 		assertThat(training, is(trainingDao.queryForId(2)));
 	}
 
@@ -121,8 +119,7 @@ public class TrainingListActivityTest extends BaseTrainingTest {
 		// THEN
 		// add training activity is shown passing the selected training
 		Intent next = assertAndReturnNextActivity(ExecuteTrainingActivity.class);
-		Training training = (Training) next
-				.getSerializableExtra(AddTrainingActivity.TRAINING);
+		Training training = (Training) next.getSerializableExtra(AddTrainingActivity.TRAINING);
 		assertThat(training, is(trainingDao.queryForId(2)));
 	}
 

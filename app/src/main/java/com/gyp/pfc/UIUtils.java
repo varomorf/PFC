@@ -136,10 +136,10 @@ public final class UIUtils {
 	 */
 	public static Double parseDouble(String value) {
 		Double output = null;
-		if(null != value){
-			try{
+		if (null != value) {
+			try {
 				output = Double.valueOf(value);
-			}catch(NumberFormatException e){
+			} catch (NumberFormatException e) {
 				// output will stay being null
 			}
 		}

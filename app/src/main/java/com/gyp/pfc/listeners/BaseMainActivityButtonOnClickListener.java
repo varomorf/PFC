@@ -15,8 +15,7 @@ import android.view.View.OnClickListener;
  * @author Alvaro
  * 
  */
-public abstract class BaseMainActivityButtonOnClickListener implements
-		OnClickListener {
+public abstract class BaseMainActivityButtonOnClickListener implements OnClickListener {
 
 	// Constants -----------------------------------------------------
 	/**
@@ -69,8 +68,7 @@ public abstract class BaseMainActivityButtonOnClickListener implements
 			context.startActivity(intent);
 		} catch (ClassNotFoundException e) {
 			// XXX how will the error be handled on production?
-			Log.e(TAG, "Class not found while executing onClick for "
-					+ activityName, e);
+			Log.e(TAG, "Class not found while executing onClick for " + activityName, e);
 		}
 	}
 
@@ -111,8 +109,7 @@ public abstract class BaseMainActivityButtonOnClickListener implements
 	 *            qualified name
 	 * @return the qualified name of the activity
 	 */
-	protected abstract String prepareActivityQualifiedName(String packageName,
-			String entityName);
+	protected abstract String prepareActivityQualifiedName(String packageName, String entityName);
 
 	// Private -------------------------------------------------------
 

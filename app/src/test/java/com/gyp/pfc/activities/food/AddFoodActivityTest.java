@@ -37,7 +37,7 @@ public class AddFoodActivityTest extends BaseFoodTest {
 	// Constructors --------------------------------------------------
 
 	// Public --------------------------------------------------------
-	
+
 	@Before
 	public void before() {
 		super.before();
@@ -45,7 +45,7 @@ public class AddFoodActivityTest extends BaseFoodTest {
 		dao.delete(foods);
 		FoodManager.getInstance().setFoodDao(dao);
 	}
-	
+
 	@Test
 	public void shouldSaveFood() {
 		// GIVEN
@@ -83,7 +83,7 @@ public class AddFoodActivityTest extends BaseFoodTest {
 		// activity finishes
 		assertTrue(activity.isFinishing());
 	}
-	
+
 	@Test
 	public void shouldAssureObligatoryFields() {
 		// GIVEN
@@ -125,7 +125,7 @@ public class AddFoodActivityTest extends BaseFoodTest {
 		// all required fields are filled -> food is created
 		assertThat(foods.size(), is(1));
 	}
-	
+
 	// Package protected ---------------------------------------------
 
 	// Protected -----------------------------------------------------
@@ -136,47 +136,47 @@ public class AddFoodActivityTest extends BaseFoodTest {
 	}
 
 	// Private -------------------------------------------------------
-	
+
 	private void enterFoodCalories(double foodCalories) {
 		enterText(R.id.caloriesText, foodCalories);
 	}
-	
+
 	private void enterFoodName(String foodName) {
 		enterText(R.id.foodNameText, foodName);
 	}
-	
+
 	private void enterFoodBrand(String foodBrand) {
 		enterText(R.id.foodBrandText, foodBrand);
 	}
-	
+
 	private void enterFoodProteins(double foodProteins) {
 		enterText(R.id.proteinsText, foodProteins);
 	}
-	
+
 	private void enterFoodCarbs(double foodCarbs) {
 		enterText(R.id.carbsText, foodCarbs);
 	}
-	
+
 	private void enterFoodSugar(double foodSugar) {
 		enterText(R.id.sugarsText, foodSugar);
 	}
-	
+
 	private void enterFoodFiber(double foodFiber) {
 		enterText(R.id.fiberText, foodFiber);
 	}
-	
+
 	private void enterFoodFats(double foodFats) {
 		enterText(R.id.fatsText, foodFats);
 	}
-	
+
 	private void enterFoodSaturatedFats(double footSaturatedFats) {
 		enterText(R.id.saturatedFatsText, footSaturatedFats);
 	}
-	
+
 	private void enterFoodSodium(double foodSodium) {
 		enterText(R.id.sodiumText, foodSodium);
 	}
-	
+
 	private void saveFood() {
 		Button button = (Button) activity.findViewById(R.id.commitButton);
 		clickOn(button);

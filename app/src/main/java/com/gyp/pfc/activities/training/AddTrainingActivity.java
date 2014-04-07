@@ -33,8 +33,7 @@ import com.mobeta.android.dslv.DragSortListView;
  * @author Alvaro
  * 
  */
-public class AddTrainingActivity extends OrmLiteBaseActivity<DatabaseHelper>
-		implements AddExerciseDialogListener {
+public class AddTrainingActivity extends OrmLiteBaseActivity<DatabaseHelper> implements AddExerciseDialogListener {
 
 	// Constants -----------------------------------------------------
 
@@ -68,8 +67,7 @@ public class AddTrainingActivity extends OrmLiteBaseActivity<DatabaseHelper>
 			// persist the training
 			getHelper().getTrainingDao().createOrUpdate(training);
 			// show toast with OK message
-			Toast.makeText(this, R.string.trainingCreated, Toast.LENGTH_SHORT)
-					.show();
+			Toast.makeText(this, R.string.trainingCreated, Toast.LENGTH_SHORT).show();
 		}
 	}
 
@@ -161,8 +159,7 @@ public class AddTrainingActivity extends OrmLiteBaseActivity<DatabaseHelper>
 		setContentView(R.layout.training_data);
 
 		// create adapter for the list view
-		adapter = new TrainingExerciseAdapter(this,
-				new ArrayList<TrainingExercise>());
+		adapter = new TrainingExerciseAdapter(this, new ArrayList<TrainingExercise>());
 		// retrieve the drag'n'drop list view to set listener and adapter
 		DragSortListView lv = (DragSortListView) findViewById(R.id.exercisesLayout);
 		configureDragSortListView(lv);
@@ -170,8 +167,7 @@ public class AddTrainingActivity extends OrmLiteBaseActivity<DatabaseHelper>
 		// get intent to get data
 		Intent intent = getIntent();
 		if (null != intent) {
-			training = (Training) intent
-					.getSerializableExtra(TRAINING);
+			training = (Training) intent.getSerializableExtra(TRAINING);
 			if (null != training) {
 				// if there's an exercise -> update the view
 				updateView();
@@ -197,8 +193,7 @@ public class AddTrainingActivity extends OrmLiteBaseActivity<DatabaseHelper>
 	private boolean assertNotBlankName() {
 		if (StringUtils.isBlank(training.getName())) {
 			// if name blank -> show toast and return false
-			Toast.makeText(this, R.string.trainingNameBlank, Toast.LENGTH_SHORT)
-					.show();
+			Toast.makeText(this, R.string.trainingNameBlank, Toast.LENGTH_SHORT).show();
 			return false;
 		}
 		return true;
@@ -206,8 +201,7 @@ public class AddTrainingActivity extends OrmLiteBaseActivity<DatabaseHelper>
 
 	private boolean assertNotDuplicatedName() {
 		// query an training with the same name as the passed training
-		List<Training> tmp = getHelper().getTrainingDao().queryForEq("name",
-				training.getName());
+		List<Training> tmp = getHelper().getTrainingDao().queryForEq("name", training.getName());
 		// if the list holds trainings -> name is duplicated
 		if (!tmp.isEmpty()) {
 			// if only returned training has same id than passed is ok
@@ -215,8 +209,7 @@ public class AddTrainingActivity extends OrmLiteBaseActivity<DatabaseHelper>
 				return true;
 			}
 			// duplicated name -> show toast and return false
-			Toast.makeText(this, R.string.trainingNameDuplicated,
-					Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, R.string.trainingNameDuplicated, Toast.LENGTH_SHORT).show();
 			return false;
 		}
 		return true;
@@ -248,8 +241,7 @@ public class AddTrainingActivity extends OrmLiteBaseActivity<DatabaseHelper>
 		te.setTraining(training);
 		setExerciseSecondsAndReps(dialog, te);
 		// get number of exercises entered
-		int num = ((ListView) findViewById(R.id.exercisesLayout))
-				.getChildCount();
+		int num = ((ListView) findViewById(R.id.exercisesLayout)).getChildCount();
 		// set pos to num
 		te.setPos(num);
 		return te;
@@ -306,8 +298,7 @@ public class AddTrainingActivity extends OrmLiteBaseActivity<DatabaseHelper>
 		matcher.setPos(pos);
 		matcher.setTraining(training);
 		// get entity from DB
-		return getHelper().getTrainingExerciseDao().queryForMatching(matcher)
-				.get(0);
+		return getHelper().getTrainingExerciseDao().queryForMatching(matcher).get(0);
 	}
 
 	private void prepareAndShowDialog(TrainingExercise selected) {
@@ -315,32 +306,26 @@ public class AddTrainingActivity extends OrmLiteBaseActivity<DatabaseHelper>
 		List<Exercise> exercises = getHelper().getExerciseDao().queryForAll();
 		if (!exercises.isEmpty()) {
 			// create dialog passing this activity as listener
-			Dialog dialog = new AddExerciseDialog(this, this, exercises,
-					selected);
+			Dialog dialog = new AddExerciseDialog(this, this, exercises, selected);
 			// show the dialog
 			dialog.show();
 		} else {
 			// no exercises -> show toast with error message
-			Toast.makeText(this, R.string.emptyExercisesList,
-					Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, R.string.emptyExercisesList, Toast.LENGTH_SHORT).show();
 		}
 	}
 
-	private void setExerciseSecondsAndReps(AddExerciseDialog dialog,
-			TrainingExercise te) {
+	private void setExerciseSecondsAndReps(AddExerciseDialog dialog, TrainingExercise te) {
 		// set exercise from spinner
 		Spinner spinner = (Spinner) dialog.findViewById(R.id.exerciseSpinner);
 		te.setExercise((Exercise) spinner.getSelectedItem());
 		// set repetitions
-		String repetitions = UIUtils.getTextFromUI(dialog
-				.findViewById(R.id.repetitions));
+		String repetitions = UIUtils.getTextFromUI(dialog.findViewById(R.id.repetitions));
 		te.setReps(Integer.parseInt(repetitions));
 		// get minutes
-		String minutes = UIUtils.getTextFromUI(dialog
-				.findViewById(R.id.minutes));
+		String minutes = UIUtils.getTextFromUI(dialog.findViewById(R.id.minutes));
 		// get seconds
-		String seconds = UIUtils.getTextFromUI(dialog
-				.findViewById(R.id.seconds));
+		String seconds = UIUtils.getTextFromUI(dialog.findViewById(R.id.seconds));
 		te.setSeconds(te.getSeconds() + Integer.parseInt(seconds));
 		// add seconds to trainingExercise
 		te.setSeconds(TimeUtils.secondsFromMinutesAndSeconds(minutes, seconds));
@@ -354,8 +339,8 @@ public class AddTrainingActivity extends OrmLiteBaseActivity<DatabaseHelper>
 		}
 		adapter.notifyDataSetChanged();
 	}
-	
-	private void updateView(){
+
+	private void updateView() {
 		// set the name form field
 		UIUtils.setTextToUI(findViewById(R.id.trainingName), training.getName());
 		// update the list of exercises

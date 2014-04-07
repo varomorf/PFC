@@ -34,8 +34,7 @@ public abstract class BaseTrainingTest extends BaseActivityTest {
 		super.before();
 		trainingDao = new DatabaseHelper(realActivity).getTrainingDao();
 		exerciseDao = new DatabaseHelper(realActivity).getExerciseDao();
-		trainingExerciseDao = new DatabaseHelper(realActivity)
-				.getTrainingExerciseDao();
+		trainingExerciseDao = new DatabaseHelper(realActivity).getTrainingExerciseDao();
 		List<Training> trainings = trainingDao.queryForAll();
 		trainingDao.delete(trainings);
 		List<Exercise> exercises = exerciseDao.queryForAll();
@@ -54,8 +53,7 @@ public abstract class BaseTrainingTest extends BaseActivityTest {
 		return training;
 	}
 
-	protected TrainingExercise addExerciseToTraining(Training training,
-			Exercise exercise, int reps, int seconds) {
+	protected TrainingExercise addExerciseToTraining(Training training, Exercise exercise, int reps, int seconds) {
 		// add exercise to training with passed seconds
 		TrainingExercise te = new TrainingExercise();
 		te.setTraining(training);
@@ -71,7 +69,7 @@ public abstract class BaseTrainingTest extends BaseActivityTest {
 		// prepare new training
 		Training training = createTraining(name);
 		// add exercise to training with passed seconds
-		addExerciseToTraining(training,exercise, reps, seconds);
+		addExerciseToTraining(training, exercise, reps, seconds);
 		return training;
 	}
 

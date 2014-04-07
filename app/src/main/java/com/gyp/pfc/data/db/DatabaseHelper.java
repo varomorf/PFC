@@ -55,8 +55,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 	// Public --------------------------------------------------------
 
 	@Override
-	public void onCreate(SQLiteDatabase sqliteDatabase,
-			ConnectionSource connectionSource) {
+	public void onCreate(SQLiteDatabase sqliteDatabase, ConnectionSource connectionSource) {
 		try {
 			Log.i(DatabaseHelper.class.getName(), "Creating database");
 			// create table for food entity
@@ -71,8 +70,8 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 	}
 
 	@Override
-	public void onUpgrade(SQLiteDatabase sqliteDatabase,
-			ConnectionSource connectionSource, int oldVersion, int newVersion) {
+	public void onUpgrade(SQLiteDatabase sqliteDatabase, ConnectionSource connectionSource, int oldVersion,
+			int newVersion) {
 		try {
 			Log.i(DatabaseHelper.class.getName(), "Upgrading database");
 			// drop the databases

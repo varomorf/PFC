@@ -23,8 +23,7 @@ import com.gyp.pfc.widgets.CountdownTimer.CountdownTimerListener;
  * @author Alvaro
  * 
  */
-public class ExecuteTrainingActivity extends Activity implements
-		CountdownTimerListener {
+public class ExecuteTrainingActivity extends Activity implements CountdownTimerListener {
 
 	// Constants -----------------------------------------------------
 
@@ -118,8 +117,7 @@ public class ExecuteTrainingActivity extends Activity implements
 			} else {
 				soundPool.play(whistleLong, 1, 1, 0, 0, 1);
 				// show completion toast
-				Toast.makeText(this, R.string.trainingEnded, Toast.LENGTH_SHORT)
-						.show();
+				Toast.makeText(this, R.string.trainingEnded, Toast.LENGTH_SHORT).show();
 				// exit from activity
 				finish();
 			}
@@ -132,23 +130,18 @@ public class ExecuteTrainingActivity extends Activity implements
 
 	@Override
 	public void onBackPressed() {
-		new AlertDialog.Builder(this)
-				.setMessage(R.string.assureExit)
-				.setCancelable(false)
-				.setPositiveButton(android.R.string.yes,
-						new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog, int id) {
-								// exit is confirmed -> finish
-								finish();
-							}
-						})
-				.setNegativeButton(android.R.string.no,
-						new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog, int id) {
-								// do not exit -> close dialog
-								dialog.cancel();
-							}
-						}).create().show();
+		new AlertDialog.Builder(this).setMessage(R.string.assureExit).setCancelable(false)
+				.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+						// exit is confirmed -> finish
+						finish();
+					}
+				}).setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+						// do not exit -> close dialog
+						dialog.cancel();
+					}
+				}).create().show();
 	}
 
 	// Package protected ---------------------------------------------
@@ -169,8 +162,7 @@ public class ExecuteTrainingActivity extends Activity implements
 		// get data from intent
 		Intent intent = getIntent();
 		if (null != intent) {
-			training = (Training) intent
-					.getSerializableExtra(AddTrainingActivity.TRAINING);
+			training = (Training) intent.getSerializableExtra(AddTrainingActivity.TRAINING);
 			if (null != training) {
 				// initialize exercise index
 				exerciseIndex = 0;
@@ -190,38 +182,32 @@ public class ExecuteTrainingActivity extends Activity implements
 		// fill data
 		TrainingExercise te = exercises[exerciseIndex];
 		UIUtils.setTextToUI(findViewById(R.id.trainingName), training.getName());
-		UIUtils.setTextToUI(findViewById(R.id.exerciseName), te.getExercise()
-				.getName());
+		UIUtils.setTextToUI(findViewById(R.id.exerciseName), te.getExercise().getName());
 		int seconds = te.getSeconds();
 		timer.setSeconds(seconds);
 		setRepetitionNumber(te);
 		setExerciseNumberFraction(te);
 		if (seconds == 0) {
-			UIUtils.setTextToUI(findViewById(R.id.actionButton),
-					getText(R.string.done));
+			UIUtils.setTextToUI(findViewById(R.id.actionButton), getText(R.string.done));
 		} else {
-			UIUtils.setTextToUI(findViewById(R.id.actionButton),
-					getText(R.string.resumePause));
+			UIUtils.setTextToUI(findViewById(R.id.actionButton), getText(R.string.resumePause));
 		}
 	}
 
 	private void setRepetitionNumber(TrainingExercise te) {
 		if (te.getSeconds() != 0) {
-			setFractionText(R.id.repetitionNumber, R.string.repetition,
-					repetition, te.getReps());
+			setFractionText(R.id.repetitionNumber, R.string.repetition, repetition, te.getReps());
 		} else {
-			UIUtils.setTextToUI(findViewById(R.id.repetitionNumber),
-					te.getReps() + " " + getText(R.string.repetitions));
+			UIUtils.setTextToUI(findViewById(R.id.repetitionNumber), te.getReps() + " "
+					+ getText(R.string.repetitions));
 		}
 	}
 
 	private void setExerciseNumberFraction(TrainingExercise te) {
-		setFractionText(R.id.exerciseNumberFraction, R.string.exercise_label,
-				te.getPos() + 1, exercises.length);
+		setFractionText(R.id.exerciseNumberFraction, R.string.exercise_label, te.getPos() + 1, exercises.length);
 	}
 
-	private void setFractionText(int viewId, int textId, int firstNumber,
-			int secondNumber) {
+	private void setFractionText(int viewId, int textId, int firstNumber, int secondNumber) {
 		View view = findViewById(viewId);
 		StringBuilder buffer = new StringBuilder(getText(textId));
 		buffer.append(" ");

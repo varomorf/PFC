@@ -45,8 +45,7 @@ public class AddExerciseActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 		if (assertExercise(exercise)) {
 			exercise.setDescription(UIUtils.getTextFromUI(description));
 			getHelper().getExerciseDao().create(exercise);
-			Toast.makeText(getApplicationContext(), R.string.exerciseCreated,
-					Toast.LENGTH_SHORT).show();
+			Toast.makeText(getApplicationContext(), R.string.exerciseCreated, Toast.LENGTH_SHORT).show();
 			UIUtils.clearView(name);
 			UIUtils.clearView(description);
 		}
@@ -75,11 +74,9 @@ public class AddExerciseActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 	 */
 	protected void customizeView(View view) {
 		// set title
-		UIUtils.setTextToUI(view.findViewById(R.id.exerciseDataTitle),
-				getText(R.string.addExerciseTitle));
+		UIUtils.setTextToUI(view.findViewById(R.id.exerciseDataTitle), getText(R.string.addExerciseTitle));
 		// set button text
-		UIUtils.setTextToUI(view.findViewById(R.id.commitButton),
-				getText(R.string.button_save));
+		UIUtils.setTextToUI(view.findViewById(R.id.commitButton), getText(R.string.button_save));
 	}
 
 	/**
@@ -90,8 +87,7 @@ public class AddExerciseActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 	 * @return True if valid. False otherwise.
 	 */
 	protected boolean assertExercise(Exercise exercise) {
-		return assertNotBlankName(exercise)
-				&& assertNotDuplicatedName(exercise);
+		return assertNotBlankName(exercise) && assertNotDuplicatedName(exercise);
 	}
 
 	/**
@@ -103,24 +99,22 @@ public class AddExerciseActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 	 */
 	protected boolean assertNotDuplicatedName(Exercise exercise) {
 		// query an exercise with the same name as the passed exercise
-		List<Exercise> tmp = getHelper().getExerciseDao().queryForEq("name",
-				exercise.getName());
+		List<Exercise> tmp = getHelper().getExerciseDao().queryForEq("name", exercise.getName());
 		// if the list holds exercises -> name is duplicated
 		if (!tmp.isEmpty()) {
 			// duplicated name -> show toast and return false
-			Toast.makeText(getApplicationContext(),
-					R.string.exerciseNameDuplicated, Toast.LENGTH_SHORT).show();
+			Toast.makeText(getApplicationContext(), R.string.exerciseNameDuplicated, Toast.LENGTH_SHORT).show();
 			return false;
 		}
 		return true;
 	}
+
 	// Private -------------------------------------------------------
 
 	private boolean assertNotBlankName(Exercise exercise) {
 		if (StringUtils.isBlank(exercise.getName())) {
 			// if name blank -> show toast and return false
-			Toast.makeText(getApplicationContext(), R.string.exerciseNameBlank,
-					Toast.LENGTH_SHORT).show();
+			Toast.makeText(getApplicationContext(), R.string.exerciseNameBlank, Toast.LENGTH_SHORT).show();
 			return false;
 		}
 		return true;

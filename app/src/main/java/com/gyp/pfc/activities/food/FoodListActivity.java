@@ -42,8 +42,7 @@ public class FoodListActivity extends OrmLiteBaseListActivity<DatabaseHelper> {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.entity_list);
-		setListAdapter(new FoodListViewAdapter(this, R.layout.food_list_item,
-				getFoods()));
+		setListAdapter(new FoodListViewAdapter(this, R.layout.food_list_item, getFoods()));
 		registerForContextMenu(getListView());
 	}
 
@@ -66,8 +65,7 @@ public class FoodListActivity extends OrmLiteBaseListActivity<DatabaseHelper> {
 	}
 
 	@Override
-	public void onCreateContextMenu(ContextMenu menu, View v,
-			ContextMenuInfo menuInfo) {
+	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
 		super.onCreateContextMenu(menu, v, menuInfo);
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.crud_context_menu, menu);
@@ -75,8 +73,7 @@ public class FoodListActivity extends OrmLiteBaseListActivity<DatabaseHelper> {
 
 	@Override
 	public boolean onContextItemSelected(MenuItem item) {
-		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item
-				.getMenuInfo();
+		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
 		switch (item.getItemId()) {
 		case R.id.delete:
 			deleteFood(info.position);
@@ -91,8 +88,7 @@ public class FoodListActivity extends OrmLiteBaseListActivity<DatabaseHelper> {
 
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if (requestCode == EditFoodActivity.EDIT_FOOD
-				&& resultCode == Activity.RESULT_OK) {
+		if (requestCode == EditFoodActivity.EDIT_FOOD && resultCode == Activity.RESULT_OK) {
 			onFoodEdited();
 		}
 	}
@@ -105,8 +101,7 @@ public class FoodListActivity extends OrmLiteBaseListActivity<DatabaseHelper> {
 		// get selected food from adapter
 		Food selectedFood = (Food) l.getAdapter().getItem(position);
 		// prepare intent for showing food details view
-		Intent intent = new Intent(getApplicationContext(),
-				ShowFoodDetailsActivity.class);
+		Intent intent = new Intent(getApplicationContext(), ShowFoodDetailsActivity.class);
 		// put the selected food on the intent
 		intent.putExtra(EditFoodActivity.FOOD_TO_EDIT, selectedFood);
 		// start the activity with the intent
@@ -134,17 +129,13 @@ public class FoodListActivity extends OrmLiteBaseListActivity<DatabaseHelper> {
 		// refresh the adapter to update UI
 		refreshAdapter();
 		// show deletion message
-		Toast.makeText(
-				getApplicationContext(),
-				selectedFood.getName() + " "
-						+ getString(R.string.deleteFoodMessage),
-				Toast.LENGTH_SHORT).show();
+		Toast.makeText(getApplicationContext(),
+				selectedFood.getName() + " " + getString(R.string.deleteFoodMessage), Toast.LENGTH_SHORT).show();
 	}
 
 	private void editFood(int position) {
 		Food selectedFood = (Food) getListAdapter().getItem(position);
-		Intent editFoodIntent = new Intent(getApplicationContext(),
-				EditFoodActivity.class);
+		Intent editFoodIntent = new Intent(getApplicationContext(), EditFoodActivity.class);
 		editFoodIntent.putExtra(EditFoodActivity.FOOD_TO_EDIT, selectedFood);
 		startActivityForResult(editFoodIntent, EditFoodActivity.EDIT_FOOD);
 	}
@@ -161,8 +152,7 @@ public class FoodListActivity extends OrmLiteBaseListActivity<DatabaseHelper> {
 	private void onFoodEdited() {
 		// refresh UI
 		refreshAdapter();
-		Toast.makeText(getApplicationContext(),
-				getString(R.string.editFoodMessage), Toast.LENGTH_SHORT).show();
+		Toast.makeText(getApplicationContext(), getString(R.string.editFoodMessage), Toast.LENGTH_SHORT).show();
 	}
 
 	// Inner classes -------------------------------------------------

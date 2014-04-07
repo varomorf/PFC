@@ -19,7 +19,7 @@ import com.j256.ormlite.dao.RuntimeExceptionDao;
 public abstract class BaseFoodTest extends BaseActivityTest {
 
 	// Constants -----------------------------------------------------
-	
+
 	protected static final String FOOD_NAME = "Food name";
 	protected static final String FOOD_BRAND = "Food brand";
 	protected static final double FOOD_CALORIES = 300;
@@ -50,7 +50,7 @@ public abstract class BaseFoodTest extends BaseActivityTest {
 	// Package protected ---------------------------------------------
 
 	// Protected -----------------------------------------------------
-	
+
 	protected Food createFood() {
 		// prepare new training
 		Food food = createFoodWithOnlyObligatoryFields();
@@ -62,8 +62,8 @@ public abstract class BaseFoodTest extends BaseActivityTest {
 		dao.update(food);
 		return food;
 	}
-	
-	protected Food createFoodWithOnlyObligatoryFields(){
+
+	protected Food createFoodWithOnlyObligatoryFields() {
 		Food food = new Food();
 		food.setName(FOOD_NAME);
 		food.setCalories(FOOD_CALORIES);
@@ -73,7 +73,7 @@ public abstract class BaseFoodTest extends BaseActivityTest {
 		dao.create(food);
 		return food;
 	}
-	
+
 	protected void intentPassedWithFood(Food food) {
 		Intent intent = new Intent();
 		intent.putExtra(EditFoodActivity.FOOD_TO_EDIT, food);

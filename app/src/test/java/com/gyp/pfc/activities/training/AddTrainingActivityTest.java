@@ -121,8 +121,7 @@ public class AddTrainingActivityTest extends BaseTrainingTest {
 		assertThat(spinner.getAdapter().getCount(), is(1));
 		Exercise exercise = (Exercise) spinner.getAdapter().getItem(0);
 		assertThat(exercise.getName(), is(BaseExerciseTest.EXERCISE_NAME));
-		assertThat(exercise.getDescription(),
-				is(BaseExerciseTest.EXERCISE_DESC));
+		assertThat(exercise.getDescription(), is(BaseExerciseTest.EXERCISE_DESC));
 	}
 
 	@Test
@@ -154,8 +153,7 @@ public class AddTrainingActivityTest extends BaseTrainingTest {
 		// exercise has been added to training with correct order
 		TrainingExercise te = trainingExerciseDao.queryForId(1);
 		assertNotNull(te);
-		assertThat(te.getExercise().getName(), is(exerciseDao.queryForId(1)
-				.getName()));
+		assertThat(te.getExercise().getName(), is(exerciseDao.queryForId(1).getName()));
 		// 90 seconds = 1 min 30 secs
 		assertThat(te.getSeconds(), is(90));
 		assertThat(te.getReps(), is(5));
@@ -176,8 +174,7 @@ public class AddTrainingActivityTest extends BaseTrainingTest {
 		assertChildrenNumber(activity.findViewById(R.id.exercisesLayout), 2);
 		// WHEN
 		// delete button clicked on item 1
-		View item = getChildFromView(
-				activity.findViewById(R.id.exercisesLayout), 0);
+		View item = getChildFromView(activity.findViewById(R.id.exercisesLayout), 0);
 		clickOn(item.findViewById(R.id.deleteButton));
 		// THEN
 		// training no longer has exercise
@@ -196,21 +193,18 @@ public class AddTrainingActivityTest extends BaseTrainingTest {
 		// activity ready with exercise on DB and name entered
 		prepareWithExerciseAndName();
 		// new exercise
-		BaseExerciseTest.insertExercise(exerciseDao, NEW_EXERCISE_NAME,
-				NEW_EXERCISE_DESC);
+		BaseExerciseTest.insertExercise(exerciseDao, NEW_EXERCISE_NAME, NEW_EXERCISE_DESC);
 		// 2 exercises added to the training
 		addExerciseToTraining();
 		addExerciseToTraining();
 		assertChildrenNumber(activity.findViewById(R.id.exercisesLayout), 2);
 		// WHEN
 		// edit button clicked on item 1
-		View item = getChildFromView(
-				activity.findViewById(R.id.exercisesLayout), 0);
+		View item = getChildFromView(activity.findViewById(R.id.exercisesLayout), 0);
 		clickOn(item.findViewById(R.id.editButton));
 		// new data is entered
 		// second exercise is selected on dialog
-		AddExerciseDialog dialog = (AddExerciseDialog) ShadowDialog
-				.getLatestDialog();
+		AddExerciseDialog dialog = (AddExerciseDialog) ShadowDialog.getLatestDialog();
 		Spinner spinner = (Spinner) dialog.findViewById(R.id.exerciseSpinner);
 		spinner.setSelection(1);
 		// enter 5 minutes
@@ -239,8 +233,7 @@ public class AddTrainingActivityTest extends BaseTrainingTest {
 		// activity ready with exercise on DB and name entered
 		prepareWithExerciseAndName();
 		// new exercise
-		BaseExerciseTest.insertExercise(exerciseDao, NEW_EXERCISE_NAME,
-				NEW_EXERCISE_DESC);
+		BaseExerciseTest.insertExercise(exerciseDao, NEW_EXERCISE_NAME, NEW_EXERCISE_DESC);
 		// 2 exercises added to the training
 		addExerciseToTraining();
 		addExerciseToTraining();
@@ -264,8 +257,8 @@ public class AddTrainingActivityTest extends BaseTrainingTest {
 	public void shouldLoadDataOfPassedIntent() {
 		// GIVEN
 		// one exercise on DB
-		BaseExerciseTest.insertExercise(exerciseDao,
-				BaseExerciseTest.EXERCISE_NAME, BaseExerciseTest.EXERCISE_DESC);
+		BaseExerciseTest.insertExercise(exerciseDao, BaseExerciseTest.EXERCISE_NAME,
+				BaseExerciseTest.EXERCISE_DESC);
 		exercise = exerciseDao.queryForId(1);
 		// training on DB
 		Training training = createTraining("foo", 1, 100);
@@ -278,8 +271,7 @@ public class AddTrainingActivityTest extends BaseTrainingTest {
 		// training data is shown
 		assertViewText(R.id.trainingName, training.getName());
 		assertChildrenNumber(activity.findViewById(R.id.exercisesLayout), 1);
-		View item = getChildFromView(
-				activity.findViewById(R.id.exercisesLayout), 0);
+		View item = getChildFromView(activity.findViewById(R.id.exercisesLayout), 0);
 		assertItemTitle(item, BaseExerciseTest.EXERCISE_NAME + " 1x1:40");
 	}
 
@@ -302,8 +294,7 @@ public class AddTrainingActivityTest extends BaseTrainingTest {
 		// add button is clicked
 		clickOn(activity.findViewById(R.id.addExerciseButton));
 		// exercise is selected on dialog
-		AddExerciseDialog dialog = (AddExerciseDialog) ShadowDialog
-				.getLatestDialog();
+		AddExerciseDialog dialog = (AddExerciseDialog) ShadowDialog.getLatestDialog();
 		Spinner spinner = (Spinner) dialog.findViewById(R.id.exerciseSpinner);
 		spinner.setSelection(0);
 		// enter 1 minute
@@ -323,8 +314,8 @@ public class AddTrainingActivityTest extends BaseTrainingTest {
 
 	private void prepareWithExerciseAndName() {
 		// 1 exercise on DB
-		BaseExerciseTest.insertExercise(exerciseDao,
-				BaseExerciseTest.EXERCISE_NAME, BaseExerciseTest.EXERCISE_DESC);
+		BaseExerciseTest.insertExercise(exerciseDao, BaseExerciseTest.EXERCISE_NAME,
+				BaseExerciseTest.EXERCISE_DESC);
 		// activity is shown
 		createActivity();
 		// name is set

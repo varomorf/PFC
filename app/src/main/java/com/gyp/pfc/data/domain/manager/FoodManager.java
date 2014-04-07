@@ -75,8 +75,7 @@ public class FoodManager {
 	 *            the grams of fat of the food
 	 * @return the created food
 	 */
-	public Food createFood(String name, double calories, double protein,
-			double carbs, double fat) {
+	public Food createFood(String name, double calories, double protein, double carbs, double fat) {
 		return createFood(name, "", calories, protein, carbs, 0, 0, fat, 0, 0);
 	}
 
@@ -107,9 +106,8 @@ public class FoodManager {
 	 *            the grams of sodium
 	 * @return the created food
 	 */
-	public Food createFood(String name, String brandName, double calories,
-			double protein, double carbs, double sugar, double fiber,
-			double fat, double saturatedFat, double sodium) {
+	public Food createFood(String name, String brandName, double calories, double protein, double carbs,
+			double sugar, double fiber, double fat, double saturatedFat, double sodium) {
 		Food food = new Food();
 		food.setName(name);
 		food.setBrandName(brandName);

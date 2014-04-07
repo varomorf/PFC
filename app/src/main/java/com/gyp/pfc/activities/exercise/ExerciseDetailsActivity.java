@@ -18,8 +18,7 @@ import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
  * @author Alvaro
  * 
  */
-public class ExerciseDetailsActivity extends
-		OrmLiteBaseActivity<DatabaseHelper> {
+public class ExerciseDetailsActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 
 	// Constants -----------------------------------------------------
 
@@ -40,8 +39,7 @@ public class ExerciseDetailsActivity extends
 		// get intent to get data
 		Intent intent = getIntent();
 		if (null != intent) {
-			exercise = (Exercise) intent
-					.getSerializableExtra(ExerciseListActivity.SELECTED_EXERCISE);
+			exercise = (Exercise) intent.getSerializableExtra(ExerciseListActivity.SELECTED_EXERCISE);
 			if (null != exercise) {
 				// if there's an exercise -> update the view
 				updateView(exercise);
@@ -87,24 +85,21 @@ public class ExerciseDetailsActivity extends
 	private void updateView(Exercise exercise) {
 		// populate widgets
 		UIUtils.setTextToUI(findViewById(R.id.exerciseName), exercise.getName());
-		UIUtils.setTextToUI(findViewById(R.id.exerciseDescription),
-				exercise.getDescription());
+		UIUtils.setTextToUI(findViewById(R.id.exerciseDescription), exercise.getDescription());
 	}
 
 	private void deleteExercise() {
 		// delete exercise on DB
 		getHelper().getExerciseDao().delete(exercise);
 		// show deletion message
-		Toast.makeText(getApplicationContext(), R.string.exerciseDeleted,
-				Toast.LENGTH_SHORT).show();
+		Toast.makeText(getApplicationContext(), R.string.exerciseDeleted, Toast.LENGTH_SHORT).show();
 		// finish activity
 		finish();
 	}
 
 	private void editExercise() {
 		// prepare intent for edition
-		Intent intent = new Intent(getApplicationContext(),
-				EditExerciseActivity.class);
+		Intent intent = new Intent(getApplicationContext(), EditExerciseActivity.class);
 		// pass selected exercise
 		intent.putExtra(ExerciseListActivity.SELECTED_EXERCISE, exercise);
 		// launch activity

@@ -60,8 +60,7 @@ public class TrainingManager {
 	 * @param trainingDao
 	 *            the training DAO to be used
 	 */
-	public void setTrainingDao(
-			RuntimeExceptionDao<Training, Integer> trainingDao) {
+	public void setTrainingDao(RuntimeExceptionDao<Training, Integer> trainingDao) {
 		this.trainingDao = trainingDao;
 	}
 
@@ -71,8 +70,7 @@ public class TrainingManager {
 	 * @param trainingExerciseDao
 	 *            the trainingExerciseDao DAO to be used
 	 */
-	public void setTrainingExerciseDao(
-			RuntimeExceptionDao<TrainingExercise, Integer> trainingExerciseDao) {
+	public void setTrainingExerciseDao(RuntimeExceptionDao<TrainingExercise, Integer> trainingExerciseDao) {
 		this.trainingExerciseDao = trainingExerciseDao;
 	}
 
@@ -103,8 +101,7 @@ public class TrainingManager {
 	 * @param reps
 	 *            the the repetitions of the exercise
 	 */
-	public void addExerciseToTraining(Training training, Exercise exercise,
-			int seconds, int reps) {
+	public void addExerciseToTraining(Training training, Exercise exercise, int seconds, int reps) {
 		trainingDao.refresh(training);
 		int currentExercisesNum = training.getExercises().size();
 		TrainingExercise te = new TrainingExercise();

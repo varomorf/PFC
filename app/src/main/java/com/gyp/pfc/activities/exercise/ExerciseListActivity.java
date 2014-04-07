@@ -25,8 +25,7 @@ import com.j256.ormlite.android.apptools.OrmLiteBaseListActivity;
  * @author Alvaro
  * 
  */
-public class ExerciseListActivity extends
-		OrmLiteBaseListActivity<DatabaseHelper> {
+public class ExerciseListActivity extends OrmLiteBaseListActivity<DatabaseHelper> {
 
 	// Constants -----------------------------------------------------
 	static final String SELECTED_EXERCISE = "exercise";
@@ -43,14 +42,12 @@ public class ExerciseListActivity extends
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.entity_list);
 		List<Exercise> exercises = getHelper().getExerciseDao().queryForAll();
-		setListAdapter(new ExerciseListViewAdapter(this,
-				R.layout.exercise_list_item, exercises));
+		setListAdapter(new ExerciseListViewAdapter(this, R.layout.exercise_list_item, exercises));
 		registerForContextMenu(getListView());
 	}
 
 	@Override
-	public void onCreateContextMenu(ContextMenu menu, View v,
-			ContextMenuInfo menuInfo) {
+	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
 		super.onCreateContextMenu(menu, v, menuInfo);
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.crud_context_menu, menu);
@@ -58,8 +55,7 @@ public class ExerciseListActivity extends
 
 	@Override
 	public boolean onContextItemSelected(MenuItem item) {
-		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item
-				.getMenuInfo();
+		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
 		switch (item.getItemId()) {
 		case R.id.delete:
 			deleteExercise(info.position);
@@ -80,8 +76,7 @@ public class ExerciseListActivity extends
 		// get clicked exercise
 		Exercise exercise = (Exercise) l.getItemAtPosition(position);
 		// create intent for details view
-		Intent intent = new Intent(getApplicationContext(),
-				ExerciseDetailsActivity.class);
+		Intent intent = new Intent(getApplicationContext(), ExerciseDetailsActivity.class);
 		// put selected exercise on intent
 		intent.putExtra(SELECTED_EXERCISE, exercise);
 		// launch intent
@@ -112,8 +107,7 @@ public class ExerciseListActivity extends
 		// refresh the adapter to update UI
 		getAdapter().notifyDataSetChanged();
 		// show deletion message
-		Toast.makeText(getApplicationContext(), R.string.exerciseDeleted,
-				Toast.LENGTH_SHORT).show();
+		Toast.makeText(getApplicationContext(), R.string.exerciseDeleted, Toast.LENGTH_SHORT).show();
 	}
 
 	private ExerciseListViewAdapter getAdapter() {
@@ -124,8 +118,7 @@ public class ExerciseListActivity extends
 		// get selected exercise from adapter
 		Exercise exercise = (Exercise) getListAdapter().getItem(position);
 		// prepare intent for edition
-		Intent intent = new Intent(getApplicationContext(),
-				EditExerciseActivity.class);
+		Intent intent = new Intent(getApplicationContext(), EditExerciseActivity.class);
 		// pass selected exercise
 		intent.putExtra(ExerciseListActivity.SELECTED_EXERCISE, exercise);
 		// launch activity

@@ -39,8 +39,7 @@ public class ExerciseListViewAdapter extends ArrayAdapter<Exercise> {
 	 * @param objects
 	 *            The objects to represent in the ListView.
 	 */
-	public ExerciseListViewAdapter(Context context, int textViewResourceId,
-			List<Exercise> exercises) {
+	public ExerciseListViewAdapter(Context context, int textViewResourceId, List<Exercise> exercises) {
 		super(context, textViewResourceId, R.id.title, exercises);
 		inflater = LayoutInflater.from(context);
 	}

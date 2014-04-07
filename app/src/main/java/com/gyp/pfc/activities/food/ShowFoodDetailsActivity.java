@@ -21,8 +21,7 @@ import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
  * @author Alvaro
  * 
  */
-public class ShowFoodDetailsActivity extends
-		OrmLiteBaseActivity<DatabaseHelper> {
+public class ShowFoodDetailsActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 
 	// Constants -----------------------------------------------------
 
@@ -43,8 +42,7 @@ public class ShowFoodDetailsActivity extends
 
 		// retrieve the food to be shown from the intent
 		Intent sender = getIntent();
-		food = (Food) sender.getExtras().getSerializable(
-				EditFoodActivity.FOOD_TO_EDIT);
+		food = (Food) sender.getExtras().getSerializable(EditFoodActivity.FOOD_TO_EDIT);
 		updateUI();
 	}
 
@@ -74,8 +72,7 @@ public class ShowFoodDetailsActivity extends
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if (requestCode == EditFoodActivity.EDIT_FOOD
-				&& resultCode == Activity.RESULT_OK) {
+		if (requestCode == EditFoodActivity.EDIT_FOOD && resultCode == Activity.RESULT_OK) {
 			onFoodEdited(data);
 		}
 	}
@@ -88,8 +85,7 @@ public class ShowFoodDetailsActivity extends
 	private void updateUI() {
 		// obligatory fields
 		UIUtils.setTextToUI(findViewById(R.id.foodDetailsName), food.getName());
-		UIUtils.setTextToUI(findViewById(R.id.caloriesText), food.getCalories()
-				.toString());
+		UIUtils.setTextToUI(findViewById(R.id.caloriesText), food.getCalories().toString());
 		setGramsField(R.id.proteinText, food.getProtein());
 		setGramsField(R.id.carbsText, food.getCarbs());
 		setGramsField(R.id.fatsText, food.getFats());
@@ -104,8 +100,7 @@ public class ShowFoodDetailsActivity extends
 	 * Starts the activity to edit the shown food
 	 */
 	private void editFood() {
-		Intent editFoodIntent = new Intent(getApplicationContext(),
-				EditFoodActivity.class);
+		Intent editFoodIntent = new Intent(getApplicationContext(), EditFoodActivity.class);
 		editFoodIntent.putExtra(EditFoodActivity.FOOD_TO_EDIT, food);
 		startActivityForResult(editFoodIntent, EditFoodActivity.EDIT_FOOD);
 	}
@@ -115,24 +110,19 @@ public class ShowFoodDetailsActivity extends
 	 * if affirmative response is given by the user
 	 */
 	private void deleteWithDialog() {
-		new AlertDialog.Builder(this)
-				.setMessage(R.string.assureFoodDeletion)
-				.setCancelable(false)
-				.setPositiveButton(android.R.string.yes,
-						new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog, int id) {
-								// deletion is confirmed -> delete
-								getHelper().getFoodDao().delete(food);
-								finish();
-							}
-						})
-				.setNegativeButton(android.R.string.no,
-						new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog, int id) {
-								// do not delete -> close dialog
-								dialog.cancel();
-							}
-						}).create().show();
+		new AlertDialog.Builder(this).setMessage(R.string.assureFoodDeletion).setCancelable(false)
+				.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+						// deletion is confirmed -> delete
+						getHelper().getFoodDao().delete(food);
+						finish();
+					}
+				}).setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+						// do not delete -> close dialog
+						dialog.cancel();
+					}
+				}).create().show();
 	}
 
 	/**
@@ -161,8 +151,7 @@ public class ShowFoodDetailsActivity extends
 		food = (Food) data.getExtras().get(EditFoodActivity.FOOD_TO_EDIT);
 		// refresh UI
 		updateUI();
-		Toast.makeText(getApplicationContext(),
-				getString(R.string.editFoodMessage), Toast.LENGTH_SHORT).show();
+		Toast.makeText(getApplicationContext(), getString(R.string.editFoodMessage), Toast.LENGTH_SHORT).show();
 	}
 
 	// Inner classes -------------------------------------------------

@@ -20,8 +20,7 @@ import com.j256.ormlite.android.apptools.OrmLiteBaseListActivity;
  * @author Alvaro
  * 
  */
-public class TrainingListActivity extends
-		OrmLiteBaseListActivity<DatabaseHelper> {
+public class TrainingListActivity extends OrmLiteBaseListActivity<DatabaseHelper> {
 
 	// Constants -----------------------------------------------------
 
@@ -49,8 +48,7 @@ public class TrainingListActivity extends
 		getAdapter().remove(training);
 		getAdapter().notifyDataSetChanged();
 		// show deletion message
-		Toast.makeText(getApplicationContext(), R.string.trainingDeleted,
-				Toast.LENGTH_SHORT).show();
+		Toast.makeText(getApplicationContext(), R.string.trainingDeleted, Toast.LENGTH_SHORT).show();
 	}
 
 	/**

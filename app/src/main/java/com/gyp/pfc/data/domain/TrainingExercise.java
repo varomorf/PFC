@@ -15,10 +15,10 @@ import com.j256.ormlite.table.DatabaseTable;
  * 
  */
 @DatabaseTable
-public class TrainingExercise implements Serializable{
+public class TrainingExercise implements Serializable {
 
 	// Constants -----------------------------------------------------
-	
+
 	private static final long serialVersionUID = 5196789157868525622L;
 
 	// Attributes ----------------------------------------------------
@@ -70,8 +70,7 @@ public class TrainingExercise implements Serializable{
 		if (pos >= 0) {
 			this.pos = pos;
 		} else {
-			throw new IllegalArgumentException(
-					"Position must be greater or equal than 0");
+			throw new IllegalArgumentException("Position must be greater or equal than 0");
 		}
 	}
 
@@ -88,8 +87,7 @@ public class TrainingExercise implements Serializable{
 		if (seconds >= 0) {
 			this.seconds = seconds;
 		} else {
-			throw new IllegalArgumentException(
-					"Seconds must be greater or equal than 0");
+			throw new IllegalArgumentException("Seconds must be greater or equal than 0");
 		}
 	}
 
@@ -106,8 +104,7 @@ public class TrainingExercise implements Serializable{
 		if (reps >= 1) {
 			this.reps = reps;
 		} else {
-			throw new IllegalArgumentException(
-					"Reps must be greater or equal than 1");
+			throw new IllegalArgumentException("Reps must be greater or equal than 1");
 		}
 	}
 
@@ -136,7 +133,7 @@ public class TrainingExercise implements Serializable{
 		buffer.append(minutesFromSeconds(seconds));
 		buffer.append(':');
 		int restingSeconds = restingSecondsFromSeconds(seconds);
-		if(restingSeconds < 10){
+		if (restingSeconds < 10) {
 			buffer.append('0');
 		}
 		buffer.append(restingSeconds);

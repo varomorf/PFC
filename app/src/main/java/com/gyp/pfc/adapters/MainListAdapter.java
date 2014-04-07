@@ -43,11 +43,9 @@ public class MainListAdapter extends ArrayAdapter<String> {
 	 * @param mainSectionsNames
 	 *            The names of the different sections.
 	 */
-	public MainListAdapter(Context context, int textViewResourceId,
-			String[] mainSectionsNames) {
+	public MainListAdapter(Context context, int textViewResourceId, String[] mainSectionsNames) {
 		super(context, textViewResourceId, mainSectionsNames);
-		inflator = (LayoutInflater) getContext().getSystemService(
-				Context.LAYOUT_INFLATER_SERVICE);
+		inflator = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	}
 
 	// Public --------------------------------------------------------

@@ -48,9 +48,7 @@ public abstract class BaseExerciseTest extends BaseActivityTest {
 	 * @param name
 	 * @param description
 	 */
-	public static void insertExercise(
-			RuntimeExceptionDao<Exercise, Integer> dao, String name,
-			String description) {
+	public static void insertExercise(RuntimeExceptionDao<Exercise, Integer> dao, String name, String description) {
 		Exercise exercise = new Exercise();
 		exercise.setName(name);
 		exercise.setDescription(description);

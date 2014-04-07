@@ -61,14 +61,11 @@ public class ExecuteTrainingActivityTest extends BaseTrainingTest {
 		// seconds of first exercise is shown
 		assertViewText(R.id.timer, "01:00");
 		// reps of first exercise is shown
-		assertViewText(R.id.repetitionNumber,
-				activity.getText(R.string.repetition) + " 1/2");
+		assertViewText(R.id.repetitionNumber, activity.getText(R.string.repetition) + " 1/2");
 		// total exercises are shown
-		assertViewText(R.id.exerciseNumberFraction,
-				activity.getText(R.string.exercise_label) + " 1/2");
+		assertViewText(R.id.exerciseNumberFraction, activity.getText(R.string.exercise_label) + " 1/2");
 		// button shows resume/pause text
-		assertViewText(R.id.actionButton, activity
-				.getText(R.string.resumePause).toString());
+		assertViewText(R.id.actionButton, activity.getText(R.string.resumePause).toString());
 	}
 
 	@Test
@@ -168,8 +165,7 @@ public class ExecuteTrainingActivityTest extends BaseTrainingTest {
 		shadow.invokeFinish(); // fake the finishing of time
 		// THEN
 		// next repetitions should be loaded
-		assertViewText(R.id.repetitionNumber,
-				activity.getText(R.string.repetition) + " 2/2");
+		assertViewText(R.id.repetitionNumber, activity.getText(R.string.repetition) + " 2/2");
 		// timer time should be reset
 		assertViewText(R.id.timer, "01:00");
 		// timer should be running
@@ -236,8 +232,7 @@ public class ExecuteTrainingActivityTest extends BaseTrainingTest {
 		clickOn(activity.findViewById(R.id.nextButton));
 		// THEN
 		// action button should be done button
-		assertViewText(R.id.actionButton, activity.getText(R.string.done)
-				.toString());
+		assertViewText(R.id.actionButton, activity.getText(R.string.done).toString());
 	}
 
 	@Test
@@ -257,12 +252,11 @@ public class ExecuteTrainingActivityTest extends BaseTrainingTest {
 		// timer should be running
 		assertTrue(ShadowCountDownTimer.getLast().hasStarted());
 	}
-	
-	
+
 	@Test
 	public void shouldOnlyShowNumberOfRepsIfExerciseHasNoDuraction() {
 		// GIVEN
-		// one training passed via intent with exercises w/o duration 
+		// one training passed via intent with exercises w/o duration
 		passTrainingToActivity(0, 0);
 		// WHEN
 		// activity is created
@@ -319,8 +313,8 @@ public class ExecuteTrainingActivityTest extends BaseTrainingTest {
 		// activity is finished
 		assertTrue(activity.isFinishing());
 	}
-	
-	public void shouldAskConfirmationBeforeExitWhenPressingBackButton(){
+
+	public void shouldAskConfirmationBeforeExitWhenPressingBackButton() {
 		// GIVEN
 		// one training is passed via intent to the activity
 		passTrainingToActivity();
@@ -331,7 +325,7 @@ public class ExecuteTrainingActivityTest extends BaseTrainingTest {
 		ShadowCountDownTimer shadow = ShadowCountDownTimer.getLast();
 		assertTrue(shadow.hasStarted());
 		// WHEN
-		//press back button
+		// press back button
 		activity.pressBackButton();
 		// THEN
 		// question is asked for exiting
@@ -353,13 +347,11 @@ public class ExecuteTrainingActivityTest extends BaseTrainingTest {
 		passTrainingToActivity(SECS, SECS + 1);
 	}
 
-	private void passTrainingToActivity(int secondsOfExercise1,
-			int secondsOfExercise2) {
+	private void passTrainingToActivity(int secondsOfExercise1, int secondsOfExercise2) {
 		training = createTraining(TRAINING_NAME);
-		BaseExerciseTest.insertExercise(exerciseDao,
-				BaseExerciseTest.EXERCISE_NAME, BaseExerciseTest.EXERCISE_DESC);
-		BaseExerciseTest.insertExercise(exerciseDao, EXERCISE2_NAME,
-				EXERCISE2_DESC);
+		BaseExerciseTest.insertExercise(exerciseDao, BaseExerciseTest.EXERCISE_NAME,
+				BaseExerciseTest.EXERCISE_DESC);
+		BaseExerciseTest.insertExercise(exerciseDao, EXERCISE2_NAME, EXERCISE2_DESC);
 		exercise1 = exerciseDao.queryForId(1);
 		addExerciseToTraining(training, exercise1, REPS, secondsOfExercise1);
 		exercise2 = exerciseDao.queryForId(2);

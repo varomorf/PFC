@@ -104,8 +104,7 @@ public class ExerciseDetailsActivityTest extends BaseExerciseTest {
 		// THEN
 		// next activity is EditExerciseActivity passing exercise
 		Intent nextIntent = assertAndReturnNextActivity(EditExerciseActivity.class);
-		exercise = (Exercise) nextIntent
-				.getSerializableExtra(ExerciseListActivity.SELECTED_EXERCISE);
+		exercise = (Exercise) nextIntent.getSerializableExtra(ExerciseListActivity.SELECTED_EXERCISE);
 		assertThat(exercise.getName(), is(dao.queryForId(1).getName()));
 	}
 

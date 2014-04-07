@@ -7,8 +7,7 @@ package com.gyp.pfc.listeners;
  * @author Alvaro
  * 
  */
-public class ListButtonOnClickListener extends
-		BaseMainActivityButtonOnClickListener {
+public class ListButtonOnClickListener extends BaseMainActivityButtonOnClickListener {
 
 	// Constants -----------------------------------------------------
 	private static final String PRE = "com.gyp.pfc.activities.";
@@ -35,8 +34,7 @@ public class ListButtonOnClickListener extends
 
 	// Protected -----------------------------------------------------
 	@Override
-	protected String prepareActivityQualifiedName(String packageName,
-			String entityName) {
+	protected String prepareActivityQualifiedName(String packageName, String entityName) {
 		// prepare qualified name putting the pieces together
 		StringBuilder buffer = new StringBuilder(PRE);
 		buffer.append(packageName);

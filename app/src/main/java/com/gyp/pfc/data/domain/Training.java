@@ -26,7 +26,7 @@ public class Training implements Serializable {
 	private int id;
 	@DatabaseField(canBeNull = false)
 	private String name;
-	@ForeignCollectionField(eager = true, orderColumnName="pos")
+	@ForeignCollectionField(eager = true, orderColumnName = "pos")
 	private ForeignCollection<TrainingExercise> exercises;
 
 	// Static --------------------------------------------------------
@@ -67,8 +67,8 @@ public class Training implements Serializable {
 
 	@Override
 	public boolean equals(Object o) {
-		if(o instanceof Training){
-			return ((Training)o).getId() == id;
+		if (o instanceof Training) {
+			return ((Training) o).getId() == id;
 		}
 		return false;
 	}
@@ -77,7 +77,7 @@ public class Training implements Serializable {
 	public int hashCode() {
 		return id;
 	}
-	
+
 	// Package protected ---------------------------------------------
 
 	// Protected -----------------------------------------------------

@@ -55,8 +55,7 @@ public class ExerciseManager {
 	 * @param exerciseDao
 	 *            the exercise DAO to be used
 	 */
-	public void setExerciseDao(
-			RuntimeExceptionDao<Exercise, Integer> exerciseDao) {
+	public void setExerciseDao(RuntimeExceptionDao<Exercise, Integer> exerciseDao) {
 		this.exerciseDao = exerciseDao;
 	}
 

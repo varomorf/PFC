@@ -38,8 +38,7 @@ public class FoodListViewAdapter extends ArrayAdapter<Food> {
 	 * @param objects
 	 *            The objects to represent in the ListView.
 	 */
-	public FoodListViewAdapter(Context context, int textViewResourceId,
-			List<Food> foods) {
+	public FoodListViewAdapter(Context context, int textViewResourceId, List<Food> foods) {
 		super(context, textViewResourceId, foods);
 		inflater = LayoutInflater.from(context);
 	}

@@ -22,8 +22,7 @@ import com.gyp.pfc.data.domain.TrainingExercise;
  * @author Alvaro
  * 
  */
-public class AddExerciseDialog extends Dialog implements
-		android.view.View.OnClickListener {
+public class AddExerciseDialog extends Dialog implements android.view.View.OnClickListener {
 
 	// Constants -----------------------------------------------------
 
@@ -47,8 +46,7 @@ public class AddExerciseDialog extends Dialog implements
 	 * @param exercises
 	 *            A list of exercises to populate the dialog's spinner
 	 */
-	public AddExerciseDialog(Context context,
-			AddExerciseDialogListener listener, List<Exercise> exercises,
+	public AddExerciseDialog(Context context, AddExerciseDialogListener listener, List<Exercise> exercises,
 			TrainingExercise te) {
 		super(context);
 		this.listener = listener;
@@ -89,8 +87,7 @@ public class AddExerciseDialog extends Dialog implements
 		// set layout parameters so the dialog fills its width
 		LayoutParams params = getWindow().getAttributes();
 		params.width = LayoutParams.MATCH_PARENT;
-		getWindow().setAttributes(
-				(android.view.WindowManager.LayoutParams) params);
+		getWindow().setAttributes((android.view.WindowManager.LayoutParams) params);
 		populateSpinner();
 		fillValues();
 		// on click listener for the button will be this
@@ -103,8 +100,8 @@ public class AddExerciseDialog extends Dialog implements
 		// get spinner from view
 		Spinner spinner = (Spinner) findViewById(R.id.exerciseSpinner);
 		// prepare adapter for exercises list
-		ExerciseListViewAdapter adapter = new ExerciseListViewAdapter(
-				getContext(), R.layout.exercise_list_item, exercises);
+		ExerciseListViewAdapter adapter = new ExerciseListViewAdapter(getContext(), R.layout.exercise_list_item,
+				exercises);
 		// set adapter to spinner
 		spinner.setAdapter(adapter);
 	}
@@ -118,8 +115,7 @@ public class AddExerciseDialog extends Dialog implements
 			// get spinner from view
 			Spinner spinner = (Spinner) findViewById(R.id.exerciseSpinner);
 			// get position of the exercise on the spinner
-			int pos = ((ExerciseListViewAdapter) spinner.getAdapter())
-					.getPosition(te.getExercise());
+			int pos = ((ExerciseListViewAdapter) spinner.getAdapter()).getPosition(te.getExercise());
 			// select the exercise on the spinner
 			spinner.setSelection(pos);
 			// calculate and set minutes

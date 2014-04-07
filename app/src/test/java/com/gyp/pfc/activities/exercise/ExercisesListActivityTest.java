@@ -58,8 +58,7 @@ public class ExercisesListActivityTest extends BaseExerciseTest {
 		clickOnListItem(0);
 		// THEN
 		Intent next = assertAndReturnNextActivity(ExerciseDetailsActivity.class);
-		Exercise exercise = (Exercise) next
-				.getSerializableExtra(ExerciseListActivity.SELECTED_EXERCISE);
+		Exercise exercise = (Exercise) next.getSerializableExtra(ExerciseListActivity.SELECTED_EXERCISE);
 		assertThat(exercise.getName(), is("foo"));
 	}
 
@@ -123,8 +122,7 @@ public class ExercisesListActivityTest extends BaseExerciseTest {
 		// next activity is EditExerciseActivity
 		Intent nextIntent = activity.getNextStartedActivity();
 		assertThat(nextIntent.getComponent().getClassName(), is(EditExerciseActivity.class.getName()));
-		Exercise exercise = (Exercise) nextIntent
-				.getSerializableExtra(ExerciseListActivity.SELECTED_EXERCISE);
+		Exercise exercise = (Exercise) nextIntent.getSerializableExtra(ExerciseListActivity.SELECTED_EXERCISE);
 		assertThat(exercise.getName(), is(dao.queryForId(1).getName()));
 	}
 

@@ -38,8 +38,7 @@ public class EditExerciseActivity extends AddExerciseActivity {
 		if (assertExercise(exercise)) {
 			exercise.setDescription(UIUtils.getTextFromUI(description));
 			getHelper().getExerciseDao().update(exercise);
-			Toast.makeText(getApplicationContext(), R.string.exerciseEdited,
-					Toast.LENGTH_SHORT).show();
+			Toast.makeText(getApplicationContext(), R.string.exerciseEdited, Toast.LENGTH_SHORT).show();
 		}
 		finish();
 	}
@@ -51,17 +50,14 @@ public class EditExerciseActivity extends AddExerciseActivity {
 	@Override
 	protected void customizeView(View view) {
 		// set title
-		UIUtils.setTextToUI(view.findViewById(R.id.exerciseDataTitle),
-				getText(R.string.editExerciseTitle));
+		UIUtils.setTextToUI(view.findViewById(R.id.exerciseDataTitle), getText(R.string.editExerciseTitle));
 		// set button text
-		UIUtils.setTextToUI(view.findViewById(R.id.commitButton),
-				getText(R.string.label_edit));
+		UIUtils.setTextToUI(view.findViewById(R.id.commitButton), getText(R.string.label_edit));
 
 		// get intent to get data
 		Intent intent = getIntent();
 		if (null != intent) {
-			exercise = (Exercise) intent
-					.getSerializableExtra(ExerciseListActivity.SELECTED_EXERCISE);
+			exercise = (Exercise) intent.getSerializableExtra(ExerciseListActivity.SELECTED_EXERCISE);
 			if (null != exercise) {
 				// if there's an exercise -> update the view
 				updateView(view);
@@ -72,17 +68,15 @@ public class EditExerciseActivity extends AddExerciseActivity {
 	@Override
 	protected boolean assertNotDuplicatedName(Exercise exercise) {
 		// query an exercise with the same name as the passed exercise
-		List<Exercise> tmp = getHelper().getExerciseDao().queryForEq("name",
-				exercise.getName());
+		List<Exercise> tmp = getHelper().getExerciseDao().queryForEq("name", exercise.getName());
 		// if the list holds exercises -> name is duplicated
 		if (!tmp.isEmpty()) {
 			// if only returned exercise has same id than passed is ok
-			if(tmp.size() == 1 && tmp.get(0).getId()== exercise.getId()){
+			if (tmp.size() == 1 && tmp.get(0).getId() == exercise.getId()) {
 				return true;
 			}
 			// duplicated name -> show toast and return false
-			Toast.makeText(getApplicationContext(),
-					R.string.exerciseNameDuplicated, Toast.LENGTH_SHORT).show();
+			Toast.makeText(getApplicationContext(), R.string.exerciseNameDuplicated, Toast.LENGTH_SHORT).show();
 			return false;
 		}
 		return true;
@@ -91,10 +85,8 @@ public class EditExerciseActivity extends AddExerciseActivity {
 	// Private -------------------------------------------------------
 	private void updateView(View view) {
 		// populate widgets
-		UIUtils.setTextToUI(view.findViewById(R.id.exerciseName),
-				exercise.getName());
-		UIUtils.setTextToUI(view.findViewById(R.id.exerciseDescription),
-				exercise.getDescription());
+		UIUtils.setTextToUI(view.findViewById(R.id.exerciseName), exercise.getName());
+		UIUtils.setTextToUI(view.findViewById(R.id.exerciseDescription), exercise.getDescription());
 	}
 	// Inner classes -------------------------------------------------
 }

@@ -84,7 +84,7 @@ public class ShowFoodDetailsActivityTest extends BaseFoodTest {
 	}
 
 	// Private -------------------------------------------------------
-	
+
 	private void passFoodToActivity() {
 		food = createFood();
 		intentPassedWithFood(food);

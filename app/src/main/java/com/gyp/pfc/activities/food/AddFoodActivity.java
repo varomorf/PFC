@@ -55,8 +55,7 @@ public class AddFoodActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 			// save food on DB
 			getHelper().getFoodDao().create(food);
 			// show toast
-			Toast.makeText(getApplicationContext(), R.string.newFoodInserted,
-					Toast.LENGTH_SHORT).show();
+			Toast.makeText(getApplicationContext(), R.string.newFoodInserted, Toast.LENGTH_SHORT).show();
 			// close activity
 			finish();
 		} catch (MandatoryFieldNotFilledException e) {
@@ -80,23 +79,16 @@ public class AddFoodActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 	private Food createFood() {
 		Food food = new Food();
 		// get required food data
-		food.setName(getEditTextViewAsserting(R.id.foodNameText,
-				R.string.foodNameError));
-		food.setCalories(getEditTextViewAsserting(R.id.caloriesText,
-				R.string.caloriesError));
-		food.setProtein(getEditTextViewAsserting(R.id.proteinsText,
-				R.string.proteinsError));
-		food.setCarbs(getEditTextViewAsserting(R.id.carbsText,
-				R.string.carbsError));
-		food.setFats(getEditTextViewAsserting(R.id.fatsText,
-				R.string.fatsError));
+		food.setName(getEditTextViewAsserting(R.id.foodNameText, R.string.foodNameError));
+		food.setCalories(getEditTextViewAsserting(R.id.caloriesText, R.string.caloriesError));
+		food.setProtein(getEditTextViewAsserting(R.id.proteinsText, R.string.proteinsError));
+		food.setCarbs(getEditTextViewAsserting(R.id.carbsText, R.string.carbsError));
+		food.setFats(getEditTextViewAsserting(R.id.fatsText, R.string.fatsError));
 		// get the rest of the data
-		food.setBrandName(UIUtils
-				.getTextFromUI(findViewById(R.id.foodBrandText)));
+		food.setBrandName(UIUtils.getTextFromUI(findViewById(R.id.foodBrandText)));
 		food.setSugar(UIUtils.getTextFromUI(findViewById(R.id.sugarsText)));
 		food.setFiber(UIUtils.getTextFromUI(findViewById(R.id.fiberText)));
-		food.setSaturatedFats(UIUtils
-				.getTextFromUI(findViewById(R.id.saturatedFatsText)));
+		food.setSaturatedFats(UIUtils.getTextFromUI(findViewById(R.id.saturatedFatsText)));
 		food.setSodium(UIUtils.getTextFromUI(findViewById(R.id.sodiumText)));
 		return food;
 	}

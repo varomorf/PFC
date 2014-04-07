@@ -67,8 +67,7 @@ public abstract class BaseActivityTest {
 	}
 
 	protected void assertToastText(int id) {
-		CharSequence text = activity.getApplicationContext().getResources()
-				.getText(id);
+		CharSequence text = activity.getApplicationContext().getResources().getText(id);
 		assertThat(ShadowToast.getTextOfLatestToast(), is(text));
 	}
 
@@ -99,7 +98,7 @@ public abstract class BaseActivityTest {
 		ListView listView = (ListView) activity.findViewById(android.R.id.list);
 		shadowOf(listView).performItemClick(itemIndex);
 	}
-	
+
 	protected void longClickOnListItem(int itemIndex) {
 		View item = getItemFromListView(itemIndex);
 		item.performLongClick();
@@ -109,41 +108,39 @@ public abstract class BaseActivityTest {
 		View item = getItemFromListView(itemIndex);
 		clickOn(item.findViewById(buttonId));
 	}
-	
+
 	@SuppressWarnings("rawtypes")
-	protected Intent assertAndReturnNextActivity(Class activityClass){
+	protected Intent assertAndReturnNextActivity(Class activityClass) {
 		Intent next = activity.getNextStartedActivity();
 		assertNotNull(next);
-		assertEquals(activityClass.getName(), next.getComponent()
-				.getClassName());
+		assertEquals(activityClass.getName(), next.getComponent().getClassName());
 		return next;
 	}
-	
-	protected void assertViewText(int id, String expected){
+
+	protected void assertViewText(int id, String expected) {
 		View view = activity.findViewById(id);
 		String text = UIUtils.getTextFromUI(view);
 		assertThat(text, is(expected));
 	}
-	
-	protected void assertViewTextIsNot(int id, String expected){
+
+	protected void assertViewTextIsNot(int id, String expected) {
 		View view = activity.findViewById(id);
 		String text = UIUtils.getTextFromUI(view);
 		assertThat(text, is(not(expected)));
 	}
-	
-	protected void assertAlertDialogText(int id){
+
+	protected void assertAlertDialogText(int id) {
 		AlertDialog dialog = ShadowAlertDialog.getLatestAlertDialog();
 		assertNotNull("There wasn't even a dialog", dialog);
 		ShadowAlertDialog shadowDialog = shadowOf(dialog);
-		assertEquals("Dialog text does not match", activity.getText(id),
-				shadowDialog.getMessage());
+		assertEquals("Dialog text does not match", activity.getText(id), shadowDialog.getMessage());
 	}
-	
+
 	protected void enterText(int id, String text) {
 		EditText edit = (EditText) activity.findViewById(id);
 		edit.setText(text);
 	}
-	
+
 	protected void enterText(int id, double text) {
 		EditText edit = (EditText) activity.findViewById(id);
 		edit.setText(Double.toString(text));
