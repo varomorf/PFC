@@ -1,7 +1,5 @@
 package com.gyp.pfc.activities.exercise;
 
-import java.util.List;
-
 import android.content.Intent;
 import android.view.View;
 import android.widget.Toast;
@@ -9,6 +7,8 @@ import android.widget.Toast;
 import com.gyp.pfc.R;
 import com.gyp.pfc.UIUtils;
 import com.gyp.pfc.data.domain.Exercise;
+import com.gyp.pfc.data.domain.exception.EntityNameException;
+import com.gyp.pfc.data.domain.manager.ExerciseManager;
 
 /**
  * Activity for editing Exercise entities
@@ -35,12 +35,15 @@ public class EditExerciseActivity extends AddExerciseActivity {
 		View name = findViewById(R.id.exerciseName);
 		View description = findViewById(R.id.exerciseDescription);
 		exercise.setName(UIUtils.getTextFromUI(name));
-		if (assertExercise(exercise)) {
-			exercise.setDescription(UIUtils.getTextFromUI(description));
-			getHelper().getExerciseDao().update(exercise);
+		exercise.setDescription(UIUtils.getTextFromUI(description));
+		try {
+			ExerciseManager.getInstance().updateExercise(exercise);
 			Toast.makeText(getApplicationContext(), R.string.exerciseEdited, Toast.LENGTH_SHORT).show();
+			finish();
+		} catch (EntityNameException e) {
+			// if name exception -> show toast with error message
+			Toast.makeText(getApplicationContext(), e.getExeptionMessageId(), Toast.LENGTH_SHORT).show();
 		}
-		finish();
 	}
 
 	// Package protected ---------------------------------------------
@@ -65,28 +68,13 @@ public class EditExerciseActivity extends AddExerciseActivity {
 		}
 	}
 
-	@Override
-	protected boolean assertNotDuplicatedName(Exercise exercise) {
-		// query an exercise with the same name as the passed exercise
-		List<Exercise> tmp = getHelper().getExerciseDao().queryForEq("name", exercise.getName());
-		// if the list holds exercises -> name is duplicated
-		if (!tmp.isEmpty()) {
-			// if only returned exercise has same id than passed is ok
-			if (tmp.size() == 1 && tmp.get(0).getId() == exercise.getId()) {
-				return true;
-			}
-			// duplicated name -> show toast and return false
-			Toast.makeText(getApplicationContext(), R.string.exerciseNameDuplicated, Toast.LENGTH_SHORT).show();
-			return false;
-		}
-		return true;
-	}
-
 	// Private -------------------------------------------------------
+
 	private void updateView(View view) {
 		// populate widgets
 		UIUtils.setTextToUI(view.findViewById(R.id.exerciseName), exercise.getName());
 		UIUtils.setTextToUI(view.findViewById(R.id.exerciseDescription), exercise.getDescription());
 	}
+
 	// Inner classes -------------------------------------------------
 }

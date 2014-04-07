@@ -8,6 +8,7 @@ import com.gyp.pfc.R;
 import com.gyp.pfc.activities.BaseActivityTest;
 import com.gyp.pfc.data.db.DatabaseHelper;
 import com.gyp.pfc.data.domain.Exercise;
+import com.gyp.pfc.data.domain.manager.ExerciseManager;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
 
 /**
@@ -39,6 +40,7 @@ public abstract class BaseExerciseTest extends BaseActivityTest {
 	public void before() {
 		super.before();
 		dao = new DatabaseHelper(realActivity).getExerciseDao();
+		ExerciseManager.getInstance().setExerciseDao(dao);
 	}
 
 	/**

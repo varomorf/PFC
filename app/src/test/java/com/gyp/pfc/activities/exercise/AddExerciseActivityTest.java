@@ -48,8 +48,8 @@ public class AddExerciseActivityTest extends BaseExerciseTest {
 		assertThat(exercises.get(0).getName(), is(EXERCISE_NAME));
 		assertThat(exercises.get(0).getDescription(), is(EXERCISE_DESC));
 		assertToastText(R.string.exerciseCreated);
-		assertViewText(R.id.exerciseName, "");
-		assertViewText(R.id.exerciseDescription, "");
+		// activity finishes
+		assertTrue(activity.isFinishing());
 	}
 
 	@Test

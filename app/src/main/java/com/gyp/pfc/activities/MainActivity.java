@@ -8,6 +8,7 @@ import com.gyp.pfc.adapters.MainListAdapter;
 import com.gyp.pfc.data.db.DatabaseHelper;
 import com.gyp.pfc.data.domain.Exercise;
 import com.gyp.pfc.data.domain.Training;
+import com.gyp.pfc.data.domain.exception.EntityNameException;
 import com.gyp.pfc.data.domain.manager.ExerciseManager;
 import com.gyp.pfc.data.domain.manager.FoodManager;
 import com.gyp.pfc.data.domain.manager.TrainingManager;
@@ -36,7 +37,12 @@ public class MainActivity extends OrmLiteBaseListActivity<DatabaseHelper> {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		initializeManagers();
-		loadTestData();// TODO change me
+		try {
+			// TODO change me
+			loadTestData();
+		} catch (EntityNameException e) {
+			// NOOP
+		}
 		// set the list adapter
 		MainListAdapter adapter = new MainListAdapter(this, R.layout.main_list_item, MAIN_SECTIONS_NAMES);
 		setListAdapter(adapter);
@@ -53,7 +59,7 @@ public class MainActivity extends OrmLiteBaseListActivity<DatabaseHelper> {
 
 	// Protected -----------------------------------------------------
 
-	protected void loadTestData() {
+	protected void loadTestData() throws EntityNameException {
 		// load test food
 		FoodManager.getInstance().createFood("Arroz", "", 364, 6.67, 81.60, 0, 1.4, 0.9, 0.19, 0.0039);
 		FoodManager.getInstance().createFood("Huevo", "", 162, 12.68, 0.68, 0, 0, 12.10, 3.3, 0.144);

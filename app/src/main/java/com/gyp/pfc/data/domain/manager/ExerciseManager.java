@@ -3,7 +3,13 @@
  */
 package com.gyp.pfc.data.domain.manager;
 
+import java.util.List;
+
+import org.apache.commons.lang.StringUtils;
+
+import com.gyp.pfc.R;
 import com.gyp.pfc.data.domain.Exercise;
+import com.gyp.pfc.data.domain.exception.EntityNameException;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
 
 /**
@@ -60,20 +66,42 @@ public class ExerciseManager {
 	}
 
 	/**
-	 * Creates a new exercise specifying its name and description
+	 * Creates a new exercise specifying its name and description. This method
+	 * assures that the name is not blank nor repeated.
 	 * 
 	 * @param name
 	 *            the name of the new exercise
 	 * @param description
 	 *            the description of the new exercise
 	 * @return the created exercise
+	 * @throws EntityNameException
+	 *             if a blank name has been provided
 	 */
-	public Exercise createExercise(String name, String description) {
+	public Exercise createExercise(String name, String description) throws EntityNameException {
+		// create and save the exercise if constraints are valid
 		Exercise exercise = new Exercise();
 		exercise.setName(name);
+		checkNameConstraints(exercise);
 		exercise.setDescription(description);
 		exerciseDao.create(exercise);
 		return exercise;
+	}
+
+	/**
+	 * Updates the passed exercise after checking that its name is not blank nor
+	 * repeated.
+	 * 
+	 * @param exercise
+	 *            the exercise to be updated
+	 * @return <code>true</code> if the exercise has been correctly updated
+	 * @throws DuplicatedNameException
+	 *             if a blank name has been provided
+	 */
+	public boolean updateExercise(Exercise exercise) throws EntityNameException {
+		// update exercise if constraints are valid
+		checkNameConstraints(exercise);
+		exerciseDao.update(exercise);
+		return true;
 	}
 
 	// Package protected ---------------------------------------------
@@ -81,6 +109,26 @@ public class ExerciseManager {
 	// Protected -----------------------------------------------------
 
 	// Private -------------------------------------------------------
+
+	/**
+	 * Checks that the passed name is valid for the exercise name constraints
+	 * 
+	 * @param exercise
+	 *            the exercise to be checked
+	 * @throws EntityNameException
+	 *             if a blank name has been provided
+	 */
+	private void checkNameConstraints(Exercise exercise) throws EntityNameException {
+		// blank names not allowed
+		if (StringUtils.isBlank(exercise.getName())) {
+			throw new EntityNameException(R.string.exerciseNameBlank);
+		}
+		List<Exercise> tmp = exerciseDao.queryForEq("name", exercise.getName());
+		// if there are exercises with specified name -> name is duplicated
+		if (!tmp.isEmpty() && tmp.get(0).getId() != exercise.getId()) {
+			throw new EntityNameException(R.string.exerciseNameDuplicated);
+		}
+	}
 
 	// Inner classes -------------------------------------------------
 
