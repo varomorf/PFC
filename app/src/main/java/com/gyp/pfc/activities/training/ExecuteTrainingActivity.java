@@ -1,6 +1,5 @@
 package com.gyp.pfc.activities.training;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -11,7 +10,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.gyp.pfc.R;
-import com.gyp.pfc.UIUtils;
+import com.gyp.pfc.activities.BaseActivity;
 import com.gyp.pfc.data.domain.Training;
 import com.gyp.pfc.data.domain.TrainingExercise;
 import com.gyp.pfc.widgets.CountdownTimer;
@@ -23,7 +22,7 @@ import com.gyp.pfc.widgets.CountdownTimer.CountdownTimerListener;
  * @author Alvaro
  * 
  */
-public class ExecuteTrainingActivity extends Activity implements CountdownTimerListener {
+public class ExecuteTrainingActivity extends BaseActivity implements CountdownTimerListener {
 
 	// Constants -----------------------------------------------------
 
@@ -181,16 +180,16 @@ public class ExecuteTrainingActivity extends Activity implements CountdownTimerL
 		exercises = training.getExercises().toArray(exercises);
 		// fill data
 		TrainingExercise te = exercises[exerciseIndex];
-		UIUtils.setTextToUI(findViewById(R.id.trainingName), training.getName());
-		UIUtils.setTextToUI(findViewById(R.id.exerciseName), te.getExercise().getName());
+		setTextToUI(R.id.trainingName, training.getName());
+		setTextToUI(R.id.exerciseName, te.getExercise().getName());
 		int seconds = te.getSeconds();
 		timer.setSeconds(seconds);
 		setRepetitionNumber(te);
 		setExerciseNumberFraction(te);
 		if (seconds == 0) {
-			UIUtils.setTextToUI(findViewById(R.id.actionButton), getText(R.string.done));
+			setTextToUI(R.id.actionButton, getText(R.string.done));
 		} else {
-			UIUtils.setTextToUI(findViewById(R.id.actionButton), getText(R.string.resumePause));
+			setTextToUI(R.id.actionButton, getText(R.string.resumePause));
 		}
 	}
 
@@ -198,8 +197,7 @@ public class ExecuteTrainingActivity extends Activity implements CountdownTimerL
 		if (te.getSeconds() != 0) {
 			setFractionText(R.id.repetitionNumber, R.string.repetition, repetition, te.getReps());
 		} else {
-			UIUtils.setTextToUI(findViewById(R.id.repetitionNumber), te.getReps() + " "
-					+ getText(R.string.repetitions));
+			setTextToUI(R.id.repetitionNumber, te.getReps() + " " + getText(R.string.repetitions));
 		}
 	}
 
@@ -208,13 +206,12 @@ public class ExecuteTrainingActivity extends Activity implements CountdownTimerL
 	}
 
 	private void setFractionText(int viewId, int textId, int firstNumber, int secondNumber) {
-		View view = findViewById(viewId);
 		StringBuilder buffer = new StringBuilder(getText(textId));
 		buffer.append(" ");
 		buffer.append(firstNumber);
 		buffer.append("/");
 		buffer.append(secondNumber);
-		UIUtils.setTextToUI(view, buffer.toString());
+		setTextToUI(viewId, buffer.toString());
 	}
 
 	private void incrementExerciseIndex() {

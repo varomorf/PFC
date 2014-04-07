@@ -3,8 +3,6 @@
  */
 package com.gyp.pfc.activities.food;
 
-import android.widget.EditText;
-
 /**
  * Exception for mandatory fields that have not been filled
  * 
@@ -19,8 +17,8 @@ public class MandatoryFieldNotFilledException extends RuntimeException {
 
 	// Attributes ----------------------------------------------------
 
-	/** The mandatory field */
-	private final EditText field;
+	/** The mandatory field's view id */
+	private final int fieldId;
 
 	/** The error message related to the mandatory field */
 	private final String errorMessage;
@@ -32,24 +30,24 @@ public class MandatoryFieldNotFilledException extends RuntimeException {
 	/**
 	 * Creates a new exception specifying the mandatory field and error message
 	 * 
-	 * @param field
-	 *            the mandatory field
+	 * @param viewId
+	 *            the mandatory field's id
 	 * @param errorMessage
 	 *            the errorMessage
 	 */
-	public MandatoryFieldNotFilledException(EditText field, String errorMessage) {
+	public MandatoryFieldNotFilledException(int viewId, String errorMessage) {
 		super(errorMessage);
-		this.field = field;
+		this.fieldId = viewId;
 		this.errorMessage = errorMessage;
 
 		// Public --------------------------------------------------------
 	}
 
 	/**
-	 * @return the field
+	 * @return the field id
 	 */
-	public EditText getField() {
-		return field;
+	public int getFieldId() {
+		return fieldId;
 	}
 
 	/**

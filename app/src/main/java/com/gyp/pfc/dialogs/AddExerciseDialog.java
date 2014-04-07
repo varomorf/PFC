@@ -108,9 +108,9 @@ public class AddExerciseDialog extends Dialog implements android.view.View.OnCli
 
 	private void fillValues() {
 		if (te == null) {
-			UIUtils.setTextToUI(findViewById(R.id.minutes), "0");
-			UIUtils.setTextToUI(findViewById(R.id.seconds), "0");
-			UIUtils.setTextToUI(findViewById(R.id.repetitions), "1");
+			setTextToUI(R.id.minutes, 0);
+			setTextToUI(R.id.seconds, 0);
+			setTextToUI(R.id.repetitions, 1);
 		} else {
 			// get spinner from view
 			Spinner spinner = (Spinner) findViewById(R.id.exerciseSpinner);
@@ -120,16 +120,21 @@ public class AddExerciseDialog extends Dialog implements android.view.View.OnCli
 			spinner.setSelection(pos);
 			// calculate and set minutes
 			int minutes = TimeUtils.minutesFromSeconds(te.getSeconds());
-			UIUtils.setTextToUI(findViewById(R.id.minutes), minutes);
+			setTextToUI(R.id.minutes, minutes);
 			// calculate and set seconds
 			int seconds = TimeUtils.restingSecondsFromSeconds(te.getSeconds());
-			UIUtils.setTextToUI(findViewById(R.id.seconds), seconds);
+			setTextToUI(R.id.seconds, seconds);
 			// set repetitions
-			UIUtils.setTextToUI(findViewById(R.id.repetitions), te.getReps());
+			setTextToUI(R.id.repetitions, te.getReps());
 		}
+	}
+	
+	private void setTextToUI(int viewId, int text){
+		UIUtils.setTextToUI(findViewById(viewId), text);
 	}
 
 	// Inner classes -------------------------------------------------
+	
 	/**
 	 * Defines a listener for the {@link AddExerciseDialog}
 	 * 

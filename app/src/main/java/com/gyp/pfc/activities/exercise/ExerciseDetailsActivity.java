@@ -7,10 +7,8 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.gyp.pfc.R;
-import com.gyp.pfc.UIUtils;
-import com.gyp.pfc.data.db.DatabaseHelper;
+import com.gyp.pfc.activities.BaseActivity;
 import com.gyp.pfc.data.domain.Exercise;
-import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 
 /**
  * Activity for showing the details of an Exercise entity
@@ -18,7 +16,7 @@ import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
  * @author Alvaro
  * 
  */
-public class ExerciseDetailsActivity extends OrmLiteBaseActivity<DatabaseHelper> {
+public class ExerciseDetailsActivity extends BaseActivity {
 
 	// Constants -----------------------------------------------------
 
@@ -84,8 +82,8 @@ public class ExerciseDetailsActivity extends OrmLiteBaseActivity<DatabaseHelper>
 	// Private -------------------------------------------------------
 	private void updateView(Exercise exercise) {
 		// populate widgets
-		UIUtils.setTextToUI(findViewById(R.id.exerciseName), exercise.getName());
-		UIUtils.setTextToUI(findViewById(R.id.exerciseDescription), exercise.getDescription());
+		setTextToUI(R.id.exerciseName, exercise.getName());
+		setTextToUI(R.id.exerciseDescription, exercise.getDescription());
 	}
 
 	private void deleteExercise() {

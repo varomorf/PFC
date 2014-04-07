@@ -5,11 +5,9 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.gyp.pfc.R;
-import com.gyp.pfc.UIUtils;
-import com.gyp.pfc.data.db.DatabaseHelper;
+import com.gyp.pfc.activities.BaseActivity;
 import com.gyp.pfc.data.domain.exception.EntityNameException;
 import com.gyp.pfc.data.domain.manager.ExerciseManager;
-import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 
 /**
  * Activity for adding new exercises
@@ -17,7 +15,7 @@ import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
  * @author Alvaro
  * 
  */
-public class AddExerciseActivity extends OrmLiteBaseActivity<DatabaseHelper> {
+public class AddExerciseActivity extends BaseActivity {
 
 	// Constants -----------------------------------------------------
 
@@ -36,8 +34,8 @@ public class AddExerciseActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 	 */
 	public void commitExercise(View view) {
 		// extract data from widgets
-		String name = UIUtils.getTextFromUI(findViewById(R.id.exerciseName));
-		String description = UIUtils.getTextFromUI(findViewById(R.id.exerciseDescription));
+		String name = getTextFromUI(R.id.exerciseName);
+		String description = getTextFromUI(R.id.exerciseDescription);
 		try {
 			// on positive case -> create entity, show message and exit
 			ExerciseManager.getInstance().createExercise(name, description);
@@ -58,10 +56,10 @@ public class AddExerciseActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 		super.onCreate(savedInstanceState);
 		// inflate layout
 		View view = getLayoutInflater().inflate(R.layout.exercise_data, null);
-		// customize the view
-		customizeView(view);
 		// set the view
 		setContentView(view);
+		// customize the view
+		customizeView(view);
 	}
 
 	/**
@@ -73,9 +71,9 @@ public class AddExerciseActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 	 */
 	protected void customizeView(View view) {
 		// set title
-		UIUtils.setTextToUI(view.findViewById(R.id.exerciseDataTitle), getText(R.string.addExerciseTitle));
+		setTextToUI(R.id.exerciseDataTitle, R.string.addExerciseTitle);
 		// set button text
-		UIUtils.setTextToUI(view.findViewById(R.id.commitButton), getText(R.string.button_save));
+		setTextToUI(R.id.commitButton, R.string.button_save);
 	}
 
 	// Private -------------------------------------------------------

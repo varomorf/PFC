@@ -5,7 +5,6 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.gyp.pfc.R;
-import com.gyp.pfc.UIUtils;
 import com.gyp.pfc.data.domain.Exercise;
 import com.gyp.pfc.data.domain.exception.EntityNameException;
 import com.gyp.pfc.data.domain.manager.ExerciseManager;
@@ -32,10 +31,8 @@ public class EditExerciseActivity extends AddExerciseActivity {
 
 	@Override
 	public void commitExercise(View view) {
-		View name = findViewById(R.id.exerciseName);
-		View description = findViewById(R.id.exerciseDescription);
-		exercise.setName(UIUtils.getTextFromUI(name));
-		exercise.setDescription(UIUtils.getTextFromUI(description));
+		exercise.setName(getTextFromUI(R.id.exerciseName));
+		exercise.setDescription(getTextFromUI(R.id.exerciseDescription));
 		try {
 			ExerciseManager.getInstance().updateExercise(exercise);
 			Toast.makeText(getApplicationContext(), R.string.exerciseEdited, Toast.LENGTH_SHORT).show();
@@ -53,9 +50,9 @@ public class EditExerciseActivity extends AddExerciseActivity {
 	@Override
 	protected void customizeView(View view) {
 		// set title
-		UIUtils.setTextToUI(view.findViewById(R.id.exerciseDataTitle), getText(R.string.editExerciseTitle));
+		setTextToUI(R.id.exerciseDataTitle, R.string.editExerciseTitle);
 		// set button text
-		UIUtils.setTextToUI(view.findViewById(R.id.commitButton), getText(R.string.label_edit));
+		setTextToUI(R.id.commitButton, R.string.label_edit);
 
 		// get intent to get data
 		Intent intent = getIntent();
@@ -72,8 +69,8 @@ public class EditExerciseActivity extends AddExerciseActivity {
 
 	private void updateView(View view) {
 		// populate widgets
-		UIUtils.setTextToUI(view.findViewById(R.id.exerciseName), exercise.getName());
-		UIUtils.setTextToUI(view.findViewById(R.id.exerciseDescription), exercise.getDescription());
+		setTextToUI(R.id.exerciseName, exercise.getName());
+		setTextToUI(R.id.exerciseDescription, exercise.getDescription());
 	}
 
 	// Inner classes -------------------------------------------------

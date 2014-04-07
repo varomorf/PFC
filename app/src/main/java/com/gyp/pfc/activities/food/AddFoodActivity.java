@@ -5,14 +5,12 @@ import org.apache.commons.lang.StringUtils;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gyp.pfc.R;
-import com.gyp.pfc.UIUtils;
-import com.gyp.pfc.data.db.DatabaseHelper;
+import com.gyp.pfc.activities.BaseActivity;
 import com.gyp.pfc.data.domain.Food;
-import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 
 /**
  * <p>
@@ -23,7 +21,7 @@ import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
  * @author Alvaro
  * 
  */
-public class AddFoodActivity extends OrmLiteBaseActivity<DatabaseHelper> {
+public class AddFoodActivity extends BaseActivity {
 
 	// Constants -----------------------------------------------------
 
@@ -59,8 +57,9 @@ public class AddFoodActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 			// close activity
 			finish();
 		} catch (MandatoryFieldNotFilledException e) {
-			e.getField().requestFocus();
-			e.getField().setError(e.getErrorMessage());
+			TextView field = (TextView) findViewById(e.getFieldId());
+			field.requestFocus();
+			field.setError(e.getErrorMessage());
 			Log.v(AddFoodActivity.class.getName(), "Mandatory field not set", e);
 		}
 	}
@@ -85,11 +84,11 @@ public class AddFoodActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 		food.setCarbs(getEditTextViewAsserting(R.id.carbsText, R.string.carbsError));
 		food.setFats(getEditTextViewAsserting(R.id.fatsText, R.string.fatsError));
 		// get the rest of the data
-		food.setBrandName(UIUtils.getTextFromUI(findViewById(R.id.foodBrandText)));
-		food.setSugar(UIUtils.getTextFromUI(findViewById(R.id.sugarsText)));
-		food.setFiber(UIUtils.getTextFromUI(findViewById(R.id.fiberText)));
-		food.setSaturatedFats(UIUtils.getTextFromUI(findViewById(R.id.saturatedFatsText)));
-		food.setSodium(UIUtils.getTextFromUI(findViewById(R.id.sodiumText)));
+		food.setBrandName(getTextFromUI(R.id.foodBrandText));
+		food.setSugar(getTextFromUI(R.id.sugarsText));
+		food.setFiber(getTextFromUI(R.id.fiberText));
+		food.setSaturatedFats(getTextFromUI(R.id.saturatedFatsText));
+		food.setSodium(getTextFromUI(R.id.sodiumText));
 		return food;
 	}
 
@@ -107,10 +106,9 @@ public class AddFoodActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 	 *             if the name is not filled
 	 */
 	private String getEditTextViewAsserting(int viewId, int errorId) {
-		EditText et = (EditText) findViewById(viewId);
-		String value = et.getText().toString();
+		String value = getTextFromUI(viewId);
 		if (StringUtils.isBlank(value)) {
-			throw new MandatoryFieldNotFilledException(et, getString(errorId));
+			throw new MandatoryFieldNotFilledException(viewId, getString(errorId));
 		}
 		return value;
 	}

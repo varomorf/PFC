@@ -10,10 +10,8 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.gyp.pfc.R;
-import com.gyp.pfc.UIUtils;
-import com.gyp.pfc.data.db.DatabaseHelper;
+import com.gyp.pfc.activities.BaseActivity;
 import com.gyp.pfc.data.domain.Food;
-import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 
 /**
  * Activity for showing the details of a {@link Food} entity
@@ -21,7 +19,7 @@ import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
  * @author Alvaro
  * 
  */
-public class ShowFoodDetailsActivity extends OrmLiteBaseActivity<DatabaseHelper> {
+public class ShowFoodDetailsActivity extends BaseActivity {
 
 	// Constants -----------------------------------------------------
 
@@ -84,8 +82,8 @@ public class ShowFoodDetailsActivity extends OrmLiteBaseActivity<DatabaseHelper>
 	 */
 	private void updateUI() {
 		// obligatory fields
-		UIUtils.setTextToUI(findViewById(R.id.foodDetailsName), food.getName());
-		UIUtils.setTextToUI(findViewById(R.id.caloriesText), food.getCalories().toString());
+		setTextToUI(R.id.foodDetailsName, food.getName());
+		setTextToUI(R.id.caloriesText, food.getCalories().toString());
 		setGramsField(R.id.proteinText, food.getProtein());
 		setGramsField(R.id.carbsText, food.getCarbs());
 		setGramsField(R.id.fatsText, food.getFats());
@@ -137,7 +135,7 @@ public class ShowFoodDetailsActivity extends OrmLiteBaseActivity<DatabaseHelper>
 	 */
 	private void setGramsField(int fieldId, Double value) {
 		Double finalValue = value != null ? value : new Double(0);
-		UIUtils.setTextToUI(findViewById(fieldId), finalValue.toString() + "g");
+		setTextToUI(fieldId, finalValue.toString() + "g");
 	}
 
 	/**

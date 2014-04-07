@@ -15,15 +15,13 @@ import android.widget.Toast;
 
 import com.gyp.pfc.R;
 import com.gyp.pfc.TimeUtils;
-import com.gyp.pfc.UIUtils;
+import com.gyp.pfc.activities.BaseActivity;
 import com.gyp.pfc.adapters.TrainingExerciseAdapter;
-import com.gyp.pfc.data.db.DatabaseHelper;
 import com.gyp.pfc.data.domain.Exercise;
 import com.gyp.pfc.data.domain.Training;
 import com.gyp.pfc.data.domain.TrainingExercise;
 import com.gyp.pfc.dialogs.AddExerciseDialog;
 import com.gyp.pfc.dialogs.AddExerciseDialog.AddExerciseDialogListener;
-import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 import com.mobeta.android.dslv.DragSortController;
 import com.mobeta.android.dslv.DragSortListView;
 
@@ -33,7 +31,7 @@ import com.mobeta.android.dslv.DragSortListView;
  * @author Alvaro
  * 
  */
-public class AddTrainingActivity extends OrmLiteBaseActivity<DatabaseHelper> implements AddExerciseDialogListener {
+public class AddTrainingActivity extends BaseActivity implements AddExerciseDialogListener {
 
 	// Constants -----------------------------------------------------
 
@@ -286,7 +284,7 @@ public class AddTrainingActivity extends OrmLiteBaseActivity<DatabaseHelper> imp
 			training = new Training();
 		}
 		// get name from view
-		String name = UIUtils.getTextFromUI(findViewById(R.id.trainingName));
+		String name = getTextFromUI(R.id.trainingName);
 		// set training name
 		training.setName(name);
 		return training;
@@ -320,12 +318,12 @@ public class AddTrainingActivity extends OrmLiteBaseActivity<DatabaseHelper> imp
 		Spinner spinner = (Spinner) dialog.findViewById(R.id.exerciseSpinner);
 		te.setExercise((Exercise) spinner.getSelectedItem());
 		// set repetitions
-		String repetitions = UIUtils.getTextFromUI(dialog.findViewById(R.id.repetitions));
+		String repetitions = getTextFromUI(dialog.findViewById(R.id.repetitions));
 		te.setReps(Integer.parseInt(repetitions));
 		// get minutes
-		String minutes = UIUtils.getTextFromUI(dialog.findViewById(R.id.minutes));
+		String minutes = getTextFromUI(dialog.findViewById(R.id.minutes));
 		// get seconds
-		String seconds = UIUtils.getTextFromUI(dialog.findViewById(R.id.seconds));
+		String seconds = getTextFromUI(dialog.findViewById(R.id.seconds));
 		te.setSeconds(te.getSeconds() + Integer.parseInt(seconds));
 		// add seconds to trainingExercise
 		te.setSeconds(TimeUtils.secondsFromMinutesAndSeconds(minutes, seconds));
@@ -342,7 +340,7 @@ public class AddTrainingActivity extends OrmLiteBaseActivity<DatabaseHelper> imp
 
 	private void updateView() {
 		// set the name form field
-		UIUtils.setTextToUI(findViewById(R.id.trainingName), training.getName());
+		setTextToUI(R.id.trainingName, training.getName());
 		// update the list of exercises
 		updateUIList();
 	}
