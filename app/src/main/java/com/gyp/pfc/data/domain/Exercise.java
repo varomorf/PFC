@@ -22,7 +22,7 @@ public class Exercise implements Serializable {
 
 	@DatabaseField(generatedId = true)
 	private int id;
-	@DatabaseField
+	@DatabaseField(unique = true, canBeNull = false)
 	private String name;
 	@DatabaseField
 	private String description;
