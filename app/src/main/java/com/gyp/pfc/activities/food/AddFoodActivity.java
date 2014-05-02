@@ -85,7 +85,7 @@ public class AddFoodActivity extends BaseActivity {
 		food.setFats(getEditTextViewAsserting(R.id.fatsText, R.string.fatsError));
 		// get the rest of the data
 		food.setBrandName(getTextFromUI(R.id.foodBrandText));
-		food.setSugar(getTextFromUI(R.id.sugarsText));
+		food.setSugar(getTextFromUI(R.id.sugarText));
 		food.setFiber(getTextFromUI(R.id.fiberText));
 		food.setSaturatedFats(getTextFromUI(R.id.saturatedFatsText));
 		food.setSodium(getTextFromUI(R.id.sodiumText));

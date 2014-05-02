@@ -158,7 +158,7 @@ public class AddFoodActivityTest extends BaseFoodTest {
 	}
 
 	private void enterFoodSugar(double foodSugar) {
-		enterText(R.id.sugarsText, foodSugar);
+		enterText(R.id.sugarText, foodSugar);
 	}
 
 	private void enterFoodFiber(double foodFiber) {
