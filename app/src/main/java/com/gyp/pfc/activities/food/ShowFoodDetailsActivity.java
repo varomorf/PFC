@@ -91,7 +91,7 @@ public class ShowFoodDetailsActivity extends BaseActivity {
 		setGramsField(R.id.sugarText, food.getSugar());
 		setGramsField(R.id.fiberText, food.getFiber());
 		setGramsField(R.id.saturatedFatsText, food.getSaturatedFats());
-		setGramsField(R.id.sodiumText, food.getSodium());
+		setMilligramsField(R.id.sodiumText, food.getSodium());
 	}
 
 	/**
@@ -136,6 +136,21 @@ public class ShowFoodDetailsActivity extends BaseActivity {
 	private void setGramsField(int fieldId, Double value) {
 		Double finalValue = value != null ? value : new Double(0);
 		setTextToUI(fieldId, finalValue.toString() + "g");
+	}
+
+	/**
+	 * Sets the GUI TextView with the passed id, the specified value
+	 * representing milligrams. If the passed value is <code>null</code>,
+	 * <b>0</b> will be used.
+	 * 
+	 * @param fieldId
+	 *            the id of the TextView which text will be set
+	 * @param value
+	 *            the value to be set to the TextView
+	 */
+	private void setMilligramsField(int fieldId, Double value) {
+		Double finalValue = value != null ? new Double(value * 1000) : new Double(0);
+		setTextToUI(fieldId, finalValue.toString() + "mg");
 	}
 
 	/**

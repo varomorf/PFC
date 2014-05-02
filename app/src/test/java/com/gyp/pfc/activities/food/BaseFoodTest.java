@@ -22,14 +22,14 @@ public abstract class BaseFoodTest extends BaseActivityTest {
 
 	protected static final String FOOD_NAME = "Food name";
 	protected static final String FOOD_BRAND = "Food brand";
-	protected static final double FOOD_CALORIES = 300;
-	protected static final double FOOD_CARBS = 50;
-	protected static final double FOOD_SUGAR = 20;
-	protected static final double FOOD_FIBER = 10;
-	protected static final double FOOD_FATS = 10;
-	protected static final double FOOD_SATURATED_FATS = 2;
-	protected static final double FOOD_PROTEINS = 1;
-	protected static final double FOOD_SODIUM = 100;
+	protected static final Double FOOD_CALORIES = 300d;
+	protected static final Double FOOD_CARBS = 50d;
+	protected static final Double FOOD_SUGAR = 20d;
+	protected static final Double FOOD_FIBER = 10d;
+	protected static final Double FOOD_FATS = 10d;
+	protected static final Double FOOD_SATURATED_FATS = 2d;
+	protected static final Double FOOD_PROTEINS = 1d;
+	protected static final Double FOOD_SODIUM = 0.1d;
 
 	// Attributes ----------------------------------------------------
 
