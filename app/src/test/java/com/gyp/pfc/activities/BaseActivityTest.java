@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.gyp.pfc.R;
 import com.gyp.pfc.UIUtils;
 import com.gyp.pfc.data.db.DatabaseHelper;
+import com.gyp.pfc.matchers.ContainsMatcher;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.xtremelabs.robolectric.shadows.ShadowActivity;
 import com.xtremelabs.robolectric.shadows.ShadowAlertDialog;
@@ -123,6 +124,12 @@ public abstract class BaseActivityTest {
 		assertThat(text, is(expected));
 	}
 
+	protected void assertViewContaining(int id, String expected) {
+		View view = activity.findViewById(id);
+		String text = UIUtils.getTextFromUI(view);
+		assertThat(text, contains(expected));
+	}
+
 	protected void assertViewTextIsNot(int id, String expected) {
 		View view = activity.findViewById(id);
 		String text = UIUtils.getTextFromUI(view);
@@ -146,6 +153,13 @@ public abstract class BaseActivityTest {
 		edit.setText(Double.toString(text));
 	}
 
+	/**
+	 * Is the value contained into another value, as tested by the
+	 * {@link java.lang.String#contains} invokedMethod?
+	 */
+	public static <T> org.hamcrest.Matcher<T> contains(T operand) {
+		return ContainsMatcher.contains(operand);
+	}
 	// Private -------------------------------------------------------
 
 	// Inner classes -------------------------------------------------

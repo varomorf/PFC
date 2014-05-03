@@ -70,7 +70,8 @@ public class ShowFoodDetailsActivityTest extends BaseFoodTest {
 		// activity is created
 		createActivity();
 		// THEN
-		assertViewText(R.id.foodDetailsName, BaseFoodTest.FOOD_NAME);
+		assertViewContaining(R.id.foodDetailsName, BaseFoodTest.FOOD_NAME);
+		assertViewContaining(R.id.foodDetailsName, BaseFoodTest.FOOD_BRAND);
 		assertViewText(R.id.caloriesText, BaseFoodTest.FOOD_CALORIES.toString());
 		assertViewText(R.id.proteinText, BaseFoodTest.FOOD_PROTEINS.toString());
 		assertViewText(R.id.carbsText, BaseFoodTest.FOOD_CARBS.toString());

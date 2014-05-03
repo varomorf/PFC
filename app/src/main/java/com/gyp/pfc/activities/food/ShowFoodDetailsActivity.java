@@ -1,5 +1,7 @@
 package com.gyp.pfc.activities.food;
 
+import org.apache.commons.lang.StringUtils;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -82,7 +84,7 @@ public class ShowFoodDetailsActivity extends BaseActivity {
 	 */
 	private void updateUI() {
 		// obligatory fields
-		setTextToUI(R.id.foodDetailsName, food.getName());
+		setTextToUI(R.id.foodDetailsName, getCompleteFoodName());
 		setTextToUI(R.id.caloriesText, food.getCalories().toString());
 		setGramsField(R.id.proteinText, food.getProtein());
 		setGramsField(R.id.carbsText, food.getCarbs());
@@ -165,6 +167,18 @@ public class ShowFoodDetailsActivity extends BaseActivity {
 		// refresh UI
 		updateUI();
 		Toast.makeText(getApplicationContext(), getString(R.string.editFoodMessage), Toast.LENGTH_SHORT).show();
+	}
+	
+	/**
+	 * Returns the complete food name including the brand name if present
+	 * @return the complete food name including the brand name if present
+	 */
+	private String getCompleteFoodName(){
+		String completeName = food.getName();
+		if(StringUtils.isNotBlank(food.getBrandName())){
+			completeName += " - " + food.getBrandName();
+		}
+		return completeName;
 	}
 
 	// Inner classes -------------------------------------------------
