@@ -72,13 +72,13 @@ public class ShowFoodDetailsActivityTest extends BaseFoodTest {
 		// THEN
 		assertViewText(R.id.foodDetailsName, BaseFoodTest.FOOD_NAME);
 		assertViewText(R.id.caloriesText, BaseFoodTest.FOOD_CALORIES.toString());
-		assertViewText(R.id.proteinText, BaseFoodTest.FOOD_PROTEINS.toString() + "g");
-		assertViewText(R.id.carbsText, BaseFoodTest.FOOD_CARBS.toString() + "g");
-		assertViewText(R.id.sugarText, BaseFoodTest.FOOD_SUGAR.toString() + "g");
-		assertViewText(R.id.fatsText, BaseFoodTest.FOOD_FATS.toString() + "g");
-		assertViewText(R.id.saturatedFatsText, BaseFoodTest.FOOD_SATURATED_FATS.toString() + "g");
-		assertViewText(R.id.fiberText, BaseFoodTest.FOOD_FIBER.toString() + "g");
-		assertViewText(R.id.sodiumText, new Double(BaseFoodTest.FOOD_SODIUM * 1000).toString() + "mg");
+		assertViewText(R.id.proteinText, BaseFoodTest.FOOD_PROTEINS.toString());
+		assertViewText(R.id.carbsText, BaseFoodTest.FOOD_CARBS.toString());
+		assertViewText(R.id.sugarText, BaseFoodTest.FOOD_SUGAR.toString());
+		assertViewText(R.id.fatsText, BaseFoodTest.FOOD_FATS.toString());
+		assertViewText(R.id.saturatedFatsText, BaseFoodTest.FOOD_SATURATED_FATS.toString());
+		assertViewText(R.id.fiberText, BaseFoodTest.FOOD_FIBER.toString());
+		assertViewText(R.id.sodiumText, new Double(BaseFoodTest.FOOD_SODIUM * 1000).toString());
 	}
 
 	// Package protected ---------------------------------------------

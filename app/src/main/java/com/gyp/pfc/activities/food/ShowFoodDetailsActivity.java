@@ -135,7 +135,7 @@ public class ShowFoodDetailsActivity extends BaseActivity {
 	 */
 	private void setGramsField(int fieldId, Double value) {
 		Double finalValue = value != null ? value : new Double(0);
-		setTextToUI(fieldId, finalValue.toString() + "g");
+		setTextToUI(fieldId, finalValue.toString());
 	}
 
 	/**
@@ -150,7 +150,7 @@ public class ShowFoodDetailsActivity extends BaseActivity {
 	 */
 	private void setMilligramsField(int fieldId, Double value) {
 		Double finalValue = value != null ? new Double(value * 1000) : new Double(0);
-		setTextToUI(fieldId, finalValue.toString() + "mg");
+		setTextToUI(fieldId, finalValue.toString());
 	}
 
 	/**

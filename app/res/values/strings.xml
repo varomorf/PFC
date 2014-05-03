@@ -78,5 +78,8 @@
     <string name="repetition">Repetición</string>
     <string name="repetitions">Repeticiones</string>
     <string name="assureExit">¿Realmente desea salir?</string>
+    <string name="kcalUnit">Kcal</string>
+    <string name="gramsUnit">g</string>
+    <string name="milligramsUnit">mg</string>
 
 </resources>

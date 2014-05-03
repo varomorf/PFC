@@ -9,7 +9,7 @@
         android:id="@+id/foodDetailsName"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:gravity="center"
         android:background="@color/grey"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textStyle="bold" />
@@ -29,7 +29,8 @@
                 android:id="@+id/caloriesLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="3"
+                android:paddingLeft="5dp"
                 android:background="@color/grey"
                 android:text="@string/label_calories"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -39,10 +40,23 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
+                android:gravity="right"
                 android:paddingBottom="2dp"
                 android:paddingLeft="5dp"
                 android:paddingTop="2dp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/caloriesUnit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingBottom="2dp"
+                android:paddingLeft="5dp"
+                android:paddingTop="2dp"
+                android:text="@string/kcalUnit"
+                android:textStyle="bold" />
+
         </TableRow>
         
         <TableRow
@@ -54,7 +68,8 @@
                 android:id="@+id/proteinLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="3"
+                android:paddingLeft="5dp"
                 android:background="@color/grey"
                 android:text="@string/label_proteins"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -64,10 +79,23 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
+                android:gravity="right"
                 android:paddingBottom="2dp"
                 android:paddingLeft="5dp"
                 android:paddingTop="2dp"
                 android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/proteinUnits"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingBottom="2dp"
+                android:paddingLeft="5dp"
+                android:paddingTop="2dp"
+                android:text="@string/gramsUnit"
+                android:textStyle="bold" />
+
         </TableRow>
 
         <TableRow
@@ -79,7 +107,8 @@
                 android:id="@+id/carbsLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="3"
+                android:paddingLeft="5dp"
                 android:background="@color/grey"
                 android:text="@string/label_carbs"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -89,10 +118,23 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
+                android:gravity="right"
                 android:paddingBottom="2dp"
                 android:paddingLeft="5dp"
                 android:paddingTop="2dp"
                 android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/carbsUnit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingBottom="2dp"
+                android:paddingLeft="5dp"
+                android:paddingTop="2dp"
+                android:text="@string/gramsUnit"
+                android:textStyle="bold" />
+
         </TableRow>
 
         <TableRow
@@ -104,9 +146,9 @@
                 android:id="@+id/sugarLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="3"
                 android:background="@color/grey"
-                android:paddingLeft="15dp"
+                android:paddingLeft="20dp"
                 android:text="@string/label_sugars"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -115,10 +157,23 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
+                android:gravity="right"
                 android:paddingBottom="2dp"
                 android:paddingLeft="5dp"
                 android:paddingTop="2dp"
                 android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/sugarUnits"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingBottom="2dp"
+                android:paddingLeft="5dp"
+                android:paddingTop="2dp"
+                android:text="@string/gramsUnit"
+                android:textStyle="bold" />
+
         </TableRow>
 
         <TableRow
@@ -130,7 +185,8 @@
                 android:id="@+id/fatsLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="3"
+                android:paddingLeft="5dp"
                 android:background="@color/grey"
                 android:text="@string/label_fats"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -140,10 +196,23 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
+                android:gravity="right"
                 android:paddingBottom="2dp"
                 android:paddingLeft="5dp"
                 android:paddingTop="2dp"
                 android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/fatsUnits"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingBottom="2dp"
+                android:paddingLeft="5dp"
+                android:paddingTop="2dp"
+                android:text="@string/gramsUnit"
+                android:textStyle="bold" />
+
         </TableRow>
 
         <TableRow
@@ -155,9 +224,9 @@
                 android:id="@+id/saturatedFatsLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="3"
                 android:background="@color/grey"
-                android:paddingLeft="15dp"
+                android:paddingLeft="20dp"
                 android:text="@string/label_saturatedFats"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -166,10 +235,23 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
+                android:gravity="right"
                 android:paddingBottom="2dp"
                 android:paddingLeft="5dp"
                 android:paddingTop="2dp"
                 android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/saturatedFatsUnits"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingBottom="2dp"
+                android:paddingLeft="5dp"
+                android:paddingTop="2dp"
+                android:text="@string/gramsUnit"
+                android:textStyle="bold" />
+
         </TableRow>
 
         <TableRow
@@ -181,7 +263,8 @@
                 android:id="@+id/fiberLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="3"
+                android:paddingLeft="5dp"
                 android:background="@color/grey"
                 android:text="@string/label_fiber"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -191,10 +274,23 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
+                android:gravity="right"
                 android:paddingBottom="2dp"
                 android:paddingLeft="5dp"
                 android:paddingTop="2dp"
                 android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/fiberUnits"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingBottom="2dp"
+                android:paddingLeft="5dp"
+                android:paddingTop="2dp"
+                android:text="@string/gramsUnit"
+                android:textStyle="bold" />
+
         </TableRow>
 
         <TableRow
@@ -206,7 +302,8 @@
                 android:id="@+id/sodiumLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="3"
+                android:paddingLeft="5dp"
                 android:background="@color/grey"
                 android:text="@string/label_sodium"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -216,10 +313,23 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
+                android:gravity="right"
                 android:paddingBottom="2dp"
                 android:paddingLeft="5dp"
                 android:paddingTop="2dp"
                 android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/sodiumUnits"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingBottom="2dp"
+                android:paddingLeft="5dp"
+                android:paddingTop="2dp"
+                android:text="@string/milligramsUnit"
+                android:textStyle="bold" />
+
         </TableRow>
 
     </TableLayout>
