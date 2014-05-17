@@ -3,6 +3,8 @@ package com.gyp.pfc.activities.food;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -121,16 +123,16 @@ public class FoodListActivity extends OrmLiteBaseListActivity<DatabaseHelper> {
 		return getHelper().getFoodDao().queryForAll();
 	}
 
+	/**
+	 * Deletes the selected food via a confirmation dialog
+	 * 
+	 * @param position
+	 *            the position in the list of the selected food
+	 */
 	private void deleteFood(int position) {
-		// get selected food from adapter
+		// get selected food from adapter and call helper with positive action
 		Food selectedFood = (Food) getListAdapter().getItem(position);
-		// delete food on DB
-		getHelper().getFoodDao().delete(selectedFood);
-		// refresh the adapter to update UI
-		refreshAdapter();
-		// show deletion message
-		Toast.makeText(getApplicationContext(),
-				selectedFood.getName() + " " + getString(R.string.deleteFoodMessage), Toast.LENGTH_SHORT).show();
+		FoodActivityHelper.callFor(this).deleteWithDialog(deletionAction(selectedFood));
 	}
 
 	private void editFood(int position) {
@@ -155,6 +157,27 @@ public class FoodListActivity extends OrmLiteBaseListActivity<DatabaseHelper> {
 		Toast.makeText(getApplicationContext(), getString(R.string.editFoodMessage), Toast.LENGTH_SHORT).show();
 	}
 
+	/**
+	 * Creates an {@link OnClickListener} that on click will delete the passed
+	 * food from DB, refresh the adapter and show a toast to the user
+	 * 
+	 * @param food
+	 *            the food to be deleted
+	 * @return the {@link OnClickListener}
+	 */
+	private OnClickListener deletionAction(final Food food) {
+		return new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int id) {
+				// delete food on DB
+				getHelper().getFoodDao().delete(food);
+				// refresh the adapter to update UI
+				refreshAdapter();
+				// show deletion message
+				Toast.makeText(getApplicationContext(),
+						food.getName() + " " + getString(R.string.deleteFoodMessage), Toast.LENGTH_SHORT).show();
+			}
+		};
+	}
 	// Inner classes -------------------------------------------------
 
 }

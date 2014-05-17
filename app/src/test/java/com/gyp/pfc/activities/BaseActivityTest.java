@@ -12,6 +12,7 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -68,7 +69,15 @@ public abstract class BaseActivityTest {
 	}
 
 	protected void assertToastText(int id) {
-		CharSequence text = activity.getApplicationContext().getResources().getText(id);
+		CharSequence text = getText(id);
+		assertToastText(text);
+	}
+	
+	protected CharSequence getText(int id){
+		return activity.getApplicationContext().getResources().getText(id);
+	}
+	
+	protected void assertToastText(CharSequence text) {
 		assertThat(ShadowToast.getTextOfLatestToast(), is(text));
 	}
 
@@ -141,6 +150,14 @@ public abstract class BaseActivityTest {
 		assertNotNull("There wasn't even a dialog", dialog);
 		ShadowAlertDialog shadowDialog = shadowOf(dialog);
 		assertEquals("Dialog text does not match", activity.getText(id), shadowDialog.getMessage());
+	}
+	
+	protected void clickYesOnDialog(){
+		AlertDialog dialog = ShadowAlertDialog.getLatestAlertDialog();
+		assertNotNull("There wasn't even a dialog", dialog);
+		ShadowAlertDialog shadowDialog = shadowOf(dialog);
+		Button button = shadowDialog.getButton(AlertDialog.BUTTON_POSITIVE);
+		clickOn(button);
 	}
 
 	protected void enterText(int id, String text) {

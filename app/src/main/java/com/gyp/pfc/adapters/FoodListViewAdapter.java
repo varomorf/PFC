@@ -2,6 +2,8 @@ package com.gyp.pfc.adapters;
 
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,11 +24,13 @@ public class FoodListViewAdapter extends ArrayAdapter<Food> {
 	// Constants -----------------------------------------------------
 
 	// Attributes ----------------------------------------------------
+	
 	private LayoutInflater inflater = null;
 
 	// Static --------------------------------------------------------
 
 	// Constructors --------------------------------------------------
+	
 	/**
 	 * Constructor
 	 * 
@@ -53,11 +57,15 @@ public class FoodListViewAdapter extends ArrayAdapter<Food> {
 			view = inflater.inflate(R.layout.food_list_item, null);
 		}
 		// get title from view
-		TextView title = (TextView) view.findViewById(R.id.title);
+		TextView foodName = (TextView) view.findViewById(R.id.foodName);
+		TextView foodBrandName = (TextView) view.findViewById(R.id.foodBrandName);
 
 		// populate the item with the data
 		Food food = getItem(position);
-		title.setText(food.getName());
+		foodName.setText(food.getName());
+		if(StringUtils.isNotBlank(food.getBrandName())){
+			foodBrandName.setText(food.getBrandName());
+		}
 
 		return view;
 	}

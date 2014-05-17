@@ -3,7 +3,6 @@ package com.gyp.pfc.activities.food;
 import org.apache.commons.lang.StringUtils;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -56,7 +55,13 @@ public class ShowFoodDetailsActivity extends BaseActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.delete:
-			deleteWithDialog();
+			FoodActivityHelper.callFor(this).deleteWithDialog(new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int id) {
+					// deletion is confirmed -> delete and close
+					getHelper().getFoodDao().delete(food);
+					finish();
+				}
+			});
 			return true;
 		case R.id.edit:
 			editFood();
@@ -106,26 +111,6 @@ public class ShowFoodDetailsActivity extends BaseActivity {
 	}
 
 	/**
-	 * Shows a dialog for confirming the shown food deletion, deleting it only
-	 * if affirmative response is given by the user
-	 */
-	private void deleteWithDialog() {
-		new AlertDialog.Builder(this).setMessage(R.string.assureFoodDeletion).setCancelable(false)
-				.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int id) {
-						// deletion is confirmed -> delete
-						getHelper().getFoodDao().delete(food);
-						finish();
-					}
-				}).setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int id) {
-						// do not delete -> close dialog
-						dialog.cancel();
-					}
-				}).create().show();
-	}
-
-	/**
 	 * Sets the GUI TextView with the passed id, the specified value
 	 * representing grams. If the passed value is <code>null</code>, <b>0</b>
 	 * will be used.
@@ -168,14 +153,15 @@ public class ShowFoodDetailsActivity extends BaseActivity {
 		updateUI();
 		Toast.makeText(getApplicationContext(), getString(R.string.editFoodMessage), Toast.LENGTH_SHORT).show();
 	}
-	
+
 	/**
 	 * Returns the complete food name including the brand name if present
+	 * 
 	 * @return the complete food name including the brand name if present
 	 */
-	private String getCompleteFoodName(){
+	private String getCompleteFoodName() {
 		String completeName = food.getName();
-		if(StringUtils.isNotBlank(food.getBrandName())){
+		if (StringUtils.isNotBlank(food.getBrandName())) {
 			completeName += " - " + food.getBrandName();
 		}
 		return completeName;
