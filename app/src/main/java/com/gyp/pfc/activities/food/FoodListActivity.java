@@ -1,12 +1,16 @@
 package com.gyp.pfc.activities.food;
 
+import java.sql.SQLException;
 import java.util.List;
+
+import org.apache.commons.lang.StringUtils;
 
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
@@ -15,6 +19,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ListView;
+import android.widget.SearchView;
+import android.widget.SearchView.OnQueryTextListener;
 import android.widget.Toast;
 
 import com.gyp.pfc.R;
@@ -22,15 +28,21 @@ import com.gyp.pfc.adapters.FoodListViewAdapter;
 import com.gyp.pfc.data.db.DatabaseHelper;
 import com.gyp.pfc.data.domain.Food;
 import com.j256.ormlite.android.apptools.OrmLiteBaseListActivity;
+import com.j256.ormlite.stmt.PreparedQuery;
+import com.j256.ormlite.stmt.QueryBuilder;
 
 /**
  * Activity for listing all food on DB
  * 
  * @author Alvaro
  */
-public class FoodListActivity extends OrmLiteBaseListActivity<DatabaseHelper> {
+public class FoodListActivity extends OrmLiteBaseListActivity<DatabaseHelper> implements OnQueryTextListener {
 
 	// Constants -----------------------------------------------------
+
+	private final static int MIN_QUERY_LENGTH = 3;
+
+	private final static String TAG = FoodListActivity.class.getName();
 
 	// Attributes ----------------------------------------------------
 
@@ -44,6 +56,8 @@ public class FoodListActivity extends OrmLiteBaseListActivity<DatabaseHelper> {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.entity_list);
+		SearchView searchView = (SearchView) findViewById(R.id.search);
+		searchView.setOnQueryTextListener(this);
 		setListAdapter(new FoodListViewAdapter(this, R.layout.food_list_item, getFoods()));
 		registerForContextMenu(getListView());
 	}
@@ -95,6 +109,32 @@ public class FoodListActivity extends OrmLiteBaseListActivity<DatabaseHelper> {
 		}
 	}
 
+	@Override
+	public boolean onQueryTextSubmit(String query) {
+		return onQueryTextChange(query);
+	}
+
+	@Override
+	public boolean onQueryTextChange(String newText) {
+		if (StringUtils.isBlank(newText)) {
+			refreshAdapter(getFoods());
+		}
+		if (newText.length() >= MIN_QUERY_LENGTH) {
+			List<Food> foods;
+			try {
+				QueryBuilder<Food, String> qb = getHelper().getFoodDao().queryBuilder();
+				qb.where().like("name", "%" + newText + "%");
+				PreparedQuery<Food> pq = qb.prepare();
+				foods = getHelper().getFoodDao().query(pq);
+			} catch (SQLException e) {
+				Log.e(TAG, "Error while finding foods with name like " + newText, e);
+				foods = getFoods();
+			}
+			refreshAdapter(foods);
+		}
+		return true;
+	}
+
 	// Package protected ---------------------------------------------
 
 	// Protected -----------------------------------------------------
@@ -142,10 +182,14 @@ public class FoodListActivity extends OrmLiteBaseListActivity<DatabaseHelper> {
 		startActivityForResult(editFoodIntent, EditFoodActivity.EDIT_FOOD);
 	}
 
-	private void refreshAdapter() {
+	private void refreshAdapter(List<Food> foods) {
 		FoodListViewAdapter adapter = (FoodListViewAdapter) getListAdapter();
-		adapter.setFoods(getFoods());
+		adapter.setFoods(foods);
 		adapter.notifyDataSetChanged();
+	}
+
+	private void refreshAdapter() {
+		refreshAdapter(getFoods());
 	}
 
 	/**

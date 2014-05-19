@@ -101,6 +101,59 @@ public class FoodListActivityTest extends BaseFoodTest {
 		assertNull(getItemFromListView(2));
 	}
 
+	@Test
+	public void shouldSearchFoodsWithANameOfAtLeast3Characters() {
+		// GIVEN
+		String expectedName = "Huevo";
+		String searchText = "hue";
+		// activity is created
+		createActivity();
+		// check previous number of items
+		assertListSize(3);
+		// WHEN
+		// search name with 3 characters
+		setSearchQuery(searchText);
+		// THEN
+		// only one item left
+		assertListSize(1);
+		// is the expected item
+		assertFoodName(getItemFromListView(0), expectedName);
+	}
+	
+	@Test
+	public void shouldNotSearchFoodsIfNameIsNotOfAtLeast3Characters() {
+		// GIVEN
+		String searchText = "h";
+		// activity is created
+		createActivity();
+		// check previous number of items
+		assertListSize(3);
+		// WHEN
+		// search name with 1 character
+		setSearchQuery(searchText);
+		// THEN
+		// still 3 items present
+		assertListSize(3);
+	}
+	
+	@Test
+	public void shouldListAllFoodsIfNameIsBlank() {
+		// GIVEN
+		String searchText = "hue";
+		// activity is created
+		createActivity();
+		// search name with 3 character
+		setSearchQuery(searchText);
+		// check previous number of items
+		assertListSize(1);
+		// WHEN
+		// search empty name
+		setSearchQuery("");
+		// THEN
+		// still 3 items present
+		assertListSize(3);
+	}
+
 	// Package protected ---------------------------------------------
 
 	// Protected -----------------------------------------------------
@@ -118,6 +171,10 @@ public class FoodListActivityTest extends BaseFoodTest {
 
 	private void assertFoodBrandName(View item, String text) {
 		assertItemText(item, R.id.foodBrandName, text);
+	}
+
+	private void setSearchQuery(String text) {
+		((FoodListActivity) realActivity).onQueryTextChange(text);
 	}
 
 	// Inner classes -------------------------------------------------

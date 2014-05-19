@@ -72,11 +72,11 @@ public abstract class BaseActivityTest {
 		CharSequence text = getText(id);
 		assertToastText(text);
 	}
-	
-	protected CharSequence getText(int id){
+
+	protected CharSequence getText(int id) {
 		return activity.getApplicationContext().getResources().getText(id);
 	}
-	
+
 	protected void assertToastText(CharSequence text) {
 		assertThat(ShadowToast.getTextOfLatestToast(), is(text));
 	}
@@ -97,6 +97,11 @@ public abstract class BaseActivityTest {
 
 	protected void assertItemTitle(View item, String text) {
 		assertItemText(item, R.id.title, text);
+	}
+
+	protected void assertListSize(int size) {
+		ListView listView = (ListView) activity.findViewById(android.R.id.list);
+		assertThat("La lista no contiene el número de items esperados", listView.getChildCount(), is(size));
 	}
 
 	protected View getItemFromListView(int index) {
@@ -151,8 +156,8 @@ public abstract class BaseActivityTest {
 		ShadowAlertDialog shadowDialog = shadowOf(dialog);
 		assertEquals("Dialog text does not match", activity.getText(id), shadowDialog.getMessage());
 	}
-	
-	protected void clickYesOnDialog(){
+
+	protected void clickYesOnDialog() {
 		AlertDialog dialog = ShadowAlertDialog.getLatestAlertDialog();
 		assertNotNull("There wasn't even a dialog", dialog);
 		ShadowAlertDialog shadowDialog = shadowOf(dialog);

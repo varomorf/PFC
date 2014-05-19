@@ -87,7 +87,7 @@
 				<version>3.6.0</version>
 				<configuration>
 					<sdk>
-						<platform>8</platform>
+						<platform>19</platform>
 					</sdk>
 					<emulator>
 						<avd>Pruebas</avd>
