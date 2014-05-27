@@ -236,6 +236,21 @@ public class FoodListActivityTest extends BaseFoodTest {
 		// THEN
 		activity.isFinishing();
 	}
+	
+	@Test
+	public void shouldRefreshListViewOnResume() {
+		// GIVEN
+		String finalName = "name";
+		createActivity();
+		// WHEN
+		// one food is edited
+		editFoodName(FOOD0, finalName);
+		// activity is resumed
+		activity.callOnResume();
+		// THEN
+		// list must show the change
+		assertFoodName(getItemFromListView(0), finalName);
+	}
 
 	// Package protected ---------------------------------------------
 
