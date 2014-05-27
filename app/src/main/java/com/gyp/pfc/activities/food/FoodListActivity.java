@@ -40,9 +40,9 @@ public class FoodListActivity extends OrmLiteBaseListActivity<DatabaseHelper> im
 
 	// Constants -----------------------------------------------------
 
-	private final static int MIN_QUERY_LENGTH = 3;
+	private static final int MIN_QUERY_LENGTH = 3;
 
-	private final static String TAG = FoodListActivity.class.getName();
+	private static final String TAG = FoodListActivity.class.getName();
 
 	// Attributes ----------------------------------------------------
 
@@ -138,6 +138,7 @@ public class FoodListActivity extends OrmLiteBaseListActivity<DatabaseHelper> im
 	// Package protected ---------------------------------------------
 
 	// Protected -----------------------------------------------------
+	
 	@Override
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		// get selected food from adapter
@@ -175,6 +176,13 @@ public class FoodListActivity extends OrmLiteBaseListActivity<DatabaseHelper> im
 		FoodActivityHelper.callFor(this).deleteWithDialog(deletionAction(selectedFood));
 	}
 
+	/**
+	 * Launches an intent for the edition of the food on the specified position
+	 * 
+	 * @param position
+	 *            the position in the list (starts on 0) of the food to be
+	 *            edited
+	 */
 	private void editFood(int position) {
 		Food selectedFood = (Food) getListAdapter().getItem(position);
 		Intent editFoodIntent = new Intent(getApplicationContext(), EditFoodActivity.class);

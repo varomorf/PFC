@@ -1,8 +1,11 @@
 package com.gyp.pfc.activities.food;
 
+import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertThat;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import org.junit.Before;
@@ -10,12 +13,14 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.view.View;
 
 import com.gyp.pfc.CustomTestRunner;
 import com.gyp.pfc.R;
 import com.gyp.pfc.data.domain.Food;
 import com.gyp.pfc.data.domain.manager.FoodManager;
+import com.j256.ormlite.stmt.UpdateBuilder;
 import com.xtremelabs.robolectric.tester.android.view.TestContextMenu;
 
 /**
@@ -119,7 +124,7 @@ public class FoodListActivityTest extends BaseFoodTest {
 		// is the expected item
 		assertFoodName(getItemFromListView(0), expectedName);
 	}
-	
+
 	@Test
 	public void shouldNotSearchFoodsIfNameIsNotOfAtLeast3Characters() {
 		// GIVEN
@@ -135,7 +140,7 @@ public class FoodListActivityTest extends BaseFoodTest {
 		// still 3 items present
 		assertListSize(3);
 	}
-	
+
 	@Test
 	public void shouldListAllFoodsIfNameIsBlank() {
 		// GIVEN
@@ -152,6 +157,50 @@ public class FoodListActivityTest extends BaseFoodTest {
 		// THEN
 		// still 3 items present
 		assertListSize(3);
+	}
+
+	@Test
+	public void shouldEditFoodViaContextMenu() {
+		// GIVEN
+		// expected food name on pos 0
+		String foodName = "Arroz";
+		// activity is created
+		createActivity();
+		// WHEN
+		// long click on first item
+		longClickOnListItem(0);
+		// click on context edit delete (second option)
+		TestContextMenu.getLastContextMenu().clickOn(1);
+		// THEN
+		// next activity is EditFoodActivity
+		Intent nextIntent = activity.getNextStartedActivity();
+		assertThat(nextIntent.getComponent().getClassName(), is(EditFoodActivity.class.getName()));
+		Food food = (Food) nextIntent.getSerializableExtra(EditFoodActivity.FOOD_TO_EDIT);
+		assertThat(food.getName(), is(foodName));
+	}
+
+	@Test
+	public void shouldRefreshAdadpterAfterEdition() {
+		// GIVEN
+		String initialName = "Arroz";
+		String finalName = "Nueva";
+		// activity is created
+		createActivity();
+		// expected food name on pos 0
+		assertFoodName(getItemFromListView(0), initialName);
+		// long click on first item
+		longClickOnListItem(0);
+		// click on context edit delete (second option)
+		TestContextMenu.getLastContextMenu().clickOn(1);
+		Intent editionItent = activity.getNextStartedActivity();
+		// edition is performed
+		editFoodName(initialName, finalName);
+		// WHEN
+		// return from edition
+		activity.receiveResult(editionItent, Activity.RESULT_OK, null);
+		// THEN
+		// edited food name on pos 0
+		assertFoodName(getItemFromListView(0), finalName);
 	}
 
 	// Package protected ---------------------------------------------
@@ -175,6 +224,17 @@ public class FoodListActivityTest extends BaseFoodTest {
 
 	private void setSearchQuery(String text) {
 		((FoodListActivity) realActivity).onQueryTextChange(text);
+	}
+
+	private void editFoodName(String previousName, String newName) {
+		UpdateBuilder<Food, String> ub = dao.updateBuilder();
+		try {
+			ub.updateColumnValue("name", newName);
+			ub.where().like("name", previousName);
+			ub.update();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	// Inner classes -------------------------------------------------
