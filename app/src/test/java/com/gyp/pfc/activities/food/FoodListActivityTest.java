@@ -22,6 +22,7 @@ import com.gyp.pfc.data.domain.Food;
 import com.gyp.pfc.data.domain.manager.FoodManager;
 import com.j256.ormlite.stmt.UpdateBuilder;
 import com.xtremelabs.robolectric.tester.android.view.TestContextMenu;
+import com.xtremelabs.robolectric.tester.android.view.TestMenu;
 
 /**
  * Test for the {@link FoodListActivity}
@@ -35,6 +36,8 @@ public class FoodListActivityTest extends BaseFoodTest {
 	// Constants -----------------------------------------------------
 
 	public static final byte DELETE_MENU_POS = 0;
+	
+	public static final byte MAIN_ACTIVITY_POS = 0;
 
 	public static final String FOOD0 = "Arroz";
 	public static final String FOOD1 = "Huevo";
@@ -218,6 +221,20 @@ public class FoodListActivityTest extends BaseFoodTest {
 		// THEN
 		// edited food name on pos 0
 		assertFoodName(getItemFromListView(0), finalName);
+	}
+
+	@Test
+	public void shouldHaveMenuForReturningToMainActivity() {
+		// GIVEN
+		// activity is created
+		createActivity();
+		// WHEN
+		activity.pressMenuKey();
+		// main activity item is clicked
+		TestMenu menu = TestMenu.getLastMenu();
+		menu.clickOn(MAIN_ACTIVITY_POS);
+		// THEN
+		activity.isFinishing();
 	}
 
 	// Package protected ---------------------------------------------
