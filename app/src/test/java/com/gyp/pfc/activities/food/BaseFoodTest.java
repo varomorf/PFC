@@ -3,12 +3,15 @@
  */
 package com.gyp.pfc.activities.food;
 
+import java.sql.SQLException;
+
 import android.content.Intent;
 
 import com.gyp.pfc.activities.BaseActivityTest;
 import com.gyp.pfc.data.db.DatabaseHelper;
 import com.gyp.pfc.data.domain.Food;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
+import com.j256.ormlite.stmt.UpdateBuilder;
 
 /**
  * Base class for Food related activities' testing
@@ -54,6 +57,7 @@ public abstract class BaseFoodTest extends BaseActivityTest {
 	protected Food createFood() {
 		// prepare new training
 		Food food = createFoodWithOnlyObligatoryFields();
+		food.setId(1);
 		food.setBrandName(FOOD_BRAND);
 		food.setSugar(FOOD_SUGAR);
 		food.setFiber(FOOD_FIBER);
@@ -73,11 +77,27 @@ public abstract class BaseFoodTest extends BaseActivityTest {
 		dao.create(food);
 		return food;
 	}
-
-	protected void intentPassedWithFood(Food food) {
+	
+	protected Intent intentWithFood(Food food){
 		Intent intent = new Intent();
 		intent.putExtra(EditFoodActivity.SELECTED_FOOD, food);
+		return intent;
+	}
+
+	protected void intentPassedWithFood(Food food) {
+		Intent intent = intentWithFood(food);
 		activity.setIntent(intent);
+	}
+	
+	protected void editFoodName(String previousName, String newName) {
+		UpdateBuilder<Food, String> ub = dao.updateBuilder();
+		try {
+			ub.updateColumnValue("name", newName);
+			ub.where().like("name", previousName);
+			ub.update();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	// Private -------------------------------------------------------

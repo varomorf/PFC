@@ -5,7 +5,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 
-import java.sql.SQLException;
 import java.util.List;
 
 import org.junit.Before;
@@ -20,7 +19,6 @@ import com.gyp.pfc.CustomTestRunner;
 import com.gyp.pfc.R;
 import com.gyp.pfc.data.domain.Food;
 import com.gyp.pfc.data.domain.manager.FoodManager;
-import com.j256.ormlite.stmt.UpdateBuilder;
 import com.xtremelabs.robolectric.tester.android.view.TestContextMenu;
 import com.xtremelabs.robolectric.tester.android.view.TestMenu;
 
@@ -36,7 +34,7 @@ public class FoodListActivityTest extends BaseFoodTest {
 	// Constants -----------------------------------------------------
 
 	public static final byte DELETE_MENU_POS = 0;
-	
+
 	public static final byte MAIN_ACTIVITY_POS = 0;
 
 	public static final String FOOD0 = "Arroz";
@@ -236,7 +234,7 @@ public class FoodListActivityTest extends BaseFoodTest {
 		// THEN
 		activity.isFinishing();
 	}
-	
+
 	@Test
 	public void shouldRefreshListViewOnResume() {
 		// GIVEN
@@ -273,17 +271,6 @@ public class FoodListActivityTest extends BaseFoodTest {
 
 	private void setSearchQuery(String text) {
 		((FoodListActivity) realActivity).onQueryTextChange(text);
-	}
-
-	private void editFoodName(String previousName, String newName) {
-		UpdateBuilder<Food, String> ub = dao.updateBuilder();
-		try {
-			ub.updateColumnValue("name", newName);
-			ub.where().like("name", previousName);
-			ub.update();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
 	}
 
 	// Inner classes -------------------------------------------------

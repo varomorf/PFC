@@ -272,6 +272,19 @@ public class Food implements Serializable {
 		return ret;
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if(obj instanceof Food){
+			return obj.hashCode() == hashCode();
+		}
+		return false;
+	}
+
+	@Override
+	public int hashCode() {
+		return id;
+	}
+
 	// Package protected ---------------------------------------------
 
 	// Protected -----------------------------------------------------

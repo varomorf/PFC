@@ -71,7 +71,7 @@ public class ShowFoodDetailsActivity extends BaseActivity {
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if (requestCode == EditFoodActivity.EDIT_FOOD && resultCode == Activity.RESULT_OK) {
+		if (data.getExtras().get(EditFoodActivity.SELECTED_FOOD) != null) {
 			onFoodEdited(data);
 		}
 	}
@@ -115,8 +115,7 @@ public class ShowFoodDetailsActivity extends BaseActivity {
 	 *            the value to be set to the TextView
 	 */
 	private void setGramsField(int fieldId, Double value) {
-		Double finalValue = value != null ? value : new Double(0);
-		setTextToUI(fieldId, finalValue.toString());
+		setTextToUI(fieldId, value.toString());
 	}
 
 	/**
@@ -130,7 +129,7 @@ public class ShowFoodDetailsActivity extends BaseActivity {
 	 *            the value to be set to the TextView
 	 */
 	private void setMilligramsField(int fieldId, Double value) {
-		Double finalValue = value != null ? new Double(value * 1000) : new Double(0);
+		Double finalValue = new Double(value * 1000);
 		setTextToUI(fieldId, finalValue.toString());
 	}
 
@@ -160,7 +159,7 @@ public class ShowFoodDetailsActivity extends BaseActivity {
 		}
 		return completeName;
 	}
-	
+
 	/**
 	 * Delete the shown food via a confirmation dialog
 	 */
