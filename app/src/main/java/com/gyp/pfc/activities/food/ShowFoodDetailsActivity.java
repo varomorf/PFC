@@ -55,13 +55,7 @@ public class ShowFoodDetailsActivity extends BaseActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.delete:
-			FoodActivityHelper.callFor(this).deleteWithDialog(new DialogInterface.OnClickListener() {
-				public void onClick(DialogInterface dialog, int id) {
-					// deletion is confirmed -> delete and close
-					getHelper().getFoodDao().delete(food);
-					finish();
-				}
-			});
+			deleteFood();
 			return true;
 		case R.id.edit:
 			editFood();
@@ -165,6 +159,19 @@ public class ShowFoodDetailsActivity extends BaseActivity {
 			completeName += " - " + food.getBrandName();
 		}
 		return completeName;
+	}
+	
+	/**
+	 * Delete the shown food via a confirmation dialog
+	 */
+	private void deleteFood() {
+		FoodActivityHelper.callFor(this).deleteWithDialog(new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int id) {
+				// deletion is confirmed -> delete and close
+				getHelper().getFoodDao().delete(food);
+				finish();
+			}
+		});
 	}
 
 	// Inner classes -------------------------------------------------
