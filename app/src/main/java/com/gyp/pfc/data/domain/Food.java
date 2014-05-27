@@ -32,21 +32,21 @@ public class Food implements Serializable {
 	@DatabaseField(columnName = "brandname")
 	private String brandName;
 	@DatabaseField(canBeNull = false)
-	private Double calories;
+	private Double calories = 0d;
 	@DatabaseField(canBeNull = false)
-	private Double protein;
+	private Double protein = 0d;
 	@DatabaseField(canBeNull = false)
-	private Double carbs;
+	private Double carbs = 0d;
 	@DatabaseField
-	private Double sugar;
+	private Double sugar = 0d;
 	@DatabaseField
-	private Double fiber;
+	private Double fiber = 0d;
 	@DatabaseField(canBeNull = false)
-	private Double fats;
+	private Double fats = 0d;
 	@DatabaseField(columnName = "saturatedfats")
-	private Double saturatedFats;
+	private Double saturatedFats = 0d;
 	@DatabaseField
-	private Double sodium;
+	private Double sodium = 0d;
 
 	// Static --------------------------------------------------------
 
