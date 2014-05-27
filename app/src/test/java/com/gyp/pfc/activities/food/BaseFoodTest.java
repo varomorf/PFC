@@ -76,7 +76,7 @@ public abstract class BaseFoodTest extends BaseActivityTest {
 
 	protected void intentPassedWithFood(Food food) {
 		Intent intent = new Intent();
-		intent.putExtra(EditFoodActivity.FOOD_TO_EDIT, food);
+		intent.putExtra(EditFoodActivity.SELECTED_FOOD, food);
 		activity.setIntent(intent);
 	}
 

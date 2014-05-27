@@ -36,6 +36,11 @@ public class FoodListActivityTest extends BaseFoodTest {
 
 	public static final byte DELETE_MENU_POS = 0;
 
+	public static final String FOOD0 = "Arroz";
+	public static final String FOOD1 = "Huevo";
+	public static final String FOOD2 = "Pan blanco";
+	public static final String BRAND2 = "Mercadona";
+
 	// Attributes ----------------------------------------------------
 
 	// Static --------------------------------------------------------
@@ -53,10 +58,9 @@ public class FoodListActivityTest extends BaseFoodTest {
 		List<Food> foods = dao.queryForAll();
 		dao.delete(foods);
 		FoodManager.getInstance().setFoodDao(dao);
-		FoodManager.getInstance().createFood("Arroz", "", 364, 6.67, 81.60, 0, 1.4, 0.9, 0.19, 0.0039);
-		FoodManager.getInstance().createFood("Huevo", "", 162, 12.68, 0.68, 0, 0, 12.10, 3.3, 0.144);
-		FoodManager.getInstance()
-				.createFood("Pan blanco", "Mercadona", 261, 8.47, 51.50, 0, 3.5, 1.6, 0.39, 0.540);
+		FoodManager.getInstance().createFood(FOOD0, "", 364, 6.67, 81.60, 0, 1.4, 0.9, 0.19, 0.0039);
+		FoodManager.getInstance().createFood(FOOD1, "", 162, 12.68, 0.68, 0, 0, 12.10, 3.3, 0.144);
+		FoodManager.getInstance().createFood(FOOD2, BRAND2, 261, 8.47, 51.50, 0, 3.5, 1.6, 0.39, 0.540);
 	}
 
 	@Test
@@ -74,6 +78,19 @@ public class FoodListActivityTest extends BaseFoodTest {
 		assertFoodBrandName(getItemFromListView(1), "");
 		assertFoodName(getItemFromListView(2), "Pan blanco");
 		assertFoodBrandName(getItemFromListView(2), "Mercadona");
+	}
+
+	@Test
+	public void shouldShowFoodDetailsWhenClickingAnItem() {
+		// GIVEN
+		// activity is created
+		createActivity();
+		// WHEN
+		clickOnListItem(0);
+		// THEN
+		Intent next = assertAndReturnNextActivity(ShowFoodDetailsActivity.class);
+		Food food = (Food) next.getSerializableExtra(EditFoodActivity.SELECTED_FOOD);
+		assertThat(food.getName(), is(FOOD0));
 	}
 
 	@Test
@@ -175,7 +192,7 @@ public class FoodListActivityTest extends BaseFoodTest {
 		// next activity is EditFoodActivity
 		Intent nextIntent = activity.getNextStartedActivity();
 		assertThat(nextIntent.getComponent().getClassName(), is(EditFoodActivity.class.getName()));
-		Food food = (Food) nextIntent.getSerializableExtra(EditFoodActivity.FOOD_TO_EDIT);
+		Food food = (Food) nextIntent.getSerializableExtra(EditFoodActivity.SELECTED_FOOD);
 		assertThat(food.getName(), is(foodName));
 	}
 

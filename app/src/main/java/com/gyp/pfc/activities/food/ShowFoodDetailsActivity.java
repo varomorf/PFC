@@ -41,7 +41,7 @@ public class ShowFoodDetailsActivity extends BaseActivity {
 
 		// retrieve the food to be shown from the intent
 		Intent sender = getIntent();
-		food = (Food) sender.getExtras().getSerializable(EditFoodActivity.FOOD_TO_EDIT);
+		food = (Food) sender.getExtras().getSerializable(EditFoodActivity.SELECTED_FOOD);
 		updateUI();
 	}
 
@@ -106,7 +106,7 @@ public class ShowFoodDetailsActivity extends BaseActivity {
 	 */
 	private void editFood() {
 		Intent editFoodIntent = new Intent(getApplicationContext(), EditFoodActivity.class);
-		editFoodIntent.putExtra(EditFoodActivity.FOOD_TO_EDIT, food);
+		editFoodIntent.putExtra(EditFoodActivity.SELECTED_FOOD, food);
 		startActivityForResult(editFoodIntent, EditFoodActivity.EDIT_FOOD);
 	}
 
@@ -148,7 +148,7 @@ public class ShowFoodDetailsActivity extends BaseActivity {
 	 */
 	private void onFoodEdited(Intent data) {
 		// get updated food from intent
-		food = (Food) data.getExtras().get(EditFoodActivity.FOOD_TO_EDIT);
+		food = (Food) data.getExtras().get(EditFoodActivity.SELECTED_FOOD);
 		// refresh UI
 		updateUI();
 		Toast.makeText(getApplicationContext(), getString(R.string.editFoodMessage), Toast.LENGTH_SHORT).show();

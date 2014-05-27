@@ -26,7 +26,7 @@ public class EditFoodActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 	/**
 	 * Key for the selected food
 	 */
-	public static final String FOOD_TO_EDIT = "selectedFood";
+	public static final String SELECTED_FOOD = "selectedFood";
 
 	// Attributes ----------------------------------------------------
 
@@ -46,7 +46,7 @@ public class EditFoodActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_edit_food);
 		Intent sender = getIntent();
-		food = (Food) sender.getExtras().getSerializable(FOOD_TO_EDIT);
+		food = (Food) sender.getExtras().getSerializable(SELECTED_FOOD);
 		getUIForms();
 		updateUI();
 	}
@@ -67,7 +67,7 @@ public class EditFoodActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 		getHelper().getFoodDao().update(food);
 		// prepare intent for return
 		Intent i = new Intent();
-		i.putExtra(FOOD_TO_EDIT, food);
+		i.putExtra(SELECTED_FOOD, food);
 		setResult(RESULT_OK, i);
 		// return
 		finish();
