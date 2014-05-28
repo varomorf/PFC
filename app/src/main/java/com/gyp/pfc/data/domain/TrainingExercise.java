@@ -1,7 +1,6 @@
 package com.gyp.pfc.data.domain;
 
-import static com.gyp.pfc.TimeUtils.minutesFromSeconds;
-import static com.gyp.pfc.TimeUtils.restingSecondsFromSeconds;
+import static com.gyp.pfc.TimeUtils.formatTime;
 
 import java.io.Serializable;
 
@@ -126,24 +125,15 @@ public class TrainingExercise implements Serializable {
 
 	@Override
 	public String toString() {
-		StringBuilder buffer = new StringBuilder(exercise.getName());
-		buffer.append(' ');
-		buffer.append(reps);
-		buffer.append('x');
-		buffer.append(minutesFromSeconds(seconds));
-		buffer.append(':');
-		int restingSeconds = restingSecondsFromSeconds(seconds);
-		if (restingSeconds < 10) {
-			buffer.append('0');
-		}
-		buffer.append(restingSeconds);
-		return buffer.toString();
+		StringBuilder sb = new StringBuilder(exercise.getName()).append(' ').append(reps).append('x')
+				.append(formatTime(seconds));
+		return sb.toString();
 	}
 
 	@Override
 	public boolean equals(Object o) {
 		if (o instanceof TrainingExercise) {
-			return id == ((TrainingExercise) o).getId();
+			return hashCode() == o.hashCode();
 		}
 		return false;
 	}

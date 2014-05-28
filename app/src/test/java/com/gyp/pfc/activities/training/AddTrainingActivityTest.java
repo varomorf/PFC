@@ -224,7 +224,7 @@ public class AddTrainingActivityTest extends BaseTrainingTest {
 		// UI shows changes
 		item = getChildFromView(activity.findViewById(R.id.exercisesLayout), 0);
 		View itemTitle = getChildFromView(getChildFromView(item, 0), 1);
-		assertThat(getTextFromUI(itemTitle), is(NEW_EXERCISE_NAME + " 10x5:00"));
+		assertThat(getTextFromUI(itemTitle), is(NEW_EXERCISE_NAME + " 10x05:00"));
 	}
 
 	@Test
@@ -272,7 +272,7 @@ public class AddTrainingActivityTest extends BaseTrainingTest {
 		assertViewText(R.id.trainingName, training.getName());
 		assertChildrenNumber(activity.findViewById(R.id.exercisesLayout), 1);
 		View item = getChildFromView(activity.findViewById(R.id.exercisesLayout), 0);
-		assertItemTitle(item, BaseExerciseTest.EXERCISE_NAME + " 1x1:40");
+		assertItemTitle(item, BaseExerciseTest.EXERCISE_NAME + " 1x01:40");
 	}
 
 	// Package protected ---------------------------------------------
