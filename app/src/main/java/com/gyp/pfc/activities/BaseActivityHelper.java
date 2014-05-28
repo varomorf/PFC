@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.gyp.pfc.UIUtils;
-import com.gyp.pfc.activities.food.MandatoryFieldNotFilledException;
+import com.gyp.pfc.activities.exception.MandatoryFieldNotFilledException;
 
 /**
  * Base Activity for the application. Provides useful methods for GUI control.

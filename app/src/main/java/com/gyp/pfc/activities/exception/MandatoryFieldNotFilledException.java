@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.gyp.pfc.activities.food;
+package com.gyp.pfc.activities.exception;
 
 /**
  * Exception for mandatory fields that have not been filled
