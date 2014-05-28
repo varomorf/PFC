@@ -265,16 +265,14 @@ public class Food implements Serializable {
 
 	@Override
 	public String toString() {
-		String ret = "";
-		ret += calories + "calories\n";
-		ret += sugar + "sugars\n";
-		ret += fats + "fats\n";
-		return ret;
+		StringBuilder sb = new StringBuilder();
+		sb.append(brandName).append("-").append(name).append(": ").append(calories).append("Kcal");
+		return sb.toString();
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		if(obj instanceof Food){
+		if (obj instanceof Food) {
 			return obj.hashCode() == hashCode();
 		}
 		return false;
