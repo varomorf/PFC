@@ -46,6 +46,9 @@ public class FoodListActivity extends OrmLiteBaseListActivity<DatabaseHelper> im
 
 	// Attributes ----------------------------------------------------
 
+	/** Helper to be used */
+	private FoodActivityHelper h;
+
 	// Static --------------------------------------------------------
 
 	// Constructors --------------------------------------------------
@@ -55,6 +58,8 @@ public class FoodListActivity extends OrmLiteBaseListActivity<DatabaseHelper> im
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		h = new FoodActivityHelper(this);
+
 		setContentView(R.layout.entity_list);
 		SearchView searchView = (SearchView) findViewById(R.id.search);
 		searchView.setOnQueryTextListener(this);
@@ -138,7 +143,7 @@ public class FoodListActivity extends OrmLiteBaseListActivity<DatabaseHelper> im
 	// Package protected ---------------------------------------------
 
 	// Protected -----------------------------------------------------
-	
+
 	@Override
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		// get selected food from adapter
@@ -173,7 +178,7 @@ public class FoodListActivity extends OrmLiteBaseListActivity<DatabaseHelper> im
 	private void deleteFood(int position) {
 		// get selected food from adapter and call helper with positive action
 		Food selectedFood = (Food) getListAdapter().getItem(position);
-		FoodActivityHelper.callFor(this).deleteWithDialog(deletionAction(selectedFood));
+		h.deleteWithDialog(deletionAction(selectedFood));
 	}
 
 	/**

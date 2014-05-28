@@ -10,11 +10,13 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.gyp.pfc.R;
-import com.gyp.pfc.activities.BaseActivity;
+import com.gyp.pfc.activities.BaseActivityHelper;
+import com.gyp.pfc.data.db.DatabaseHelper;
 import com.gyp.pfc.data.domain.Training;
 import com.gyp.pfc.data.domain.TrainingExercise;
 import com.gyp.pfc.widgets.CountdownTimer;
 import com.gyp.pfc.widgets.CountdownTimer.CountdownTimerListener;
+import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 
 /**
  * Activity for executing a training
@@ -22,7 +24,7 @@ import com.gyp.pfc.widgets.CountdownTimer.CountdownTimerListener;
  * @author Alvaro
  * 
  */
-public class ExecuteTrainingActivity extends BaseActivity implements CountdownTimerListener {
+public class ExecuteTrainingActivity extends OrmLiteBaseActivity<DatabaseHelper> implements CountdownTimerListener {
 
 	// Constants -----------------------------------------------------
 
@@ -37,6 +39,9 @@ public class ExecuteTrainingActivity extends BaseActivity implements CountdownTi
 	private SoundPool soundPool;
 	private int whistleShort;
 	private int whistleLong;
+
+	/** Helper to be used */
+	private BaseActivityHelper h;
 
 	// Static --------------------------------------------------------
 
@@ -150,6 +155,8 @@ public class ExecuteTrainingActivity extends BaseActivity implements CountdownTi
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		h = new BaseActivityHelper(this);
+
 		setContentView(R.layout.workout);
 		// set activity as timer listener
 		timer = (CountdownTimer) findViewById(R.id.timer);
@@ -180,16 +187,16 @@ public class ExecuteTrainingActivity extends BaseActivity implements CountdownTi
 		exercises = training.getExercises().toArray(exercises);
 		// fill data
 		TrainingExercise te = exercises[exerciseIndex];
-		setTextToUI(R.id.trainingName, training.getName());
-		setTextToUI(R.id.exerciseName, te.getExercise().getName());
+		h.setTextToUI(R.id.trainingName, training.getName());
+		h.setTextToUI(R.id.exerciseName, te.getExercise().getName());
 		int seconds = te.getSeconds();
 		timer.setSeconds(seconds);
 		setRepetitionNumber(te);
 		setExerciseNumberFraction(te);
 		if (seconds == 0) {
-			setTextToUI(R.id.actionButton, getText(R.string.done));
+			h.setTextToUI(R.id.actionButton, getText(R.string.done));
 		} else {
-			setTextToUI(R.id.actionButton, getText(R.string.resumePause));
+			h.setTextToUI(R.id.actionButton, getText(R.string.resumePause));
 		}
 	}
 
@@ -197,7 +204,7 @@ public class ExecuteTrainingActivity extends BaseActivity implements CountdownTi
 		if (te.getSeconds() != 0) {
 			setFractionText(R.id.repetitionNumber, R.string.repetition, repetition, te.getReps());
 		} else {
-			setTextToUI(R.id.repetitionNumber, te.getReps() + " " + getText(R.string.repetitions));
+			h.setTextToUI(R.id.repetitionNumber, te.getReps() + " " + getText(R.string.repetitions));
 		}
 	}
 
@@ -206,12 +213,9 @@ public class ExecuteTrainingActivity extends BaseActivity implements CountdownTi
 	}
 
 	private void setFractionText(int viewId, int textId, int firstNumber, int secondNumber) {
-		StringBuilder buffer = new StringBuilder(getText(textId));
-		buffer.append(" ");
-		buffer.append(firstNumber);
-		buffer.append("/");
-		buffer.append(secondNumber);
-		setTextToUI(viewId, buffer.toString());
+		StringBuilder sb = new StringBuilder(getText(textId)).append(" ").append(firstNumber).append("/")
+				.append(secondNumber);
+		h.setTextToUI(viewId, sb.toString());
 	}
 
 	private void incrementExerciseIndex() {

@@ -5,9 +5,11 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.gyp.pfc.R;
-import com.gyp.pfc.activities.BaseActivity;
+import com.gyp.pfc.activities.BaseActivityHelper;
+import com.gyp.pfc.data.db.DatabaseHelper;
 import com.gyp.pfc.data.domain.exception.EntityNameException;
 import com.gyp.pfc.data.domain.manager.ExerciseManager;
+import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 
 /**
  * Activity for adding new exercises
@@ -15,11 +17,14 @@ import com.gyp.pfc.data.domain.manager.ExerciseManager;
  * @author Alvaro
  * 
  */
-public class AddExerciseActivity extends BaseActivity {
+public class AddExerciseActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 
 	// Constants -----------------------------------------------------
 
 	// Attributes ----------------------------------------------------
+
+	/** Helper to be used */
+	protected BaseActivityHelper h;
 
 	// Static --------------------------------------------------------
 
@@ -34,8 +39,8 @@ public class AddExerciseActivity extends BaseActivity {
 	 */
 	public void commitExercise(View view) {
 		// extract data from widgets
-		String name = getTextFromUI(R.id.exerciseName);
-		String description = getTextFromUI(R.id.exerciseDescription);
+		String name = h.getTextFromUI(R.id.exerciseName);
+		String description = h.getTextFromUI(R.id.exerciseDescription);
 		try {
 			// on positive case -> create entity, show message and exit
 			ExerciseManager.getInstance().createExercise(name, description);
@@ -54,6 +59,8 @@ public class AddExerciseActivity extends BaseActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		h = new BaseActivityHelper(this);
+		
 		// inflate layout
 		View view = getLayoutInflater().inflate(R.layout.exercise_data, null);
 		// set the view
@@ -71,9 +78,9 @@ public class AddExerciseActivity extends BaseActivity {
 	 */
 	protected void customizeView(View view) {
 		// set title
-		setTextToUI(R.id.exerciseDataTitle, R.string.addExerciseTitle);
+		h.setTextToUI(R.id.exerciseDataTitle, R.string.addExerciseTitle);
 		// set button text
-		setTextToUI(R.id.commitButton, R.string.button_save);
+		h.setTextToUI(R.id.commitButton, R.string.button_save);
 	}
 
 	// Private -------------------------------------------------------

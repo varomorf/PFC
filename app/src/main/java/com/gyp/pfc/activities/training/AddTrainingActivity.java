@@ -15,13 +15,15 @@ import android.widget.Toast;
 
 import com.gyp.pfc.R;
 import com.gyp.pfc.TimeUtils;
-import com.gyp.pfc.activities.BaseActivity;
+import com.gyp.pfc.activities.BaseActivityHelper;
 import com.gyp.pfc.adapters.TrainingExerciseAdapter;
+import com.gyp.pfc.data.db.DatabaseHelper;
 import com.gyp.pfc.data.domain.Exercise;
 import com.gyp.pfc.data.domain.Training;
 import com.gyp.pfc.data.domain.TrainingExercise;
 import com.gyp.pfc.dialogs.AddExerciseDialog;
 import com.gyp.pfc.dialogs.AddExerciseDialog.AddExerciseDialogListener;
+import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 import com.mobeta.android.dslv.DragSortController;
 import com.mobeta.android.dslv.DragSortListView;
 
@@ -31,7 +33,7 @@ import com.mobeta.android.dslv.DragSortListView;
  * @author Alvaro
  * 
  */
-public class AddTrainingActivity extends BaseActivity implements AddExerciseDialogListener {
+public class AddTrainingActivity extends OrmLiteBaseActivity<DatabaseHelper> implements AddExerciseDialogListener {
 
 	// Constants -----------------------------------------------------
 
@@ -47,6 +49,9 @@ public class AddTrainingActivity extends BaseActivity implements AddExerciseDial
 			moveExercise(from, to);
 		}
 	};
+
+	/** Helper to be used */
+	private BaseActivityHelper h;
 
 	// Static --------------------------------------------------------
 
@@ -154,6 +159,7 @@ public class AddTrainingActivity extends BaseActivity implements AddExerciseDial
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		h = new BaseActivityHelper(this);
 		setContentView(R.layout.training_data);
 
 		// create adapter for the list view
@@ -284,7 +290,7 @@ public class AddTrainingActivity extends BaseActivity implements AddExerciseDial
 			training = new Training();
 		}
 		// get name from view
-		String name = getTextFromUI(R.id.trainingName);
+		String name = h.getTextFromUI(R.id.trainingName);
 		// set training name
 		training.setName(name);
 		return training;
@@ -318,12 +324,12 @@ public class AddTrainingActivity extends BaseActivity implements AddExerciseDial
 		Spinner spinner = (Spinner) dialog.findViewById(R.id.exerciseSpinner);
 		te.setExercise((Exercise) spinner.getSelectedItem());
 		// set repetitions
-		String repetitions = getTextFromUI(dialog.findViewById(R.id.repetitions));
+		String repetitions = h.getTextFromUI(dialog.findViewById(R.id.repetitions));
 		te.setReps(Integer.parseInt(repetitions));
 		// get minutes
-		String minutes = getTextFromUI(dialog.findViewById(R.id.minutes));
+		String minutes = h.getTextFromUI(dialog.findViewById(R.id.minutes));
 		// get seconds
-		String seconds = getTextFromUI(dialog.findViewById(R.id.seconds));
+		String seconds = h.getTextFromUI(dialog.findViewById(R.id.seconds));
 		te.setSeconds(te.getSeconds() + Integer.parseInt(seconds));
 		// add seconds to trainingExercise
 		te.setSeconds(TimeUtils.secondsFromMinutesAndSeconds(minutes, seconds));
@@ -340,7 +346,7 @@ public class AddTrainingActivity extends BaseActivity implements AddExerciseDial
 
 	private void updateView() {
 		// set the name form field
-		setTextToUI(R.id.trainingName, training.getName());
+		h.setTextToUI(R.id.trainingName, training.getName());
 		// update the list of exercises
 		updateUIList();
 	}

@@ -10,8 +10,9 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.gyp.pfc.R;
-import com.gyp.pfc.activities.BaseActivity;
+import com.gyp.pfc.data.db.DatabaseHelper;
 import com.gyp.pfc.data.domain.Food;
+import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 
 /**
  * Activity for showing the details of a {@link Food} entity
@@ -19,13 +20,16 @@ import com.gyp.pfc.data.domain.Food;
  * @author Alvaro
  * 
  */
-public class ShowFoodDetailsActivity extends BaseActivity {
+public class ShowFoodDetailsActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 
 	// Constants -----------------------------------------------------
 
 	// Attributes ----------------------------------------------------
 
 	private Food food;
+
+	/** Helper to be used */
+	private FoodActivityHelper h;
 
 	// Static --------------------------------------------------------
 
@@ -36,6 +40,7 @@ public class ShowFoodDetailsActivity extends BaseActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		h = new FoodActivityHelper(this);
 		setContentView(R.layout.food_details);
 
 		// retrieve the food to be shown from the intent
@@ -82,9 +87,9 @@ public class ShowFoodDetailsActivity extends BaseActivity {
 	 */
 	private void updateUI() {
 		// obligatory fields
-		setTextToUI(R.id.foodDetailsName, getCompleteFoodName());
-		setTextToUI(R.id.caloriesText, food.getCalories().toString());
-		setGramsField(R.id.proteinText, food.getProtein());
+		h.setTextToUI(R.id.foodDetailsName, getCompleteFoodName());
+		h.setTextToUI(R.id.caloriesText, food.getCalories().toString());
+		setGramsField(R.id.proteinsText, food.getProtein());
 		setGramsField(R.id.carbsText, food.getCarbs());
 		setGramsField(R.id.fatsText, food.getFats());
 		// rest of the fields
@@ -114,7 +119,7 @@ public class ShowFoodDetailsActivity extends BaseActivity {
 	 *            the value to be set to the TextView
 	 */
 	private void setGramsField(int fieldId, Double value) {
-		setTextToUI(fieldId, value.toString());
+		h.setTextToUI(fieldId, value.toString());
 	}
 
 	/**
@@ -129,7 +134,7 @@ public class ShowFoodDetailsActivity extends BaseActivity {
 	 */
 	private void setMilligramsField(int fieldId, Double value) {
 		Double finalValue = new Double(value * 1000);
-		setTextToUI(fieldId, finalValue.toString());
+		h.setTextToUI(fieldId, finalValue.toString());
 	}
 
 	/**
@@ -163,7 +168,7 @@ public class ShowFoodDetailsActivity extends BaseActivity {
 	 * Delete the shown food via a confirmation dialog
 	 */
 	private void deleteFood() {
-		FoodActivityHelper.callFor(this).deleteWithDialog(new DialogInterface.OnClickListener() {
+		h.deleteWithDialog(new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int id) {
 				// deletion is confirmed -> delete and close
 				getHelper().getFoodDao().delete(food);

@@ -3,13 +3,14 @@
  */
 package com.gyp.pfc.activities.food;
 
+import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 
 import com.gyp.pfc.R;
-import com.gyp.pfc.activities.BaseActivity;
+import com.gyp.pfc.activities.BaseActivityHelper;
+import com.gyp.pfc.data.domain.Food;
 
 /**
  * Helper activity class for food related activities
@@ -17,38 +18,27 @@ import com.gyp.pfc.activities.BaseActivity;
  * @author Alvaro
  * 
  */
-public class FoodActivityHelper extends BaseActivity {
+public class FoodActivityHelper extends BaseActivityHelper {
 
 	// Constants -----------------------------------------------------
 
 	// Attributes ----------------------------------------------------
-	
-	/**
-	 * The context to be used
-	 */
-	private Context context;
 
 	// Static --------------------------------------------------------
-
-	/** Singleton instance of the FoodActivityHelper */
-	private static FoodActivityHelper instance;
-
-	/**
-	 * Returns the singleton instance of the FoodManager
-	 * 
-	 * @return the singleton instance of the FoodManager
-	 */
-	public static FoodActivityHelper callFor(Context context) {
-		if (null == instance) {
-			instance = new FoodActivityHelper();
-		}
-		instance.context = context;
-		return instance;
-	}
 
 	// Constructors --------------------------------------------------
 
 	// Public --------------------------------------------------------
+
+	/**
+	 * Creates a new {@link FoodActivityHelper} specifying its activity
+	 * 
+	 * @param activity
+	 *            the activity for the new {@link FoodActivityHelper}
+	 */
+	public FoodActivityHelper(Activity activity) {
+		super(activity);
+	}
 
 	// Package protected ---------------------------------------------
 
@@ -62,7 +52,7 @@ public class FoodActivityHelper extends BaseActivity {
 	 *            OnClickListener for affirmative action
 	 */
 	public void deleteWithDialog(OnClickListener yesOptionListener) {
-		new AlertDialog.Builder(context).setMessage(R.string.assureFoodDeletion).setCancelable(false)
+		new AlertDialog.Builder(activity).setMessage(R.string.assureFoodDeletion).setCancelable(false)
 				.setPositiveButton(android.R.string.yes, yesOptionListener)
 				.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int id) {
@@ -70,6 +60,27 @@ public class FoodActivityHelper extends BaseActivity {
 						dialog.cancel();
 					}
 				}).create().show();
+	}
+
+	/**
+	 * Fills the passed food with the data from the food_add_food layout
+	 * 
+	 * @param food
+	 *            the food to be filled with data
+	 */
+	public void fillFoodData(Food food) {
+		// get required food data
+		food.setName(getEditTextViewAsserting(R.id.foodNameText, R.string.foodNameError));
+		food.setCalories(getEditTextViewAsserting(R.id.caloriesText, R.string.caloriesError));
+		food.setProtein(getEditTextViewAsserting(R.id.proteinsText, R.string.proteinsError));
+		food.setCarbs(getEditTextViewAsserting(R.id.carbsText, R.string.carbsError));
+		food.setFats(getEditTextViewAsserting(R.id.fatsText, R.string.fatsError));
+		// get the rest of the data
+		food.setBrandName(getTextFromUI(R.id.foodBrandText));
+		food.setSugar(getTextFromUI(R.id.sugarText));
+		food.setFiber(getTextFromUI(R.id.fiberText));
+		food.setSaturatedFats(getTextFromUI(R.id.saturatedFatsText));
+		food.setSodium(getTextFromUI(R.id.sodiumText));
 	}
 
 	// Private -------------------------------------------------------

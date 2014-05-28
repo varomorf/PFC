@@ -1,7 +1,5 @@
 package com.gyp.pfc.activities.food;
 
-import org.apache.commons.lang.StringUtils;
-
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -9,8 +7,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gyp.pfc.R;
-import com.gyp.pfc.activities.BaseActivity;
+import com.gyp.pfc.data.db.DatabaseHelper;
 import com.gyp.pfc.data.domain.Food;
+import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 
 /**
  * <p>
@@ -21,13 +20,16 @@ import com.gyp.pfc.data.domain.Food;
  * @author Alvaro
  * 
  */
-public class AddFoodActivity extends BaseActivity {
+public class AddFoodActivity extends OrmLiteBaseActivity<DatabaseHelper>  {
 
 	// Constants -----------------------------------------------------
 
 	public static final int FOOD_NAME = 1;
 
 	// Attributes ----------------------------------------------------
+
+	/** Helper to be used */
+	private FoodActivityHelper h;
 
 	// Static --------------------------------------------------------
 
@@ -38,6 +40,8 @@ public class AddFoodActivity extends BaseActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		h = new FoodActivityHelper(this);
+
 		setContentView(R.layout.food_add_food);
 	}
 
@@ -77,40 +81,8 @@ public class AddFoodActivity extends BaseActivity {
 	 */
 	private Food createFood() {
 		Food food = new Food();
-		// get required food data
-		food.setName(getEditTextViewAsserting(R.id.foodNameText, R.string.foodNameError));
-		food.setCalories(getEditTextViewAsserting(R.id.caloriesText, R.string.caloriesError));
-		food.setProtein(getEditTextViewAsserting(R.id.proteinsText, R.string.proteinsError));
-		food.setCarbs(getEditTextViewAsserting(R.id.carbsText, R.string.carbsError));
-		food.setFats(getEditTextViewAsserting(R.id.fatsText, R.string.fatsError));
-		// get the rest of the data
-		food.setBrandName(getTextFromUI(R.id.foodBrandText));
-		food.setSugar(getTextFromUI(R.id.sugarText));
-		food.setFiber(getTextFromUI(R.id.fiberText));
-		food.setSaturatedFats(getTextFromUI(R.id.saturatedFatsText));
-		food.setSodium(getTextFromUI(R.id.sodiumText));
+		h.fillFoodData(food);
 		return food;
-	}
-
-	/**
-	 * Returns the value of the EditText with the passed id. If the value is
-	 * blank, an error will be shown for the specified string id and an
-	 * IllegalArgumentException will be thrown
-	 * 
-	 * @param viewId
-	 *            the id of the EditText
-	 * @param errorId
-	 *            the id of the string for the error
-	 * @return the value of the EditText
-	 * @throws MandatoryFieldNotFilledException
-	 *             if the name is not filled
-	 */
-	private String getEditTextViewAsserting(int viewId, int errorId) {
-		String value = getTextFromUI(viewId);
-		if (StringUtils.isBlank(value)) {
-			throw new MandatoryFieldNotFilledException(viewId, getString(errorId));
-		}
-		return value;
 	}
 
 	// Inner classes -------------------------------------------------

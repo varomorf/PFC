@@ -31,8 +31,8 @@ public class EditExerciseActivity extends AddExerciseActivity {
 
 	@Override
 	public void commitExercise(View view) {
-		exercise.setName(getTextFromUI(R.id.exerciseName));
-		exercise.setDescription(getTextFromUI(R.id.exerciseDescription));
+		exercise.setName(h.getTextFromUI(R.id.exerciseName));
+		exercise.setDescription(h.getTextFromUI(R.id.exerciseDescription));
 		try {
 			ExerciseManager.getInstance().updateExercise(exercise);
 			Toast.makeText(getApplicationContext(), R.string.exerciseEdited, Toast.LENGTH_SHORT).show();
@@ -50,9 +50,9 @@ public class EditExerciseActivity extends AddExerciseActivity {
 	@Override
 	protected void customizeView(View view) {
 		// set title
-		setTextToUI(R.id.exerciseDataTitle, R.string.editExerciseTitle);
+		h.setTextToUI(R.id.exerciseDataTitle, R.string.editExerciseTitle);
 		// set button text
-		setTextToUI(R.id.commitButton, R.string.label_edit);
+		h.setTextToUI(R.id.commitButton, R.string.label_edit);
 
 		// get intent to get data
 		Intent intent = getIntent();
@@ -69,8 +69,8 @@ public class EditExerciseActivity extends AddExerciseActivity {
 
 	private void updateView(View view) {
 		// populate widgets
-		setTextToUI(R.id.exerciseName, exercise.getName());
-		setTextToUI(R.id.exerciseDescription, exercise.getDescription());
+		h.setTextToUI(R.id.exerciseName, exercise.getName());
+		h.setTextToUI(R.id.exerciseDescription, exercise.getDescription());
 	}
 
 	// Inner classes -------------------------------------------------

@@ -7,8 +7,10 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.gyp.pfc.R;
-import com.gyp.pfc.activities.BaseActivity;
+import com.gyp.pfc.activities.BaseActivityHelper;
+import com.gyp.pfc.data.db.DatabaseHelper;
 import com.gyp.pfc.data.domain.Exercise;
+import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 
 /**
  * Activity for showing the details of an Exercise entity
@@ -16,13 +18,16 @@ import com.gyp.pfc.data.domain.Exercise;
  * @author Alvaro
  * 
  */
-public class ExerciseDetailsActivity extends BaseActivity {
+public class ExerciseDetailsActivity extends OrmLiteBaseActivity<DatabaseHelper>  {
 
 	// Constants -----------------------------------------------------
 
 	// Attributes ----------------------------------------------------
 
 	private Exercise exercise;
+	
+	/** Helper to be used */
+	private BaseActivityHelper h;
 
 	// Static --------------------------------------------------------
 
@@ -32,6 +37,7 @@ public class ExerciseDetailsActivity extends BaseActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		h = new BaseActivityHelper(this);
 		setContentView(R.layout.exercise_details);
 
 		// get intent to get data
@@ -82,8 +88,8 @@ public class ExerciseDetailsActivity extends BaseActivity {
 	// Private -------------------------------------------------------
 	private void updateView(Exercise exercise) {
 		// populate widgets
-		setTextToUI(R.id.exerciseName, exercise.getName());
-		setTextToUI(R.id.exerciseDescription, exercise.getDescription());
+		h.setTextToUI(R.id.exerciseName, exercise.getName());
+		h.setTextToUI(R.id.exerciseDescription, exercise.getDescription());
 	}
 
 	private void deleteExercise() {
