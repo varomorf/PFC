@@ -75,7 +75,7 @@ public class ShowFoodDetailsActivity extends OrmLiteBaseActivity<DatabaseHelper>
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if (data.getExtras().get(EditFoodActivity.SELECTED_FOOD) != null) {
+		if (resultCode == RESULT_OK) {
 			onFoodEdited(data);
 		}
 	}
@@ -144,8 +144,8 @@ public class ShowFoodDetailsActivity extends OrmLiteBaseActivity<DatabaseHelper>
 	 *            the data from the edition
 	 */
 	private void onFoodEdited(Intent data) {
-		// get updated food from intent
-		food = (Food) data.getExtras().get(EditFoodActivity.SELECTED_FOOD);
+		// get updated food from db
+		getHelper().getFoodDao().refresh(food);
 		// refresh UI
 		updateUI();
 		Toast.makeText(getApplicationContext(), getString(R.string.editFoodMessage), Toast.LENGTH_SHORT).show();

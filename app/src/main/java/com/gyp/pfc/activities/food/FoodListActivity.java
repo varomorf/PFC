@@ -109,7 +109,7 @@ public class FoodListActivity extends OrmLiteBaseListActivity<DatabaseHelper> im
 
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if (requestCode == EditFoodActivity.EDIT_FOOD && resultCode == Activity.RESULT_OK) {
+		if (resultCode == Activity.RESULT_OK) {
 			onFoodEdited();
 		}
 	}

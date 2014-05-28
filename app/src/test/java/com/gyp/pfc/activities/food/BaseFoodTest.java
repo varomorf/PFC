@@ -7,6 +7,7 @@ import java.sql.SQLException;
 
 import android.content.Intent;
 
+import com.gyp.pfc.R;
 import com.gyp.pfc.activities.BaseActivityTest;
 import com.gyp.pfc.data.db.DatabaseHelper;
 import com.gyp.pfc.data.domain.Food;
@@ -38,6 +39,7 @@ public abstract class BaseFoodTest extends BaseActivityTest {
 	// Attributes ----------------------------------------------------
 
 	protected RuntimeExceptionDao<Food, Integer> dao;
+	protected Food food;
 
 	// Static --------------------------------------------------------
 
@@ -99,6 +101,28 @@ public abstract class BaseFoodTest extends BaseActivityTest {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+
+	protected void passFoodToActivity() {
+		food = createFood();
+		passFoodToActivity(food);
+	}
+
+	protected void passFoodToActivity(Food food) {
+		intentPassedWithFood(food);
+	}
+
+	protected void assertFoodData() {
+		assertViewContaining(R.id.foodDetailsName, BaseFoodTest.FOOD_NAME);
+		assertViewContaining(R.id.foodDetailsName, BaseFoodTest.FOOD_BRAND);
+		assertViewText(R.id.caloriesText, BaseFoodTest.FOOD_CALORIES.toString());
+		assertViewText(R.id.proteinsText, BaseFoodTest.FOOD_PROTEINS.toString());
+		assertViewText(R.id.carbsText, BaseFoodTest.FOOD_CARBS.toString());
+		assertViewText(R.id.sugarText, BaseFoodTest.FOOD_SUGAR.toString());
+		assertViewText(R.id.fatsText, BaseFoodTest.FOOD_FATS.toString());
+		assertViewText(R.id.saturatedFatsText, BaseFoodTest.FOOD_SATURATED_FATS.toString());
+		assertViewText(R.id.fiberText, BaseFoodTest.FOOD_FIBER.toString());
+		assertViewText(R.id.sodiumText, new Double(BaseFoodTest.FOOD_SODIUM * 1000).toString());
 	}
 
 	// Private -------------------------------------------------------
