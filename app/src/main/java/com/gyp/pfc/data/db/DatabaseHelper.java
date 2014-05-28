@@ -34,7 +34,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 	private static final int DB_VERSION = 1;
 
 	// Attributes ----------------------------------------------------
-	private RuntimeExceptionDao<Food, String> foodDao;
+	private RuntimeExceptionDao<Food, Integer> foodDao;
 	private RuntimeExceptionDao<Exercise, Integer> exerciseDao;
 	private RuntimeExceptionDao<Training, Integer> trainingDao;
 	private RuntimeExceptionDao<TrainingExercise, Integer> trainingExerciseDao;
@@ -94,7 +94,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 	 * 
 	 * @return The {@link RuntimeExceptionDao} for the {@link Food} entity
 	 */
-	public RuntimeExceptionDao<Food, String> getFoodDao() {
+	public RuntimeExceptionDao<Food, Integer> getFoodDao() {
 		if (null == foodDao) {
 			foodDao = getRuntimeExceptionDao(Food.class);
 		}

@@ -127,7 +127,7 @@ public class FoodListActivity extends OrmLiteBaseListActivity<DatabaseHelper> im
 		if (newText.length() >= MIN_QUERY_LENGTH) {
 			List<Food> foods;
 			try {
-				QueryBuilder<Food, String> qb = getHelper().getFoodDao().queryBuilder();
+				QueryBuilder<Food, Integer> qb = getHelper().getFoodDao().queryBuilder();
 				qb.where().like("name", "%" + newText + "%");
 				PreparedQuery<Food> pq = qb.prepare();
 				foods = getHelper().getFoodDao().query(pq);

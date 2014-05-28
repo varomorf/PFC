@@ -23,6 +23,7 @@ public abstract class BaseFoodTest extends BaseActivityTest {
 
 	// Constants -----------------------------------------------------
 
+	protected static final int FOOD_ID = 1;
 	protected static final String FOOD_NAME = "Food name";
 	protected static final String FOOD_BRAND = "Food brand";
 	protected static final Double FOOD_CALORIES = 300d;
@@ -36,7 +37,7 @@ public abstract class BaseFoodTest extends BaseActivityTest {
 
 	// Attributes ----------------------------------------------------
 
-	protected RuntimeExceptionDao<Food, String> dao;
+	protected RuntimeExceptionDao<Food, Integer> dao;
 
 	// Static --------------------------------------------------------
 
@@ -57,7 +58,7 @@ public abstract class BaseFoodTest extends BaseActivityTest {
 	protected Food createFood() {
 		// prepare new training
 		Food food = createFoodWithOnlyObligatoryFields();
-		food.setId(1);
+		food.setId(FOOD_ID);
 		food.setBrandName(FOOD_BRAND);
 		food.setSugar(FOOD_SUGAR);
 		food.setFiber(FOOD_FIBER);
@@ -90,7 +91,7 @@ public abstract class BaseFoodTest extends BaseActivityTest {
 	}
 	
 	protected void editFoodName(String previousName, String newName) {
-		UpdateBuilder<Food, String> ub = dao.updateBuilder();
+		UpdateBuilder<Food, Integer> ub = dao.updateBuilder();
 		try {
 			ub.updateColumnValue("name", newName);
 			ub.where().like("name", previousName);

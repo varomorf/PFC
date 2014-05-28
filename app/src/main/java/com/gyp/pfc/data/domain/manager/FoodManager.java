@@ -19,7 +19,7 @@ public class FoodManager {
 	// Attributes ----------------------------------------------------
 
 	/** The DAO to use when creating Food entities */
-	private RuntimeExceptionDao<Food, String> foodDAO;
+	private RuntimeExceptionDao<Food, Integer> foodDAO;
 
 	// Static --------------------------------------------------------
 
@@ -55,7 +55,7 @@ public class FoodManager {
 	 * @param foodDAO
 	 *            the food DAO to be used
 	 */
-	public void setFoodDao(RuntimeExceptionDao<Food, String> foodDAO) {
+	public void setFoodDao(RuntimeExceptionDao<Food, Integer> foodDAO) {
 		this.foodDAO = foodDAO;
 	}
 
