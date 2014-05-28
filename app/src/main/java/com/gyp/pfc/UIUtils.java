@@ -2,7 +2,6 @@ package com.gyp.pfc;
 
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewParent;
 import android.widget.TextView;
 
 /**
@@ -73,19 +72,6 @@ public final class UIUtils {
 	}
 
 	/**
-	 * Clears the text of the passed view as long as it's a {@link TextView}
-	 * 
-	 * @param view
-	 *            The view to clear its text
-	 */
-	public static void clearView(View view) {
-		if (view instanceof TextView) {
-			// clear the view setting empty string
-			((TextView) view).setText("");
-		}
-	}
-
-	/**
 	 * <p>
 	 * Gets the child at pos from the passed view as long as the view is a
 	 * ViewGroup
@@ -103,27 +89,6 @@ public final class UIUtils {
 			child = ((ViewGroup) view).getChildAt(pos);
 		}
 		return child;
-	}
-
-	/**
-	 * <p>
-	 * Gets the sibling which holds the passed position on the passed view's
-	 * parent
-	 * </p>
-	 * 
-	 * @param view
-	 *            The view from which to get the sibling
-	 * @param pos
-	 *            The position of the sibling in the view's parent
-	 * @return The sibling view
-	 */
-	public static View getSibling(View view, int pos) {
-		View sibling = null;
-		ViewParent parent = view.getParent();
-		if (parent instanceof ViewGroup) {
-			sibling = getChildFromView((View) parent, pos);
-		}
-		return sibling;
 	}
 
 	/**
