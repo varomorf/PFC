@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import com.gyp.pfc.data.domain.Exercise;
 import com.gyp.pfc.data.domain.Food;
 import com.gyp.pfc.data.domain.MealName;
+import com.gyp.pfc.data.domain.Portion;
 import com.gyp.pfc.data.domain.Training;
 import com.gyp.pfc.data.domain.TrainingExercise;
 import com.j256.ormlite.android.apptools.OrmLiteConfigUtil;
@@ -27,7 +28,7 @@ public class DatabaseConfigUtil extends OrmLiteConfigUtil {
 	 * Which classes to use for the configuration writing
 	 */
 	private static final Class<?>[] CLASSES = new Class[] { Food.class, Exercise.class, Training.class,
-			TrainingExercise.class, MealName.class };
+			TrainingExercise.class, MealName.class, Portion.class };
 
 	/**
 	 * This method must be launched with each modification to entity classes.

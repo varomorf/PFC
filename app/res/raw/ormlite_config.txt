@@ -1,5 +1,5 @@
 #
-# generated on 2014/05/29 10:38:46
+# generated on 2014/05/29 11:26:18
 #
 # --table-start--
 dataClass=com.gyp.pfc.data.domain.Food
@@ -138,6 +138,25 @@ canBeNull=false
 fieldName=order
 canBeNull=false
 unique=true
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+# --table-start--
+dataClass=com.gyp.pfc.data.domain.Portion
+tableName=portion
+# --table-fields-start--
+# --field-start--
+fieldName=id
+generatedId=true
+# --field-end--
+# --field-start--
+fieldName=food
+foreign=true
+foreignAutoRefresh=true
+# --field-end--
+# --field-start--
+fieldName=quantity
 # --field-end--
 # --table-fields-end--
 # --table-end--
