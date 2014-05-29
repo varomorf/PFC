@@ -3,17 +3,20 @@
  */
 package com.gyp.pfc.data.domain;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
+import java.util.Date;
+
+import org.apache.commons.lang.time.DateUtils;
 import org.junit.Test;
 
 /**
- * Tests for the {@link Portion} entity
+ * Tests for {@link Meal} entities
  * 
  * @author Alvaro
  * 
  */
-public class PortionTest {
+public class MealTest {
 
 	// Constants -----------------------------------------------------
 
@@ -28,15 +31,20 @@ public class PortionTest {
 	@Test
 	public void shouldReturnExpectedString() {
 		// GIVEN
-		Portion portion = new Portion();
-		portion.setId(1);
-		portion.setQuantity(100);
-		String expected = "1 - 100gr. of Null Food for meal -1";
+		Meal meal = new Meal();
+		meal.setId(1);
+		Date date = new Date();
+		date = DateUtils.setDays(date, 1);
+		date = DateUtils.setMonths(date, 0);
+		date = DateUtils.setYears(date, 2014);
+		meal.setDate(date);
+		String expected = "1 - Null meal@01/01/2014 with 0 portions";
 		// WHEN
-		String ret = portion.toString();
+		String ret = meal.toString();
 		// THEN
 		assertEquals("Should have returned expected string", expected, ret);
 	}
+
 	// Package protected ---------------------------------------------
 
 	// Protected -----------------------------------------------------

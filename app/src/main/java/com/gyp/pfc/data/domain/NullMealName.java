@@ -3,19 +3,20 @@
  */
 package com.gyp.pfc.data.domain;
 
-import static org.junit.Assert.*;
-
-import org.junit.Test;
-
 /**
- * Tests for the {@link Portion} entity
+ * NullObject pattern used for {@link MealName} entities
  * 
  * @author Alvaro
  * 
  */
-public class PortionTest {
+public class NullMealName extends MealName {
 
 	// Constants -----------------------------------------------------
+
+	private static final long serialVersionUID = 1L;
+
+	public static final String NAME = "Null meal";
+	public static final int ORDER = -1;
 
 	// Attributes ----------------------------------------------------
 
@@ -23,20 +24,17 @@ public class PortionTest {
 
 	// Constructors --------------------------------------------------
 
+	/**
+	 * Creates a new {@link NullMealName} specifying its name to
+	 * {@link NullMealName#NAME} and order to {@link NullMealName#ORDER}
+	 */
+	public NullMealName() {
+		setName(NAME);
+		setOrder(ORDER);
+	}
+
 	// Public --------------------------------------------------------
 
-	@Test
-	public void shouldReturnExpectedString() {
-		// GIVEN
-		Portion portion = new Portion();
-		portion.setId(1);
-		portion.setQuantity(100);
-		String expected = "1 - 100gr. of Null Food for meal -1";
-		// WHEN
-		String ret = portion.toString();
-		// THEN
-		assertEquals("Should have returned expected string", expected, ret);
-	}
 	// Package protected ---------------------------------------------
 
 	// Protected -----------------------------------------------------

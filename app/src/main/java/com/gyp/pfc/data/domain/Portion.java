@@ -31,6 +31,9 @@ public class Portion implements Serializable {
 	@DatabaseField(foreign = true, foreignAutoRefresh = true)
 	private Food food = new NullFood();
 
+	@DatabaseField(foreign = true, foreignAutoRefresh = true)
+	private Meal meal = new NullMeal();
+
 	/** The amount in grams of the food */
 	@DatabaseField
 	private Integer quantity = 0;
@@ -44,7 +47,7 @@ public class Portion implements Serializable {
 	@Override
 	public String toString() {
 		return new StringBuilder().append(id).append(" - ").append(quantity).append("gr. of ")
-				.append(food.getName()).toString();
+				.append(food.getName()).append(" for meal ").append(meal.getId()).toString();
 	}
 
 	public int getId() {
