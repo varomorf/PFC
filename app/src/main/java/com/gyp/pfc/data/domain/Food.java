@@ -15,11 +15,11 @@ import com.j256.ormlite.table.DatabaseTable;
 @DatabaseTable
 public class Food implements Serializable {
 
+	// Constants -----------------------------------------------------
+	
 	private static final int CALORIES_PER_FAT_GRAM = 9;
 	private static final int CALORIES_PER_SUGAR_GRAM = 4;
 	private static final int CALORIES_PER_PROTEIN_GRAM = 4;
-
-	// Constants -----------------------------------------------------
 
 	private static final long serialVersionUID = 1L;
 
