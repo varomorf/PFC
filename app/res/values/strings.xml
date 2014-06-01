@@ -76,10 +76,13 @@
     <string name="next">Siguiente</string>
     <string name="previous">Anterior</string>
     <string name="repetition">Repetición</string>
-    <string name="repetitions">Repeticiones</string>
     <string name="assureExit">¿Realmente desea salir?</string>
     <string name="kcalUnit">Kcal</string>
     <string name="gramsUnit">g</string>
     <string name="milligramsUnit">mg</string>
+    <string name="shortCaloriesLabel">Cal</string>
+    <string name="shortProteinLabel">Prote</string>
+    <string name="shortCarbsLabel">H. Carb</string>
+    <string name="shortFatsLabel">Grasa</string>
 
 </resources>
