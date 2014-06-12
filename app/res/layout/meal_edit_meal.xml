@@ -3,6 +3,7 @@
     android:id="@+id/mainLayout"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:contentDescription="@string/nextDate"
     android:gravity="fill"
     android:orientation="vertical" >
 
@@ -20,29 +21,28 @@
             android:layout_weight="1"
             android:orientation="horizontal" >
 
-            <Button
+            <ImageButton
                 android:id="@+id/previousDateButton"
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="&lt;" />
+                android:src="@drawable/previous" 
+                android:contentDescription="@string/previousDate" />
 
             <TextView
                 android:id="@+id/textView5"
-                android:layout_width="wrap_content"
+                android:layout_width="0dip"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
-                android:text="01/01/2014"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
-            <Button
+            <ImageButton
                 android:id="@+id/nextDateButton"
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text=">" />
+                android:src="@drawable/play" 
+                android:contentDescription="@string/nextDate" />
 
         </LinearLayout>
 
@@ -59,16 +59,17 @@
         android:layout_height="50dp"
         android:orientation="horizontal" >
 
-        <Button
+        <ImageButton
             android:id="@+id/addFoodtoMealButton"
             style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="1" />
+            android:contentDescription="@string/addFoodToMeal"
+            android:src="@drawable/plus" />
 
         <TableLayout
             android:id="@+id/summaryTable"
-            android:layout_width="wrap_content"
+            android:layout_width="0dpi"
             android:layout_height="match_parent"
             android:layout_weight="4" >
 

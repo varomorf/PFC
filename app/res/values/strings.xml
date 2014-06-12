@@ -84,5 +84,8 @@
     <string name="shortProteinLabel">Prote</string>
     <string name="shortCarbsLabel">H. Carb</string>
     <string name="shortFatsLabel">Grasa</string>
+    <string name="nextDate">Siguiente fecha</string>
+    <string name="previousDate">Anterior fecha</string>
+    <string name="addFoodToMeal">Añadir nuevo alimento</string>
 
 </resources>
