@@ -5,6 +5,8 @@ package com.gyp.pfc.data.domain;
 
 import java.io.Serializable;
 
+import com.gyp.pfc.data.domain.nulls.NullFood;
+import com.gyp.pfc.data.domain.nulls.NullMeal;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 

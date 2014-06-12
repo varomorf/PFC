@@ -10,6 +10,7 @@ import java.util.List;
 
 import org.apache.commons.lang.time.DateFormatUtils;
 
+import com.gyp.pfc.data.domain.nulls.NullMealName;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;

@@ -1,21 +1,23 @@
 /**
  * 
  */
-package com.gyp.pfc.data.domain;
+package com.gyp.pfc.data.domain.nulls;
+
+import com.gyp.pfc.data.domain.Food;
 
 /**
- * NullObject pattern used for {@link Meal} entities
+ * NullObject pattern used for {@link Food} entities
  * 
  * @author Alvaro
  * 
  */
-public class NullMeal extends Meal {
+public class NullFood extends Food {
 
 	// Constants -----------------------------------------------------
 
 	private static final long serialVersionUID = 1L;
 
-	public static final int ID = -1;
+	public static final String NAME = "Null Food";
 
 	// Attributes ----------------------------------------------------
 
@@ -23,14 +25,15 @@ public class NullMeal extends Meal {
 
 	// Constructors --------------------------------------------------
 
-	// Public --------------------------------------------------------
-
 	/**
-	 * Creates a new {@link NullMeal} with id {@link NullMeal#ID}
+	 * Creates a new {@link NullFood} specifying its name to
+	 * {@link NullFood#NAME}
 	 */
-	public NullMeal() {
-		setId(ID);
+	public NullFood() {
+		setName(NAME);
 	}
+
+	// Public --------------------------------------------------------
 
 	// Package protected ---------------------------------------------
 
