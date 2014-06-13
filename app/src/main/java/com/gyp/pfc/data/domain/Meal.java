@@ -4,13 +4,12 @@
 package com.gyp.pfc.data.domain;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import org.apache.commons.lang.time.DateFormatUtils;
 
 import com.gyp.pfc.data.domain.nulls.NullMealName;
+import com.j256.ormlite.dao.ForeignCollection;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
@@ -39,7 +38,7 @@ public class Meal implements Serializable {
 	private MealName name = new NullMealName();
 
 	@ForeignCollectionField(eager = true)
-	private List<Portion> portions = new ArrayList<Portion>();
+	private ForeignCollection<Portion> portions;
 
 	// Static --------------------------------------------------------
 
@@ -50,8 +49,9 @@ public class Meal implements Serializable {
 	@Override
 	public String toString() {
 		String formattedDate = DateFormatUtils.format(date, "dd/MM/yyyy");
+		int size = portions != null ? portions.size() : 0;
 		return new StringBuilder().append(id).append(" - ").append(name.getName()).append("@")
-				.append(formattedDate).append(" with ").append(portions.size()).append(" portions").toString();
+				.append(formattedDate).append(" with ").append(size).append(" portions").toString();
 	}
 
 	public Integer getId() {
@@ -78,11 +78,11 @@ public class Meal implements Serializable {
 		this.name = name;
 	}
 
-	public List<Portion> getPortions() {
+	public ForeignCollection<Portion> getPortions() {
 		return portions;
 	}
 
-	public void setPortions(List<Portion> portions) {
+	public void setPortions(ForeignCollection<Portion> portions) {
 		this.portions = portions;
 	}
 
