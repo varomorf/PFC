@@ -1,41 +1,38 @@
-/**
- * 
- */
-package com.gyp.pfc.data.domain.nulls;
+package com.gyp.pfc.activities.meal;
 
+import com.gyp.pfc.activities.BaseActivityTest;
+import com.gyp.pfc.data.db.DatabaseHelper;
+import com.gyp.pfc.data.domain.Meal;
 import com.gyp.pfc.data.domain.MealName;
+import com.j256.ormlite.dao.RuntimeExceptionDao;
 
 /**
- * NullObject pattern used for {@link MealName} entities
+ * Base class for Meal related activities' testing
  * 
- * @author Alvaro
+ * @author alfergon
  * 
  */
-public class NullMealName extends MealName {
+public abstract class BaseMealTest extends BaseActivityTest {
 
 	// Constants -----------------------------------------------------
 
-	private static final long serialVersionUID = 1L;
-
-	public static final String NAME = "Null meal";
-	public static final int ORDER = -1;
-
 	// Attributes ----------------------------------------------------
+
+	protected RuntimeExceptionDao<Meal, Integer> dao;
+	protected RuntimeExceptionDao<MealName, Integer> daoNames;
 
 	// Static --------------------------------------------------------
 
 	// Constructors --------------------------------------------------
 
-	/**
-	 * Creates a new {@link NullMealName} specifying its name to
-	 * {@link NullMealName#NAME} and order to {@link NullMealName#ORDER}
-	 */
-	public NullMealName() {
-		setName(NAME);
-		setOrder(ORDER);
-	}
-
 	// Public --------------------------------------------------------
+
+	@Override
+	public void before() {
+		super.before();
+		dao = new DatabaseHelper(realActivity).getMealDao();
+		daoNames = new DatabaseHelper(realActivity).getMealNameDao();
+	}
 
 	// Package protected ---------------------------------------------
 
@@ -44,5 +41,4 @@ public class NullMealName extends MealName {
 	// Private -------------------------------------------------------
 
 	// Inner classes -------------------------------------------------
-
 }
