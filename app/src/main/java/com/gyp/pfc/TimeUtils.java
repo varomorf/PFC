@@ -1,5 +1,9 @@
 package com.gyp.pfc;
 
+import java.util.Date;
+
+import org.apache.commons.lang.time.DateFormatUtils;
+
 import android.annotation.SuppressLint;
 
 /**
@@ -12,6 +16,7 @@ public final class TimeUtils {
 
 	// Constants -----------------------------------------------------
 
+	private static final String DATE_FORMAT = "dd/MM/yyyy";
 	public static final int SECONDS_PER_MINUTE = 60;
 
 	// Attributes ----------------------------------------------------
@@ -95,6 +100,19 @@ public final class TimeUtils {
 		int mins = minutesFromSeconds(seconds);
 		int secs = restingSecondsFromSeconds(seconds);
 		return String.format("%02d:%02d", mins, secs);
+	}
+
+	/**
+	 * Returns the string representation of the passed date with the
+	 * {@link TimeUtils#DATE_FORMAT} format
+	 * 
+	 * @param date
+	 *            the date to be formatted
+	 * @return the string representation of the passed date
+	 */
+	public static String formatDate(Date date) {
+		assert date != null;
+		return DateFormatUtils.format(date, DATE_FORMAT);
 	}
 
 	// Constructors --------------------------------------------------
