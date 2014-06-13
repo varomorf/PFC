@@ -4,12 +4,13 @@
 package com.gyp.pfc.data.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 
 import org.apache.commons.lang.time.DateFormatUtils;
 
 import com.gyp.pfc.data.domain.nulls.NullMealName;
-import com.j256.ormlite.dao.ForeignCollection;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
@@ -38,7 +39,7 @@ public class Meal implements Serializable {
 	private MealName name = new NullMealName();
 
 	@ForeignCollectionField(eager = true)
-	private ForeignCollection<Portion> portions;
+	private Collection<Portion> portions = new ArrayList<Portion>();
 
 	// Static --------------------------------------------------------
 
@@ -46,12 +47,63 @@ public class Meal implements Serializable {
 
 	// Public --------------------------------------------------------
 
+	/**
+	 * Returns the sum of the calories of all the food portions in this meal
+	 * 
+	 * @return the calories of this meal
+	 */
+	public Integer getMealCalories() {
+		Double total = 0d;
+		for (Portion portion : portions) {
+			total += portion.getFood().getCalories();
+		}
+		return total.intValue();
+	}
+
+	/**
+	 * Returns the sum of the carbs of all the food portions in this meal
+	 * 
+	 * @return the carbs of this meal
+	 */
+	public Integer getMealCarbs() {
+		Double total = 0d;
+		for (Portion portion : portions) {
+			total += portion.getFood().getCarbs();
+		}
+		return total.intValue();
+	}
+
+	/**
+	 * Returns the sum of the protein of all the food portions in this meal
+	 * 
+	 * @return the protein of this meal
+	 */
+	public Integer getMealProtein() {
+		Double total = 0d;
+		for (Portion portion : portions) {
+			total += portion.getFood().getProtein();
+		}
+		return total.intValue();
+	}
+
+	/**
+	 * Returns the sum of the fats of all the food portions in this meal
+	 * 
+	 * @return the fats of this meal
+	 */
+	public Integer getMealFats() {
+		Double total = 0d;
+		for (Portion portion : portions) {
+			total += portion.getFood().getFats();
+		}
+		return total.intValue();
+	}
+
 	@Override
 	public String toString() {
 		String formattedDate = DateFormatUtils.format(date, "dd/MM/yyyy");
-		int size = portions != null ? portions.size() : 0;
 		return new StringBuilder().append(id).append(" - ").append(name.getName()).append("@")
-				.append(formattedDate).append(" with ").append(size).append(" portions").toString();
+				.append(formattedDate).append(" with ").append(portions.size()).append(" portions").toString();
 	}
 
 	public Integer getId() {
@@ -78,12 +130,12 @@ public class Meal implements Serializable {
 		this.name = name;
 	}
 
-	public ForeignCollection<Portion> getPortions() {
+	public Collection<Portion> getPortions() {
 		return portions;
 	}
 
-	public void setPortions(ForeignCollection<Portion> portions) {
-		this.portions = portions;
+	public void setPortions(Collection<Portion> portions) {
+		this.portions = portions != null ? portions : new ArrayList<Portion>();
 	}
 
 	// Package protected ---------------------------------------------
