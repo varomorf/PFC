@@ -9,6 +9,8 @@ import android.util.Log;
 import com.gyp.pfc.R;
 import com.gyp.pfc.data.domain.Exercise;
 import com.gyp.pfc.data.domain.Food;
+import com.gyp.pfc.data.domain.Meal;
+import com.gyp.pfc.data.domain.MealName;
 import com.gyp.pfc.data.domain.Training;
 import com.gyp.pfc.data.domain.TrainingExercise;
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
@@ -38,6 +40,8 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 	private RuntimeExceptionDao<Exercise, Integer> exerciseDao;
 	private RuntimeExceptionDao<Training, Integer> trainingDao;
 	private RuntimeExceptionDao<TrainingExercise, Integer> trainingExerciseDao;
+	private RuntimeExceptionDao<Meal, Integer> mealDao;
+	private RuntimeExceptionDao<MealName, Integer> mealNameDao;
 
 	// Static --------------------------------------------------------
 
@@ -63,6 +67,8 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 			TableUtils.createTable(connectionSource, Exercise.class);
 			TableUtils.createTable(connectionSource, Training.class);
 			TableUtils.createTable(connectionSource, TrainingExercise.class);
+			TableUtils.createTable(connectionSource, Meal.class);
+			TableUtils.createTable(connectionSource, MealName.class);
 		} catch (SQLException e) {
 			Log.e(DatabaseHelper.class.getName(), "Can't create database", e);
 			throw new DatabaseException(e);
@@ -79,6 +85,8 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 			TableUtils.dropTable(connectionSource, Exercise.class, true);
 			TableUtils.dropTable(connectionSource, Training.class, true);
 			TableUtils.dropTable(connectionSource, TrainingExercise.class, true);
+			TableUtils.dropTable(connectionSource, MealName.class, true);
+			TableUtils.dropTable(connectionSource, Meal.class, true);
 			// after we drop the old databases, we create the new ones
 			onCreate(sqliteDatabase, connectionSource);
 		} catch (SQLException e) {
@@ -115,7 +123,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 	}
 
 	/**
-	 * Factory method for a {@link RuntimeExceptionDao} for the {@link Exercise}
+	 * Factory method for a {@link RuntimeExceptionDao} for the {@link Training}
 	 * entity
 	 * 
 	 * @return The {@link RuntimeExceptionDao} for the {@link Training} entity
@@ -125,6 +133,32 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 			trainingDao = getRuntimeExceptionDao(Training.class);
 		}
 		return trainingDao;
+	}
+
+	/**
+	 * Factory method for a {@link RuntimeExceptionDao} for the {@link Meal}
+	 * entity
+	 * 
+	 * @return The {@link RuntimeExceptionDao} for the {@link Meal} entity
+	 */
+	public RuntimeExceptionDao<Meal, Integer> getMealDao() {
+		if (null == mealDao) {
+			mealDao = getRuntimeExceptionDao(Meal.class);
+		}
+		return mealDao;
+	}
+
+	/**
+	 * Factory method for a {@link RuntimeExceptionDao} for the {@link MealName}
+	 * entity
+	 * 
+	 * @return The {@link RuntimeExceptionDao} for the {@link MealName} entity
+	 */
+	public RuntimeExceptionDao<MealName, Integer> getMealNameDao() {
+		if (null == mealNameDao) {
+			mealNameDao = getRuntimeExceptionDao(MealName.class);
+		}
+		return mealNameDao;
 	}
 
 	/**
