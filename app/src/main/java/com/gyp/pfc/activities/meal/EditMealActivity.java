@@ -73,6 +73,10 @@ public class EditMealActivity extends OrmLiteBaseActivity<DatabaseHelper> implem
 	 */
 	private void updateUI() {
 		h.setTextToUI(R.id.dateText, TimeUtils.formatDate(meal.getDate()));
+		h.setTextToUI(R.id.caloriesCell, meal.getMealCalories().toString());
+		h.setTextToUI(R.id.proteinCell, meal.getMealProtein().toString());
+		h.setTextToUI(R.id.carbsCell, meal.getMealCarbs().toString());
+		h.setTextToUI(R.id.fatsCell, meal.getMealFats().toString());
 	}
 
 	/**

@@ -50,29 +50,27 @@ public class EditMealActivityTest extends BaseMealTest {
 		// GIVEN
 		// no meals
 		// two mealNames
-		MealName name1 = new MealName();
-		name1.setId(1);
-		name1.setName("First");
-		name1.setOrder(1);
-		daoNames.create(name1);
-		MealName name2 = new MealName();
-		name2.setId(2);
-		name2.setName("Second");
-		name2.setOrder(2);
-		daoNames.create(name2);
+		MealName firstName = createMeal(1, "First", 1);
+		createMeal(2, "Second", 2);
 		// today's String representation
 		String today = DateFormatUtils.format(new Date(), "dd/MM/yyyy");
-		System.out.println(today);
 		// WHEN
 		// activity is created
 		createActivity();
 		// THEN
+		// date is correctly set
 		assertViewText(R.id.dateText, today);
+		// first meal is selected
 		Spinner spinner = (Spinner) activity.findViewById(R.id.mealNameSpinner);
 		MealName mealName = (MealName) spinner.getSelectedItem();
-		assertThat(mealName, is(name1));
+		assertThat(mealName, is(firstName));
+		// nutrition values are correctly filled
+		assertViewText(R.id.caloriesCell, "0");
+		assertViewText(R.id.proteinCell, "0");
+		assertViewText(R.id.carbsCell, "0");
+		assertViewText(R.id.fatsCell, "0");
 	}
-
+	
 	// Package protected ---------------------------------------------
 
 	// Protected -----------------------------------------------------

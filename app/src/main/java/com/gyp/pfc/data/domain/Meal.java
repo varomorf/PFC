@@ -134,6 +134,12 @@ public class Meal implements Serializable {
 		return portions;
 	}
 
+	/**
+	 * Sets the portions assuring that the collection will never be null
+	 * 
+	 * @param portions
+	 *            the new portions
+	 */
 	public void setPortions(Collection<Portion> portions) {
 		this.portions = portions != null ? portions : new ArrayList<Portion>();
 	}

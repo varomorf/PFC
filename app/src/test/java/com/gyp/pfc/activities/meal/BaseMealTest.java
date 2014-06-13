@@ -34,6 +34,15 @@ public abstract class BaseMealTest extends BaseActivityTest {
 		daoNames = new DatabaseHelper(realActivity).getMealNameDao();
 	}
 
+	protected MealName createMeal(int id, String name, int order) {
+		MealName mealName = new MealName();
+		mealName.setId(id);
+		mealName.setName(name);
+		mealName.setOrder(order);
+		daoNames.create(mealName);
+		return mealName;
+	}
+
 	// Package protected ---------------------------------------------
 
 	// Protected -----------------------------------------------------
