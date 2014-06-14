@@ -18,6 +18,8 @@ public class NullMeal extends Meal {
 	private static final long serialVersionUID = 1L;
 
 	public static final int ID = -1;
+	
+	public static final NullMeal NULL_MEAL = new NullMeal();
 
 	// Attributes ----------------------------------------------------
 
@@ -29,8 +31,10 @@ public class NullMeal extends Meal {
 
 	/**
 	 * Creates a new {@link NullMeal} with id {@link NullMeal#ID}
+	 * 
+	 * Private so there is only one NullMeal object
 	 */
-	public NullMeal() {
+	private NullMeal() {
 		setId(ID);
 	}
 

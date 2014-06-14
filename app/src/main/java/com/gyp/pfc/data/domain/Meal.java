@@ -36,7 +36,7 @@ public class Meal implements Serializable {
 	private Date date = new Date();
 
 	@DatabaseField(canBeNull = false, foreign = true, foreignAutoRefresh = true)
-	private MealName name = new NullMealName();
+	private MealName name = NullMealName.NULL_MEAL_NAME;
 
 	@ForeignCollectionField(eager = true)
 	private Collection<Portion> portions = new ArrayList<Portion>();
@@ -127,7 +127,7 @@ public class Meal implements Serializable {
 	}
 
 	public void setName(MealName name) {
-		this.name = name;
+		this.name = name != null ? name : NullMealName.NULL_MEAL_NAME;
 	}
 
 	public Collection<Portion> getPortions() {

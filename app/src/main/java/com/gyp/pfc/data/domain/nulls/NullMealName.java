@@ -20,6 +20,8 @@ public class NullMealName extends MealName {
 	public static final String NAME = "Null meal";
 	public static final int ORDER = -1;
 
+	public static final NullMealName NULL_MEAL_NAME = new NullMealName();
+
 	// Attributes ----------------------------------------------------
 
 	// Static --------------------------------------------------------
@@ -29,8 +31,10 @@ public class NullMealName extends MealName {
 	/**
 	 * Creates a new {@link NullMealName} specifying its name to
 	 * {@link NullMealName#NAME} and order to {@link NullMealName#ORDER}
+	 * 
+	 * Private so there is only one NullMealName object
 	 */
-	public NullMealName() {
+	private NullMealName() {
 		setName(NAME);
 		setOrder(ORDER);
 	}

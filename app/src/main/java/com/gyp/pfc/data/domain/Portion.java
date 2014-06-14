@@ -31,10 +31,10 @@ public class Portion implements Serializable {
 	private int id;
 
 	@DatabaseField(foreign = true, foreignAutoRefresh = true)
-	private Food food = new NullFood();
+	private Food food = NullFood.NULL_FOOD;
 
 	@DatabaseField(foreign = true, foreignAutoRefresh = true)
-	private Meal meal = new NullMeal();
+	private Meal meal = NullMeal.NULL_MEAL;
 
 	/** The amount in grams of the food */
 	@DatabaseField
@@ -65,7 +65,7 @@ public class Portion implements Serializable {
 	}
 
 	public void setFood(Food food) {
-		this.food = food;
+		this.food = food != null ? food : NullFood.NULL_FOOD;
 	}
 
 	public Integer getQuantity() {
@@ -74,6 +74,14 @@ public class Portion implements Serializable {
 
 	public void setQuantity(Integer quantity) {
 		this.quantity = quantity;
+	}
+
+	public Meal getMeal() {
+		return meal;
+	}
+
+	public void setMeal(Meal meal) {
+		this.meal = meal != null ? meal : NullMeal.NULL_MEAL;
 	}
 
 	// Package protected ---------------------------------------------
