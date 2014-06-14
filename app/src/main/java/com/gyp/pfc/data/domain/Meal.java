@@ -4,13 +4,13 @@
 package com.gyp.pfc.data.domain;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 
 import org.apache.commons.lang.time.DateFormatUtils;
 
+import com.gyp.pfc.data.domain.nulls.NullForeignCollection;
 import com.gyp.pfc.data.domain.nulls.NullMealName;
+import com.j256.ormlite.dao.ForeignCollection;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
@@ -39,7 +39,7 @@ public class Meal implements Serializable {
 	private MealName name = NullMealName.NULL_MEAL_NAME;
 
 	@ForeignCollectionField(eager = true)
-	private Collection<Portion> portions = new ArrayList<Portion>();
+	private ForeignCollection<Portion> portions = NullForeignCollection.NULL_COLLECTION;
 
 	// Static --------------------------------------------------------
 
@@ -130,7 +130,7 @@ public class Meal implements Serializable {
 		this.name = name != null ? name : NullMealName.NULL_MEAL_NAME;
 	}
 
-	public Collection<Portion> getPortions() {
+	public ForeignCollection<Portion> getPortions() {
 		return portions;
 	}
 
@@ -140,8 +140,8 @@ public class Meal implements Serializable {
 	 * @param portions
 	 *            the new portions
 	 */
-	public void setPortions(Collection<Portion> portions) {
-		this.portions = portions != null ? portions : new ArrayList<Portion>();
+	public void setPortions(ForeignCollection<Portion> portions) {
+		this.portions = portions != null ? portions : NullForeignCollection.NULL_COLLECTION;
 	}
 
 	// Package protected ---------------------------------------------
