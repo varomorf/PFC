@@ -122,6 +122,7 @@ public class Meal implements Serializable, NutritionalInformationProvider {
 	 *            the date to be set
 	 */
 	public void setDate(Date date) {
+		this.date = date != null ? date : new Date();
 		this.date = DateUtils.truncate(date, Calendar.DAY_OF_MONTH);
 	}
 

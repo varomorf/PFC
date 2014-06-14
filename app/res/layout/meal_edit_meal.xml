@@ -26,8 +26,9 @@
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/previous" 
-                android:contentDescription="@string/previousDate" />
+                android:contentDescription="@string/previousDate"
+                android:onClick="previousDate"
+                android:src="@drawable/previous" />
 
             <TextView
                 android:id="@+id/dateText"
@@ -41,8 +42,9 @@
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/play" 
-                android:contentDescription="@string/nextDate" />
+                android:contentDescription="@string/nextDate"
+                android:onClick="nextDate"
+                android:src="@drawable/play" />
 
         </LinearLayout>
 

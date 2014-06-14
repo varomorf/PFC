@@ -5,7 +5,10 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang.time.DateUtils;
+
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Spinner;
 
 import com.gyp.pfc.R;
@@ -49,11 +52,29 @@ public class EditMealActivity extends OrmLiteBaseActivity<DatabaseHelper> implem
 		setContentView(R.layout.meal_edit_meal);
 		populateSpinner();
 		// by default today's first meal
-		meal = new Meal();
-		meal.setDate(new Date());
-		meal.setName(getFirstName());
+		meal = h.createMealFor(new Date(), getFirstName());
 		updateMealWithDB();
 		updateUI();
+	}
+
+	/**
+	 * Method for the nextDate button onClick event
+	 * 
+	 * @param view
+	 *            the button
+	 */
+	public void nextDate(View view) {
+		moveMealDate(1);
+	}
+
+	/**
+	 * Method for the nextDate button onClick event
+	 * 
+	 * @param view
+	 *            the button
+	 */
+	public void previousDate(View view) {
+		moveMealDate(-1);
 	}
 
 	// Package protected ---------------------------------------------
@@ -61,6 +82,20 @@ public class EditMealActivity extends OrmLiteBaseActivity<DatabaseHelper> implem
 	// Protected -----------------------------------------------------
 
 	// Private -------------------------------------------------------
+
+	/**
+	 * Changes the currently edited meal to the one with the specified days
+	 * added
+	 * 
+	 * @param days
+	 *            the days to add (or subtract if negative) to the current
+	 *            meal's date
+	 */
+	private void moveMealDate(int days) {
+		meal = h.createMealFor(DateUtils.addDays(meal.getDate(), days), getFirstName());
+		updateMealWithDB();
+		updateUI();
+	}
 
 	/**
 	 * Searches for a meal with the requested data on DB and if any, sets it as

@@ -1,5 +1,8 @@
 package com.gyp.pfc.activities.meal;
 
+import java.util.Date;
+import java.util.List;
+
 import com.gyp.pfc.activities.BaseActivityTest;
 import com.gyp.pfc.data.db.DatabaseHelper;
 import com.gyp.pfc.data.domain.Food;
@@ -24,6 +27,8 @@ public abstract class BaseMealTest extends BaseActivityTest {
 	protected RuntimeExceptionDao<MealName, Integer> daoNames;
 	protected RuntimeExceptionDao<Food, Integer> daoFood;
 	protected RuntimeExceptionDao<Portion, Integer> daoPortion;
+	
+	protected MealName firstName;
 
 	// Static --------------------------------------------------------
 
@@ -38,6 +43,10 @@ public abstract class BaseMealTest extends BaseActivityTest {
 		daoNames = new DatabaseHelper(realActivity).getMealNameDao();
 		daoFood = new DatabaseHelper(realActivity).getFoodDao();
 		daoPortion = new DatabaseHelper(realActivity).getPortionDao();
+		
+		List<MealName> mealNames = daoNames.queryForAll();
+		daoNames.delete(mealNames);
+		firstName = createMeal(1, "First", 1);
 	}
 
 	protected MealName createMeal(int id, String name, int order) {
@@ -62,6 +71,18 @@ public abstract class BaseMealTest extends BaseActivityTest {
 		p.setQuantity(quantity);
 		daoPortion.create(p);
 		return p;
+	}
+
+	protected Meal createMeal(Date date) {
+		if(date == null){
+			date = new Date();
+		}
+		Meal meal = new Meal();
+		meal.setDate(date);
+		meal.setName(firstName);
+		dao.create(meal);
+		dao.refresh(meal);
+		return meal;
 	}
 
 	// Package protected ---------------------------------------------
