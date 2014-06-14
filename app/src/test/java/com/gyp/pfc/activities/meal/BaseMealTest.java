@@ -2,8 +2,10 @@ package com.gyp.pfc.activities.meal;
 
 import com.gyp.pfc.activities.BaseActivityTest;
 import com.gyp.pfc.data.db.DatabaseHelper;
+import com.gyp.pfc.data.domain.Food;
 import com.gyp.pfc.data.domain.Meal;
 import com.gyp.pfc.data.domain.MealName;
+import com.gyp.pfc.data.domain.Portion;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
 
 /**
@@ -20,6 +22,8 @@ public abstract class BaseMealTest extends BaseActivityTest {
 
 	protected RuntimeExceptionDao<Meal, Integer> dao;
 	protected RuntimeExceptionDao<MealName, Integer> daoNames;
+	protected RuntimeExceptionDao<Food, Integer> daoFood;
+	protected RuntimeExceptionDao<Portion, Integer> daoPortion;
 
 	// Static --------------------------------------------------------
 
@@ -32,6 +36,8 @@ public abstract class BaseMealTest extends BaseActivityTest {
 		super.before();
 		dao = new DatabaseHelper(realActivity).getMealDao();
 		daoNames = new DatabaseHelper(realActivity).getMealNameDao();
+		daoFood = new DatabaseHelper(realActivity).getFoodDao();
+		daoPortion = new DatabaseHelper(realActivity).getPortionDao();
 	}
 
 	protected MealName createMeal(int id, String name, int order) {
@@ -41,6 +47,21 @@ public abstract class BaseMealTest extends BaseActivityTest {
 		mealName.setOrder(order);
 		daoNames.create(mealName);
 		return mealName;
+	}
+	
+	protected Portion createPortion(int quantity, double calories, double carbs, double protein, double fats) {
+		Food food = new Food();
+		food.setName("Food");
+		food.setCalories(calories);
+		food.setCarbs(carbs);
+		food.setProtein(protein);
+		food.setFats(fats);
+		daoFood.create(food);
+		Portion p = new Portion();
+		p.setFood(food);
+		p.setQuantity(quantity);
+		daoPortion.create(p);
+		return p;
 	}
 
 	// Package protected ---------------------------------------------

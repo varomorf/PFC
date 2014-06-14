@@ -3,6 +3,7 @@ package com.gyp.pfc.activities.meal;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 
@@ -18,6 +19,7 @@ import com.gyp.pfc.CustomTestRunner;
 import com.gyp.pfc.R;
 import com.gyp.pfc.data.domain.Meal;
 import com.gyp.pfc.data.domain.MealName;
+import com.gyp.pfc.data.domain.Portion;
 
 /**
  * Test for {@link EditMealActivity}
@@ -70,7 +72,39 @@ public class EditMealActivityTest extends BaseMealTest {
 		assertViewText(R.id.carbsCell, "0");
 		assertViewText(R.id.fatsCell, "0");
 	}
-	
+
+	@Test
+	public void shouldUseExistingMealIfExisting() throws SQLException {
+		// GIVEN
+		// a meal name
+		MealName firstName = createMeal(1, "First", 1);
+		// existing meal for today's first meal
+		Meal meal = new Meal();
+		meal.setDate(new Date());
+		meal.setName(firstName);
+		dao.create(meal);
+		dao.refresh(meal);
+		Portion a = createPortion(90, 100d, 10d, 8d, 5d);
+		Portion b = createPortion(50, 100d, 30d, 2d, 2d);
+		meal.addPortion(a);
+		meal.addPortion(b);
+		meal.getPortions().updateAll();
+		dao.update(meal);
+		// WHEN
+		// activity is created
+		createActivity();
+		// THEN
+		// correct meal is selected
+		Spinner spinner = (Spinner) activity.findViewById(R.id.mealNameSpinner);
+		MealName mealName = (MealName) spinner.getSelectedItem();
+		assertThat(mealName, is(firstName));
+		// nutrition values are correctly filled
+		assertViewText(R.id.caloriesCell, "140");
+		assertViewText(R.id.carbsCell, "24");
+		assertViewText(R.id.proteinCell, "8");
+		assertViewText(R.id.fatsCell, "6");
+	}
+
 	// Package protected ---------------------------------------------
 
 	// Protected -----------------------------------------------------

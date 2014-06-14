@@ -93,6 +93,7 @@ public class Meal implements Serializable, NutritionalInformationProvider {
 	 */
 	public void addPortion(Portion portion) {
 		portions.add(portion);
+		portion.setMeal(this);
 	}
 
 	@Override

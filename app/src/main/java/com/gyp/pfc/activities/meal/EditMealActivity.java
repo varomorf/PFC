@@ -1,5 +1,6 @@
 package com.gyp.pfc.activities.meal;
 
+import java.sql.SQLException;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -14,6 +15,7 @@ import com.gyp.pfc.data.db.DatabaseHelper;
 import com.gyp.pfc.data.domain.Meal;
 import com.gyp.pfc.data.domain.MealName;
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
+import com.j256.ormlite.stmt.QueryBuilder;
 
 /**
  * Activity for the edition of a meal
@@ -50,6 +52,7 @@ public class EditMealActivity extends OrmLiteBaseActivity<DatabaseHelper> implem
 		meal = new Meal();
 		meal.setDate(new Date());
 		meal.setName(getFirstName());
+		updateMealWithDB();
 		updateUI();
 	}
 
@@ -58,6 +61,23 @@ public class EditMealActivity extends OrmLiteBaseActivity<DatabaseHelper> implem
 	// Protected -----------------------------------------------------
 
 	// Private -------------------------------------------------------
+
+	/**
+	 * Searches for a meal with the requested data on DB and if any, sets it as
+	 * the activity's meal
+	 */
+	private void updateMealWithDB() {
+		QueryBuilder<Meal, Integer> qb = getHelper().getMealDao().queryBuilder();
+		try {
+			qb.where().eq("date", meal.getDate()).and().eq("name_id", meal.getName());
+			Meal dbMeal = qb.queryForFirst();
+			if (dbMeal != null) {
+				meal = dbMeal;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 
 	/**
 	 * Returns the first {@link MealName} of the meal name's spinner
@@ -73,10 +93,10 @@ public class EditMealActivity extends OrmLiteBaseActivity<DatabaseHelper> implem
 	 */
 	private void updateUI() {
 		h.setTextToUI(R.id.dateText, TimeUtils.formatDate(meal.getDate()));
-		h.setTextToUI(R.id.caloriesCell, meal.getMealCalories().toString());
-		h.setTextToUI(R.id.proteinCell, meal.getMealProtein().toString());
-		h.setTextToUI(R.id.carbsCell, meal.getMealCarbs().toString());
-		h.setTextToUI(R.id.fatsCell, meal.getMealFats().toString());
+		h.setTextToUI(R.id.caloriesCell, formatQuantity(meal.getCalories()));
+		h.setTextToUI(R.id.proteinCell, formatQuantity(meal.getProtein()));
+		h.setTextToUI(R.id.carbsCell, formatQuantity(meal.getCarbs()));
+		h.setTextToUI(R.id.fatsCell, formatQuantity(meal.getFats()));
 	}
 
 	/**
@@ -99,6 +119,17 @@ public class EditMealActivity extends OrmLiteBaseActivity<DatabaseHelper> implem
 	 */
 	private Spinner getMealNameSpinner() {
 		return (Spinner) findViewById(R.id.mealNameSpinner);
+	}
+
+	/**
+	 * Formats the passed quantity as an integer
+	 * 
+	 * @param quantity
+	 *            the quantity to be formated
+	 * @return the formatted quantity as an integer
+	 */
+	private String formatQuantity(Double quantity) {
+		return Integer.toString(quantity.intValue());
 	}
 	// Inner classes -------------------------------------------------
 
