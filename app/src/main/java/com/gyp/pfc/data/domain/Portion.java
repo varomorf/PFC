@@ -19,7 +19,7 @@ import com.j256.ormlite.table.DatabaseTable;
  * 
  */
 @DatabaseTable
-public class Portion implements Serializable {
+public class Portion implements Serializable, NutritionalInformationProvider {
 
 	// Constants -----------------------------------------------------
 
@@ -50,6 +50,26 @@ public class Portion implements Serializable {
 	public String toString() {
 		return new StringBuilder().append(id).append(" - ").append(quantity).append("gr. of ")
 				.append(food.getName()).append(" for meal ").append(meal.getId()).toString();
+	}
+
+	@Override
+	public Double getCalories() {
+		return calculateAmountWithQuantity(food.getCalories());
+	}
+
+	@Override
+	public Double getCarbs() {
+		return calculateAmountWithQuantity(food.getCarbs());
+	}
+
+	@Override
+	public Double getProtein() {
+		return calculateAmountWithQuantity(food.getProtein());
+	}
+
+	@Override
+	public Double getFats() {
+		return calculateAmountWithQuantity(food.getFats());
 	}
 
 	public int getId() {
@@ -89,6 +109,15 @@ public class Portion implements Serializable {
 	// Protected -----------------------------------------------------
 
 	// Private -------------------------------------------------------
+	
+	/**
+	 * Calculates the correct amount with the portion's quantity
+	 * @param amount amount to calculate
+	 * @return the calculated amount
+	 */
+	private Double calculateAmountWithQuantity(Double amount){
+		return (amount * quantity) / 100d;
+	}
 
 	// Inner classes -------------------------------------------------
 

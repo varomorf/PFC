@@ -37,6 +37,36 @@ public class PortionTest {
 		// THEN
 		assertEquals("Should have returned expected string", expected, ret);
 	}
+
+	@Test
+	public void shouldReturnExpectedNutritionalInformation() {
+		// GIVEN
+		// portions should round amounts
+		Double foodCalsPer100 = 300d;
+		Double foodCarbsPer100 = 20d;
+		Double foodProteinPer100 = 9d;
+		Double foodFatsPer100 = 30d;
+		Food food = new Food();
+		food.setCalories(foodCalsPer100);
+		food.setCarbs(foodCarbsPer100);
+		food.setProtein(foodProteinPer100);
+		food.setFats(foodFatsPer100);
+		Portion portion = new Portion();
+		portion.setId(1);
+		portion.setQuantity(35);
+		portion.setFood(food);
+		// WHEN
+		double portionCals = portion.getCalories();
+		double portionCarbs = portion.getCarbs();
+		double portionProtein = portion.getProtein();
+		double portionFats = portion.getFats();
+		// THEN
+		assertEquals("Should have returned expect calories", 105d, portionCals, 0);
+		assertEquals("Should have returned expect carbs", 7d, portionCarbs, 0);
+		assertEquals("Should have returned expect protein", 3.15d, portionProtein, 0);
+		assertEquals("Should have returned expect fats", 10.5d, portionFats, 0);
+	}
+
 	// Package protected ---------------------------------------------
 
 	// Protected -----------------------------------------------------
