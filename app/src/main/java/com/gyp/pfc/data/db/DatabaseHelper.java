@@ -11,6 +11,7 @@ import com.gyp.pfc.data.domain.Exercise;
 import com.gyp.pfc.data.domain.Food;
 import com.gyp.pfc.data.domain.Meal;
 import com.gyp.pfc.data.domain.MealName;
+import com.gyp.pfc.data.domain.Portion;
 import com.gyp.pfc.data.domain.Training;
 import com.gyp.pfc.data.domain.TrainingExercise;
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
@@ -42,6 +43,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 	private RuntimeExceptionDao<TrainingExercise, Integer> trainingExerciseDao;
 	private RuntimeExceptionDao<Meal, Integer> mealDao;
 	private RuntimeExceptionDao<MealName, Integer> mealNameDao;
+	private RuntimeExceptionDao<Portion, Integer> portionDao;
 
 	// Static --------------------------------------------------------
 
@@ -69,6 +71,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 			TableUtils.createTable(connectionSource, TrainingExercise.class);
 			TableUtils.createTable(connectionSource, Meal.class);
 			TableUtils.createTable(connectionSource, MealName.class);
+			TableUtils.createTable(connectionSource, Portion.class);
 		} catch (SQLException e) {
 			Log.e(DatabaseHelper.class.getName(), "Can't create database", e);
 			throw new DatabaseException(e);
@@ -87,6 +90,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 			TableUtils.dropTable(connectionSource, TrainingExercise.class, true);
 			TableUtils.dropTable(connectionSource, MealName.class, true);
 			TableUtils.dropTable(connectionSource, Meal.class, true);
+			TableUtils.dropTable(connectionSource, Portion.class, true);
 			// after we drop the old databases, we create the new ones
 			onCreate(sqliteDatabase, connectionSource);
 		} catch (SQLException e) {
@@ -173,6 +177,19 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 			trainingExerciseDao = getRuntimeExceptionDao(TrainingExercise.class);
 		}
 		return trainingExerciseDao;
+	}
+
+	/**
+	 * Factory method for a {@link RuntimeExceptionDao} for the {@link Portion}
+	 * entity
+	 * 
+	 * @return The {@link RuntimeExceptionDao} for the {@link Portion} entity
+	 */
+	public RuntimeExceptionDao<Portion, Integer> getPortionDao() {
+		if (null == portionDao) {
+			portionDao = getRuntimeExceptionDao(Portion.class);
+		}
+		return portionDao;
 	}
 
 	/**
