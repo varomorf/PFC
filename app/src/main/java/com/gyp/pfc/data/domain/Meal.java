@@ -23,7 +23,7 @@ import com.j256.ormlite.field.ForeignCollectionField;
  * @author Alvaro
  * 
  */
-public class Meal implements Serializable {
+public class Meal implements Serializable, NutritionalInformationProvider {
 
 	// Constants -----------------------------------------------------
 
@@ -49,56 +49,40 @@ public class Meal implements Serializable {
 
 	// Public --------------------------------------------------------
 
-	/**
-	 * Returns the sum of the calories of all the food portions in this meal
-	 * 
-	 * @return the calories of this meal
-	 */
-	public Integer getMealCalories() {
+	@Override
+	public Double getCalories() {
 		Double total = 0d;
 		for (Portion portion : portions) {
-			total += portion.getFood().getCalories();
+			total += portion.getCalories();
 		}
-		return total.intValue();
+		return new Double(Math.round(total));
 	}
 
-	/**
-	 * Returns the sum of the carbs of all the food portions in this meal
-	 * 
-	 * @return the carbs of this meal
-	 */
-	public Integer getMealCarbs() {
+	@Override
+	public Double getCarbs() {
 		Double total = 0d;
 		for (Portion portion : portions) {
-			total += portion.getFood().getCarbs();
+			total += portion.getCarbs();
 		}
-		return total.intValue();
+		return new Double(Math.round(total));
 	}
 
-	/**
-	 * Returns the sum of the protein of all the food portions in this meal
-	 * 
-	 * @return the protein of this meal
-	 */
-	public Integer getMealProtein() {
+	@Override
+	public Double getProtein() {
 		Double total = 0d;
 		for (Portion portion : portions) {
-			total += portion.getFood().getProtein();
+			total += portion.getProtein();
 		}
-		return total.intValue();
+		return new Double(Math.round(total));
 	}
 
-	/**
-	 * Returns the sum of the fats of all the food portions in this meal
-	 * 
-	 * @return the fats of this meal
-	 */
-	public Integer getMealFats() {
+	@Override
+	public Double getFats() {
 		Double total = 0d;
 		for (Portion portion : portions) {
-			total += portion.getFood().getFats();
+			total += portion.getFats();
 		}
-		return total.intValue();
+		return new Double(Math.round(total));
 	}
 
 	/**
