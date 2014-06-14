@@ -4,9 +4,11 @@
 package com.gyp.pfc.data.domain;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Date;
 
 import org.apache.commons.lang.time.DateFormatUtils;
+import org.apache.commons.lang.time.DateUtils;
 
 import com.gyp.pfc.data.domain.nulls.NullForeignCollection;
 import com.gyp.pfc.data.domain.nulls.NullMealName;
@@ -99,6 +101,16 @@ public class Meal implements Serializable {
 		return total.intValue();
 	}
 
+	/**
+	 * Adds the passed portion to the portions list
+	 * 
+	 * @param portion
+	 *            the portion to be added
+	 */
+	public void addPortion(Portion portion) {
+		portions.add(portion);
+	}
+
 	@Override
 	public String toString() {
 		String formattedDate = DateFormatUtils.format(date, "dd/MM/yyyy");
@@ -118,8 +130,14 @@ public class Meal implements Serializable {
 		return date;
 	}
 
+	/**
+	 * Sets the date stripping it from its time
+	 * 
+	 * @param date
+	 *            the date to be set
+	 */
 	public void setDate(Date date) {
-		this.date = date;
+		this.date = DateUtils.truncate(date, Calendar.DAY_OF_MONTH);
 	}
 
 	public MealName getName() {

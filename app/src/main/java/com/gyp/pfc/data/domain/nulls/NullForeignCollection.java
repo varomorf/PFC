@@ -41,6 +41,11 @@ public class NullForeignCollection<T, ID> extends BaseForeignCollection<T, ID> {
 	}
 
 	// Public --------------------------------------------------------
+	
+	@Override
+	public boolean add(T data) {
+		return list.add(data);
+	}
 
 	@Override
 	public CloseableIterator<T> iteratorThrow() throws SQLException {
