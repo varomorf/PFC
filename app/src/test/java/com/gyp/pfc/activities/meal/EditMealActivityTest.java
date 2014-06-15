@@ -20,9 +20,11 @@ import android.widget.Spinner;
 import com.gyp.pfc.CustomTestRunner;
 import com.gyp.pfc.R;
 import com.gyp.pfc.TimeUtils;
+import com.gyp.pfc.data.domain.Food;
 import com.gyp.pfc.data.domain.Meal;
 import com.gyp.pfc.data.domain.MealName;
 import com.gyp.pfc.data.domain.Portion;
+import com.gyp.pfc.data.domain.builder.FoodBuilder;
 
 /**
  * Test for {@link EditMealActivity}
@@ -78,10 +80,16 @@ public class EditMealActivityTest extends BaseMealTest {
 	@Test
 	public void shouldUseExistingMealIfExisting() throws SQLException {
 		// GIVEN
-		// existing meal for today's first meal
+		// Broccoli food
+		Food f = new FoodBuilder().name("Broccoli").calories(100d).carbs(10d).protein(2d).getFood();
+		// a portion of 90 grams of broccoli
+		Portion a = createPortion(90, f);
+		// Chicken breast food
+		Food g = new FoodBuilder().name("Chicken breast").calories(100d).carbs(5d).protein(25d).fats(2d).getFood();
+		// a portion of 50 grams of chicken breast
+		Portion b = createPortion(50, g);
+		// existing meal for today's first meal with the created portions
 		Meal meal = createMeal(null);
-		Portion a = createPortion(90, 100d, 10d, 8d, 5d);
-		Portion b = createPortion(50, 100d, 30d, 2d, 2d);
 		meal.addPortion(a);
 		meal.addPortion(b);
 		meal.getPortions().updateAll();
@@ -96,9 +104,9 @@ public class EditMealActivityTest extends BaseMealTest {
 		assertThat(mealName, is(firstName));
 		// nutrition values are correctly filled
 		assertViewText(R.id.caloriesCell, "140");
-		assertViewText(R.id.carbsCell, "24");
-		assertViewText(R.id.proteinCell, "8");
-		assertViewText(R.id.fatsCell, "6");
+		assertViewText(R.id.carbsCell, "12");
+		assertViewText(R.id.proteinCell, "14");
+		assertViewText(R.id.fatsCell, "1");
 	}
 
 	@Test
