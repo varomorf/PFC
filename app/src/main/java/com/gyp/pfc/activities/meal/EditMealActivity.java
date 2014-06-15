@@ -1,6 +1,7 @@
 package com.gyp.pfc.activities.meal;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -9,14 +10,17 @@ import org.apache.commons.lang.time.DateUtils;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ListView;
 import android.widget.Spinner;
 
 import com.gyp.pfc.R;
 import com.gyp.pfc.TimeUtils;
 import com.gyp.pfc.adapters.MealNameListViewAdapter;
+import com.gyp.pfc.adapters.PortionArrayAdapter;
 import com.gyp.pfc.data.db.DatabaseHelper;
 import com.gyp.pfc.data.domain.Meal;
 import com.gyp.pfc.data.domain.MealName;
+import com.gyp.pfc.data.domain.Portion;
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 import com.j256.ormlite.stmt.QueryBuilder;
 
@@ -38,6 +42,9 @@ public class EditMealActivity extends OrmLiteBaseActivity<DatabaseHelper> implem
 	/** Helper to be used */
 	private MealActivityHelper h;
 
+	/** Array adapter for the meal's portions */
+	private PortionArrayAdapter portionAdapter;
+
 	// Static --------------------------------------------------------
 
 	// Constructors --------------------------------------------------
@@ -48,9 +55,12 @@ public class EditMealActivity extends OrmLiteBaseActivity<DatabaseHelper> implem
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		h = new MealActivityHelper(this);
+		portionAdapter = new PortionArrayAdapter(this, R.layout.portion_list_item, new ArrayList<Portion>());
 
 		setContentView(R.layout.meal_edit_meal);
 		populateSpinner();
+		((ListView) findViewById(R.id.mealFoodList)).setAdapter(portionAdapter);
+
 		// by default today's first meal
 		meal = h.createMealFor(new Date(), getFirstName());
 		updateMealWithDB();
@@ -132,6 +142,19 @@ public class EditMealActivity extends OrmLiteBaseActivity<DatabaseHelper> implem
 		h.setTextToUI(R.id.proteinCell, formatQuantity(meal.getProtein()));
 		h.setTextToUI(R.id.carbsCell, formatQuantity(meal.getCarbs()));
 		h.setTextToUI(R.id.fatsCell, formatQuantity(meal.getFats()));
+
+		updatePortionsList();
+	}
+
+	/**
+	 * Updates the content of the portions list with the meal's portions
+	 */
+	private void updatePortionsList() {
+		portionAdapter.clear();
+		for (Portion obj : meal.getPortions()) {
+			portionAdapter.add(obj);
+		}
+		portionAdapter.notifyDataSetChanged();
 	}
 
 	/**
@@ -166,6 +189,7 @@ public class EditMealActivity extends OrmLiteBaseActivity<DatabaseHelper> implem
 	private String formatQuantity(Double quantity) {
 		return Integer.toString(quantity.intValue());
 	}
+	
 	// Inner classes -------------------------------------------------
 
 }

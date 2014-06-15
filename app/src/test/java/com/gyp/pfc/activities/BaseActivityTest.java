@@ -100,12 +100,20 @@ public abstract class BaseActivityTest {
 	}
 
 	protected void assertListSize(int size) {
-		ListView listView = (ListView) activity.findViewById(android.R.id.list);
+		assertListSize(size, android.R.id.list);
+	}
+
+	protected void assertListSize(int size, int listId) {
+		ListView listView = (ListView) activity.findViewById(listId);
 		assertThat("La lista no contiene el número de items esperados", listView.getChildCount(), is(size));
 	}
 
 	protected View getItemFromListView(int index) {
-		ListView listView = (ListView) activity.findViewById(android.R.id.list);
+		return getItemFromListView(index, android.R.id.list);
+	}
+
+	protected View getItemFromListView(int index, int listId) {
+		ListView listView = (ListView) activity.findViewById(listId);
 		return listView.getChildAt(index);
 	}
 
@@ -119,6 +127,11 @@ public abstract class BaseActivityTest {
 		item.performLongClick();
 	}
 
+	protected void clickOnListItemButton(int listId, int itemIndex, int buttonId) {
+		View item = getItemFromListView(itemIndex, listId);
+		clickOn(item.findViewById(buttonId));
+	}
+	
 	protected void clickOnListItemButton(int itemIndex, int buttonId) {
 		View item = getItemFromListView(itemIndex);
 		clickOn(item.findViewById(buttonId));

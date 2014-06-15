@@ -107,6 +107,11 @@ public class EditMealActivityTest extends BaseMealTest {
 		assertViewText(R.id.carbsCell, "12");
 		assertViewText(R.id.proteinCell, "14");
 		assertViewText(R.id.fatsCell, "1");
+		// portions are listed
+		assertItemText(getItemFromListView(0, R.id.mealFoodList), R.id.portionQuantity, a.getQuantity().toString());
+		assertItemText(getItemFromListView(0, R.id.mealFoodList), R.id.portionName, f.getName());
+		assertItemText(getItemFromListView(1, R.id.mealFoodList), R.id.portionQuantity, b.getQuantity().toString());
+		assertItemText(getItemFromListView(1, R.id.mealFoodList), R.id.portionName, g.getName());
 	}
 
 	@Test
