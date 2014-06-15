@@ -21,6 +21,7 @@ import com.gyp.pfc.data.db.DatabaseHelper;
 import com.gyp.pfc.data.domain.Meal;
 import com.gyp.pfc.data.domain.MealName;
 import com.gyp.pfc.data.domain.Portion;
+import com.gyp.pfc.data.domain.TrainingExercise;
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 import com.j256.ormlite.stmt.QueryBuilder;
 
@@ -85,6 +86,26 @@ public class EditMealActivity extends OrmLiteBaseActivity<DatabaseHelper> implem
 	 */
 	public void previousDate(View view) {
 		moveMealDate(-1);
+	}
+
+	/**
+	 * Method for the deleteButton button onClick event
+	 * 
+	 * @param view
+	 *            the button
+	 */
+	public void deleteButton(View view) {
+		ListView exerciseList = (ListView) findViewById(R.id.mealFoodList);
+		int pos = exerciseList.indexOfChild((View) view.getParent());
+		Portion portion = portionAdapter.getItem(pos);
+		// remove item from list's adapter
+		portionAdapter.remove(portion);
+		// refresh the adapter to update UI
+		portionAdapter.notifyDataSetChanged();
+		// remove trainingExercise
+		meal.getPortions().remove(portion);
+		getHelper().getPortionDao().delete(portion);
+		getHelper().getMealDao().refresh(meal);
 	}
 
 	// Package protected ---------------------------------------------
@@ -189,7 +210,7 @@ public class EditMealActivity extends OrmLiteBaseActivity<DatabaseHelper> implem
 	private String formatQuantity(Double quantity) {
 		return Integer.toString(quantity.intValue());
 	}
-	
+
 	// Inner classes -------------------------------------------------
 
 }

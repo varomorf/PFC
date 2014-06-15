@@ -2,6 +2,7 @@ package com.gyp.pfc.activities.meal;
 
 import static com.xtremelabs.robolectric.Robolectric.clickOn;
 import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.*;
 import static org.junit.Assert.assertThat;
 
 import java.sql.SQLException;
@@ -220,6 +221,36 @@ public class EditMealActivityTest extends BaseMealTest {
 		assertViewText(R.id.dateText, TimeUtils.formatDate(yesterday));
 		// tomorrow's meal has been used (using the calories as mark)
 		assertViewText(R.id.caloriesCell, "0");
+	}
+
+	@Test
+	public void shouldRemovePortionsFromAMealWithTheDeleteButton() throws SQLException {
+		// GIVEN
+		// Broccoli food
+		Food f = new FoodBuilder().name("Broccoli").getFood();
+		// a portion of 90 grams of broccoli
+		Portion a = createPortion(90, f);
+		// Chicken breast food
+		Food g = new FoodBuilder().name("Chicken breast").getFood();
+		// a portion of 50 grams of chicken breast
+		Portion b = createPortion(50, g);
+		// existing meal for today's first meal with the created portions
+		Meal meal = createMeal(null);
+		meal.addPortion(a);
+		meal.addPortion(b);
+		meal.getPortions().updateAll();
+		dao.update(meal);
+		// activity is created
+		createActivity();
+		assertListSize(2, R.id.mealFoodList);
+		// WHEN
+		clickOnListItemButton(R.id.mealFoodList, 1, R.id.deleteButton);
+		// THEN
+		// only one portion left
+		assertListSize(1, R.id.mealFoodList);
+		// meal only has one portion
+		dao.refresh(meal);
+		assertEquals("Meal doesn't have the expected number of portions", 1, meal.getPortions().size());
 	}
 
 	// Package protected ---------------------------------------------
