@@ -17,11 +17,13 @@ import org.junit.runner.RunWith;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.widget.Spinner;
 
 import com.gyp.pfc.CustomTestRunner;
 import com.gyp.pfc.R;
 import com.gyp.pfc.TimeUtils;
+import com.gyp.pfc.UIUtils;
 import com.gyp.pfc.activities.food.FoodConstants;
 import com.gyp.pfc.activities.food.FoodListActivity;
 import com.gyp.pfc.data.domain.Food;
@@ -29,8 +31,10 @@ import com.gyp.pfc.data.domain.Meal;
 import com.gyp.pfc.data.domain.MealName;
 import com.gyp.pfc.data.domain.Portion;
 import com.gyp.pfc.data.domain.builder.FoodBuilder;
+import com.gyp.pfc.dialogs.PortionQuantityDialog;
 import com.xtremelabs.robolectric.shadows.ShadowActivity.IntentForResult;
 import com.xtremelabs.robolectric.shadows.ShadowAlertDialog;
+import com.xtremelabs.robolectric.shadows.ShadowDialog;
 
 /**
  * Test for {@link EditMealActivity}
@@ -56,6 +60,8 @@ public class EditMealActivityTest extends BaseMealTest implements FoodConstants 
 		super.before();
 		List<Meal> meals = dao.queryForAll();
 		dao.delete(meals);
+		List<Portion> portions = daoPortion.queryForAll();
+		daoPortion.delete(portions);
 	}
 
 	@Test
@@ -245,6 +251,7 @@ public class EditMealActivityTest extends BaseMealTest implements FoodConstants 
 		meal.addPortion(b);
 		meal.getPortions().updateAll();
 		dao.update(meal);
+		assertEquals("Doesn't have the expected number of portions on DB", 2, daoPortion.queryForAll().size());
 		// activity is created
 		createActivity();
 		assertListSize(2, R.id.mealFoodList);
@@ -262,17 +269,19 @@ public class EditMealActivityTest extends BaseMealTest implements FoodConstants 
 		// meal only has one portion
 		dao.refresh(meal);
 		assertEquals("Meal doesn't have the expected number of portions", 1, meal.getPortions().size());
+		assertEquals("Doesn't have the expected number of portions on DB", 1, daoPortion.queryForAll().size());
+
 	}
 
 	@Test
-	public void shouldBeAbleToAddNewPortions() throws SQLException {
+	public void shouldBeAbleToAddNewPortionsViaFoodList() throws SQLException {
 		// GIVEN
 		// Broccoli food
 		Food f = new FoodBuilder().name("Broccoli").getFood();
 		// a portion of 90 grams of broccoli
 		Portion a = createPortion(90, f);
 		// Chicken breast food
-		Food g = new FoodBuilder().name("Chicken breast").getFood();
+		Food g = new FoodBuilder().name("Chicken breast").calories(100d).protein(10d).getFood();
 		daoFood.create(g);
 		// existing meal for today's first meal with only one portion
 		Meal meal = createMeal(null);
@@ -289,6 +298,31 @@ public class EditMealActivityTest extends BaseMealTest implements FoodConstants 
 		// intent for selecting food is launched
 		IntentForResult intent = assertAndReturnNextActivityForResult(FoodListActivity.class);
 		assertEquals("FoodListActivity intent wasn't started for retrieval", SELECT_FOOD, intent.requestCode);
+		// WHEN
+		// select food returns
+		intent.intent.putExtra(SELECTED_FOOD, g);
+		activity.receiveResult(SELECT_FOOD, Activity.RESULT_OK, intent.intent);
+		// THEN
+		// dialog for quantity is shown
+		Dialog dialog = ShadowDialog.getLatestDialog();
+		assertThat(dialog, is(PortionQuantityDialog.class));
+		// WHEN
+		// set 10 grams and click ok button
+		String grams = "10";
+		UIUtils.setTextToUI(dialog.findViewById(R.id.quantity), grams);
+		clickOn(dialog.findViewById(R.id.okButton));
+		// THEN
+		// meal has new portion
+		dao.refresh(meal);
+		assertEquals("Meal should have a new portion", 2, meal.getPortions().size());
+		// new portion is shown
+		assertItemText(getItemFromListView(1, R.id.mealFoodList), R.id.portionQuantity, grams);
+		assertItemText(getItemFromListView(1, R.id.mealFoodList), R.id.portionName, g.getName());
+		// new nutritional values are loaded
+		assertViewText(R.id.caloriesCell, "10");
+		assertViewText(R.id.proteinCell, "1");
+		assertViewText(R.id.carbsCell, "0");
+		assertViewText(R.id.fatsCell, "0");
 	}
 
 	// Package protected ---------------------------------------------

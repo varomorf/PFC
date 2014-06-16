@@ -69,7 +69,6 @@ public abstract class BaseMealTest extends BaseActivityTest {
 	protected Portion createPortion(int quantity, Food food) {
 		daoFood.create(food);
 		Portion p = new PortionBuilder().food(food).quantity(quantity).getPortion();
-		daoPortion.create(p);
 		return p;
 	}
 

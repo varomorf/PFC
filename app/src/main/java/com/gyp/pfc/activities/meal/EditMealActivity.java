@@ -22,9 +22,12 @@ import com.gyp.pfc.activities.food.FoodListActivity;
 import com.gyp.pfc.adapters.MealNameListViewAdapter;
 import com.gyp.pfc.adapters.PortionArrayAdapter;
 import com.gyp.pfc.data.db.DatabaseHelper;
+import com.gyp.pfc.data.domain.Food;
 import com.gyp.pfc.data.domain.Meal;
 import com.gyp.pfc.data.domain.MealName;
 import com.gyp.pfc.data.domain.Portion;
+import com.gyp.pfc.dialogs.PortionQuantityDialog;
+import com.gyp.pfc.dialogs.PortionQuantityDialog.PortionQuantityDialogListener;
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 import com.j256.ormlite.stmt.QueryBuilder;
 
@@ -34,7 +37,8 @@ import com.j256.ormlite.stmt.QueryBuilder;
  * @author Alvaro
  * 
  */
-public class EditMealActivity extends OrmLiteBaseActivity<DatabaseHelper> implements MealConstants, FoodConstants {
+public class EditMealActivity extends OrmLiteBaseActivity<DatabaseHelper> implements MealConstants, FoodConstants,
+		PortionQuantityDialogListener {
 
 	// Constants -----------------------------------------------------
 
@@ -119,14 +123,35 @@ public class EditMealActivity extends OrmLiteBaseActivity<DatabaseHelper> implem
 		startActivityForResult(selectFood, SELECT_FOOD);
 	}
 
+	@Override
+	public void onPortionQuantityDialogAccept(Portion portion) {
+		// save the meal before adding if necessary
+		getHelper().getMealDao().createIfNotExists(meal);
+		// save the portion before adding
+		getHelper().getPortionDao().create(portion);
+		// add portion to meal and save
+		getHelper().getMealDao().refresh(meal);
+		meal.addPortion(portion);
+		getHelper().getPortionDao().update(portion);
+		getHelper().getMealDao().update(meal);
+		updateUI();
+	}
+
+	@Override
+	public void onPortionQuantityDialogCancel() {
+		// NOOP
+	}
+
 	// Package protected ---------------------------------------------
 
 	// Protected -----------------------------------------------------
-	
+
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		// TODO Auto-generated method stub
-		super.onActivityResult(requestCode, resultCode, data);
+		// get selected food from intent
+		Food food = (Food) data.getExtras().get(SELECTED_FOOD);
+		// show dialog for entering quantity
+		new PortionQuantityDialog(this, this, food).show();
 	}
 
 	// Private -------------------------------------------------------
@@ -189,8 +214,11 @@ public class EditMealActivity extends OrmLiteBaseActivity<DatabaseHelper> implem
 	 */
 	private void updatePortionsList() {
 		portionAdapter.clear();
-		for (Portion obj : meal.getPortions()) {
-			portionAdapter.add(obj);
+		if (meal.getId() != null) {
+			getHelper().getMealDao().refresh(meal);
+			for (Portion obj : meal.getPortions()) {
+				portionAdapter.add(obj);
+			}
 		}
 		portionAdapter.notifyDataSetChanged();
 	}
@@ -202,8 +230,7 @@ public class EditMealActivity extends OrmLiteBaseActivity<DatabaseHelper> implem
 		List<MealName> mealNames = getHelper().getMealNameDao().queryForAll();
 		Collections.sort(mealNames);
 		// prepare adapter for exercises list
-		MealNameListViewAdapter adapter = new MealNameListViewAdapter(this, R.layout.meal_name_list_item,
-				mealNames);
+		MealNameListViewAdapter adapter = new MealNameListViewAdapter(this, mealNames);
 		// set adapter to spinner
 		getMealNameSpinner().setAdapter(adapter);
 	}
@@ -243,6 +270,8 @@ public class EditMealActivity extends OrmLiteBaseActivity<DatabaseHelper> implem
 		meal.getPortions().remove(portion);
 		getHelper().getPortionDao().delete(portion);
 		getHelper().getMealDao().update(meal);
+		getHelper().getMealDao().refresh(meal);
+		updateUI();
 	}
 
 	// Inner classes -------------------------------------------------

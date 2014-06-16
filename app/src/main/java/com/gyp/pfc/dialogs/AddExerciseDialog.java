@@ -128,13 +128,13 @@ public class AddExerciseDialog extends Dialog implements android.view.View.OnCli
 			setTextToUI(R.id.repetitions, te.getReps());
 		}
 	}
-	
-	private void setTextToUI(int viewId, int text){
+
+	private void setTextToUI(int viewId, int text) {
 		UIUtils.setTextToUI(findViewById(viewId), text);
 	}
 
 	// Inner classes -------------------------------------------------
-	
+
 	/**
 	 * Defines a listener for the {@link AddExerciseDialog}
 	 * 
