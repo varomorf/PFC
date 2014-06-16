@@ -87,5 +87,7 @@
     <string name="nextDate">Siguiente fecha</string>
     <string name="previousDate">Anterior fecha</string>
     <string name="addFoodToMeal">Añadir nuevo alimento</string>
+    
+    <string name="assurePortionDeletion">¿Seguro que desea quitar esta porción?</string>
 
 </resources>

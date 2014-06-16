@@ -16,6 +16,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.widget.Spinner;
 
 import com.gyp.pfc.CustomTestRunner;
@@ -26,6 +27,7 @@ import com.gyp.pfc.data.domain.Meal;
 import com.gyp.pfc.data.domain.MealName;
 import com.gyp.pfc.data.domain.Portion;
 import com.gyp.pfc.data.domain.builder.FoodBuilder;
+import com.xtremelabs.robolectric.shadows.ShadowAlertDialog;
 
 /**
  * Test for {@link EditMealActivity}
@@ -245,6 +247,12 @@ public class EditMealActivityTest extends BaseMealTest {
 		assertListSize(2, R.id.mealFoodList);
 		// WHEN
 		clickOnListItemButton(R.id.mealFoodList, 1, R.id.deleteButton);
+		// THEN
+		// question is asked for deletion
+		assertAlertDialogText(R.string.assurePortionDeletion);
+		// WHEN
+		// affirmative button is clicked on
+		clickOn(ShadowAlertDialog.getLatestAlertDialog().getButton(AlertDialog.BUTTON_POSITIVE));
 		// THEN
 		// only one portion left
 		assertListSize(1, R.id.mealFoodList);

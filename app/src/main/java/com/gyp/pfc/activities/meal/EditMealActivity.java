@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.apache.commons.lang.time.DateUtils;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
@@ -21,7 +22,6 @@ import com.gyp.pfc.data.db.DatabaseHelper;
 import com.gyp.pfc.data.domain.Meal;
 import com.gyp.pfc.data.domain.MealName;
 import com.gyp.pfc.data.domain.Portion;
-import com.gyp.pfc.data.domain.TrainingExercise;
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 import com.j256.ormlite.stmt.QueryBuilder;
 
@@ -97,15 +97,12 @@ public class EditMealActivity extends OrmLiteBaseActivity<DatabaseHelper> implem
 	public void deleteButton(View view) {
 		ListView exerciseList = (ListView) findViewById(R.id.mealFoodList);
 		int pos = exerciseList.indexOfChild((View) view.getParent());
-		Portion portion = portionAdapter.getItem(pos);
-		// remove item from list's adapter
-		portionAdapter.remove(portion);
-		// refresh the adapter to update UI
-		portionAdapter.notifyDataSetChanged();
-		// remove trainingExercise
-		meal.getPortions().remove(portion);
-		getHelper().getPortionDao().delete(portion);
-		getHelper().getMealDao().refresh(meal);
+		final Portion portion = portionAdapter.getItem(pos);
+		h.deleteWithDialog(new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int id) {
+				doDeletePortion(portion);
+			}
+		});
 	}
 
 	// Package protected ---------------------------------------------
@@ -209,6 +206,23 @@ public class EditMealActivity extends OrmLiteBaseActivity<DatabaseHelper> implem
 	 */
 	private String formatQuantity(Double quantity) {
 		return Integer.toString(quantity.intValue());
+	}
+
+	/**
+	 * Does the actual portion deletion from both the edited meal and DB
+	 * 
+	 * @param portion
+	 *            the portion to be deleted
+	 */
+	private void doDeletePortion(Portion portion) {
+		// remove item from list's adapter
+		portionAdapter.remove(portion);
+		// refresh the adapter to update UI
+		portionAdapter.notifyDataSetChanged();
+		// remove trainingExercise
+		meal.getPortions().remove(portion);
+		getHelper().getPortionDao().delete(portion);
+		getHelper().getMealDao().update(meal);
 	}
 
 	// Inner classes -------------------------------------------------

@@ -6,7 +6,11 @@ package com.gyp.pfc.activities.meal;
 import java.util.Date;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 
+import com.gyp.pfc.R;
 import com.gyp.pfc.activities.BaseActivityHelper;
 import com.gyp.pfc.data.domain.Meal;
 import com.gyp.pfc.data.domain.MealName;
@@ -54,6 +58,24 @@ public class MealActivityHelper extends BaseActivityHelper {
 		meal.setDate(date);
 		meal.setName(mealName);
 		return meal;
+	}
+	
+	/**
+	 * Shows a dialog for confirming a portion deletion, deleting it only
+	 * if affirmative response is given by the user
+	 * 
+	 * @param yesOptionListener
+	 *            OnClickListener for affirmative action
+	 */
+	public void deleteWithDialog(OnClickListener yesOptionListener) {
+		new AlertDialog.Builder(activity).setMessage(R.string.assurePortionDeletion).setCancelable(false)
+				.setPositiveButton(android.R.string.yes, yesOptionListener)
+				.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+						// do not delete -> close dialog
+						dialog.cancel();
+					}
+				}).create().show();
 	}
 
 	// Package protected ---------------------------------------------
