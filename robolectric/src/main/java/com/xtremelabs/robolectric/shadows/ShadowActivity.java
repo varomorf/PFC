@@ -652,6 +652,13 @@ public class ShadowActivity extends ShadowContextWrapper {
 		return new ComponentName(callingActivity.getPackage().getName(),
 				callingActivity.getName());
 	}
+	
+	public void receiveResult(int requestCode, int resultCode,
+			Intent resultIntent) {
+		final ActivityInvoker invoker = new ActivityInvoker();
+		invoker.call("onActivityResult", Integer.TYPE, Integer.TYPE,
+				Intent.class).with(requestCode, resultCode, resultIntent);
+	}
     
     public void pressMenuKey(){
     	realActivity.onCreateOptionsMenu(new TestMenu(realActivity));
