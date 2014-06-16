@@ -3,6 +3,7 @@ package com.xtremelabs.robolectric.shadows;
 import android.app.Activity;
 import android.app.Application;
 import android.app.Dialog;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -65,7 +66,7 @@ public class ShadowActivity extends ShadowContextWrapper {
     private int mDefaultKeyMode = Activity.DEFAULT_KEYS_DISABLE;
     private SpannableStringBuilder mDefaultKeySsb = null;
 
-	private Class callingActivity;
+	private Class callingActivity = ShadowActivity.class;
 
     public void callOnCreate(Bundle bundle) {
         invokeReflectively("onCreate", Bundle.class, bundle);
