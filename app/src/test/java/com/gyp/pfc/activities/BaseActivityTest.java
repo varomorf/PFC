@@ -23,6 +23,7 @@ import com.gyp.pfc.data.db.DatabaseHelper;
 import com.gyp.pfc.matchers.ContainsMatcher;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.xtremelabs.robolectric.shadows.ShadowActivity;
+import com.xtremelabs.robolectric.shadows.ShadowActivity.IntentForResult;
 import com.xtremelabs.robolectric.shadows.ShadowAlertDialog;
 import com.xtremelabs.robolectric.shadows.ShadowToast;
 
@@ -131,7 +132,7 @@ public abstract class BaseActivityTest {
 		View item = getItemFromListView(itemIndex, listId);
 		clickOn(item.findViewById(buttonId));
 	}
-	
+
 	protected void clickOnListItemButton(int itemIndex, int buttonId) {
 		View item = getItemFromListView(itemIndex);
 		clickOn(item.findViewById(buttonId));
@@ -142,6 +143,14 @@ public abstract class BaseActivityTest {
 		Intent next = activity.getNextStartedActivity();
 		assertNotNull(next);
 		assertEquals(activityClass.getName(), next.getComponent().getClassName());
+		return next;
+	}
+
+	@SuppressWarnings("rawtypes")
+	protected IntentForResult assertAndReturnNextActivityForResult(Class activityClass) {
+		IntentForResult next = activity.getNextStartedActivityForResult();
+		assertNotNull(next);
+		assertEquals(activityClass.getName(), next.intent.getComponent().getClassName());
 		return next;
 	}
 

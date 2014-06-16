@@ -2,7 +2,7 @@ package com.gyp.pfc.activities.meal;
 
 import static com.xtremelabs.robolectric.Robolectric.clickOn;
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
 import java.sql.SQLException;
@@ -22,11 +22,14 @@ import android.widget.Spinner;
 import com.gyp.pfc.CustomTestRunner;
 import com.gyp.pfc.R;
 import com.gyp.pfc.TimeUtils;
+import com.gyp.pfc.activities.food.FoodConstants;
+import com.gyp.pfc.activities.food.FoodListActivity;
 import com.gyp.pfc.data.domain.Food;
 import com.gyp.pfc.data.domain.Meal;
 import com.gyp.pfc.data.domain.MealName;
 import com.gyp.pfc.data.domain.Portion;
 import com.gyp.pfc.data.domain.builder.FoodBuilder;
+import com.xtremelabs.robolectric.shadows.ShadowActivity.IntentForResult;
 import com.xtremelabs.robolectric.shadows.ShadowAlertDialog;
 
 /**
@@ -36,7 +39,7 @@ import com.xtremelabs.robolectric.shadows.ShadowAlertDialog;
  * 
  */
 @RunWith(CustomTestRunner.class)
-public class EditMealActivityTest extends BaseMealTest {
+public class EditMealActivityTest extends BaseMealTest implements FoodConstants {
 
 	// Constants -----------------------------------------------------
 
@@ -259,6 +262,33 @@ public class EditMealActivityTest extends BaseMealTest {
 		// meal only has one portion
 		dao.refresh(meal);
 		assertEquals("Meal doesn't have the expected number of portions", 1, meal.getPortions().size());
+	}
+
+	@Test
+	public void shouldBeAbleToAddNewPortions() throws SQLException {
+		// GIVEN
+		// Broccoli food
+		Food f = new FoodBuilder().name("Broccoli").getFood();
+		// a portion of 90 grams of broccoli
+		Portion a = createPortion(90, f);
+		// Chicken breast food
+		Food g = new FoodBuilder().name("Chicken breast").getFood();
+		daoFood.create(g);
+		// existing meal for today's first meal with only one portion
+		Meal meal = createMeal(null);
+		meal.addPortion(a);
+		meal.getPortions().updateAll();
+		dao.update(meal);
+		// activity is created
+		createActivity();
+		assertListSize(1, R.id.mealFoodList);
+		// WHEN
+		// add new portion button is clicked
+		clickOn(activity.findViewById(R.id.addFoodtoMealButton));
+		// THEN
+		// intent for selecting food is launched
+		IntentForResult intent = assertAndReturnNextActivityForResult(FoodListActivity.class);
+		assertEquals("FoodListActivity intent wasn't started for retrieval", SELECT_FOOD, intent.requestCode);
 	}
 
 	// Package protected ---------------------------------------------

@@ -67,7 +67,8 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:contentDescription="@string/addFoodToMeal"
-            android:src="@drawable/plus" />
+            android:src="@drawable/plus" 
+            android:onClick="addFoodtoMealButton"/>
 
         <TableLayout
             android:id="@+id/summaryTable"

@@ -9,6 +9,7 @@ import java.util.List;
 import org.apache.commons.lang.time.DateUtils;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
@@ -16,6 +17,8 @@ import android.widget.Spinner;
 
 import com.gyp.pfc.R;
 import com.gyp.pfc.TimeUtils;
+import com.gyp.pfc.activities.food.FoodConstants;
+import com.gyp.pfc.activities.food.FoodListActivity;
 import com.gyp.pfc.adapters.MealNameListViewAdapter;
 import com.gyp.pfc.adapters.PortionArrayAdapter;
 import com.gyp.pfc.data.db.DatabaseHelper;
@@ -31,7 +34,7 @@ import com.j256.ormlite.stmt.QueryBuilder;
  * @author Alvaro
  * 
  */
-public class EditMealActivity extends OrmLiteBaseActivity<DatabaseHelper> implements MealConstants {
+public class EditMealActivity extends OrmLiteBaseActivity<DatabaseHelper> implements MealConstants, FoodConstants {
 
 	// Constants -----------------------------------------------------
 
@@ -105,9 +108,26 @@ public class EditMealActivity extends OrmLiteBaseActivity<DatabaseHelper> implem
 		});
 	}
 
+	/**
+	 * Method for the addFoodtoMealButton button onClick event
+	 * 
+	 * @param view
+	 *            the button
+	 */
+	public void addFoodtoMealButton(View view) {
+		Intent selectFood = new Intent(getApplicationContext(), FoodListActivity.class);
+		startActivityForResult(selectFood, SELECT_FOOD);
+	}
+
 	// Package protected ---------------------------------------------
 
 	// Protected -----------------------------------------------------
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		// TODO Auto-generated method stub
+		super.onActivityResult(requestCode, resultCode, data);
+	}
 
 	// Private -------------------------------------------------------
 
