@@ -65,6 +65,8 @@ public class ShadowActivity extends ShadowContextWrapper {
     private int mDefaultKeyMode = Activity.DEFAULT_KEYS_DISABLE;
     private SpannableStringBuilder mDefaultKeySsb = null;
 
+	private Class callingActivity;
+
     public void callOnCreate(Bundle bundle) {
         invokeReflectively("onCreate", Bundle.class, bundle);
     }
@@ -638,6 +640,16 @@ public class ShadowActivity extends ShadowContextWrapper {
 				return true;
 			}
 		});
+	}
+
+	public void setCallingActivity(Class callingActivity) {
+		this.callingActivity = callingActivity;
+	}
+
+	@Implementation
+	public ComponentName getCallingActivity() {
+		return new ComponentName(callingActivity.getPackage().getName(),
+				callingActivity.getName());
 	}
     
     public void pressMenuKey(){

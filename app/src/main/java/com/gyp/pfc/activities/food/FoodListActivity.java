@@ -24,6 +24,7 @@ import android.widget.SearchView.OnQueryTextListener;
 import android.widget.Toast;
 
 import com.gyp.pfc.R;
+import com.gyp.pfc.activities.meal.EditMealActivity;
 import com.gyp.pfc.adapters.FoodListViewAdapter;
 import com.gyp.pfc.data.db.DatabaseHelper;
 import com.gyp.pfc.data.domain.Food;
@@ -149,12 +150,42 @@ public class FoodListActivity extends OrmLiteBaseListActivity<DatabaseHelper> im
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		// get selected food from adapter
 		Food selectedFood = (Food) l.getAdapter().getItem(position);
+		if (getCallingActivity().getClassName().equals(EditMealActivity.class.getName())) {
+			returnResult(selectedFood);
+		} else {
+			showFoodDetails(selectedFood);
+		}
+	}
+
+	/**
+	 * Starts the {@link ShowFoodDetailsActivity} for the passed food
+	 * 
+	 * @param selectedFood
+	 *            the food to be passed to {@link ShowFoodDetailsActivity}
+	 */
+	protected void showFoodDetails(Food selectedFood) {
 		// prepare intent for showing food details view
 		Intent intent = new Intent(getApplicationContext(), ShowFoodDetailsActivity.class);
 		// put the selected food on the intent
 		intent.putExtra(SELECTED_FOOD, selectedFood);
 		// start the activity with the intent
 		startActivity(intent);
+	}
+
+	/**
+	 * Returns the passed food as result and finished this activity
+	 * 
+	 * @param selectedFood
+	 *            the food to be returned as result
+	 */
+	protected void returnResult(Food selectedFood) {
+		// prepare intent for returning selected food
+		Intent intent = new Intent();
+		// put the selected food on the intent
+		intent.putExtra(SELECTED_FOOD, selectedFood);
+		// return result and finish
+		setResult(SELECT_FOOD, intent);
+		finish();
 	}
 
 	@Override

@@ -68,6 +68,12 @@ public abstract class BaseActivityTest {
 	protected void createActivity() {
 		activity.callOnCreate(null);
 	}
+	
+	@SuppressWarnings("rawtypes")
+	protected void createActivityFromActivity(Class callingActivity) {
+		activity.setCallingActivity(callingActivity);
+		activity.callOnCreate(null);
+	}
 
 	protected void assertToastText(int id) {
 		CharSequence text = getText(id);

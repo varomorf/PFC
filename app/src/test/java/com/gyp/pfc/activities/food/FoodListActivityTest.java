@@ -17,6 +17,7 @@ import android.view.View;
 
 import com.gyp.pfc.CustomTestRunner;
 import com.gyp.pfc.R;
+import com.gyp.pfc.activities.meal.EditMealActivity;
 import com.gyp.pfc.data.domain.Food;
 import com.gyp.pfc.data.domain.manager.FoodManager;
 import com.xtremelabs.robolectric.tester.android.view.TestContextMenu;
@@ -29,7 +30,7 @@ import com.xtremelabs.robolectric.tester.android.view.TestMenu;
  * 
  */
 @RunWith(CustomTestRunner.class)
-public class FoodListActivityTest extends BaseFoodTest {
+public class FoodListActivityTest extends BaseFoodTest implements FoodConstants {
 
 	// Constants -----------------------------------------------------
 
@@ -248,6 +249,21 @@ public class FoodListActivityTest extends BaseFoodTest {
 		// THEN
 		// list must show the change
 		assertFoodName(getItemFromListView(0), finalName);
+	}
+
+	@Test
+	public void shouldReturnIntentWithSelectedFoodIfStartedForThat() {
+		// GIVEN
+		// activity started from the EditMealActivity
+		createActivityFromActivity(EditMealActivity.class);
+		// WHEN
+		// first food is selected
+		clickOnListItem(0);
+		// THEN
+		// food is returned as result
+		Intent result = activity.getResultIntent();
+		Food food = (Food) result.getExtras().get(SELECTED_FOOD);
+		assertEquals("Should have returned the selected food as result", FOOD0, food.getName());
 	}
 
 	// Package protected ---------------------------------------------
