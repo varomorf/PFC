@@ -1,18 +1,27 @@
 package com.gyp.pfc.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.View;
 
 import com.gyp.pfc.R;
-import com.gyp.pfc.adapters.MainListAdapter;
+import com.gyp.pfc.activities.exercise.AddExerciseActivity;
+import com.gyp.pfc.activities.exercise.ExerciseListActivity;
+import com.gyp.pfc.activities.food.AddFoodActivity;
+import com.gyp.pfc.activities.food.FoodListActivity;
+import com.gyp.pfc.activities.meal.EditMealActivity;
+import com.gyp.pfc.activities.training.AddTrainingActivity;
+import com.gyp.pfc.activities.training.TrainingListActivity;
 import com.gyp.pfc.data.db.DatabaseHelper;
 import com.gyp.pfc.data.domain.Exercise;
 import com.gyp.pfc.data.domain.Training;
+import com.gyp.pfc.data.domain.builder.MealNameBuilder;
 import com.gyp.pfc.data.domain.exception.EntityNameException;
 import com.gyp.pfc.data.domain.manager.ExerciseManager;
 import com.gyp.pfc.data.domain.manager.FoodManager;
 import com.gyp.pfc.data.domain.manager.TrainingManager;
-import com.j256.ormlite.android.apptools.OrmLiteBaseListActivity;
+import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 
 /**
  * Main activity of the application. Holds the list of the different actions.
@@ -20,10 +29,9 @@ import com.j256.ormlite.android.apptools.OrmLiteBaseListActivity;
  * @author Alvaro
  * 
  */
-public class MainActivity extends OrmLiteBaseListActivity<DatabaseHelper> {
+public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 
 	// Constants -----------------------------------------------------
-	private static final String[] MAIN_SECTIONS_NAMES = { "Foods", "Meals", "Exercises", "Trainings" };
 
 	// Attributes ----------------------------------------------------
 
@@ -36,6 +44,7 @@ public class MainActivity extends OrmLiteBaseListActivity<DatabaseHelper> {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		setContentView(R.layout.main_activity);
 		initializeManagers();
 		try {
 			// TODO change me
@@ -43,9 +52,7 @@ public class MainActivity extends OrmLiteBaseListActivity<DatabaseHelper> {
 		} catch (EntityNameException e) {
 			// NOOP
 		}
-		// set the list adapter
-		MainListAdapter adapter = new MainListAdapter(this, R.layout.main_list_item, MAIN_SECTIONS_NAMES);
-		setListAdapter(adapter);
+		loadDefaultMeals();
 	}
 
 	@Override
@@ -53,6 +60,39 @@ public class MainActivity extends OrmLiteBaseListActivity<DatabaseHelper> {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.activity_main, menu);
 		return true;
+	}
+
+	public void foodsAddButton(View view) {
+		startActivity(new Intent(this, AddFoodActivity.class));
+	}
+
+	public void foodsListButton(View view) {
+		startActivity(new Intent(this, FoodListActivity.class));
+	}
+
+	public void mealsAddButton(View view) {
+		startActivity(new Intent(this, EditMealActivity.class));
+	}
+
+	public void mealsListButton(View view) {
+		// TODO add the correct activity
+		startActivity(new Intent(this, AddFoodActivity.class));
+	}
+
+	public void exercisesAddButton(View view) {
+		startActivity(new Intent(this, AddExerciseActivity.class));
+	}
+
+	public void exercisesListButton(View view) {
+		startActivity(new Intent(this, ExerciseListActivity.class));
+	}
+
+	public void trainningsAddButton(View view) {
+		startActivity(new Intent(this, AddTrainingActivity.class));
+	}
+
+	public void trainningsListButton(View view) {
+		startActivity(new Intent(this, TrainingListActivity.class));
 	}
 
 	// Package protected ---------------------------------------------
@@ -100,6 +140,20 @@ public class MainActivity extends OrmLiteBaseListActivity<DatabaseHelper> {
 		TrainingManager.getInstance().addExerciseToTraining(training3, exercise1, 30, 1);
 		TrainingManager.getInstance().addExerciseToTraining(training3, exercise2, 30, 1);
 		TrainingManager.getInstance().addExerciseToTraining(training3, exercise3, 30, 1);
+	}
+
+	/**
+	 * Loads the default meal names
+	 */
+	protected void loadDefaultMeals() {
+		getHelper().getMealNameDao().create(
+				new MealNameBuilder().name(getString(R.string.breakfast)).order(1).getMealName());
+		getHelper().getMealNameDao().create(
+				new MealNameBuilder().name(getString(R.string.lunch)).order(2).getMealName());
+		getHelper().getMealNameDao().create(
+				new MealNameBuilder().name(getString(R.string.dinner)).order(3).getMealName());
+		getHelper().getMealNameDao().create(
+				new MealNameBuilder().name(getString(R.string.snacks)).order(4).getMealName());
 	}
 
 	// Private -------------------------------------------------------

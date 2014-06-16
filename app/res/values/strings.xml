@@ -2,11 +2,19 @@
 <resources>
 
     <string name="app_name">Personal Fitness Coach</string>
+    <string name="foods">Alimentos</string>
+    <string name="meals">Comidas</string>
+    <string name="exercises">Ejercicios</string>
+    <string name="trainnings">Entrenamientos</string>
+    <string name="breakfast">Desayuno</string>
+    <string name="lunch">Almuerzo</string>
+    <string name="dinner">Cena</string>
+    <string name="snacks">Snacks</string>
     <string name="menu_settings">Settings</string>
     <string name="main_add">Añadir</string>
     <string name="main_list">Listar</string>
     <string name="button_save">Guardar</string>
-    
+
     <!-- Food related -->
     <string name="label_brandName">Marca</string>
     <string name="label_calories">Calorias</string>
@@ -17,7 +25,7 @@
     <string name="label_fats">Grasa</string>
     <string name="label_saturatedFats">Grasa Sat</string>
     <string name="label_sodium">Sodio</string>
-    
+
     <!-- add_food related -->
     <string name="hello">Rellena los valores por cada 100gr. de alimento</string>
     <string name="addFoodButton">Añadir</string>
@@ -36,10 +44,9 @@
     <string name="fatsError">Las grasas son obligatorias</string>
     <string name="proteinsError">Las proteínas son obligatorias</string>
     <string name="carbsError">Los hidratos son obligatorios</string>
-    
+
     <!-- Show food details related -->
     <string name="assureFoodDeletion">¿Seguro que desea eliminar el alimento?</string>
-    
     <string name="mainMenuFoodsList">Lista de comidas</string>
     <string name="foodsListMenuMain">Inicio</string>
     <string name="newFoodInserted">El nuevo alimento ha sido añadido.</string>
@@ -87,7 +94,7 @@
     <string name="nextDate">Siguiente fecha</string>
     <string name="previousDate">Anterior fecha</string>
     <string name="addFoodToMeal">Añadir nuevo alimento</string>
-    
     <string name="assurePortionDeletion">¿Seguro que desea quitar esta porción?</string>
+    <string name="portionQuantityTitle">Introduce la cantidad del alimento en gramos</string>
 
 </resources>
