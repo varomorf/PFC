@@ -16,10 +16,10 @@ import com.gyp.pfc.activities.training.TrainingListActivity;
 import com.gyp.pfc.data.db.DatabaseHelper;
 import com.gyp.pfc.data.domain.Exercise;
 import com.gyp.pfc.data.domain.Training;
-import com.gyp.pfc.data.domain.builder.MealNameBuilder;
 import com.gyp.pfc.data.domain.exception.EntityNameException;
 import com.gyp.pfc.data.domain.manager.ExerciseManager;
 import com.gyp.pfc.data.domain.manager.FoodManager;
+import com.gyp.pfc.data.domain.manager.MealNameManager;
 import com.gyp.pfc.data.domain.manager.TrainingManager;
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 
@@ -146,14 +146,10 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 	 * Loads the default meal names
 	 */
 	protected void loadDefaultMeals() {
-		getHelper().getMealNameDao().createIfNotExists(
-				new MealNameBuilder().name(getString(R.string.breakfast)).order(1).getMealName());
-		getHelper().getMealNameDao().createIfNotExists(
-				new MealNameBuilder().name(getString(R.string.lunch)).order(2).getMealName());
-		getHelper().getMealNameDao().createIfNotExists(
-				new MealNameBuilder().name(getString(R.string.dinner)).order(3).getMealName());
-		getHelper().getMealNameDao().createIfNotExists(
-				new MealNameBuilder().name(getString(R.string.snacks)).order(4).getMealName());
+		MealNameManager.getInstance().createMealNameIfOrderNotPresent(getString(R.string.breakfast), 1);
+		MealNameManager.getInstance().createMealNameIfOrderNotPresent(getString(R.string.lunch), 2);
+		MealNameManager.getInstance().createMealNameIfOrderNotPresent(getString(R.string.dinner), 3);
+		MealNameManager.getInstance().createMealNameIfOrderNotPresent(getString(R.string.snacks), 4);
 	}
 
 	// Private -------------------------------------------------------
@@ -166,6 +162,7 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 		TrainingManager.getInstance().setTrainingExerciseDao(getHelper().getTrainingExerciseDao());
 		FoodManager.getInstance().setFoodDao(getHelper().getFoodDao());
 		ExerciseManager.getInstance().setExerciseDao(getHelper().getExerciseDao());
+		MealNameManager.getInstance().setMealNameDao(getHelper().getMealNameDao());
 	}
 
 	// Inner classes -------------------------------------------------
