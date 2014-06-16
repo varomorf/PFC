@@ -146,13 +146,13 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 	 * Loads the default meal names
 	 */
 	protected void loadDefaultMeals() {
-		getHelper().getMealNameDao().create(
+		getHelper().getMealNameDao().createIfNotExists(
 				new MealNameBuilder().name(getString(R.string.breakfast)).order(1).getMealName());
-		getHelper().getMealNameDao().create(
+		getHelper().getMealNameDao().createIfNotExists(
 				new MealNameBuilder().name(getString(R.string.lunch)).order(2).getMealName());
-		getHelper().getMealNameDao().create(
+		getHelper().getMealNameDao().createIfNotExists(
 				new MealNameBuilder().name(getString(R.string.dinner)).order(3).getMealName());
-		getHelper().getMealNameDao().create(
+		getHelper().getMealNameDao().createIfNotExists(
 				new MealNameBuilder().name(getString(R.string.snacks)).order(4).getMealName());
 	}
 
