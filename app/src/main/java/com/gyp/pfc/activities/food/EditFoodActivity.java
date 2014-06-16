@@ -15,17 +15,9 @@ import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
  * @author Alvaro
  * 
  */
-public class EditFoodActivity extends OrmLiteBaseActivity<DatabaseHelper> {
+public class EditFoodActivity extends OrmLiteBaseActivity<DatabaseHelper> implements FoodConstants{
 
 	// Constants -----------------------------------------------------
-	/**
-	 * Result code for food edition
-	 */
-	public static final int EDIT_FOOD = 1;
-	/**
-	 * Key for the selected food
-	 */
-	public static final String SELECTED_FOOD = "selectedFood";
 
 	// Attributes ----------------------------------------------------
 

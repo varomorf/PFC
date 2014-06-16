@@ -20,7 +20,7 @@ import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
  * @author Alvaro
  * 
  */
-public class ShowFoodDetailsActivity extends OrmLiteBaseActivity<DatabaseHelper> {
+public class ShowFoodDetailsActivity extends OrmLiteBaseActivity<DatabaseHelper> implements FoodConstants {
 
 	// Constants -----------------------------------------------------
 
@@ -45,7 +45,7 @@ public class ShowFoodDetailsActivity extends OrmLiteBaseActivity<DatabaseHelper>
 
 		// retrieve the food to be shown from the intent
 		Intent sender = getIntent();
-		food = (Food) sender.getExtras().getSerializable(EditFoodActivity.SELECTED_FOOD);
+		food = (Food) sender.getExtras().getSerializable(SELECTED_FOOD);
 		updateUI();
 	}
 
@@ -104,8 +104,8 @@ public class ShowFoodDetailsActivity extends OrmLiteBaseActivity<DatabaseHelper>
 	 */
 	private void editFood() {
 		Intent editFoodIntent = new Intent(getApplicationContext(), EditFoodActivity.class);
-		editFoodIntent.putExtra(EditFoodActivity.SELECTED_FOOD, food);
-		startActivityForResult(editFoodIntent, EditFoodActivity.EDIT_FOOD);
+		editFoodIntent.putExtra(SELECTED_FOOD, food);
+		startActivityForResult(editFoodIntent, EDIT_FOOD);
 	}
 
 	/**

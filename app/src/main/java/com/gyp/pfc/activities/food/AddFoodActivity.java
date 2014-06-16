@@ -25,8 +25,6 @@ public class AddFoodActivity extends OrmLiteBaseActivity<DatabaseHelper>  {
 
 	// Constants -----------------------------------------------------
 
-	public static final int FOOD_NAME = 1;
-
 	// Attributes ----------------------------------------------------
 
 	/** Helper to be used */

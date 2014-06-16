@@ -36,7 +36,8 @@ import com.j256.ormlite.stmt.QueryBuilder;
  * 
  * @author Alvaro
  */
-public class FoodListActivity extends OrmLiteBaseListActivity<DatabaseHelper> implements OnQueryTextListener {
+public class FoodListActivity extends OrmLiteBaseListActivity<DatabaseHelper> implements OnQueryTextListener,
+		FoodConstants {
 
 	// Constants -----------------------------------------------------
 
@@ -151,7 +152,7 @@ public class FoodListActivity extends OrmLiteBaseListActivity<DatabaseHelper> im
 		// prepare intent for showing food details view
 		Intent intent = new Intent(getApplicationContext(), ShowFoodDetailsActivity.class);
 		// put the selected food on the intent
-		intent.putExtra(EditFoodActivity.SELECTED_FOOD, selectedFood);
+		intent.putExtra(SELECTED_FOOD, selectedFood);
 		// start the activity with the intent
 		startActivity(intent);
 	}
@@ -191,8 +192,8 @@ public class FoodListActivity extends OrmLiteBaseListActivity<DatabaseHelper> im
 	private void editFood(int position) {
 		Food selectedFood = (Food) getListAdapter().getItem(position);
 		Intent editFoodIntent = new Intent(getApplicationContext(), EditFoodActivity.class);
-		editFoodIntent.putExtra(EditFoodActivity.SELECTED_FOOD, selectedFood);
-		startActivityForResult(editFoodIntent, EditFoodActivity.EDIT_FOOD);
+		editFoodIntent.putExtra(SELECTED_FOOD, selectedFood);
+		startActivityForResult(editFoodIntent, EDIT_FOOD);
 	}
 
 	private void refreshAdapter(List<Food> foods) {
