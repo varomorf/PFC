@@ -30,12 +30,12 @@ public class PortionQuantityDialog extends Dialog implements android.view.View.O
 	/**
 	 * The listener of the events launched from this dialog
 	 */
-	private PortionQuantityDialogListener listener;
+	protected PortionQuantityDialogListener listener;
 
 	/**
 	 * The resulting portion from this dialog
 	 */
-	private Portion portion;
+	protected Portion portion;
 
 	// Static --------------------------------------------------------
 
@@ -77,9 +77,7 @@ public class PortionQuantityDialog extends Dialog implements android.view.View.O
 	 */
 	public void okButton() {
 		// send entered quantity to the listener
-		View quantity = findViewById(R.id.quantity);
-		String text = UIUtils.getTextFromUI(quantity);
-		portion.setQuantity(Integer.parseInt(text));
+		setPortionQuantity();
 		listener.onPortionQuantityDialogAccept(portion);
 	}
 
@@ -95,6 +93,15 @@ public class PortionQuantityDialog extends Dialog implements android.view.View.O
 		((Button) findViewById(R.id.cancelButton)).setOnClickListener(this);
 	}
 
+	/**
+	 * Sets the dialog's portion quantity with the one on the dialog's edit text
+	 */
+	protected void setPortionQuantity() {
+		View quantity = findViewById(R.id.quantity);
+		String text = UIUtils.getTextFromUI(quantity);
+		portion.setQuantity(Integer.parseInt(text));
+	}
+
 	// Private -------------------------------------------------------
 
 	// Inner classes -------------------------------------------------
@@ -106,6 +113,7 @@ public class PortionQuantityDialog extends Dialog implements android.view.View.O
 	 * 
 	 */
 	public interface PortionQuantityDialogListener {
+
 		/**
 		 * Callback method for when the dialog's accept button is clicked on for
 		 * passing the portion for the quantity entered on the dialog back to
@@ -115,6 +123,16 @@ public class PortionQuantityDialog extends Dialog implements android.view.View.O
 		 *            the portion for the quantity entered on the dialog
 		 */
 		void onPortionQuantityDialogAccept(Portion portion);
+
+		/**
+		 * Callback method for when the dialog's accept button is clicked on for
+		 * passing the portion for the quantity entered on the dialog back to
+		 * the activity as an edition
+		 * 
+		 * @param portion
+		 *            the portion for the quantity entered on the dialog
+		 */
+		void onPortionQuantityEditDialogAccept(Portion portion);
 
 		/**
 		 * Callback method for when the dialog's cancel button is clicked on

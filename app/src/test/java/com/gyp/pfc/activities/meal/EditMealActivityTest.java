@@ -19,6 +19,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.gyp.pfc.CustomTestRunner;
 import com.gyp.pfc.R;
@@ -256,6 +257,7 @@ public class EditMealActivityTest extends BaseMealTest implements FoodConstants 
 		createActivity();
 		assertListSize(2, R.id.mealFoodList);
 		// WHEN
+		// edit the second portion
 		clickOnListItemButton(R.id.mealFoodList, 1, R.id.deleteButton);
 		// THEN
 		// question is asked for deletion
@@ -318,11 +320,58 @@ public class EditMealActivityTest extends BaseMealTest implements FoodConstants 
 		// new portion is shown
 		assertItemText(getItemFromListView(1, R.id.mealFoodList), R.id.portionQuantity, grams);
 		assertItemText(getItemFromListView(1, R.id.mealFoodList), R.id.portionName, g.getName());
-		// new nutritional values are loaded
+		// new nutrition values are loaded
 		assertViewText(R.id.caloriesCell, "10");
 		assertViewText(R.id.proteinCell, "1");
 		assertViewText(R.id.carbsCell, "0");
 		assertViewText(R.id.fatsCell, "0");
+	}
+
+	@Test
+	public void shouldEditPortionsQuantityFromAMealWithTheEditButton() throws SQLException {
+		// GIVEN
+		// Broccoli food
+		Food f = new FoodBuilder().name("Broccoli").calories(10d).protein(1d).getFood();
+		// a portion of 90 grams of broccoli
+		Portion a = createPortion(90, f);
+		// existing meal for today's first meal with the created portions
+		Meal meal = createMeal(null);
+		meal.addPortion(a);
+		meal.getPortions().updateAll();
+		dao.update(meal);
+		// activity is created
+		createActivity();
+		assertListSize(1, R.id.mealFoodList);
+		// WHEN
+		// edit the portion
+		clickOnListItemButton(R.id.mealFoodList, 0, R.id.editButton);
+		// THEN
+		// dialog for quantity is shown
+		Dialog dialog = ShadowDialog.getLatestDialog();
+		assertThat(dialog, is(PortionQuantityDialog.class));
+		// current portion quantity is shown
+		TextView quantity = (TextView) dialog.findViewById(R.id.quantity);
+		assertEquals("Current portion quantity should be loaded on dialog", "90", quantity.getText().toString());
+		// set 10 grams as new portion quantity
+		String grams = "100";
+		UIUtils.setTextToUI(quantity, grams);
+		clickOn(dialog.findViewById(R.id.okButton));
+		// THEN
+		// still one portion on meal
+		assertListSize(1, R.id.mealFoodList);
+		// meal only has one portion
+		dao.refresh(meal);
+		assertEquals("Meal doesn't have the expected number of portions", 1, meal.getPortions().size());
+		assertEquals("Doesn't have the expected number of portions on DB", 1, daoPortion.queryForAll().size());
+		// new portion values are shown
+		assertItemText(getItemFromListView(0, R.id.mealFoodList), R.id.portionQuantity, grams);
+		assertItemText(getItemFromListView(0, R.id.mealFoodList), R.id.portionName, f.getName());
+		// new nutrition values are loaded
+		assertViewText(R.id.caloriesCell, "10");
+		assertViewText(R.id.proteinCell, "1");
+		assertViewText(R.id.carbsCell, "0");
+		assertViewText(R.id.fatsCell, "0");
+
 	}
 
 	// Package protected ---------------------------------------------

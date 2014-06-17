@@ -28,6 +28,7 @@ import com.gyp.pfc.data.domain.MealName;
 import com.gyp.pfc.data.domain.Portion;
 import com.gyp.pfc.dialogs.PortionQuantityDialog;
 import com.gyp.pfc.dialogs.PortionQuantityDialog.PortionQuantityDialogListener;
+import com.gyp.pfc.dialogs.PortionQuantityEditDialog;
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 import com.j256.ormlite.stmt.QueryBuilder;
 
@@ -102,14 +103,24 @@ public class EditMealActivity extends OrmLiteBaseActivity<DatabaseHelper> implem
 	 *            the button
 	 */
 	public void deleteButton(View view) {
-		ListView exerciseList = (ListView) findViewById(R.id.mealFoodList);
-		int pos = exerciseList.indexOfChild((View) view.getParent());
-		final Portion portion = portionAdapter.getItem(pos);
+		final Portion portion = getPortionFromListItemButton(view);
 		h.deleteWithDialog(new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int id) {
 				doDeletePortion(portion);
 			}
 		});
+	}
+
+	/**
+	 * Method for the editButton button onClick event
+	 * 
+	 * @param view
+	 *            the button
+	 */
+	public void editButton(View view) {
+		Portion portion = getPortionFromListItemButton(view);
+		// show dialog for entering quantity
+		new PortionQuantityEditDialog(this, this, portion).show();
 	}
 
 	/**
@@ -133,6 +144,16 @@ public class EditMealActivity extends OrmLiteBaseActivity<DatabaseHelper> implem
 		getHelper().getMealDao().refresh(meal);
 		meal.addPortion(portion);
 		getHelper().getPortionDao().update(portion);
+		getHelper().getMealDao().update(meal);
+		updateUI();
+	}
+
+	@Override
+	public void onPortionQuantityEditDialogAccept(Portion portion) {
+		// update the portion before adding
+		getHelper().getPortionDao().update(portion);
+		// add portion to meal and save
+		getHelper().getMealDao().refresh(meal);
 		getHelper().getMealDao().update(meal);
 		updateUI();
 	}
@@ -168,6 +189,19 @@ public class EditMealActivity extends OrmLiteBaseActivity<DatabaseHelper> implem
 		meal = h.createMealFor(DateUtils.addDays(meal.getDate(), days), getFirstName());
 		updateMealWithDB();
 		updateUI();
+	}
+
+	/**
+	 * Returns the portion of the button pressed on a list item
+	 * 
+	 * @param view
+	 *            the button pressed on a list item
+	 * @return the portion of the button pressed on a list item
+	 */
+	private Portion getPortionFromListItemButton(View view) {
+		ListView exerciseList = (ListView) findViewById(R.id.mealFoodList);
+		int pos = exerciseList.indexOfChild((View) view.getParent());
+		return portionAdapter.getItem(pos);
 	}
 
 	/**
