@@ -97,4 +97,6 @@
     <string name="assurePortionDeletion">¿Seguro que desea quitar esta porción?</string>
     <string name="portionQuantityTitle">Introduce la cantidad del alimento en gramos</string>
 
+    <string name="previousActivity">Ir atrás</string>
+    
 </resources>

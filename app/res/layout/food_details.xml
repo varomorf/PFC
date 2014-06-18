@@ -5,6 +5,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
+    <fragment
+        android:id="@+id/topBarFragment"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" 
+        class="com.gyp.pfc.fragments.TopBarFragment"/>
+    
     <TextView
         android:id="@+id/foodDetailsName"
         android:layout_width="fill_parent"
