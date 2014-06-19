@@ -188,12 +188,13 @@ public class ViewLoader extends XmlLoader {
             if (strictI18n) {
                 attributeSet.validateStrictI18n();
             }
+            if (!(context instanceof FragmentActivity)) {
+            	// do not continue the construction
+            	return new FrameLayout(context);
+            }
 
             Class<? extends Fragment> clazz = loadFragmentClass(attributes.get("android:name"));
             Fragment fragment = ((Constructor<? extends Fragment>) clazz.getConstructor()).newInstance();
-            if (!(context instanceof FragmentActivity)) {
-                throw new RuntimeException("Cannot inflate a fragment unless the activity is a FragmentActivity");
-            }
 
             FragmentActivity activity = (FragmentActivity) context;
 
