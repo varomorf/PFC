@@ -25,7 +25,6 @@ import com.gyp.pfc.CustomTestRunner;
 import com.gyp.pfc.R;
 import com.gyp.pfc.TimeUtils;
 import com.gyp.pfc.UIUtils;
-import com.gyp.pfc.activities.food.FoodConstants;
 import com.gyp.pfc.activities.food.FoodListActivity;
 import com.gyp.pfc.data.domain.Food;
 import com.gyp.pfc.data.domain.Meal;
@@ -44,7 +43,7 @@ import com.xtremelabs.robolectric.shadows.ShadowDialog;
  * 
  */
 @RunWith(CustomTestRunner.class)
-public class EditMealActivityTest extends BaseMealTest implements FoodConstants {
+public class EditMealActivityTest extends BaseMealTest {
 
 	// Constants -----------------------------------------------------
 

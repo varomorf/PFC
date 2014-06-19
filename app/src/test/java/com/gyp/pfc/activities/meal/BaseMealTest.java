@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.gyp.pfc.activities.BaseActivityTest;
+import com.gyp.pfc.activities.food.FoodConstants;
 import com.gyp.pfc.data.db.DatabaseHelper;
 import com.gyp.pfc.data.domain.Food;
 import com.gyp.pfc.data.domain.Meal;
@@ -19,7 +20,7 @@ import com.j256.ormlite.dao.RuntimeExceptionDao;
  * @author alfergon
  * 
  */
-public abstract class BaseMealTest extends BaseActivityTest {
+public abstract class BaseMealTest extends BaseActivityTest implements FoodConstants {
 
 	// Constants -----------------------------------------------------
 
