@@ -370,7 +370,34 @@ public class EditMealActivityTest extends BaseMealTest {
 		assertViewText(R.id.proteinCell, "1");
 		assertViewText(R.id.carbsCell, "0");
 		assertViewText(R.id.fatsCell, "0");
+	}
 
+	@Test
+	public void shouldUsePassedDateViaIntent() {
+		// GIVEN
+		// no meals
+		// one mealName
+		// a date
+		Date date = DateUtils.addDays(new Date(), 2);
+		// date's String representation
+		String representation = TimeUtils.formatDate(date);
+		// WHEN
+		// intent passed with date
+		passDateToActivity(date);
+		// activity is created passing date via index
+		createActivity();
+		// THEN
+		// date is correctly set
+		assertViewText(R.id.dateText, representation);
+		// first meal is selected
+		Spinner spinner = (Spinner) activity.findViewById(R.id.mealNameSpinner);
+		MealName mealName = (MealName) spinner.getSelectedItem();
+		assertThat(mealName, is(firstName));
+		// nutrition values are correctly filled
+		assertViewText(R.id.caloriesCell, "0");
+		assertViewText(R.id.proteinCell, "0");
+		assertViewText(R.id.carbsCell, "0");
+		assertViewText(R.id.fatsCell, "0");
 	}
 
 	// Package protected ---------------------------------------------

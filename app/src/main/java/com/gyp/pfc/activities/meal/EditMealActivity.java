@@ -71,7 +71,7 @@ public class EditMealActivity extends OrmLiteBaseActivity<DatabaseHelper> implem
 		((ListView) findViewById(R.id.mealFoodList)).setAdapter(portionAdapter);
 
 		// by default today's first meal
-		meal = h.createMealFor(new Date(), getFirstName());
+		meal = h.createMealFor(getDate(), getFirstName());
 		updateMealWithDB();
 		updateUI();
 	}
@@ -306,6 +306,28 @@ public class EditMealActivity extends OrmLiteBaseActivity<DatabaseHelper> implem
 		getHelper().getMealDao().update(meal);
 		getHelper().getMealDao().refresh(meal);
 		updateUI();
+	}
+
+	/**
+	 * Returns the date that will be used for loading the meal. This date will
+	 * be the one passed on the starting index, or if none present, today's
+	 * date.
+	 * 
+	 * @return the date that will be used for loading the meal
+	 */
+	private Date getDate() {
+		// by default today's date
+		Date date = new Date();
+		// extract date from intent if any
+		Intent startingIntent = getIntent();
+		if (startingIntent != null) {
+			Date intentDate = (Date) startingIntent.getSerializableExtra(SELECTED_DATE);
+			if (intentDate != null) {
+				// there is a date -> use it
+				date = intentDate;
+			}
+		}
+		return date;
 	}
 
 	// Inner classes -------------------------------------------------

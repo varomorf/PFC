@@ -3,6 +3,8 @@ package com.gyp.pfc.activities.meal;
 import java.util.Date;
 import java.util.List;
 
+import android.content.Intent;
+
 import com.gyp.pfc.activities.BaseActivityTest;
 import com.gyp.pfc.activities.food.FoodConstants;
 import com.gyp.pfc.data.db.DatabaseHelper;
@@ -83,6 +85,12 @@ public abstract class BaseMealTest extends BaseActivityTest implements FoodConst
 		dao.create(meal);
 		dao.refresh(meal);
 		return meal;
+	}
+
+	protected void passDateToActivity(Date date) {
+		Intent intent = new Intent();
+		intent.putExtra(SELECTED_DATE, date);
+		activity.setIntent(intent);
 	}
 
 	// Package protected ---------------------------------------------
