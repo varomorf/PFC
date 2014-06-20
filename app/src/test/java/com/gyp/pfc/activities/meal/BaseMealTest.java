@@ -20,7 +20,7 @@ import com.j256.ormlite.dao.RuntimeExceptionDao;
  * @author alfergon
  * 
  */
-public abstract class BaseMealTest extends BaseActivityTest implements FoodConstants {
+public abstract class BaseMealTest extends BaseActivityTest implements FoodConstants, MealConstants {
 
 	// Constants -----------------------------------------------------
 

@@ -10,5 +10,8 @@ public interface MealConstants {
 	
 	/**A meal that has been selected for the use of an activity*/
 	String SELECTED_MEAL = "SELECTED_MEAL";
+	
+	/**A date that has been selected for the use of an activity*/
+	String SELECTED_DATE = "SELECTED_MEAL";
 
 }

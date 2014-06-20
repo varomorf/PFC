@@ -6,7 +6,10 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ListView;
 
 import com.gyp.pfc.DateIterator;
 import com.gyp.pfc.R;
@@ -46,6 +49,18 @@ public class MealListActivity extends OrmLiteBaseListActivity<DatabaseHelper> im
 	// Package protected ---------------------------------------------
 
 	// Protected -----------------------------------------------------
+
+	@Override
+	protected void onListItemClick(ListView l, View v, int position, long id) {
+		// get selected date from adapter
+		Date selectedDate = (Date) l.getAdapter().getItem(position);
+		// prepare intent for showing food details view
+		Intent intent = new Intent(getApplicationContext(), EditMealActivity.class);
+		// put the selected food on the intent
+		intent.putExtra(SELECTED_DATE, selectedDate);
+		// start the activity with the intent
+		startActivity(intent);
+	}
 
 	// Private -------------------------------------------------------
 

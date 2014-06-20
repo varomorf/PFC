@@ -3,9 +3,10 @@
  */
 package com.gyp.pfc.activities.meal;
 
+import static org.junit.Assert.*;
+
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.lang.time.DateUtils;
 import org.junit.Before;
@@ -13,6 +14,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import android.app.Activity;
+import android.content.Intent;
 
 import com.gyp.pfc.CustomTestRunner;
 import com.gyp.pfc.TimeUtils;
@@ -65,6 +67,29 @@ public class MealListActivityTest extends BaseMealTest {
 		assertItemText(getItemFromListView(0, android.R.id.list), android.R.id.text1, today);
 		assertItemText(getItemFromListView(1, android.R.id.list), android.R.id.text1, tomorrow);
 		assertItemText(getItemFromListView(15, android.R.id.list), android.R.id.text1, date15DaysLater);
+	}
+
+	@Test
+	public void shouldStartActivityForEditingMealPassingTheSelectedDate() {
+		// GIVEN
+		// expected date
+		String expectedDate = TimeUtils.formatDate(DateUtils.addDays(new Date(), 2));
+		// a meal from 15 days ago
+		Meal meal = new Meal();
+		meal.setDate(DateUtils.addDays(new Date(), 15));
+		meal.setName(firstName);
+		dao.create(meal);
+		// WHEN
+		// activity is created
+		createActivity();
+		// the 4th date is clicked on
+		clickOnListItem(2);
+		// THEN
+		// EditMealActivity is started with intent with selected date
+		Intent intent = assertAndReturnNextActivity(EditMealActivity.class);
+		Date date = (Date) intent.getSerializableExtra(SELECTED_DATE);
+		String formatedDate = TimeUtils.formatDate(date);
+		assertEquals("Intent doesn't have the expected date", expectedDate, formatedDate);
 	}
 
 	// Package protected ---------------------------------------------
