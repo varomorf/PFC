@@ -17,7 +17,7 @@ import com.j256.ormlite.dao.CloseableWrappedIterable;
  * @author Alvaro
  * 
  */
-public class NullForeignCollection<T, ID> extends BaseForeignCollection<T, ID> {
+public class NullForeignCollection<T, I> extends BaseForeignCollection<T, I> {
 
 	// Constants -----------------------------------------------------
 
@@ -41,7 +41,7 @@ public class NullForeignCollection<T, ID> extends BaseForeignCollection<T, ID> {
 	}
 
 	// Public --------------------------------------------------------
-	
+
 	@Override
 	public boolean add(T data) {
 		return list.add(data);
@@ -59,6 +59,7 @@ public class NullForeignCollection<T, ID> extends BaseForeignCollection<T, ID> {
 
 	@Override
 	public void closeLastIterator() throws SQLException {
+		// NOOP
 	}
 
 	@Override
@@ -103,12 +104,12 @@ public class NullForeignCollection<T, ID> extends BaseForeignCollection<T, ID> {
 
 	@Override
 	public Object[] toArray() {
-		return null;
+		return list.toArray();
 	}
 
 	@Override
 	public <T> T[] toArray(T[] a) {
-		return null;
+		return list.toArray(a);
 	}
 
 	@Override
