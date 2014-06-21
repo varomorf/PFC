@@ -13,7 +13,7 @@ import android.widget.ArrayAdapter;
 
 import com.gyp.pfc.R;
 import com.gyp.pfc.UIUtils;
-import com.gyp.pfc.data.domain.MealName;
+import com.gyp.pfc.data.domain.meal.MealName;
 
 /**
  * {@link ArrayAdapter} for the {@link MealName} entities

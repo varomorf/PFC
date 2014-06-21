@@ -15,7 +15,7 @@ import android.app.Activity;
 
 import com.gyp.pfc.CustomTestRunner;
 import com.gyp.pfc.R;
-import com.gyp.pfc.data.domain.Food;
+import com.gyp.pfc.data.domain.food.Food;
 
 /**
  * Tests for the {@link EditFoodActivity}

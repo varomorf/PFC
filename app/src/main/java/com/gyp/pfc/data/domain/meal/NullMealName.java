@@ -1,9 +1,8 @@
 /**
  * 
  */
-package com.gyp.pfc.data.domain.nulls;
+package com.gyp.pfc.data.domain.meal;
 
-import com.gyp.pfc.data.domain.MealName;
 
 /**
  * NullObject pattern used for {@link MealName} entities

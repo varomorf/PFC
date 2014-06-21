@@ -3,9 +3,9 @@
  */
 package com.gyp.pfc.data.domain.builder;
 
-import com.gyp.pfc.data.domain.Food;
-import com.gyp.pfc.data.domain.Meal;
-import com.gyp.pfc.data.domain.Portion;
+import com.gyp.pfc.data.domain.food.Food;
+import com.gyp.pfc.data.domain.meal.Meal;
+import com.gyp.pfc.data.domain.meal.Portion;
 
 /**
  * Builder for {@link Portion} entities

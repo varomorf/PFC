@@ -1,8 +1,9 @@
-package com.gyp.pfc.data.domain;
+package com.gyp.pfc.data.domain.food;
 
 import java.io.Serializable;
 
 import com.gyp.pfc.UIUtils;
+import com.gyp.pfc.data.domain.api.NutritionalInformationProvider;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 

@@ -18,7 +18,7 @@ import android.content.Intent;
 
 import com.gyp.pfc.CustomTestRunner;
 import com.gyp.pfc.TimeUtils;
-import com.gyp.pfc.data.domain.Meal;
+import com.gyp.pfc.data.domain.meal.Meal;
 
 /**
  * Tests for the {@link MealListActivity}

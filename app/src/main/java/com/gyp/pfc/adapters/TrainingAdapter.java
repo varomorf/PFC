@@ -11,8 +11,8 @@ import android.widget.ArrayAdapter;
 import com.gyp.pfc.R;
 import com.gyp.pfc.TimeUtils;
 import com.gyp.pfc.UIUtils;
-import com.gyp.pfc.data.domain.Training;
-import com.gyp.pfc.data.domain.TrainingExercise;
+import com.gyp.pfc.data.domain.exercise.Training;
+import com.gyp.pfc.data.domain.exercise.TrainingExercise;
 
 /**
  * ArrayAdapter for Training entities

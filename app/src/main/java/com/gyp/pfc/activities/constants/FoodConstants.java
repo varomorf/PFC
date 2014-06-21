@@ -1,9 +1,9 @@
 /**
  * 
  */
-package com.gyp.pfc.activities.food;
+package com.gyp.pfc.activities.constants;
 
-import com.gyp.pfc.data.domain.Food;
+import com.gyp.pfc.data.domain.food.Food;
 
 /**
  * Constants for {@link Food} related activities
@@ -17,7 +17,7 @@ public interface FoodConstants {
 	 * Result code for food edition
 	 */
 	int EDIT_FOOD = 1;
-	
+
 	/**
 	 * Result code for food selection
 	 */
@@ -27,5 +27,10 @@ public interface FoodConstants {
 	 * Key for the selected food
 	 */
 	String SELECTED_FOOD = "selectedFood";
+
+	/**
+	 * Key for the return food flag
+	 */
+	String RETURN_FOOD = "RETURN_FOOD";
 
 }

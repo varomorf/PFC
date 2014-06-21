@@ -5,7 +5,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.gyp.pfc.R;
-import com.gyp.pfc.activities.BaseActivityHelper;
+import com.gyp.pfc.activities.helpers.BaseActivityHelper;
 import com.gyp.pfc.data.db.DatabaseHelper;
 import com.gyp.pfc.data.domain.exception.EntityNameException;
 import com.gyp.pfc.data.domain.manager.ExerciseManager;

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.gyp.pfc.activities.meal;
+package com.gyp.pfc.activities.helpers;
 
 import java.util.Date;
 
@@ -11,9 +11,8 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 
 import com.gyp.pfc.R;
-import com.gyp.pfc.activities.BaseActivityHelper;
-import com.gyp.pfc.data.domain.Meal;
-import com.gyp.pfc.data.domain.MealName;
+import com.gyp.pfc.data.domain.meal.Meal;
+import com.gyp.pfc.data.domain.meal.MealName;
 
 /**
  * Helper activity class for meal related activities

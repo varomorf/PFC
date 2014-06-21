@@ -6,7 +6,7 @@ import android.content.Context;
 import android.widget.ArrayAdapter;
 
 import com.gyp.pfc.R;
-import com.gyp.pfc.data.domain.TrainingExercise;
+import com.gyp.pfc.data.domain.exercise.TrainingExercise;
 
 /**
  * ArrayAdapter for TrainingExercise entity for the AddTrainingActivity

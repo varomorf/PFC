@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.gyp.pfc.data.domain;
+package com.gyp.pfc.data.domain.api;
 
 /**
  * Defines the methods that an object that can provide nutritional information

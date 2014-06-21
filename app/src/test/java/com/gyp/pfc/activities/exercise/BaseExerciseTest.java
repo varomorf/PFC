@@ -7,7 +7,7 @@ import android.widget.Button;
 import com.gyp.pfc.R;
 import com.gyp.pfc.activities.BaseActivityTest;
 import com.gyp.pfc.data.db.DatabaseHelper;
-import com.gyp.pfc.data.domain.Exercise;
+import com.gyp.pfc.data.domain.exercise.Exercise;
 import com.gyp.pfc.data.domain.manager.ExerciseManager;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
 

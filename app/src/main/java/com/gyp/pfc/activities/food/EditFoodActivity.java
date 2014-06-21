@@ -5,8 +5,10 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.gyp.pfc.R;
+import com.gyp.pfc.activities.constants.FoodConstants;
+import com.gyp.pfc.activities.helpers.FoodActivityHelper;
 import com.gyp.pfc.data.db.DatabaseHelper;
-import com.gyp.pfc.data.domain.Food;
+import com.gyp.pfc.data.domain.food.Food;
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 
 /**

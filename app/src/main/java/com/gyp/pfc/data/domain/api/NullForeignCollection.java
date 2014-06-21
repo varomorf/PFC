@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.gyp.pfc.data.domain.nulls;
+package com.gyp.pfc.data.domain.api;
 
 import java.sql.SQLException;
 import java.util.ArrayList;

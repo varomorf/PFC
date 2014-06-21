@@ -11,12 +11,13 @@ import com.gyp.pfc.activities.exercise.ExerciseListActivity;
 import com.gyp.pfc.activities.food.AddFoodActivity;
 import com.gyp.pfc.activities.food.FoodListActivity;
 import com.gyp.pfc.activities.meal.EditMealActivity;
+import com.gyp.pfc.activities.meal.MealListActivity;
 import com.gyp.pfc.activities.training.AddTrainingActivity;
 import com.gyp.pfc.activities.training.TrainingListActivity;
 import com.gyp.pfc.data.db.DatabaseHelper;
-import com.gyp.pfc.data.domain.Exercise;
-import com.gyp.pfc.data.domain.Training;
 import com.gyp.pfc.data.domain.exception.EntityNameException;
+import com.gyp.pfc.data.domain.exercise.Exercise;
+import com.gyp.pfc.data.domain.exercise.Training;
 import com.gyp.pfc.data.domain.manager.ExerciseManager;
 import com.gyp.pfc.data.domain.manager.FoodManager;
 import com.gyp.pfc.data.domain.manager.MealNameManager;
@@ -75,8 +76,7 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 	}
 
 	public void mealsListButton(View view) {
-		// TODO add the correct activity
-		startActivity(new Intent(this, AddFoodActivity.class));
+		startActivity(new Intent(this, MealListActivity.class));
 	}
 
 	public void exercisesAddButton(View view) {

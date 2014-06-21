@@ -13,9 +13,10 @@ import android.widget.ListView;
 
 import com.gyp.pfc.DateIterator;
 import com.gyp.pfc.R;
+import com.gyp.pfc.activities.constants.MealConstants;
 import com.gyp.pfc.adapters.DateListViewAdapter;
 import com.gyp.pfc.data.db.DatabaseHelper;
-import com.gyp.pfc.data.domain.Meal;
+import com.gyp.pfc.data.domain.meal.Meal;
 import com.j256.ormlite.android.apptools.OrmLiteBaseListActivity;
 import com.j256.ormlite.dao.GenericRawResults;
 import com.j256.ormlite.field.DataType;

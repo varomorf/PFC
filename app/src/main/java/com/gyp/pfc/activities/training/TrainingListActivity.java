@@ -11,7 +11,7 @@ import android.widget.Toast;
 import com.gyp.pfc.R;
 import com.gyp.pfc.adapters.TrainingAdapter;
 import com.gyp.pfc.data.db.DatabaseHelper;
-import com.gyp.pfc.data.domain.Training;
+import com.gyp.pfc.data.domain.exercise.Training;
 import com.j256.ormlite.android.apptools.OrmLiteBaseListActivity;
 
 /**

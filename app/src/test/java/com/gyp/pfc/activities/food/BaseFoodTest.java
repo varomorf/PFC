@@ -10,7 +10,7 @@ import android.content.Intent;
 import com.gyp.pfc.R;
 import com.gyp.pfc.activities.BaseActivityTest;
 import com.gyp.pfc.data.db.DatabaseHelper;
-import com.gyp.pfc.data.domain.Food;
+import com.gyp.pfc.data.domain.food.Food;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
 import com.j256.ormlite.stmt.UpdateBuilder;
 

@@ -16,7 +16,7 @@ import android.widget.Button;
 
 import com.gyp.pfc.CustomTestRunner;
 import com.gyp.pfc.R;
-import com.gyp.pfc.data.domain.Food;
+import com.gyp.pfc.data.domain.food.Food;
 import com.gyp.pfc.data.domain.manager.FoodManager;
 
 /**

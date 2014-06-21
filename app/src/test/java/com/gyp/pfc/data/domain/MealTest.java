@@ -10,6 +10,10 @@ import java.util.Date;
 import org.apache.commons.lang.time.DateUtils;
 import org.junit.Test;
 
+import com.gyp.pfc.data.domain.food.Food;
+import com.gyp.pfc.data.domain.meal.Meal;
+import com.gyp.pfc.data.domain.meal.Portion;
+
 /**
  * Tests for {@link Meal} entities
  * 

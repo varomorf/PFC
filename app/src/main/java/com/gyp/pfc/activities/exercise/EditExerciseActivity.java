@@ -5,8 +5,8 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.gyp.pfc.R;
-import com.gyp.pfc.data.domain.Exercise;
 import com.gyp.pfc.data.domain.exception.EntityNameException;
+import com.gyp.pfc.data.domain.exercise.Exercise;
 import com.gyp.pfc.data.domain.manager.ExerciseManager;
 
 /**

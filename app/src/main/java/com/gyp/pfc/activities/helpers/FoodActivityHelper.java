@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.gyp.pfc.activities.food;
+package com.gyp.pfc.activities.helpers;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -9,8 +9,7 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 
 import com.gyp.pfc.R;
-import com.gyp.pfc.activities.BaseActivityHelper;
-import com.gyp.pfc.data.domain.Food;
+import com.gyp.pfc.data.domain.food.Food;
 
 /**
  * Helper activity class for food related activities

@@ -1,4 +1,4 @@
-package com.gyp.pfc.data.domain;
+package com.gyp.pfc.data.domain.exercise;
 
 import static com.gyp.pfc.TimeUtils.formatTime;
 

@@ -8,8 +8,8 @@ import java.util.List;
 import org.apache.commons.lang.StringUtils;
 
 import com.gyp.pfc.R;
-import com.gyp.pfc.data.domain.Exercise;
 import com.gyp.pfc.data.domain.exception.EntityNameException;
+import com.gyp.pfc.data.domain.exercise.Exercise;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
 
 /**

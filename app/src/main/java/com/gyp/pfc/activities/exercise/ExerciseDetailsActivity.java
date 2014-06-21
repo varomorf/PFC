@@ -7,9 +7,9 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.gyp.pfc.R;
-import com.gyp.pfc.activities.BaseActivityHelper;
+import com.gyp.pfc.activities.helpers.BaseActivityHelper;
 import com.gyp.pfc.data.db.DatabaseHelper;
-import com.gyp.pfc.data.domain.Exercise;
+import com.gyp.pfc.data.domain.exercise.Exercise;
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 
 /**

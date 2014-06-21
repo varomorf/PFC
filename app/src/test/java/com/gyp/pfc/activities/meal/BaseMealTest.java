@@ -6,14 +6,15 @@ import java.util.List;
 import android.content.Intent;
 
 import com.gyp.pfc.activities.BaseActivityTest;
-import com.gyp.pfc.activities.food.FoodConstants;
+import com.gyp.pfc.activities.constants.FoodConstants;
+import com.gyp.pfc.activities.constants.MealConstants;
 import com.gyp.pfc.data.db.DatabaseHelper;
-import com.gyp.pfc.data.domain.Food;
-import com.gyp.pfc.data.domain.Meal;
-import com.gyp.pfc.data.domain.MealName;
-import com.gyp.pfc.data.domain.Portion;
 import com.gyp.pfc.data.domain.builder.FoodBuilder;
 import com.gyp.pfc.data.domain.builder.PortionBuilder;
+import com.gyp.pfc.data.domain.food.Food;
+import com.gyp.pfc.data.domain.meal.Meal;
+import com.gyp.pfc.data.domain.meal.MealName;
+import com.gyp.pfc.data.domain.meal.Portion;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
 
 /**

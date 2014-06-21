@@ -24,10 +24,11 @@ import android.widget.SearchView.OnQueryTextListener;
 import android.widget.Toast;
 
 import com.gyp.pfc.R;
-import com.gyp.pfc.activities.meal.EditMealActivity;
+import com.gyp.pfc.activities.constants.FoodConstants;
+import com.gyp.pfc.activities.helpers.FoodActivityHelper;
 import com.gyp.pfc.adapters.FoodListViewAdapter;
 import com.gyp.pfc.data.db.DatabaseHelper;
-import com.gyp.pfc.data.domain.Food;
+import com.gyp.pfc.data.domain.food.Food;
 import com.j256.ormlite.android.apptools.OrmLiteBaseListActivity;
 import com.j256.ormlite.stmt.PreparedQuery;
 import com.j256.ormlite.stmt.QueryBuilder;
@@ -150,7 +151,7 @@ public class FoodListActivity extends OrmLiteBaseListActivity<DatabaseHelper> im
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		// get selected food from adapter
 		Food selectedFood = (Food) l.getAdapter().getItem(position);
-		if (getCallingActivity().getClassName().equals(EditMealActivity.class.getName())) {
+		if (getIntent() != null && getIntent().getBooleanExtra(RETURN_FOOD, false)) {
 			returnResult(selectedFood);
 		} else {
 			showFoodDetails(selectedFood);

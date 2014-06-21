@@ -13,7 +13,7 @@ import android.content.Intent;
 import com.gyp.pfc.CustomTestRunner;
 import com.gyp.pfc.R;
 import com.gyp.pfc.activities.exercise.BaseExerciseTest;
-import com.gyp.pfc.data.domain.Training;
+import com.gyp.pfc.data.domain.exercise.Training;
 
 @RunWith(CustomTestRunner.class)
 public class TrainingListActivityTest extends BaseTrainingTest {

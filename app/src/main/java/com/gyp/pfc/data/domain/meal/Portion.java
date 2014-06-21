@@ -1,12 +1,13 @@
 /**
  * 
  */
-package com.gyp.pfc.data.domain;
+package com.gyp.pfc.data.domain.meal;
 
 import java.io.Serializable;
 
-import com.gyp.pfc.data.domain.nulls.NullFood;
-import com.gyp.pfc.data.domain.nulls.NullMeal;
+import com.gyp.pfc.data.domain.api.NutritionalInformationProvider;
+import com.gyp.pfc.data.domain.food.Food;
+import com.gyp.pfc.data.domain.food.NullFood;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 

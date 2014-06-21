@@ -7,6 +7,8 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import com.gyp.pfc.data.domain.food.Food;
+
 /**
  * Tests for the Food entity
  * 

@@ -11,9 +11,9 @@ import android.widget.Button;
 
 import com.gyp.pfc.R;
 import com.gyp.pfc.UIUtils;
-import com.gyp.pfc.data.domain.Food;
-import com.gyp.pfc.data.domain.Portion;
 import com.gyp.pfc.data.domain.builder.PortionBuilder;
+import com.gyp.pfc.data.domain.food.Food;
+import com.gyp.pfc.data.domain.meal.Portion;
 
 /**
  * Dialog for specifying the quantity of a food for a portion

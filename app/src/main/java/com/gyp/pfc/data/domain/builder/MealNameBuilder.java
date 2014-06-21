@@ -3,7 +3,7 @@
  */
 package com.gyp.pfc.data.domain.builder;
 
-import com.gyp.pfc.data.domain.MealName;
+import com.gyp.pfc.data.domain.meal.MealName;
 
 /**
  * Builder for {@link MealName} entities

@@ -1,42 +1,40 @@
-package com.gyp.pfc.data.domain;
+package com.gyp.pfc.data.domain.exercise;
 
 import java.io.Serializable;
 
-import com.j256.ormlite.dao.ForeignCollection;
 import com.j256.ormlite.field.DatabaseField;
-import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
 /**
- * Training entity
+ * Exercise entity
  * 
  * @author Alvaro
  * 
  */
 @DatabaseTable
-public class Training implements Serializable {
+public class Exercise implements Serializable {
 
 	// Constants -----------------------------------------------------
 
-	private static final long serialVersionUID = 2358769454877224282L;
+	private static final long serialVersionUID = 3506529017983171193L;
 
 	// Attributes ----------------------------------------------------
 
 	@DatabaseField(generatedId = true)
 	private int id;
-	@DatabaseField(canBeNull = false)
+	@DatabaseField(unique = true, canBeNull = false)
 	private String name;
-	@ForeignCollectionField(eager = true, orderColumnName = "pos")
-	private ForeignCollection<TrainingExercise> exercises;
+	@DatabaseField
+	private String description;
 
 	// Static --------------------------------------------------------
 
 	// Constructors --------------------------------------------------
+
 	/**
 	 * ORMLite needs a no-arg constructor
 	 */
-	public Training() {
-		// NOOP
+	public Exercise() {
 	}
 
 	// Public --------------------------------------------------------
@@ -57,18 +55,23 @@ public class Training implements Serializable {
 		this.name = name;
 	}
 
-	public ForeignCollection<TrainingExercise> getExercises() {
-		return exercises;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setExercises(ForeignCollection<TrainingExercise> exercises) {
-		this.exercises = exercises;
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	@Override
+	public String toString() {
+		return name;
 	}
 
 	@Override
 	public boolean equals(Object o) {
-		if (o instanceof Training) {
-			return ((Training) o).getId() == id;
+		if (o instanceof Exercise) {
+			return ((Exercise) o).getId() == id;
 		}
 		return false;
 	}

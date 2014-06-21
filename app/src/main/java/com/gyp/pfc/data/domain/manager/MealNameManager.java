@@ -3,8 +3,8 @@
  */
 package com.gyp.pfc.data.domain.manager;
 
-import com.gyp.pfc.data.domain.MealName;
 import com.gyp.pfc.data.domain.builder.MealNameBuilder;
+import com.gyp.pfc.data.domain.meal.MealName;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
 
 /**

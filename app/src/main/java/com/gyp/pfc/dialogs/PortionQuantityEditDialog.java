@@ -8,7 +8,7 @@ import android.os.Bundle;
 
 import com.gyp.pfc.R;
 import com.gyp.pfc.UIUtils;
-import com.gyp.pfc.data.domain.Portion;
+import com.gyp.pfc.data.domain.meal.Portion;
 
 /**
  * Dialog for editing the quantity of a food for a portion

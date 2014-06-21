@@ -1,4 +1,4 @@
-package com.gyp.pfc.activities;
+package com.gyp.pfc.activities.helpers;
 
 import org.apache.commons.lang.StringUtils;
 

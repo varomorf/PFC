@@ -11,7 +11,7 @@ import android.app.Activity;
 
 import com.gyp.pfc.CustomTestRunner;
 import com.gyp.pfc.R;
-import com.gyp.pfc.data.domain.Exercise;
+import com.gyp.pfc.data.domain.exercise.Exercise;
 
 @RunWith(CustomTestRunner.class)
 public class EditExerciseActivityTest extends BaseExerciseTest {

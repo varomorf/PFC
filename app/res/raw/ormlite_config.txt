@@ -1,8 +1,8 @@
 #
-# generated on 2014/05/29 11:50:51
+# generated on 2014/06/21 01:43:18
 #
 # --table-start--
-dataClass=com.gyp.pfc.data.domain.Food
+dataClass=com.gyp.pfc.data.domain.food.Food
 tableName=food
 # --table-fields-start--
 # --field-start--
@@ -50,7 +50,7 @@ fieldName=sodium
 # --table-end--
 #################################
 # --table-start--
-dataClass=com.gyp.pfc.data.domain.Exercise
+dataClass=com.gyp.pfc.data.domain.exercise.Exercise
 tableName=exercise
 # --table-fields-start--
 # --field-start--
@@ -69,7 +69,7 @@ fieldName=description
 # --table-end--
 #################################
 # --table-start--
-dataClass=com.gyp.pfc.data.domain.Training
+dataClass=com.gyp.pfc.data.domain.exercise.Training
 tableName=training
 # --table-fields-start--
 # --field-start--
@@ -90,7 +90,7 @@ foreignCollectionOrderColumnName=pos
 # --table-end--
 #################################
 # --table-start--
-dataClass=com.gyp.pfc.data.domain.TrainingExercise
+dataClass=com.gyp.pfc.data.domain.exercise.TrainingExercise
 tableName=trainingexercise
 # --table-fields-start--
 # --field-start--
@@ -123,7 +123,7 @@ foreignAutoRefresh=true
 # --table-end--
 #################################
 # --table-start--
-dataClass=com.gyp.pfc.data.domain.MealName
+dataClass=com.gyp.pfc.data.domain.meal.MealName
 tableName=mealname
 # --table-fields-start--
 # --field-start--
@@ -143,7 +143,7 @@ unique=true
 # --table-end--
 #################################
 # --table-start--
-dataClass=com.gyp.pfc.data.domain.Portion
+dataClass=com.gyp.pfc.data.domain.meal.Portion
 tableName=portion
 # --table-fields-start--
 # --field-start--
@@ -167,7 +167,7 @@ fieldName=quantity
 # --table-end--
 #################################
 # --table-start--
-dataClass=com.gyp.pfc.data.domain.Meal
+dataClass=com.gyp.pfc.data.domain.meal.Meal
 tableName=meal
 # --table-fields-start--
 # --field-start--

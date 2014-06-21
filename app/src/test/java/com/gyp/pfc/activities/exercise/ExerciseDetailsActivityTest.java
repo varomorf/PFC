@@ -12,7 +12,7 @@ import android.content.Intent;
 
 import com.gyp.pfc.CustomTestRunner;
 import com.gyp.pfc.R;
-import com.gyp.pfc.data.domain.Exercise;
+import com.gyp.pfc.data.domain.exercise.Exercise;
 import com.xtremelabs.robolectric.tester.android.view.TestMenu;
 
 /**

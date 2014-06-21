@@ -7,13 +7,14 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.gyp.pfc.R;
-import com.gyp.pfc.data.domain.Exercise;
-import com.gyp.pfc.data.domain.Food;
-import com.gyp.pfc.data.domain.Meal;
-import com.gyp.pfc.data.domain.MealName;
-import com.gyp.pfc.data.domain.Portion;
-import com.gyp.pfc.data.domain.Training;
-import com.gyp.pfc.data.domain.TrainingExercise;
+import com.gyp.pfc.data.domain.exercise.Exercise;
+import com.gyp.pfc.data.domain.exercise.Training;
+import com.gyp.pfc.data.domain.exercise.TrainingExercise;
+import com.gyp.pfc.data.domain.exercise.TrainingHistoric;
+import com.gyp.pfc.data.domain.food.Food;
+import com.gyp.pfc.data.domain.meal.Meal;
+import com.gyp.pfc.data.domain.meal.MealName;
+import com.gyp.pfc.data.domain.meal.Portion;
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
 import com.j256.ormlite.support.ConnectionSource;
@@ -33,10 +34,12 @@ import com.j256.ormlite.table.TableUtils;
  */
 public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 	// Constants -----------------------------------------------------
+
 	private static final String DB_NAME = "pfcDatabase";
 	private static final int DB_VERSION = 1;
 
 	// Attributes ----------------------------------------------------
+
 	private RuntimeExceptionDao<Food, Integer> foodDao;
 	private RuntimeExceptionDao<Exercise, Integer> exerciseDao;
 	private RuntimeExceptionDao<Training, Integer> trainingDao;
@@ -44,6 +47,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 	private RuntimeExceptionDao<Meal, Integer> mealDao;
 	private RuntimeExceptionDao<MealName, Integer> mealNameDao;
 	private RuntimeExceptionDao<Portion, Integer> portionDao;
+	private RuntimeExceptionDao<TrainingHistoric, Integer> trainingHistoricDao;
 
 	// Static --------------------------------------------------------
 
@@ -190,6 +194,20 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 			portionDao = getRuntimeExceptionDao(Portion.class);
 		}
 		return portionDao;
+	}
+
+	/**
+	 * Factory method for a {@link RuntimeExceptionDao} for the
+	 * {@link TrainingHistoric} entity
+	 * 
+	 * @return The {@link RuntimeExceptionDao} for the {@link TrainingHistoric}
+	 *         entity
+	 */
+	public RuntimeExceptionDao<TrainingHistoric, Integer> getTrainingHistoricDao() {
+		if (null == trainingHistoricDao) {
+			trainingHistoricDao = getRuntimeExceptionDao(TrainingHistoric.class);
+		}
+		return trainingHistoricDao;
 	}
 
 	/**

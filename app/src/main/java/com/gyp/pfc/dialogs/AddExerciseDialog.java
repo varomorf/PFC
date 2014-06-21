@@ -13,8 +13,8 @@ import com.gyp.pfc.R;
 import com.gyp.pfc.TimeUtils;
 import com.gyp.pfc.UIUtils;
 import com.gyp.pfc.adapters.ExerciseListViewAdapter;
-import com.gyp.pfc.data.domain.Exercise;
-import com.gyp.pfc.data.domain.TrainingExercise;
+import com.gyp.pfc.data.domain.exercise.Exercise;
+import com.gyp.pfc.data.domain.exercise.TrainingExercise;
 
 /**
  * Dialog for adding exercises to a training

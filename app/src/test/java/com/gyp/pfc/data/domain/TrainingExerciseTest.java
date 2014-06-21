@@ -8,6 +8,8 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+import com.gyp.pfc.data.domain.exercise.TrainingExercise;
+
 /**
  * Tests for the {@link TrainingExercise} entity
  * 

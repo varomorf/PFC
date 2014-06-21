@@ -3,9 +3,9 @@
  */
 package com.gyp.pfc.data.domain.manager;
 
-import com.gyp.pfc.data.domain.Exercise;
-import com.gyp.pfc.data.domain.Training;
-import com.gyp.pfc.data.domain.TrainingExercise;
+import com.gyp.pfc.data.domain.exercise.Exercise;
+import com.gyp.pfc.data.domain.exercise.Training;
+import com.gyp.pfc.data.domain.exercise.TrainingExercise;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
 
 /**

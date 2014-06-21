@@ -17,15 +17,17 @@ import android.widget.Spinner;
 
 import com.gyp.pfc.R;
 import com.gyp.pfc.TimeUtils;
-import com.gyp.pfc.activities.food.FoodConstants;
+import com.gyp.pfc.activities.constants.FoodConstants;
+import com.gyp.pfc.activities.constants.MealConstants;
 import com.gyp.pfc.activities.food.FoodListActivity;
+import com.gyp.pfc.activities.helpers.MealActivityHelper;
 import com.gyp.pfc.adapters.MealNameListViewAdapter;
 import com.gyp.pfc.adapters.PortionArrayAdapter;
 import com.gyp.pfc.data.db.DatabaseHelper;
-import com.gyp.pfc.data.domain.Food;
-import com.gyp.pfc.data.domain.Meal;
-import com.gyp.pfc.data.domain.MealName;
-import com.gyp.pfc.data.domain.Portion;
+import com.gyp.pfc.data.domain.food.Food;
+import com.gyp.pfc.data.domain.meal.Meal;
+import com.gyp.pfc.data.domain.meal.MealName;
+import com.gyp.pfc.data.domain.meal.Portion;
 import com.gyp.pfc.dialogs.PortionQuantityDialog;
 import com.gyp.pfc.dialogs.PortionQuantityDialog.PortionQuantityDialogListener;
 import com.gyp.pfc.dialogs.PortionQuantityEditDialog;
@@ -131,6 +133,7 @@ public class EditMealActivity extends OrmLiteBaseActivity<DatabaseHelper> implem
 	 */
 	public void addFoodtoMealButton(View view) {
 		Intent selectFood = new Intent(getApplicationContext(), FoodListActivity.class);
+		selectFood.putExtra(RETURN_FOOD, true);
 		startActivityForResult(selectFood, SELECT_FOOD);
 	}
 

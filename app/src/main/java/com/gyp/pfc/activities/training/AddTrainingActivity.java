@@ -15,12 +15,12 @@ import android.widget.Toast;
 
 import com.gyp.pfc.R;
 import com.gyp.pfc.TimeUtils;
-import com.gyp.pfc.activities.BaseActivityHelper;
+import com.gyp.pfc.activities.helpers.BaseActivityHelper;
 import com.gyp.pfc.adapters.TrainingExerciseAdapter;
 import com.gyp.pfc.data.db.DatabaseHelper;
-import com.gyp.pfc.data.domain.Exercise;
-import com.gyp.pfc.data.domain.Training;
-import com.gyp.pfc.data.domain.TrainingExercise;
+import com.gyp.pfc.data.domain.exercise.Exercise;
+import com.gyp.pfc.data.domain.exercise.Training;
+import com.gyp.pfc.data.domain.exercise.TrainingExercise;
 import com.gyp.pfc.dialogs.AddExerciseDialog;
 import com.gyp.pfc.dialogs.AddExerciseDialog.AddExerciseDialogListener;
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;

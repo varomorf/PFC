@@ -12,8 +12,8 @@ import android.app.Activity;
 import com.gyp.pfc.CustomTestRunner;
 import com.gyp.pfc.R;
 import com.gyp.pfc.activities.exercise.BaseExerciseTest;
-import com.gyp.pfc.data.domain.Exercise;
-import com.gyp.pfc.data.domain.Training;
+import com.gyp.pfc.data.domain.exercise.Exercise;
+import com.gyp.pfc.data.domain.exercise.Training;
 import com.xtremelabs.robolectric.shadows.ShadowCountDownTimer;
 
 @RunWith(CustomTestRunner.class)

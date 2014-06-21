@@ -1,48 +1,51 @@
-/**
- * 
- */
-package com.gyp.pfc.data.domain;
+package com.gyp.pfc.data.domain.exercise;
 
 import java.io.Serializable;
 
+import com.j256.ormlite.dao.ForeignCollection;
 import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
 /**
- * Defines the name of a meal (like breakfast, and so)
+ * Training entity
  * 
  * @author Alvaro
  * 
  */
 @DatabaseTable
-public class MealName implements Serializable, Comparable<MealName> {
+public class Training implements Serializable {
 
 	// Constants -----------------------------------------------------
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 2358769454877224282L;
 
 	// Attributes ----------------------------------------------------
 
 	@DatabaseField(generatedId = true)
-	private Integer id;
-
+	private int id;
 	@DatabaseField(canBeNull = false)
 	private String name;
-
-	@DatabaseField(canBeNull = false, unique = true)
-	private Integer order;
+	@ForeignCollectionField(eager = true, orderColumnName = "pos")
+	private ForeignCollection<TrainingExercise> exercises;
 
 	// Static --------------------------------------------------------
 
 	// Constructors --------------------------------------------------
+	/**
+	 * ORMLite needs a no-arg constructor
+	 */
+	public Training() {
+		// NOOP
+	}
 
 	// Public --------------------------------------------------------
-	
-	public Integer getId() {
+
+	public int getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -54,36 +57,25 @@ public class MealName implements Serializable, Comparable<MealName> {
 		this.name = name;
 	}
 
-	public Integer getOrder() {
-		return order;
+	public ForeignCollection<TrainingExercise> getExercises() {
+		return exercises;
 	}
 
-	public void setOrder(Integer order) {
-		this.order = order;
-	}
-	
-	@Override
-	public int compareTo(MealName o) {
-		// compare via meal order
-		return order.compareTo(o.order);
+	public void setExercises(ForeignCollection<TrainingExercise> exercises) {
+		this.exercises = exercises;
 	}
 
 	@Override
-	public int hashCode() {
-		return id;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if(obj instanceof MealName){
-			return obj.hashCode() == hashCode();
+	public boolean equals(Object o) {
+		if (o instanceof Training) {
+			return ((Training) o).getId() == id;
 		}
 		return false;
 	}
 
 	@Override
-	public String toString() {
-		return new StringBuilder().append(id).append(" - ").append(name).append("@").append(order).toString();
+	public int hashCode() {
+		return id;
 	}
 
 	// Package protected ---------------------------------------------
@@ -93,5 +85,4 @@ public class MealName implements Serializable, Comparable<MealName> {
 	// Private -------------------------------------------------------
 
 	// Inner classes -------------------------------------------------
-
 }

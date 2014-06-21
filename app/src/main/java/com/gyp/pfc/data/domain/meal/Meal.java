@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.gyp.pfc.data.domain;
+package com.gyp.pfc.data.domain.meal;
 
 import java.io.Serializable;
 import java.util.Calendar;
@@ -10,8 +10,8 @@ import java.util.Date;
 import org.apache.commons.lang.time.DateFormatUtils;
 import org.apache.commons.lang.time.DateUtils;
 
-import com.gyp.pfc.data.domain.nulls.NullForeignCollection;
-import com.gyp.pfc.data.domain.nulls.NullMealName;
+import com.gyp.pfc.data.domain.api.NullForeignCollection;
+import com.gyp.pfc.data.domain.api.NutritionalInformationProvider;
 import com.j256.ormlite.dao.ForeignCollection;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;

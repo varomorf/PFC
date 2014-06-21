@@ -6,9 +6,9 @@ import android.content.Intent;
 
 import com.gyp.pfc.activities.BaseActivityTest;
 import com.gyp.pfc.data.db.DatabaseHelper;
-import com.gyp.pfc.data.domain.Exercise;
-import com.gyp.pfc.data.domain.Training;
-import com.gyp.pfc.data.domain.TrainingExercise;
+import com.gyp.pfc.data.domain.exercise.Exercise;
+import com.gyp.pfc.data.domain.exercise.Training;
+import com.gyp.pfc.data.domain.exercise.TrainingExercise;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
 
 public abstract class BaseTrainingTest extends BaseActivityTest {

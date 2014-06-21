@@ -1,4 +1,7 @@
-package com.gyp.pfc.data.domain;
+/**
+ * 
+ */
+package com.gyp.pfc.data.domain.meal;
 
 import java.io.Serializable;
 
@@ -6,44 +9,40 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
 /**
- * Exercise entity
+ * Defines the name of a meal (like breakfast, and so)
  * 
  * @author Alvaro
  * 
  */
 @DatabaseTable
-public class Exercise implements Serializable {
+public class MealName implements Serializable, Comparable<MealName> {
 
 	// Constants -----------------------------------------------------
 
-	private static final long serialVersionUID = 3506529017983171193L;
+	private static final long serialVersionUID = 1L;
 
 	// Attributes ----------------------------------------------------
 
 	@DatabaseField(generatedId = true)
-	private int id;
-	@DatabaseField(unique = true, canBeNull = false)
+	private Integer id;
+
+	@DatabaseField(canBeNull = false)
 	private String name;
-	@DatabaseField
-	private String description;
+
+	@DatabaseField(canBeNull = false, unique = true)
+	private Integer order;
 
 	// Static --------------------------------------------------------
 
 	// Constructors --------------------------------------------------
 
-	/**
-	 * ORMLite needs a no-arg constructor
-	 */
-	public Exercise() {
-	}
-
 	// Public --------------------------------------------------------
-
-	public int getId() {
+	
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -55,30 +54,36 @@ public class Exercise implements Serializable {
 		this.name = name;
 	}
 
-	public String getDescription() {
-		return description;
+	public Integer getOrder() {
+		return order;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setOrder(Integer order) {
+		this.order = order;
 	}
-
+	
 	@Override
-	public String toString() {
-		return name;
-	}
-
-	@Override
-	public boolean equals(Object o) {
-		if (o instanceof Exercise) {
-			return ((Exercise) o).getId() == id;
-		}
-		return false;
+	public int compareTo(MealName o) {
+		// compare via meal order
+		return order.compareTo(o.order);
 	}
 
 	@Override
 	public int hashCode() {
 		return id;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if(obj instanceof MealName){
+			return obj.hashCode() == hashCode();
+		}
+		return false;
+	}
+
+	@Override
+	public String toString() {
+		return new StringBuilder().append(id).append(" - ").append(name).append("@").append(order).toString();
 	}
 
 	// Package protected ---------------------------------------------
@@ -88,4 +93,5 @@ public class Exercise implements Serializable {
 	// Private -------------------------------------------------------
 
 	// Inner classes -------------------------------------------------
+
 }

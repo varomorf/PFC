@@ -17,8 +17,8 @@ import android.view.View;
 
 import com.gyp.pfc.CustomTestRunner;
 import com.gyp.pfc.R;
-import com.gyp.pfc.activities.meal.EditMealActivity;
-import com.gyp.pfc.data.domain.Food;
+import com.gyp.pfc.activities.constants.FoodConstants;
+import com.gyp.pfc.data.domain.food.Food;
 import com.gyp.pfc.data.domain.manager.FoodManager;
 import com.xtremelabs.robolectric.tester.android.view.TestContextMenu;
 import com.xtremelabs.robolectric.tester.android.view.TestMenu;
@@ -254,8 +254,12 @@ public class FoodListActivityTest extends BaseFoodTest implements FoodConstants 
 	@Test
 	public void shouldReturnIntentWithSelectedFoodIfStartedForThat() {
 		// GIVEN
-		// activity started from the EditMealActivity
-		createActivityFromActivity(EditMealActivity.class);
+		// pass intent with boolean value
+		Intent intent = new Intent();
+		intent.putExtra(RETURN_FOOD, true);
+		activity.setIntent(intent);
+		// activity started
+		createActivity();
 		// WHEN
 		// first food is selected
 		clickOnListItem(0);

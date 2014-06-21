@@ -1,4 +1,4 @@
-package com.gyp.pfc.activities.meal;
+package com.gyp.pfc.activities.constants;
 
 /**
  * Constants related to meal activities
