@@ -33,7 +33,7 @@ public class NullForeignCollection<T, I> extends BaseForeignCollection<T, I> {
 	private static final long serialVersionUID = 1L;
 
 	public static final NullForeignCollection NULL_COLLECTION = new NullForeignCollection();
-
+	
 	// Constructors --------------------------------------------------
 
 	private NullForeignCollection() {
@@ -108,7 +108,7 @@ public class NullForeignCollection<T, I> extends BaseForeignCollection<T, I> {
 	}
 
 	@Override
-	public <T> T[] toArray(T[] a) {
+	public <S> S[] toArray(S[] a) {
 		return list.toArray(a);
 	}
 

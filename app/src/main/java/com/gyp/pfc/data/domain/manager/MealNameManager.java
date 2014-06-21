@@ -73,7 +73,7 @@ public class MealNameManager {
 	 */
 	public MealName createMealNameIfOrderNotPresent(String name, int order) {
 		MealName mealName = null;
-		if (mealNameDao.queryForEq("order", order).size() == 0) {
+		if (mealNameDao.queryForEq("order", order).isEmpty()) {
 			mealName = new MealNameBuilder().name(name).order(order).getMealName();
 			mealNameDao.create(mealName);
 		}

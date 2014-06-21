@@ -74,7 +74,7 @@ public class MealListActivity extends OrmLiteBaseListActivity<DatabaseHelper> im
 	 * @return a list of dates from today to date of the first meal
 	 */
 	private List<Date> getDates() {
-		ArrayList<Date> dates = new ArrayList<Date>();
+		List<Date> dates = new ArrayList<Date>();
 		QueryBuilder<Meal, Integer> qb = getHelper().getMealDao().queryBuilder();
 		qb.selectRaw("MIN(date)");
 		Date mealDate = null;
