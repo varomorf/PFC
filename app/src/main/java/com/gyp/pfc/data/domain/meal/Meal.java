@@ -41,7 +41,7 @@ public class Meal implements Serializable, NutritionalInformationProvider {
 	private MealName name = NullMealName.NULL_MEAL_NAME;
 
 	@ForeignCollectionField(eager = true)
-	private ForeignCollection<Portion> portions = NullForeignCollection.NULL_COLLECTION;
+	private ForeignCollection<Portion> portions = new NullForeignCollection<Portion, Integer>();
 
 	// Static --------------------------------------------------------
 
@@ -145,7 +145,7 @@ public class Meal implements Serializable, NutritionalInformationProvider {
 	 *            the new portions
 	 */
 	public void setPortions(ForeignCollection<Portion> portions) {
-		this.portions = portions != null ? portions : NullForeignCollection.NULL_COLLECTION;
+		this.portions = portions != null ? portions : new NullForeignCollection<Portion, Integer>();
 	}
 
 	// Package protected ---------------------------------------------

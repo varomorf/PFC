@@ -32,11 +32,9 @@ public class NullForeignCollection<T, I> extends BaseForeignCollection<T, I> {
 
 	private static final long serialVersionUID = 1L;
 
-	public static final NullForeignCollection NULL_COLLECTION = new NullForeignCollection();
-	
 	// Constructors --------------------------------------------------
 
-	private NullForeignCollection() {
+	public NullForeignCollection() {
 		super(null, null, null, null, null, false);
 	}
 
