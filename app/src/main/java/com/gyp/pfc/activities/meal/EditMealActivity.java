@@ -11,6 +11,7 @@ import org.apache.commons.lang.time.DateUtils;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.Spinner;
@@ -44,6 +45,8 @@ public class EditMealActivity extends OrmLiteBaseActivity<DatabaseHelper> implem
 		PortionQuantityDialogListener {
 
 	// Constants -----------------------------------------------------
+
+	static final String TAG = EditMealActivity.class.getName();
 
 	// Attributes ----------------------------------------------------
 
@@ -220,7 +223,7 @@ public class EditMealActivity extends OrmLiteBaseActivity<DatabaseHelper> implem
 				meal = dbMeal;
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			Log.e(TAG, "SQLException while getting first date", e);
 		}
 	}
 

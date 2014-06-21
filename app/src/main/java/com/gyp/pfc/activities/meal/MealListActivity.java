@@ -8,6 +8,7 @@ import java.util.List;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 
@@ -31,6 +32,8 @@ import com.j256.ormlite.stmt.QueryBuilder;
 public class MealListActivity extends OrmLiteBaseListActivity<DatabaseHelper> implements MealConstants {
 
 	// Constants -----------------------------------------------------
+
+	static final String TAG = MealListActivity.class.getName();
 
 	// Attributes ----------------------------------------------------
 
@@ -80,7 +83,7 @@ public class MealListActivity extends OrmLiteBaseListActivity<DatabaseHelper> im
 					new DataType[] { DataType.DATE_STRING });
 			mealDate = (Date) results.getFirstResult()[0];
 		} catch (SQLException e) {
-			e.printStackTrace();
+			Log.e(TAG, "SQLException while getting first date", e);
 		}
 		for (Iterator<Date> iterator = new DateIterator(new Date(), mealDate); iterator.hasNext();) {
 			dates.add(iterator.next());
