@@ -25,6 +25,7 @@ public class ExecuteTrainingActivityTest extends BaseTrainingTest {
 	private static final int REPS = 2;
 	private static final String EXERCISE2_NAME = "Exercise 2";
 	private static final String EXERCISE2_DESC = "Exercise 2 Description";
+	private static final int EXERCISE2_CALS = 100;
 
 	// Attributes ----------------------------------------------------
 
@@ -350,8 +351,8 @@ public class ExecuteTrainingActivityTest extends BaseTrainingTest {
 	private void passTrainingToActivity(int secondsOfExercise1, int secondsOfExercise2) {
 		training = createTraining(TRAINING_NAME);
 		BaseExerciseTest.insertExercise(exerciseDao, BaseExerciseTest.EXERCISE_NAME,
-				BaseExerciseTest.EXERCISE_DESC);
-		BaseExerciseTest.insertExercise(exerciseDao, EXERCISE2_NAME, EXERCISE2_DESC);
+				BaseExerciseTest.EXERCISE_DESC, BaseExerciseTest.EXERCISE_CALORIES);
+		BaseExerciseTest.insertExercise(exerciseDao, EXERCISE2_NAME, EXERCISE2_DESC, EXERCISE2_CALS);
 		exercise1 = exerciseDao.queryForId(1);
 		addExerciseToTraining(training, exercise1, REPS, secondsOfExercise1);
 		exercise2 = exerciseDao.queryForId(2);

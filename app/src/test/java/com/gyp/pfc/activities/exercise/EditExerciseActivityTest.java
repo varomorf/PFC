@@ -28,7 +28,7 @@ public class EditExerciseActivityTest extends BaseExerciseTest {
 	@Before
 	public void before() {
 		super.before();
-		insertExercise(EXERCISE_NAME, EXERCISE_DESC);
+		insertExercise(EXERCISE_NAME, EXERCISE_DESC, EXERCISE_CALORIES);
 	}
 
 	@Test
@@ -100,7 +100,7 @@ public class EditExerciseActivityTest extends BaseExerciseTest {
 		// activity shown
 		createActivity();
 		// exercise with name to duplicate
-		insertExercise(DUPLICATED_NAME, EXERCISE_DESC);
+		insertExercise(DUPLICATED_NAME, EXERCISE_DESC, EXERCISE_CALORIES);
 		// WHEN
 		// duplicated name is entered
 		enterName(DUPLICATED_NAME);

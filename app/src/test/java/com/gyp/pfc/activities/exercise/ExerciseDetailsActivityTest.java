@@ -45,7 +45,7 @@ public class ExerciseDetailsActivityTest extends BaseExerciseTest {
 		// WHEN
 		createActivity();
 		// THEN
-		assertDataFilled(EXERCISE_NAME, EXERCISE_DESC);
+		assertDataFilled(EXERCISE_NAME, EXERCISE_DESC, EXERCISE_CALORIES);
 	}
 
 	@Test
@@ -64,7 +64,7 @@ public class ExerciseDetailsActivityTest extends BaseExerciseTest {
 	public void shouldDeleteExercises() {
 		// GIVEN
 		// exercise on DB
-		insertExercise(EXERCISE_NAME, EXERCISE_DESC);
+		insertExercise(EXERCISE_NAME, EXERCISE_DESC, 0);
 		// pass DB exercise to activity
 		Exercise exercise = dao.queryForId(1);
 		intentPassedWithExercise(exercise);
@@ -89,7 +89,7 @@ public class ExerciseDetailsActivityTest extends BaseExerciseTest {
 	public void shouldEditExercise() {
 		// GIVEN
 		// exercise on DB
-		insertExercise(EXERCISE_NAME, EXERCISE_DESC);
+		insertExercise(EXERCISE_NAME, EXERCISE_DESC, 0);
 		// pass DB exercise to activity
 		Exercise exercise = dao.queryForId(1);
 		intentPassedWithExercise(exercise);
@@ -113,7 +113,7 @@ public class ExerciseDetailsActivityTest extends BaseExerciseTest {
 		// GIVEN
 		// activity with exercise
 		// exercise on DB
-		insertExercise(EXERCISE_NAME, EXERCISE_DESC);
+		insertExercise(EXERCISE_NAME, EXERCISE_DESC, EXERCISE_CALORIES);
 		// pass DB exercise to activity
 		Exercise exercise = dao.queryForId(1);
 		intentPassedWithExercise(exercise);
@@ -121,13 +121,14 @@ public class ExerciseDetailsActivityTest extends BaseExerciseTest {
 		// exercise changed
 		exercise.setName(NEW_NAME);
 		exercise.setDescription(NEW_DESC);
+		exercise.setBurntCalories(NEW_CALORIES);
 		dao.update(exercise);
 		// WHEN
 		// activity resumed
 		activity.callOnResume();
 		// THEN
 		// new data of exercise is loaded
-		assertDataFilled(NEW_NAME, NEW_DESC);
+		assertDataFilled(NEW_NAME, NEW_DESC, NEW_CALORIES);
 	}
 
 	// Package protected ---------------------------------------------
@@ -140,9 +141,11 @@ public class ExerciseDetailsActivityTest extends BaseExerciseTest {
 	}
 
 	// Private -------------------------------------------------------
-	private void assertDataFilled(String expectedName, String expectedDesc) {
+
+	private void assertDataFilled(String expectedName, String expectedDesc, Integer expectedCalories) {
 		assertViewText(R.id.exerciseName, expectedName);
 		assertViewText(R.id.exerciseDescription, expectedDesc);
+		assertViewText(R.id.exerciseCalories, expectedCalories.toString());
 	}
 	// Inner classes -------------------------------------------------
 }

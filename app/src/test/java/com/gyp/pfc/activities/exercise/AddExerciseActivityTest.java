@@ -70,7 +70,7 @@ public class AddExerciseActivityTest extends BaseExerciseTest {
 	public void shouldNotAllowDuplicatedName() {
 		// GIVEN
 		createActivity();
-		insertExercise(EXERCISE_NAME, null);
+		insertExercise(EXERCISE_NAME, null, 0);
 		// WHEN
 		enterName(EXERCISE_NAME);
 		commitButtonIsClicked();

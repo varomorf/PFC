@@ -42,8 +42,8 @@ public class ExercisesListActivityTest extends BaseExerciseTest {
 	@Test
 	public void shouldListAllExercises() {
 		// GIVEN
-		insertExercise("foo", "foo desc");
-		insertExercise("bar", "bar desc");
+		insertExercise("foo", "foo desc", 0);
+		insertExercise("bar", "bar desc", 0);
 		// WHEN
 		createActivity();
 		// THEN
@@ -139,8 +139,8 @@ public class ExercisesListActivityTest extends BaseExerciseTest {
 	// Private -------------------------------------------------------
 
 	private void listWithExercises() {
-		insertExercise("foo", "foo desc");
-		insertExercise("bar", "bar desc");
+		insertExercise("foo", "foo desc", 0);
+		insertExercise("bar", "bar desc", 0);
 		createActivity();
 	}
 

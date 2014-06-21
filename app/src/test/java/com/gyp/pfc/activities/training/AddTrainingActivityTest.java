@@ -32,6 +32,7 @@ public class AddTrainingActivityTest extends BaseTrainingTest {
 	// Constants -----------------------------------------------------
 	private static final String NEW_EXERCISE_NAME = "NEW_EXERCISE_NAME";
 	private static final String NEW_EXERCISE_DESC = "NEW_EXERCISE_DESC";
+	private static final int NEW_EXERCISE_CALS = 100;
 
 	// Attributes ----------------------------------------------------
 
@@ -193,7 +194,7 @@ public class AddTrainingActivityTest extends BaseTrainingTest {
 		// activity ready with exercise on DB and name entered
 		prepareWithExerciseAndName();
 		// new exercise
-		BaseExerciseTest.insertExercise(exerciseDao, NEW_EXERCISE_NAME, NEW_EXERCISE_DESC);
+		BaseExerciseTest.insertExercise(exerciseDao, NEW_EXERCISE_NAME, NEW_EXERCISE_DESC, NEW_EXERCISE_CALS);
 		// 2 exercises added to the training
 		addExerciseToTraining();
 		addExerciseToTraining();
@@ -233,7 +234,7 @@ public class AddTrainingActivityTest extends BaseTrainingTest {
 		// activity ready with exercise on DB and name entered
 		prepareWithExerciseAndName();
 		// new exercise
-		BaseExerciseTest.insertExercise(exerciseDao, NEW_EXERCISE_NAME, NEW_EXERCISE_DESC);
+		BaseExerciseTest.insertExercise(exerciseDao, NEW_EXERCISE_NAME, NEW_EXERCISE_DESC, NEW_EXERCISE_CALS);
 		// 2 exercises added to the training
 		addExerciseToTraining();
 		addExerciseToTraining();
@@ -258,7 +259,7 @@ public class AddTrainingActivityTest extends BaseTrainingTest {
 		// GIVEN
 		// one exercise on DB
 		BaseExerciseTest.insertExercise(exerciseDao, BaseExerciseTest.EXERCISE_NAME,
-				BaseExerciseTest.EXERCISE_DESC);
+				BaseExerciseTest.EXERCISE_DESC, NEW_EXERCISE_CALS);
 		exercise = exerciseDao.queryForId(1);
 		// training on DB
 		Training training = createTraining("foo", 1, 100);
@@ -315,7 +316,7 @@ public class AddTrainingActivityTest extends BaseTrainingTest {
 	private void prepareWithExerciseAndName() {
 		// 1 exercise on DB
 		BaseExerciseTest.insertExercise(exerciseDao, BaseExerciseTest.EXERCISE_NAME,
-				BaseExerciseTest.EXERCISE_DESC);
+				BaseExerciseTest.EXERCISE_DESC, NEW_EXERCISE_CALS);
 		// activity is shown
 		createActivity();
 		// name is set

@@ -7,9 +7,9 @@
     <fragment
         android:id="@+id/topBarFragment"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" 
-        class="com.gyp.pfc.fragments.TopBarFragment"/>
-    
+        android:layout_height="wrap_content"
+        class="com.gyp.pfc.fragments.TopBarFragment" />
+
     <TextView
         android:id="@+id/exerciseName"
         android:layout_width="wrap_content"
@@ -31,5 +31,19 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/defaultMargin"
         android:textAppearance="?android:attr/textAppearanceSmall" />
-    
+
+    <TextView
+        android:id="@+id/exerciseLabelCalories"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/caloriesBurnt"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <EditText
+        android:id="@+id/exerciseCalories"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="number" />
+
 </LinearLayout>

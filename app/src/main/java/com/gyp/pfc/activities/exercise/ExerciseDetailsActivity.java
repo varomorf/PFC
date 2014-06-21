@@ -90,6 +90,7 @@ public class ExerciseDetailsActivity extends OrmLiteBaseActivity<DatabaseHelper>
 		// populate widgets
 		h.setTextToUI(R.id.exerciseName, exercise.getName());
 		h.setTextToUI(R.id.exerciseDescription, exercise.getDescription());
+		h.setTextToUI(R.id.exerciseCalories, Integer.toString(exercise.getBurntCalories()));
 	}
 
 	private void deleteExercise() {

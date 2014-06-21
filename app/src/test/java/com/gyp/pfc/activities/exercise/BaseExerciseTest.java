@@ -23,8 +23,10 @@ public abstract class BaseExerciseTest extends BaseActivityTest {
 	// Constants -----------------------------------------------------
 	public static final String EXERCISE_NAME = "Test exercise";
 	public static final String EXERCISE_DESC = "Test exercise description";
+	public static final int EXERCISE_CALORIES = 100;
 	public static final String NEW_NAME = "NEW_NAME";
 	public static final String NEW_DESC = "NEW_DESC";
+	public static final int NEW_CALORIES = 200;
 	public static final String DUPLICATED_NAME = "DUPLICATED_NAME";
 	// Attributes ----------------------------------------------------
 
@@ -50,10 +52,12 @@ public abstract class BaseExerciseTest extends BaseActivityTest {
 	 * @param name
 	 * @param description
 	 */
-	public static void insertExercise(RuntimeExceptionDao<Exercise, Integer> dao, String name, String description) {
+	public static void insertExercise(RuntimeExceptionDao<Exercise, Integer> dao, String name, String description,
+			int calories) {
 		Exercise exercise = new Exercise();
 		exercise.setName(name);
 		exercise.setDescription(description);
+		exercise.setBurntCalories(calories);
 		dao.create(exercise);
 	}
 
@@ -61,8 +65,8 @@ public abstract class BaseExerciseTest extends BaseActivityTest {
 
 	// Protected -----------------------------------------------------
 
-	protected void insertExercise(String name, String description) {
-		insertExercise(dao, name, description);
+	protected void insertExercise(String name, String description, int calories) {
+		insertExercise(dao, name, description, calories);
 	}
 
 	protected void intentPassedWithExercise() {
@@ -75,6 +79,7 @@ public abstract class BaseExerciseTest extends BaseActivityTest {
 			theExercise = new Exercise();
 			theExercise.setName(EXERCISE_NAME);
 			theExercise.setDescription(EXERCISE_DESC);
+			theExercise.setBurntCalories(EXERCISE_CALORIES);
 		}
 		Intent intent = new Intent();
 		intent.putExtra(ExerciseListActivity.SELECTED_EXERCISE, theExercise);
@@ -87,6 +92,10 @@ public abstract class BaseExerciseTest extends BaseActivityTest {
 
 	protected void enterDescription(String description) {
 		enterText(R.id.exerciseDescription, description);
+	}
+
+	protected void enterCalories(int calories) {
+		enterText(R.id.exerciseCalories, calories);
 	}
 
 	protected void commitButtonIsClicked() {

@@ -32,7 +32,7 @@ public class TrainingListActivityTest extends BaseTrainingTest {
 		super.before();
 		// one exercise on DB
 		BaseExerciseTest.insertExercise(exerciseDao, BaseExerciseTest.EXERCISE_NAME,
-				BaseExerciseTest.EXERCISE_DESC);
+				BaseExerciseTest.EXERCISE_DESC, BaseExerciseTest.EXERCISE_CALORIES);
 		exercise = exerciseDao.queryForId(1);
 	}
 
