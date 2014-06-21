@@ -118,6 +118,33 @@ public class BaseActivityHelper {
 		UIUtils.setTextToUI(activity.findViewById(viewId), text);
 	}
 
+	/**
+	 * Returns an int value from a TextView
+	 * 
+	 * @param view
+	 *            the view to get the int from
+	 * @return the int extracted from the view
+	 */
+	public int getIntFromUI(View view) {
+		String text = getTextFromUI(view);
+		try {
+			return Integer.parseInt(text);
+		} catch (NumberFormatException e) {
+			return 0;
+		}
+	}
+
+	/**
+	 * Returns an int value from a TextView
+	 * 
+	 * @param viewId
+	 *            The id of the view from which to extract the text
+	 * @return the int extracted from the view
+	 */
+	public int getIntFromUI(int viewId) {
+		return getIntFromUI(activity.findViewById(viewId));
+	}
+	
 	// Package protected ---------------------------------------------
 
 	// Protected -----------------------------------------------------

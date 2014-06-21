@@ -98,5 +98,7 @@
     <string name="portionQuantityTitle">Introduce la cantidad del alimento en gramos</string>
 
     <string name="previousActivity">Ir atrás</string>
+
+    <string name="caloriesBurnt">Calorias quemadas por hora:</string>
     
 </resources>

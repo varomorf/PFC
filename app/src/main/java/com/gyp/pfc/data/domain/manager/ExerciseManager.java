@@ -73,16 +73,20 @@ public class ExerciseManager {
 	 *            the name of the new exercise
 	 * @param description
 	 *            the description of the new exercise
+	 * @param burntCalories
+	 *            the amount of calories burnt per hour for this exercise
 	 * @return the created exercise
 	 * @throws EntityNameException
 	 *             if a blank name has been provided
 	 */
-	public Exercise createExercise(String name, String description) throws EntityNameException {
+	public Exercise createExercise(String name, String description, Integer burntCalories)
+			throws EntityNameException {
 		// create and save the exercise if constraints are valid
 		Exercise exercise = new Exercise();
 		exercise.setName(name);
 		checkNameConstraints(exercise);
 		exercise.setDescription(description);
+		exercise.setBurntCalories(burntCalories);
 		exerciseDao.create(exercise);
 		return exercise;
 	}

@@ -68,7 +68,7 @@ public abstract class BaseActivityTest {
 	protected void createActivity() {
 		activity.callOnCreate(null);
 	}
-	
+
 	@SuppressWarnings("rawtypes")
 	protected void createActivityFromActivity(Class callingActivity) {
 		activity.setCallingActivity(callingActivity);
@@ -201,6 +201,11 @@ public abstract class BaseActivityTest {
 	protected void enterText(int id, double text) {
 		EditText edit = (EditText) activity.findViewById(id);
 		edit.setText(Double.toString(text));
+	}
+
+	protected void enterText(int id, int text) {
+		EditText edit = (EditText) activity.findViewById(id);
+		edit.setText(Integer.toString(text));
 	}
 
 	/**

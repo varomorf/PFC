@@ -41,12 +41,15 @@ public class AddExerciseActivityTest extends BaseExerciseTest {
 		// WHEN
 		enterName(EXERCISE_NAME);
 		enterDescription(EXERCISE_DESC);
+		enterCalories(EXERCISE_CALORIES);
 		commitButtonIsClicked();
 		// THEN
 		List<Exercise> exercises = dao.queryForAll();
 		assertThat(exercises.size(), is(1));
-		assertThat(exercises.get(0).getName(), is(EXERCISE_NAME));
-		assertThat(exercises.get(0).getDescription(), is(EXERCISE_DESC));
+		Exercise exercise = exercises.get(0);
+		assertThat(exercise.getName(), is(EXERCISE_NAME));
+		assertThat(exercise.getDescription(), is(EXERCISE_DESC));
+		assertThat(exercise.getBurntCalories(), is(EXERCISE_CALORIES));
 		assertToastText(R.string.exerciseCreated);
 		// activity finishes
 		assertTrue(activity.isFinishing());

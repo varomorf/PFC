@@ -41,9 +41,10 @@ public class AddExerciseActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 		// extract data from widgets
 		String name = h.getTextFromUI(R.id.exerciseName);
 		String description = h.getTextFromUI(R.id.exerciseDescription);
+		Integer calories = h.getIntFromUI(R.id.exerciseCalories);
 		try {
 			// on positive case -> create entity, show message and exit
-			ExerciseManager.getInstance().createExercise(name, description);
+			ExerciseManager.getInstance().createExercise(name, description, calories);
 			Toast.makeText(getApplicationContext(), R.string.exerciseCreated, Toast.LENGTH_SHORT).show();
 			finish();
 		} catch (EntityNameException e) {
@@ -60,7 +61,7 @@ public class AddExerciseActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		h = new BaseActivityHelper(this);
-		
+
 		// inflate layout
 		View view = getLayoutInflater().inflate(R.layout.exercise_data, null);
 		// set the view

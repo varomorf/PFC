@@ -25,7 +25,10 @@ public class Exercise implements Serializable {
 	@DatabaseField(unique = true, canBeNull = false)
 	private String name;
 	@DatabaseField
-	private String description;
+	private String description = "";
+	/** The amount of calories burnt per hour for this exercise */
+	@DatabaseField(columnName = "burntcalories")
+	private Integer burntCalories = 0;
 
 	// Static --------------------------------------------------------
 
@@ -61,6 +64,14 @@ public class Exercise implements Serializable {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public Integer getBurntCalories() {
+		return burntCalories;
+	}
+
+	public void setBurntCalories(Integer burntCalories) {
+		this.burntCalories = burntCalories;
 	}
 
 	@Override
