@@ -166,6 +166,10 @@ public abstract class BaseActivityTest {
 		assertThat(text, is(expected));
 	}
 
+	protected void assertViewText(int id, int expected) {
+		assertViewText(id, Integer.toString(expected));
+	}
+
 	protected void assertViewContaining(int id, String expected) {
 		View view = activity.findViewById(id);
 		String text = UIUtils.getTextFromUI(view);

@@ -33,6 +33,7 @@ public class EditExerciseActivity extends AddExerciseActivity {
 	public void commitExercise(View view) {
 		exercise.setName(h.getTextFromUI(R.id.exerciseName));
 		exercise.setDescription(h.getTextFromUI(R.id.exerciseDescription));
+		exercise.setBurntCalories(h.getIntFromUI(R.id.exerciseCalories));
 		try {
 			ExerciseManager.getInstance().updateExercise(exercise);
 			Toast.makeText(getApplicationContext(), R.string.exerciseEdited, Toast.LENGTH_SHORT).show();
@@ -71,6 +72,7 @@ public class EditExerciseActivity extends AddExerciseActivity {
 		// populate widgets
 		h.setTextToUI(R.id.exerciseName, exercise.getName());
 		h.setTextToUI(R.id.exerciseDescription, exercise.getDescription());
+		h.setTextToUI(R.id.exerciseCalories, Integer.toString(exercise.getBurntCalories()));
 	}
 
 	// Inner classes -------------------------------------------------

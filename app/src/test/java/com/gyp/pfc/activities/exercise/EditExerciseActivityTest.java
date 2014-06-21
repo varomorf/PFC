@@ -44,6 +44,7 @@ public class EditExerciseActivityTest extends BaseExerciseTest {
 		// data is filled in form
 		assertViewText(R.id.exerciseName, exercise.getName());
 		assertViewText(R.id.exerciseDescription, exercise.getDescription());
+		assertViewText(R.id.exerciseCalories, exercise.getBurntCalories());
 	}
 
 	@Test
@@ -58,6 +59,7 @@ public class EditExerciseActivityTest extends BaseExerciseTest {
 		// different and correct values are entered
 		enterName(NEW_NAME);
 		enterDescription(NEW_DESC);
+		enterCalories(NEW_CALORIES);
 		// edit button is clicked
 		commitButtonIsClicked();
 		// THEN
@@ -67,6 +69,7 @@ public class EditExerciseActivityTest extends BaseExerciseTest {
 		exercise = dao.queryForId(1);
 		assertThat(exercise.getName(), is(NEW_NAME));
 		assertThat(exercise.getDescription(), is(NEW_DESC));
+		assertThat(exercise.getBurntCalories(), is(NEW_CALORIES));
 		// activity is finished
 		assertTrue(activity.isFinishing());
 	}
