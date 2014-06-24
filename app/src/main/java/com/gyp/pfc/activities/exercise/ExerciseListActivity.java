@@ -14,6 +14,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.gyp.pfc.R;
+import com.gyp.pfc.activities.constants.ExerciseConstants;
 import com.gyp.pfc.adapters.ExerciseListViewAdapter;
 import com.gyp.pfc.data.db.DatabaseHelper;
 import com.gyp.pfc.data.domain.exercise.Exercise;
@@ -25,10 +26,9 @@ import com.j256.ormlite.android.apptools.OrmLiteBaseListActivity;
  * @author Alvaro
  * 
  */
-public class ExerciseListActivity extends OrmLiteBaseListActivity<DatabaseHelper> {
+public class ExerciseListActivity extends OrmLiteBaseListActivity<DatabaseHelper> implements ExerciseConstants {
 
 	// Constants -----------------------------------------------------
-	static final String SELECTED_EXERCISE = "exercise";
 
 	// Attributes ----------------------------------------------------
 
