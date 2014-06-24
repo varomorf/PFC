@@ -82,8 +82,22 @@ public class TrainingManager {
 	 * @return the new training
 	 */
 	public Training createTraining(String name) {
+		return createTraining(name, true);
+	}
+
+	/**
+	 * Creates a new training specifying its name
+	 * 
+	 * @param name
+	 *            the name of the new training
+	 * @param executable
+	 *            whether the training is executable or not
+	 * @return the new training
+	 */
+	public Training createTraining(String name, boolean executable) {
 		Training training = new Training();
 		training.setName(name);
+		training.setExecutable(executable);
 		trainingDao.create(training);
 		return training;
 	}

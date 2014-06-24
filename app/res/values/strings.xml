@@ -6,6 +6,7 @@
     <string name="meals">Comidas</string>
     <string name="exercises">Ejercicios</string>
     <string name="trainnings">Entrenamientos</string>
+    <string name="trainningHisctoric">Histórico Entrenamientos</string>
     <string name="breakfast">Desayuno</string>
     <string name="lunch">Almuerzo</string>
     <string name="dinner">Cena</string>
@@ -102,5 +103,13 @@
     <string name="caloriesBurnt">Calorias quemadas por hora:</string>
 
     <string name="separator">" - "</string>
+
+    <string name="startDate">Fecha inicio</string>
+
+    <string name="endDate">Fecha fin</string>
+
+    <string name="selectExercise">Selecciona un ejercicio desde la lista de ejercicios</string>
+
+    <string name="selectDateTime">Selecciona una fecha y hora</string>
     
 </resources>

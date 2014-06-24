@@ -10,6 +10,8 @@ import com.gyp.pfc.activities.exercise.AddExerciseActivity;
 import com.gyp.pfc.activities.exercise.ExerciseListActivity;
 import com.gyp.pfc.activities.food.AddFoodActivity;
 import com.gyp.pfc.activities.food.FoodListActivity;
+import com.gyp.pfc.activities.historic.AddTrainingHistoricActivity;
+import com.gyp.pfc.activities.historic.TrainingHistoricListActivity;
 import com.gyp.pfc.activities.meal.EditMealActivity;
 import com.gyp.pfc.activities.meal.MealListActivity;
 import com.gyp.pfc.activities.training.AddTrainingActivity;
@@ -93,6 +95,14 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 
 	public void trainningsListButton(View view) {
 		startActivity(new Intent(this, TrainingListActivity.class));
+	}
+
+	public void trainningHisctoricAddButton(View view) {
+		startActivity(new Intent(this, AddTrainingHistoricActivity.class));
+	}
+
+	public void trainningHisctoricListButton(View view) {
+		startActivity(new Intent(this, TrainingHistoricListActivity.class));
 	}
 
 	// Package protected ---------------------------------------------

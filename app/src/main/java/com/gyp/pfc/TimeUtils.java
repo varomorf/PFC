@@ -129,6 +129,20 @@ public final class TimeUtils {
 		return DateFormatUtils.format(date, TIME_FORMAT);
 	}
 
+	/**
+	 * Returns the string representation of the date and time of the passed date
+	 * with the {@link TimeUtils#DATE_FORMAT} and the
+	 * {@link TimeUtils#TIME_FORMAT} formats
+	 * 
+	 * @param date
+	 *            the date to be formatted
+	 * @return the string representation of the date and time of the passed date
+	 */
+	public static String formatDateTime(Date date) {
+		assert date != null;
+		return DateFormatUtils.format(date, DATE_FORMAT + " " + TIME_FORMAT);
+	}
+
 	// Constructors --------------------------------------------------
 	private TimeUtils() {
 		// NOOP
