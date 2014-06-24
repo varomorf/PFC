@@ -1,6 +1,7 @@
 package com.gyp.pfc.activities.exercise;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 
@@ -13,6 +14,7 @@ import android.content.Intent;
 
 import com.gyp.pfc.CustomTestRunner;
 import com.gyp.pfc.R;
+import com.gyp.pfc.activities.constants.ExerciseConstants;
 import com.gyp.pfc.data.domain.exercise.Exercise;
 import com.xtremelabs.robolectric.tester.android.view.TestContextMenu;
 
@@ -23,7 +25,7 @@ import com.xtremelabs.robolectric.tester.android.view.TestContextMenu;
  * 
  */
 @RunWith(CustomTestRunner.class)
-public class ExercisesListActivityTest extends BaseExerciseTest {
+public class ExercisesListActivityTest extends BaseExerciseTest implements ExerciseConstants {
 
 	// Constants -----------------------------------------------------
 
@@ -125,6 +127,27 @@ public class ExercisesListActivityTest extends BaseExerciseTest {
 		assertThat(nextIntent.getComponent().getClassName(), is(EditExerciseActivity.class.getName()));
 		Exercise exercise = (Exercise) nextIntent.getSerializableExtra(ExerciseListActivity.SELECTED_EXERCISE);
 		assertThat(exercise.getName(), is(dao.queryForId(1).getName()));
+	}
+
+	@Test
+	public void shouldSelectExerciseForReturn() {
+		// GIVEN
+		String name = "foo";
+		insertExercise(name, "foo desc", 0);
+		// pass intent with boolean value
+		Intent intent = new Intent();
+		intent.putExtra(RETURN_EXERCISE, true);
+		activity.setIntent(intent);
+		// activity started
+		createActivity();
+		// WHEN
+		// first food is selected
+		clickOnListItem(0);
+		// THEN
+		// food is returned as result
+		Intent result = activity.getResultIntent();
+		Exercise exercise = (Exercise) result.getExtras().get(SELECTED_EXERCISE);
+		assertEquals("Should have returned the selected exercise as result", name, exercise.getName());
 	}
 
 	// Package protected ---------------------------------------------

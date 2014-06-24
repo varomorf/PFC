@@ -75,12 +75,12 @@ public class ExerciseListActivity extends OrmLiteBaseListActivity<DatabaseHelper
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		// get clicked exercise
 		Exercise exercise = (Exercise) l.getItemAtPosition(position);
-		// create intent for details view
-		Intent intent = new Intent(getApplicationContext(), ExerciseDetailsActivity.class);
-		// put selected exercise on intent
-		intent.putExtra(SELECTED_EXERCISE, exercise);
-		// launch intent
-		startActivity(intent);
+		if (getIntent() != null && getIntent().getBooleanExtra(RETURN_EXERCISE, false)) {
+			returnResult(exercise);
+		} else {
+			showExerciseDetails(exercise);
+		}
+
 	}
 
 	@Override
@@ -124,5 +124,37 @@ public class ExerciseListActivity extends OrmLiteBaseListActivity<DatabaseHelper
 		// launch activity
 		startActivity(intent);
 	}
+
+	/**
+	 * Starts the activity for showing exercise details with the passed exercise
+	 * 
+	 * @param exercise
+	 *            the exercise to be shown
+	 */
+	private void showExerciseDetails(Exercise exercise) {
+		// create intent for details view
+		Intent intent = new Intent(getApplicationContext(), ExerciseDetailsActivity.class);
+		// put selected exercise on intent
+		intent.putExtra(SELECTED_EXERCISE, exercise);
+		// launch intent
+		startActivity(intent);
+	}
+
+	/**
+	 * Returns the passed exercise as result and finished this activity
+	 * 
+	 * @param exercise
+	 *            the exercise to be returned as result
+	 */
+	private void returnResult(Exercise exercise) {
+		// prepare intent for returning selected exercise
+		Intent intent = new Intent();
+		// put the selected exercise on the intent
+		intent.putExtra(SELECTED_EXERCISE, exercise);
+		// return result and finish
+		setResult(SELECT_EXERCISE, intent);
+		finish();
+	}
+
 	// Inner classes -------------------------------------------------
 }
