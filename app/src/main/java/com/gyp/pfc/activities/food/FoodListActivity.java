@@ -211,7 +211,7 @@ public class FoodListActivity extends OrmLiteBaseListActivity<DatabaseHelper> im
 	private void deleteFood(int position) {
 		// get selected food from adapter and call helper with positive action
 		Food selectedFood = (Food) getListAdapter().getItem(position);
-		h.deleteWithDialog(deletionAction(selectedFood));
+		h.deleteWithDialog(R.string.assureFoodDeletion, deletionAction(selectedFood));
 	}
 
 	/**

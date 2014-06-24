@@ -170,7 +170,7 @@ public class ShowFoodDetailsActivity extends OrmLiteBaseActivity<DatabaseHelper>
 	 * Delete the shown food via a confirmation dialog
 	 */
 	private void deleteFood() {
-		h.deleteWithDialog(new DialogInterface.OnClickListener() {
+		h.deleteWithDialog(R.string.assureFoodDeletion, new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int id) {
 				// deletion is confirmed -> delete and close
 				getHelper().getFoodDao().delete(food);

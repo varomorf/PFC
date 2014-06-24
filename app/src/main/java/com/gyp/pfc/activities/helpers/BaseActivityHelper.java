@@ -3,6 +3,9 @@ package com.gyp.pfc.activities.helpers;
 import org.apache.commons.lang.StringUtils;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.view.View;
 import android.widget.TextView;
 
@@ -144,7 +147,27 @@ public class BaseActivityHelper {
 	public int getIntFromUI(int viewId) {
 		return getIntFromUI(activity.findViewById(viewId));
 	}
-	
+
+	/**
+	 * Shows a dialog for confirming the deletion of an entity, deleting it only
+	 * if affirmative response is given by the user
+	 * 
+	 * @param messageId
+	 *            the id of the string with the displayed message
+	 * @param yesOptionListener
+	 *            OnClickListener for affirmative action
+	 */
+	public void deleteWithDialog(int messageId, OnClickListener yesOptionListener) {
+		new AlertDialog.Builder(activity).setMessage(messageId).setCancelable(false)
+				.setPositiveButton(android.R.string.yes, yesOptionListener)
+				.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+						// do not delete -> close dialog
+						dialog.cancel();
+					}
+				}).create().show();
+	}
+
 	// Package protected ---------------------------------------------
 
 	// Protected -----------------------------------------------------

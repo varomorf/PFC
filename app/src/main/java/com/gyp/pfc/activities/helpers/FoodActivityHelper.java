@@ -4,9 +4,6 @@
 package com.gyp.pfc.activities.helpers;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
 
 import com.gyp.pfc.R;
 import com.gyp.pfc.data.domain.food.Food;
@@ -42,24 +39,6 @@ public class FoodActivityHelper extends BaseActivityHelper {
 	// Package protected ---------------------------------------------
 
 	// Protected -----------------------------------------------------
-
-	/**
-	 * Shows a dialog for confirming the shown food deletion, deleting it only
-	 * if affirmative response is given by the user
-	 * 
-	 * @param yesOptionListener
-	 *            OnClickListener for affirmative action
-	 */
-	public void deleteWithDialog(OnClickListener yesOptionListener) {
-		new AlertDialog.Builder(activity).setMessage(R.string.assureFoodDeletion).setCancelable(false)
-				.setPositiveButton(android.R.string.yes, yesOptionListener)
-				.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int id) {
-						// do not delete -> close dialog
-						dialog.cancel();
-					}
-				}).create().show();
-	}
 
 	/**
 	 * Fills the passed food with the data from the food_add_food layout
