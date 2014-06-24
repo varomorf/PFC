@@ -100,5 +100,7 @@
     <string name="previousActivity">Ir atrás</string>
 
     <string name="caloriesBurnt">Calorias quemadas por hora:</string>
+
+    <string name="separator">" - "</string>
     
 </resources>

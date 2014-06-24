@@ -15,7 +15,7 @@ import com.j256.ormlite.field.DatabaseField;
  * @author Alvaro
  * 
  */
-public class TrainingHistoric {
+public class TrainingHistoric implements Comparable<TrainingHistoric> {
 
 	// Constants -----------------------------------------------------
 
@@ -78,6 +78,24 @@ public class TrainingHistoric {
 	 */
 	public int getBurntCalories() {
 		return training.getBurntCalories();
+	}
+
+	@Override
+	public int compareTo(TrainingHistoric other) {
+		return start.compareTo(other.getStart());
+	}
+
+	@Override
+	public int hashCode() {
+		return id;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof TrainingHistoric) {
+			return ((TrainingHistoric) obj).getId() == id;
+		}
+		return false;
 	}
 
 	// Package protected ---------------------------------------------

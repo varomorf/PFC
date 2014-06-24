@@ -76,6 +76,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 			TableUtils.createTable(connectionSource, Meal.class);
 			TableUtils.createTable(connectionSource, MealName.class);
 			TableUtils.createTable(connectionSource, Portion.class);
+			TableUtils.createTable(connectionSource, TrainingHistoric.class);
 		} catch (SQLException e) {
 			Log.e(DatabaseHelper.class.getName(), "Can't create database", e);
 			throw new DatabaseException(e);
@@ -95,6 +96,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 			TableUtils.dropTable(connectionSource, MealName.class, true);
 			TableUtils.dropTable(connectionSource, Meal.class, true);
 			TableUtils.dropTable(connectionSource, Portion.class, true);
+			TableUtils.dropTable(connectionSource, TrainingHistoric.class, true);
 			// after we drop the old databases, we create the new ones
 			onCreate(sqliteDatabase, connectionSource);
 		} catch (SQLException e) {
@@ -217,6 +219,13 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 	public void close() {
 		super.close();
 		foodDao = null;
+		exerciseDao = null;
+		trainingDao = null;
+		trainingExerciseDao = null;
+		mealDao = null;
+		mealNameDao = null;
+		portionDao = null;
+		trainingHistoricDao = null;
 	}
 
 	// Package protected ---------------------------------------------

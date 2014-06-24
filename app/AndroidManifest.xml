@@ -36,6 +36,7 @@
         <activity android:name=".activities.training.ExecuteTrainingActivity"></activity>
         <activity android:name=".activities.meal.EditMealActivity"></activity>
         <activity android:name=".activities.meal.MealListActivity"></activity>
+        <activity android:name=".activities.historic.TrainingHistoricListActivity"></activity>
     </application>
 
 </manifest>

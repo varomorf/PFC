@@ -1,0 +1,98 @@
+/**
+ * 
+ */
+package com.gyp.pfc.activities.historic;
+
+import java.text.ParseException;
+import java.util.Date;
+
+import org.apache.commons.lang.time.DateUtils;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+
+import android.app.Activity;
+
+import com.gyp.pfc.CustomTestRunner;
+import com.gyp.pfc.R;
+import com.gyp.pfc.data.domain.builder.TrainingHistoricBuilder;
+import com.gyp.pfc.data.domain.exception.EntityNameException;
+import com.gyp.pfc.data.domain.exercise.Exercise;
+import com.gyp.pfc.data.domain.exercise.Training;
+import com.gyp.pfc.data.domain.exercise.TrainingHistoric;
+
+/**
+ * Tests for the {@link TrainingHistoricListActivity}
+ * 
+ * @author Alvaro
+ * 
+ */
+@RunWith(CustomTestRunner.class)
+public class TrainingHistoricListActivityTest extends BaseTrainingHistoricTest {
+
+	// Constants -----------------------------------------------------
+
+	// Attributes ----------------------------------------------------
+
+	// Static --------------------------------------------------------
+
+	// Constructors --------------------------------------------------
+
+	// Public --------------------------------------------------------
+
+	@Before
+	public void before() {
+		super.before();
+	}
+
+	@Test
+	public void shouldListAllHistorics() throws ParseException, EntityNameException {
+		// GIVEN
+		// one exercise
+		Exercise e = exerciseManager.createExercise("one exercise", "one exercise", 100);
+		// two trainings
+		Training t1 = trainingManager.createTraining("one");
+		trainingManager.addExerciseToTraining(t1, e, 3600, 1);
+		Training t2 = trainingManager.createTraining("two");
+		trainingManager.addExerciseToTraining(t2, e, 60, 10);
+		// 1st of January @ 9 and 9:10
+		Date first9 = DateUtils.parseDate("01/01/2014 09:00", new String[] { "dd/MM/yyyy HH:mm" });
+		Date first10 = DateUtils.parseDate("01/01/2014 09:10", new String[] { "dd/MM/yyyy HH:mm" });
+		// 6th of January 2014 @ 12 and 13
+		Date sixth12 = DateUtils.parseDate("06/01/2014 12:00", new String[] { "dd/MM/yyyy HH:mm" });
+		Date sixth13 = DateUtils.parseDate("06/01/2014 13:00", new String[] { "dd/MM/yyyy HH:mm" });
+		// two historic
+		TrainingHistoric one = new TrainingHistoricBuilder().id(1).training(t1).start(first9).end(first10)
+				.getBuilt();
+		trainingHistoricDao.create(one);
+		TrainingHistoric two = new TrainingHistoricBuilder().id(2).training(t2).start(sixth12).end(sixth13)
+				.getBuilt();
+		trainingHistoricDao.create(two);
+		// WHEN
+		// activity is created
+		createActivity();
+		// THEN
+		// there are two entries on the list
+		assertListSize(2);
+		// data for the first entry is correctly filled
+		assertTextOfListChild(0, R.id.historicDate, "06/01/2014");
+		assertTextOfListChild(0, R.id.historicStart, "12:00");
+		assertTextOfListChild(0, R.id.historicEnd, "13:00");
+		assertTextOfListChild(0, R.id.historicTraining, "two");
+		assertTextOfListChild(0, R.id.historicCalories, "16 Kcal");
+	}
+
+	// Package protected ---------------------------------------------
+
+	// Protected -----------------------------------------------------
+
+	@Override
+	protected Activity newActivity() {
+		return new TrainingHistoricListActivity();
+	}
+
+	// Private -------------------------------------------------------
+
+	// Inner classes -------------------------------------------------
+
+}

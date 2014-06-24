@@ -17,6 +17,7 @@ public final class TimeUtils {
 	// Constants -----------------------------------------------------
 
 	private static final String DATE_FORMAT = "dd/MM/yyyy";
+	private static final String TIME_FORMAT = "HH:mm";
 	public static final int SECONDS_PER_MINUTE = 60;
 
 	// Attributes ----------------------------------------------------
@@ -113,6 +114,19 @@ public final class TimeUtils {
 	public static String formatDate(Date date) {
 		assert date != null;
 		return DateFormatUtils.format(date, DATE_FORMAT);
+	}
+
+	/**
+	 * Returns the string representation of the time of the passed date with the
+	 * {@link TimeUtils#TIME_FORMAT} format
+	 * 
+	 * @param date
+	 *            the date to be formatted
+	 * @return the string representation of the time of the passed date
+	 */
+	public static String formatTime(Date date) {
+		assert date != null;
+		return DateFormatUtils.format(date, TIME_FORMAT);
 	}
 
 	// Constructors --------------------------------------------------
