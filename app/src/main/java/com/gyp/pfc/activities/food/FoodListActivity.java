@@ -264,7 +264,7 @@ public class FoodListActivity extends OrmLiteBaseListActivity<DatabaseHelper> im
 				refreshAdapter();
 				// show deletion message
 				Toast.makeText(getApplicationContext(),
-						food.getName() + " " + getString(R.string.deleteFoodMessage), Toast.LENGTH_SHORT).show();
+						food.getName() + " " + getString(R.string.deleteMessage), Toast.LENGTH_SHORT).show();
 			}
 		};
 	}

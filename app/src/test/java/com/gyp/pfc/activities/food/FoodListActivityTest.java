@@ -119,7 +119,7 @@ public class FoodListActivityTest extends BaseFoodTest implements FoodConstants 
 		// selected food is deleted
 		assertEquals("There should be no foods", 0, dao.queryForEq("name", foodName).size());
 		// toast with deletion message is shown
-		assertToastText(foodName + " " + getText(R.string.deleteFoodMessage));
+		assertToastText(foodName + " " + getText(R.string.deleteMessage));
 		// assert item is no longer on the list)
 		assertFoodName(getItemFromListView(0), nextFoodName);
 		assertNull(getItemFromListView(2));

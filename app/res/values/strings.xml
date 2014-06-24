@@ -53,7 +53,7 @@
     <string name="newFoodInserted">El nuevo alimento ha sido añadido.</string>
     <string name="label_delete">Eliminar</string>
     <string name="label_edit">Editar</string>
-    <string name="deleteFoodMessage">ha sido eliminada</string>
+    <string name="deleteMessage">ha sido eliminada</string>
     <string name="editFoodMessage">La comida ha sido actualizada</string>
     <string name="name">Nombre</string>
     <string name="description">Descripción:</string>
@@ -97,19 +97,13 @@
     <string name="addFoodToMeal">Añadir nuevo alimento</string>
     <string name="assurePortionDeletion">¿Seguro que desea quitar esta porción?</string>
     <string name="portionQuantityTitle">Introduce la cantidad del alimento en gramos</string>
-
     <string name="previousActivity">Ir atrás</string>
-
     <string name="caloriesBurnt">Calorias quemadas por hora:</string>
-
     <string name="separator">" - "</string>
-
     <string name="startDate">Fecha inicio</string>
-
     <string name="endDate">Fecha fin</string>
-
     <string name="selectExercise">Selecciona un ejercicio desde la lista de ejercicios</string>
-
     <string name="selectDateTime">Selecciona una fecha y hora</string>
-    
+    <string name="assureHistoricDeletion">¿Seguro que desea eliminar el histórico?</string>
+
 </resources>
