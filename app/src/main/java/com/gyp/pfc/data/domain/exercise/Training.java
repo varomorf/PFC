@@ -25,8 +25,16 @@ public class Training implements Serializable {
 
 	@DatabaseField(generatedId = true)
 	private int id;
+
 	@DatabaseField(canBeNull = false)
 	private String name;
+
+	/**
+	 * Whether this training can be executed or not
+	 */
+	@DatabaseField
+	private boolean executable = true;
+
 	@ForeignCollectionField(eager = true, orderColumnName = "pos")
 	private ForeignCollection<TrainingExercise> exercises = new NullForeignCollection<TrainingExercise, Integer>();
 
@@ -64,6 +72,14 @@ public class Training implements Serializable {
 
 	public void setExercises(ForeignCollection<TrainingExercise> exercises) {
 		this.exercises = exercises;
+	}
+
+	public boolean isExecutable() {
+		return executable;
+	}
+
+	public void setExecutable(boolean executable) {
+		this.executable = executable;
 	}
 
 	@Override

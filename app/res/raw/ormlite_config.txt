@@ -1,5 +1,5 @@
 #
-# generated on 2014/06/21 11:12:47
+# generated on 2014/06/24 07:35:49
 #
 # --table-start--
 dataClass=com.gyp.pfc.data.domain.food.Food
@@ -83,6 +83,9 @@ generatedId=true
 # --field-start--
 fieldName=name
 canBeNull=false
+# --field-end--
+# --field-start--
+fieldName=executable
 # --field-end--
 # --field-start--
 fieldName=exercises
