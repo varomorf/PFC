@@ -20,7 +20,7 @@ import com.j256.ormlite.table.DatabaseTable;
  * 
  */
 @DatabaseTable
-public class Weight implements Serializable {
+public class Weight implements Serializable, Comparable<Weight> {
 
 	// Constants -----------------------------------------------------
 
@@ -90,6 +90,27 @@ public class Weight implements Serializable {
 			weight = 0d;
 		}
 		this.weight = weight;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof Weight) {
+			return hashCode() == obj.hashCode();
+		}
+		return false;
+	}
+
+	@Override
+	public int hashCode() {
+		return id;
+	}
+
+	@Override
+	public int compareTo(Weight o) {
+		if (o == null) {
+			return 1;
+		}
+		return date.compareTo(o.getDate());
 	}
 
 	// Package protected ---------------------------------------------
