@@ -37,7 +37,7 @@ public class TrainingListActivityTest extends BaseTrainingTest {
 	}
 
 	@Test
-	public void shouldListAllTrainingsWithTotalTime() {
+	public void shouldListAllExecutableTrainingsWithTotalTime() {
 		// GIVEN
 		// trainings with exercises on DB
 		trainingsWithWxercisesOnDB();
@@ -45,6 +45,8 @@ public class TrainingListActivityTest extends BaseTrainingTest {
 		// activity is shown
 		createActivity();
 		// THEN
+		// only 3 trainings listed
+		assertListSize(3);
 		// all trainings are listed with their total duration
 		assertTitleOfChild(0, "foo");
 		assertTextOfListChild(0, R.id.time, "01:40");
@@ -138,6 +140,7 @@ public class TrainingListActivityTest extends BaseTrainingTest {
 		createTraining("foo", 1, 100);
 		createTraining("bar", 2, 200);
 		createTraining("xyz", 3, 300);
+		createTraining("noExecutable", 3, 300, false);
 	}
 
 	private void activityWithItems() {

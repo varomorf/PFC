@@ -92,7 +92,7 @@ public class TrainingListActivity extends OrmLiteBaseListActivity<DatabaseHelper
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.entity_list);
 
-		List<Training> trainings = getHelper().getTrainingDao().queryForAll();
+		List<Training> trainings = getHelper().getTrainingDao().queryForEq("executable", true);
 		setListAdapter(new TrainingAdapter(this, trainings));
 	}
 

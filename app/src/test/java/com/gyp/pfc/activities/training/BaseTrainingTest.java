@@ -46,9 +46,14 @@ public abstract class BaseTrainingTest extends BaseActivityTest {
 	// Protected -----------------------------------------------------
 
 	protected Training createTraining(String name) {
+		return createTraining(name, true);
+	}
+
+	protected Training createTraining(String name, boolean executable) {
 		// prepare new training
 		Training training = new Training();
 		training.setName(name);
+		training.setExecutable(executable);
 		trainingDao.create(training);
 		return training;
 	}
@@ -66,8 +71,12 @@ public abstract class BaseTrainingTest extends BaseActivityTest {
 	}
 
 	protected Training createTraining(String name, int reps, int seconds) {
+		return createTraining(name, reps, seconds, true);
+	}
+
+	protected Training createTraining(String name, int reps, int seconds, boolean executable) {
 		// prepare new training
-		Training training = createTraining(name);
+		Training training = createTraining(name, executable);
 		// add exercise to training with passed seconds
 		addExerciseToTraining(training, exercise, reps, seconds);
 		return training;
