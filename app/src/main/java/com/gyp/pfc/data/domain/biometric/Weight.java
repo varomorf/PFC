@@ -31,7 +31,7 @@ public class Weight implements Serializable {
 	@DatabaseField(generatedId = true)
 	private Integer id;
 
-	@DatabaseField(dataType = DataType.DATE_STRING)
+	@DatabaseField(dataType = DataType.DATE_STRING, unique = true)
 	private Date date = new Date();
 
 	@DatabaseField(canBeNull = false)
