@@ -3,6 +3,7 @@ package com.gyp.pfc.data.db;
 import java.io.IOException;
 import java.sql.SQLException;
 
+import com.gyp.pfc.data.domain.biometric.Weight;
 import com.gyp.pfc.data.domain.exercise.Exercise;
 import com.gyp.pfc.data.domain.exercise.Training;
 import com.gyp.pfc.data.domain.exercise.TrainingExercise;
@@ -30,7 +31,8 @@ public class DatabaseConfigUtil extends OrmLiteConfigUtil {
 	 * Which classes to use for the configuration writing
 	 */
 	private static final Class<?>[] CLASSES = new Class[] { Food.class, Exercise.class, Training.class,
-			TrainingExercise.class, MealName.class, Portion.class, Meal.class, TrainingHistoric.class };
+			TrainingExercise.class, MealName.class, Portion.class, Meal.class, TrainingHistoric.class,
+			Weight.class };
 
 	/**
 	 * This method must be launched with each modification to entity classes.

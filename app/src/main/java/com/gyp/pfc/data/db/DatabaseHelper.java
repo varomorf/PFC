@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.gyp.pfc.R;
+import com.gyp.pfc.data.domain.biometric.Weight;
 import com.gyp.pfc.data.domain.exercise.Exercise;
 import com.gyp.pfc.data.domain.exercise.Training;
 import com.gyp.pfc.data.domain.exercise.TrainingExercise;
@@ -48,6 +49,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 	private RuntimeExceptionDao<MealName, Integer> mealNameDao;
 	private RuntimeExceptionDao<Portion, Integer> portionDao;
 	private RuntimeExceptionDao<TrainingHistoric, Integer> trainingHistoricDao;
+	private RuntimeExceptionDao<Weight, Integer> weightDao;
 
 	// Static --------------------------------------------------------
 
@@ -77,6 +79,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 			TableUtils.createTable(connectionSource, MealName.class);
 			TableUtils.createTable(connectionSource, Portion.class);
 			TableUtils.createTable(connectionSource, TrainingHistoric.class);
+			TableUtils.createTable(connectionSource, Weight.class);
 		} catch (SQLException e) {
 			Log.e(DatabaseHelper.class.getName(), "Can't create database", e);
 			throw new DatabaseException(e);
@@ -97,6 +100,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 			TableUtils.dropTable(connectionSource, Meal.class, true);
 			TableUtils.dropTable(connectionSource, Portion.class, true);
 			TableUtils.dropTable(connectionSource, TrainingHistoric.class, true);
+			TableUtils.dropTable(connectionSource, Weight.class, true);
 			// after we drop the old databases, we create the new ones
 			onCreate(sqliteDatabase, connectionSource);
 		} catch (SQLException e) {
@@ -213,6 +217,19 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 	}
 
 	/**
+	 * Factory method for a {@link RuntimeExceptionDao} for the {@link Weight}
+	 * entity
+	 * 
+	 * @return The {@link RuntimeExceptionDao} for the {@link Weight} entity
+	 */
+	public RuntimeExceptionDao<Weight, Integer> getWeightDao() {
+		if (null == weightDao) {
+			weightDao = getRuntimeExceptionDao(Weight.class);
+		}
+		return weightDao;
+	}
+
+	/**
 	 * Close the database connections and clear any cached DAOs.
 	 */
 	@Override
@@ -226,6 +243,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 		mealNameDao = null;
 		portionDao = null;
 		trainingHistoricDao = null;
+		weightDao = null;
 	}
 
 	// Package protected ---------------------------------------------
