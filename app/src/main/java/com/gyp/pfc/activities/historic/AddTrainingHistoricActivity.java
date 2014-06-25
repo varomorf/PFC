@@ -48,10 +48,10 @@ public class AddTrainingHistoricActivity extends OrmLiteBaseActivity<DatabaseHel
 	// Attributes ----------------------------------------------------
 
 	/** The historic that's being created */
-	private TrainingHistoric historic = new TrainingHistoric();
+	protected TrainingHistoric historic = new TrainingHistoric();
 
 	/** The selected exercise */
-	private Exercise exercise;
+	protected Exercise exercise;
 
 	/** Flag for selecting starting or ending dates */
 	private boolean starting;

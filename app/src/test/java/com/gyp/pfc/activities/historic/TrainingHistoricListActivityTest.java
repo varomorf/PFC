@@ -3,6 +3,7 @@
  */
 package com.gyp.pfc.activities.historic;
 
+import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 
 import java.text.ParseException;
@@ -14,14 +15,18 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import android.app.Activity;
+import android.content.Intent;
 
 import com.gyp.pfc.CustomTestRunner;
 import com.gyp.pfc.R;
+import com.gyp.pfc.TimeUtils;
+import com.gyp.pfc.activities.constants.ExerciseConstants;
 import com.gyp.pfc.data.domain.builder.TrainingHistoricBuilder;
 import com.gyp.pfc.data.domain.exception.EntityNameException;
 import com.gyp.pfc.data.domain.exercise.Exercise;
 import com.gyp.pfc.data.domain.exercise.Training;
 import com.gyp.pfc.data.domain.exercise.TrainingHistoric;
+import com.xtremelabs.robolectric.shadows.ShadowActivity.IntentForResult;
 import com.xtremelabs.robolectric.tester.android.view.TestContextMenu;
 
 /**
@@ -31,7 +36,7 @@ import com.xtremelabs.robolectric.tester.android.view.TestContextMenu;
  * 
  */
 @RunWith(CustomTestRunner.class)
-public class TrainingHistoricListActivityTest extends BaseTrainingHistoricTest {
+public class TrainingHistoricListActivityTest extends BaseTrainingHistoricTest implements ExerciseConstants {
 
 	private static final String TRAINING_1 = "one";
 
@@ -95,6 +100,49 @@ public class TrainingHistoricListActivityTest extends BaseTrainingHistoricTest {
 		// assert item is no longer on the list)
 		assertTextOfListChild(0, R.id.historicTraining, TRAINING_1);
 		assertNull(getItemFromListView(1));
+	}
+
+	@Test
+	public void shouldEditHistoricViaContextMenu() throws EntityNameException, ParseException {
+		// GIVEN
+		prepareTestData();
+		// activity is created
+		createActivity();
+		// WHEN
+		// long click on first item
+		longClickOnListItem(0);
+		// click on context edit (second option)
+		TestContextMenu.getLastContextMenu().clickOn(1);
+		// THEN
+		// next activity is EditFoodActivity
+		IntentForResult nextIntent = assertAndReturnNextActivityForResult(EditTrainingHistoricActivity.class);
+		TrainingHistoric historic = (TrainingHistoric) nextIntent.intent.getSerializableExtra(SELECTED_HISTORIC);
+		assertThat(historic.getTraining().getName(), is(TRAINING_2));
+	}
+
+	@Test
+	public void shouldRefreshAdadpterAfterEdition() throws EntityNameException, ParseException {
+		// GIVEN
+		prepareTestData();
+		// activity is created
+		createActivity();
+		// WHEN
+		// long click on first item
+		longClickOnListItem(0);
+		// click on context edit delete (second option)
+		TestContextMenu.getLastContextMenu().clickOn(1);
+		Intent editionItent = activity.getNextStartedActivity();
+		TrainingHistoric historic = (TrainingHistoric) editionItent.getSerializableExtra(SELECTED_HISTORIC);
+		// edition is performed
+		Date date = new Date();
+		historic.setStart(date);
+		trainingHistoricDao.update(historic);
+		// return from edition
+		activity.receiveResult(editionItent, Activity.RESULT_OK, null);
+		// THEN
+		// edited historic on pos 0
+		assertTextOfListChild(0, R.id.historicDate, TimeUtils.formatDate(date));
+		assertTextOfListChild(0, R.id.historicStart, TimeUtils.formatTime(date));
 	}
 
 	// Package protected ---------------------------------------------

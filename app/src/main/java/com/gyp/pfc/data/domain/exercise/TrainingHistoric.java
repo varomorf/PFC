@@ -3,6 +3,7 @@
  */
 package com.gyp.pfc.data.domain.exercise;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import com.j256.ormlite.field.DataType;
@@ -15,7 +16,9 @@ import com.j256.ormlite.field.DatabaseField;
  * @author Alvaro
  * 
  */
-public class TrainingHistoric implements Comparable<TrainingHistoric> {
+public class TrainingHistoric implements Comparable<TrainingHistoric>, Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	// Constants -----------------------------------------------------
 

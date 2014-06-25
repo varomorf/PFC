@@ -8,6 +8,7 @@ import java.util.List;
 
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -18,6 +19,7 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.Toast;
 
 import com.gyp.pfc.R;
+import com.gyp.pfc.activities.constants.ExerciseConstants;
 import com.gyp.pfc.activities.helpers.BaseActivityHelper;
 import com.gyp.pfc.adapters.TrainingHistoricListViewAdapter;
 import com.gyp.pfc.data.db.DatabaseHelper;
@@ -30,7 +32,8 @@ import com.j256.ormlite.android.apptools.OrmLiteBaseListActivity;
  * @author Alvaro
  * 
  */
-public class TrainingHistoricListActivity extends OrmLiteBaseListActivity<DatabaseHelper> {
+public class TrainingHistoricListActivity extends OrmLiteBaseListActivity<DatabaseHelper> implements
+		ExerciseConstants {
 
 	// Constants -----------------------------------------------------
 
@@ -59,9 +62,9 @@ public class TrainingHistoricListActivity extends OrmLiteBaseListActivity<Databa
 		case R.id.delete:
 			deleteHistoric(info.position);
 			return true;
-			// case R.id.edit:
-			// editHistoric(info.position);
-			// return true;
+		case R.id.edit:
+			editHistoric(info.position);
+			return true;
 		default:
 			return super.onContextItemSelected(item);
 		}
@@ -77,10 +80,14 @@ public class TrainingHistoricListActivity extends OrmLiteBaseListActivity<Databa
 		h = new BaseActivityHelper(this);
 
 		setContentView(R.layout.no_search_list);
-		List<TrainingHistoric> historic = getHelper().getTrainingHistoricDao().queryForAll();
-		Collections.sort(historic, Collections.reverseOrder());
-		setListAdapter(new TrainingHistoricListViewAdapter(this, historic));
+		setListAdapter(new TrainingHistoricListViewAdapter(this, getSortedHistorics()));
 		registerForContextMenu(getListView());
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		((TrainingHistoricListViewAdapter) getListAdapter()).setData(getSortedHistorics());
+		((TrainingHistoricListViewAdapter) getListAdapter()).notifyDataSetChanged();
 	}
 
 	// Private -------------------------------------------------------
@@ -96,6 +103,21 @@ public class TrainingHistoricListActivity extends OrmLiteBaseListActivity<Databa
 		// action
 		TrainingHistoric historic = (TrainingHistoric) getListAdapter().getItem(position);
 		h.deleteWithDialog(R.string.assureHistoricDeletion, deletionAction(historic));
+	}
+
+	/**
+	 * Launches an intent for the edition of the historic on the specified
+	 * position
+	 * 
+	 * @param position
+	 *            the position in the list (starts on 0) of the historic to be
+	 *            edited
+	 */
+	private void editHistoric(int position) {
+		TrainingHistoric historic = (TrainingHistoric) getListAdapter().getItem(position);
+		Intent intent = new Intent(this, EditTrainingHistoricActivity.class);
+		intent.putExtra(SELECTED_HISTORIC, historic);
+		startActivityForResult(intent, EDIT_HISTORIC);
 	}
 
 	/**
@@ -122,6 +144,17 @@ public class TrainingHistoricListActivity extends OrmLiteBaseListActivity<Databa
 						Toast.LENGTH_SHORT).show();
 			}
 		};
+	}
+
+	/**
+	 * Returns the list of all historics sorted by date from latest to soonest
+	 * 
+	 * @return the list of all historics sorted
+	 */
+	private List<TrainingHistoric> getSortedHistorics() {
+		List<TrainingHistoric> historic = getHelper().getTrainingHistoricDao().queryForAll();
+		Collections.sort(historic, Collections.reverseOrder());
+		return historic;
 	}
 
 	// Inner classes -------------------------------------------------

@@ -17,4 +17,8 @@ public interface ExerciseConstants {
 
 	String RETURN_EXERCISE = "RETURN_EXERCISE";
 
+	String SELECTED_HISTORIC = "SELECTED_HISTORIC";
+
+	int EDIT_HISTORIC = 2;
+
 }

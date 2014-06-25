@@ -23,38 +23,23 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.food.FoodListActivity" >
-        </activity>
-        <activity android:name=".activities.food.AddFoodActivity" >
-        </activity>
-        <activity android:name=".activities.food.EditFoodActivity" >
-        </activity>
-        <activity android:name=".activities.food.EnterFoodNameActivity" >
-        </activity>
-        <activity android:name=".activities.food.ShowFoodDetailsActivity" >
-        </activity>
-        <activity android:name=".activities.exercise.ExerciseListActivity" >
-        </activity>
-        <activity android:name=".activities.exercise.ExerciseDetailsActivity" >
-        </activity>
-        <activity android:name=".activities.exercise.AddExerciseActivity" >
-        </activity>
-        <activity android:name=".activities.exercise.EditExerciseActivity" >
-        </activity>
-        <activity android:name=".activities.training.AddTrainingActivity" >
-        </activity>
-        <activity android:name=".activities.training.TrainingListActivity" >
-        </activity>
-        <activity android:name=".activities.training.ExecuteTrainingActivity" >
-        </activity>
-        <activity android:name=".activities.meal.EditMealActivity" >
-        </activity>
-        <activity android:name=".activities.meal.MealListActivity" >
-        </activity>
-        <activity android:name=".activities.historic.TrainingHistoricListActivity" >
-        </activity>
-        <activity android:name=".activities.historic.AddTrainingHistoricActivity" >
-        </activity>
+        <activity android:name=".activities.food.FoodListActivity" />
+        <activity android:name=".activities.food.AddFoodActivity" />
+        <activity android:name=".activities.food.EditFoodActivity" />
+        <activity android:name=".activities.food.EnterFoodNameActivity" />
+        <activity android:name=".activities.food.ShowFoodDetailsActivity" />
+        <activity android:name=".activities.exercise.ExerciseListActivity" />
+        <activity android:name=".activities.exercise.ExerciseDetailsActivity" />
+        <activity android:name=".activities.exercise.AddExerciseActivity" />
+        <activity android:name=".activities.exercise.EditExerciseActivity" />
+        <activity android:name=".activities.training.AddTrainingActivity" />
+        <activity android:name=".activities.training.TrainingListActivity" />
+        <activity android:name=".activities.training.ExecuteTrainingActivity" />
+        <activity android:name=".activities.meal.EditMealActivity" />
+        <activity android:name=".activities.meal.MealListActivity" />
+        <activity android:name=".activities.historic.TrainingHistoricListActivity" />
+        <activity android:name=".activities.historic.AddTrainingHistoricActivity" />
+        <activity android:name=".activities.historic.EditTrainingHistoricActivity" />
     </application>
 
 </manifest>

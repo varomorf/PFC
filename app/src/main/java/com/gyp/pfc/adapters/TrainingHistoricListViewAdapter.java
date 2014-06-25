@@ -64,14 +64,20 @@ public class TrainingHistoricListViewAdapter extends ArrayAdapter<TrainingHistor
 		UIUtils.setTextToUI(view.findViewById(R.id.historicStart), TimeUtils.formatTime(historic.getStart()));
 		UIUtils.setTextToUI(view.findViewById(R.id.historicEnd), TimeUtils.formatTime(historic.getEnd()));
 		UIUtils.setTextToUI(view.findViewById(R.id.historicTraining), historic.getTraining().getName());
-		UIUtils.setTextToUI(view.findViewById(R.id.historicCalories), historic.getTraining().getBurntCalories() + " Kcal");
+		UIUtils.setTextToUI(view.findViewById(R.id.historicCalories), historic.getTraining().getBurntCalories()
+				+ " Kcal");
 
 		return view;
 	}
 
-	@Override
-	public View getDropDownView(int position, View convertView, ViewGroup parent) {
-		return getView(position, convertView, parent);
+	/**
+	 * Sets the collection on the adapter to the contents of the passed list
+	 */
+	public void setData(List<TrainingHistoric> historics) {
+		clear();
+		for (TrainingHistoric historic : historics) {
+			add(historic);
+		}
 	}
 
 	// Package protected ---------------------------------------------
