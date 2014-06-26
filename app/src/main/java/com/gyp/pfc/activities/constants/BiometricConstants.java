@@ -10,4 +10,6 @@ public interface BiometricConstants {
 
 	String SELECTED_WEIGHT = "SELECTED_WEIGHT";
 
+	int EDIT_WEIGHT = 1;
+
 }

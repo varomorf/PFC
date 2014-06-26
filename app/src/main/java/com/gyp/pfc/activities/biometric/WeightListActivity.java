@@ -5,21 +5,16 @@ import java.util.List;
 
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.ContextMenu;
-import android.view.ContextMenu.ContextMenuInfo;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.Toast;
 
 import com.gyp.pfc.R;
+import com.gyp.pfc.activities.base.BaseListActivity;
+import com.gyp.pfc.activities.constants.BiometricConstants;
 import com.gyp.pfc.activities.helpers.BaseActivityHelper;
 import com.gyp.pfc.adapters.WeightListViewAdapter;
-import com.gyp.pfc.data.db.DatabaseHelper;
 import com.gyp.pfc.data.domain.biometric.Weight;
-import com.j256.ormlite.android.apptools.OrmLiteBaseListActivity;
 
 /**
  * Activity for listing all weights on DB ordered from the latest.
@@ -28,7 +23,7 @@ import com.j256.ormlite.android.apptools.OrmLiteBaseListActivity;
  * 
  * @author Alvaro
  */
-public class WeightListActivity extends OrmLiteBaseListActivity<DatabaseHelper> {
+public class WeightListActivity extends BaseListActivity implements BiometricConstants {
 
 	// Constants -----------------------------------------------------
 
@@ -43,25 +38,6 @@ public class WeightListActivity extends OrmLiteBaseListActivity<DatabaseHelper> 
 
 	// Public --------------------------------------------------------
 
-	@Override
-	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
-		super.onCreateContextMenu(menu, v, menuInfo);
-		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.crud_context_menu, menu);
-	}
-
-	@Override
-	public boolean onContextItemSelected(MenuItem item) {
-		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
-		switch (item.getItemId()) {
-		case R.id.delete:
-			deleteWeight(info.position);
-			return true;
-		default:
-			return super.onContextItemSelected(item);
-		}
-	}
-
 	// Package protected ---------------------------------------------
 
 	// Protected -----------------------------------------------------
@@ -73,26 +49,43 @@ public class WeightListActivity extends OrmLiteBaseListActivity<DatabaseHelper> 
 
 		setContentView(R.layout.no_search_list);
 		// list of weights must be ordered
-		List<Weight> weights = getHelper().getWeightDao().queryForAll();
-		Collections.sort(weights, Collections.reverseOrder());
-		setListAdapter(new WeightListViewAdapter(this, weights));
+		setListAdapter(new WeightListViewAdapter(this, getSortedWeights()));
 		// list items must have context menu
 		registerForContextMenu(getListView());
+	}
+
+	@Override
+	protected void doDelete(int position) {
+		// get selected weight from adapter and call helper with positive action
+		Weight weight = (Weight) getListAdapter().getItem(position);
+		h.deleteWithDialog(R.string.assureWeightDeletion, deletionAction(weight));
+	}
+
+	@Override
+	protected void doEdit(int position) {
+		Weight weight = (Weight) getListAdapter().getItem(position);
+		Intent intent = new Intent(this, EditWeightActivity.class);
+		intent.putExtra(SELECTED_WEIGHT, weight);
+		startActivityForResult(intent, EDIT_WEIGHT);
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		((WeightListViewAdapter) getListAdapter()).setData(getSortedWeights());
+		((WeightListViewAdapter) getListAdapter()).notifyDataSetChanged();
 	}
 
 	// Private -------------------------------------------------------
 
 	/**
-	 * Deletes the selected weight via a confirmation dialog
+	 * Returns all {@link Weight} entities on DB sorted descending by date
 	 * 
-	 * @param position
-	 *            the position in the list of the selected weight
+	 * @return all {@link Weight} entities on DB sorted descending by date
 	 */
-	private void deleteWeight(int position) {
-		// get selected historic from adapter and call helper with positive
-		// action
-		Weight weight = (Weight) getListAdapter().getItem(position);
-		h.deleteWithDialog(R.string.assureWeightDeletion, deletionAction(weight));
+	private List<Weight> getSortedWeights() {
+		List<Weight> weights = getHelper().getWeightDao().queryForAll();
+		Collections.sort(weights, Collections.reverseOrder());
+		return weights;
 	}
 
 	/**
