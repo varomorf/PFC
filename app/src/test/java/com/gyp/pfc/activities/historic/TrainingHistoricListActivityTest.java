@@ -19,6 +19,7 @@ import android.content.Intent;
 
 import com.gyp.pfc.CustomTestRunner;
 import com.gyp.pfc.R;
+import com.gyp.pfc.TestConstants;
 import com.gyp.pfc.TimeUtils;
 import com.gyp.pfc.activities.constants.ExerciseConstants;
 import com.gyp.pfc.data.domain.builder.TrainingHistoricBuilder;
@@ -36,14 +37,14 @@ import com.xtremelabs.robolectric.tester.android.view.TestContextMenu;
  * 
  */
 @RunWith(CustomTestRunner.class)
-public class TrainingHistoricListActivityTest extends BaseTrainingHistoricTest implements ExerciseConstants {
+public class TrainingHistoricListActivityTest extends BaseTrainingHistoricTest implements ExerciseConstants,
+		TestConstants {
 
 	private static final String TRAINING_1 = "one";
 
 	private static final String TRAINING_2 = "two";
-	// Constants -----------------------------------------------------
 
-	public static final byte DELETE_MENU_POS = 0;
+	// Constants -----------------------------------------------------
 
 	// Attributes ----------------------------------------------------
 

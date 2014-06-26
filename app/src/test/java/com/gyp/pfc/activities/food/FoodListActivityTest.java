@@ -1,9 +1,7 @@
 package com.gyp.pfc.activities.food;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.CoreMatchers.*;
+import static org.junit.Assert.*;
 
 import java.util.List;
 
@@ -17,6 +15,7 @@ import android.view.View;
 
 import com.gyp.pfc.CustomTestRunner;
 import com.gyp.pfc.R;
+import com.gyp.pfc.TestConstants;
 import com.gyp.pfc.activities.constants.FoodConstants;
 import com.gyp.pfc.data.domain.food.Food;
 import com.gyp.pfc.data.domain.manager.FoodManager;
@@ -30,11 +29,9 @@ import com.xtremelabs.robolectric.tester.android.view.TestMenu;
  * 
  */
 @RunWith(CustomTestRunner.class)
-public class FoodListActivityTest extends BaseFoodTest implements FoodConstants {
+public class FoodListActivityTest extends BaseFoodTest implements FoodConstants, TestConstants {
 
 	// Constants -----------------------------------------------------
-
-	public static final byte DELETE_MENU_POS = 0;
 
 	public static final byte MAIN_ACTIVITY_POS = 0;
 
