@@ -10,6 +10,7 @@ import com.gyp.pfc.R;
 import com.gyp.pfc.TimeUtils;
 import com.gyp.pfc.UIUtils;
 import com.gyp.pfc.data.domain.exercise.Training;
+import com.gyp.pfc.data.domain.exercise.TrainingExercise;
 import com.gyp.pfc.data.domain.exercise.TrainingHistoric;
 import com.gyp.pfc.data.domain.manager.TrainingManager;
 
@@ -61,6 +62,7 @@ public class EditTrainingHistoricActivity extends AddTrainingHistoricActivity {
 
 		setContentView(R.layout.training_historic_add);
 		historic = (TrainingHistoric) getIntent().getExtras().get(SELECTED_HISTORIC);
+		exercise = historic.getTraining().getExercises().toArray(new TrainingExercise[0])[0].getExercise();
 		UIUtils.setTextToUI(findViewById(R.id.addTrainingHistoricStartingDate),
 				TimeUtils.formatDateTime(historic.getStart()));
 		UIUtils.setTextToUI(findViewById(R.id.addTrainingHistoricEndingDate),
