@@ -56,9 +56,6 @@ public class AddTrainingHistoricActivity extends OrmLiteBaseActivity<DatabaseHel
 	/** Flag for selecting starting or ending dates */
 	private boolean starting;
 
-	/** Flag for workaround known DatePickerDialog bug */
-	private boolean onDateSetCalled;
-
 	/** Helper to be used */
 	private BaseActivityHelper h;
 
@@ -88,7 +85,6 @@ public class AddTrainingHistoricActivity extends OrmLiteBaseActivity<DatabaseHel
 	 */
 	public void startingDate(View view) {
 		starting = true;
-		onDateSetCalled = false;
 		h.showDatePickerDialogForToday();
 	}
 
@@ -100,7 +96,6 @@ public class AddTrainingHistoricActivity extends OrmLiteBaseActivity<DatabaseHel
 	 */
 	public void endingDate(View view) {
 		starting = false;
-		onDateSetCalled = false;
 		h.showDatePickerDialogForToday();
 	}
 
@@ -121,16 +116,7 @@ public class AddTrainingHistoricActivity extends OrmLiteBaseActivity<DatabaseHel
 
 	@Override
 	public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-		if (!onDateSetCalled) {
-			onDateSetCalled = true;
-		} else {
-			onDateSetCalled = false;
-			return;
-		}
-		Date date = new Date();
-		date = DateUtils.setYears(date, year);
-		date = DateUtils.setMonths(date, monthOfYear);
-		date = DateUtils.setDays(date, dayOfMonth);
+		Date date = h.getDateFromPicker(year, monthOfYear, dayOfMonth);
 		if (starting) {
 			historic.setStart(date);
 		} else {

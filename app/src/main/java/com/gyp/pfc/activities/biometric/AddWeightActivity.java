@@ -5,8 +5,6 @@ package com.gyp.pfc.activities.biometric;
 
 import java.util.Date;
 
-import org.apache.commons.lang.time.DateUtils;
-
 import android.app.DatePickerDialog.OnDateSetListener;
 import android.os.Bundle;
 import android.view.View;
@@ -37,9 +35,6 @@ public class AddWeightActivity extends OrmLiteBaseActivity<DatabaseHelper> imple
 	/** Helper to be used */
 	private BaseActivityHelper h;
 
-	/** Flag for workaround known DatePickerDialog bug */
-	private boolean onDateSetCalled;
-
 	// Static --------------------------------------------------------
 
 	// Constructors --------------------------------------------------
@@ -53,7 +48,6 @@ public class AddWeightActivity extends OrmLiteBaseActivity<DatabaseHelper> imple
 	 *            the weightAddDateButton button
 	 */
 	public void findDate(View view) {
-		onDateSetCalled = false;
 		h.showDatePickerDialogForToday();
 	}
 
@@ -81,16 +75,7 @@ public class AddWeightActivity extends OrmLiteBaseActivity<DatabaseHelper> imple
 
 	@Override
 	public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-		if (!onDateSetCalled) {
-			onDateSetCalled = true;
-		} else {
-			onDateSetCalled = false;
-			return;
-		}
-		Date date = new Date();
-		date = DateUtils.setYears(date, year);
-		date = DateUtils.setMonths(date, monthOfYear);
-		date = DateUtils.setDays(date, dayOfMonth);
+		Date date = h.getDateFromPicker(year, monthOfYear, dayOfMonth);
 		// date is truncated on weight
 		weight.setDate(date);
 		UIUtils.setTextToUI(findViewById(R.id.weightAddDate), TimeUtils.formatDate(date));

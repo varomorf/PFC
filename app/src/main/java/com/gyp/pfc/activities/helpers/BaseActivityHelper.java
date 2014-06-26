@@ -4,6 +4,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.time.DateUtils;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -33,6 +34,9 @@ public class BaseActivityHelper {
 	 * The context to be used
 	 */
 	protected Activity activity;
+
+	/** Flag for workaround known DatePickerDialog bug */
+	private boolean onDateSetCalled;
 
 	// Static --------------------------------------------------------
 
@@ -178,6 +182,7 @@ public class BaseActivityHelper {
 	 */
 	public void showDatePickerDialogForToday() {
 		assert activity instanceof OnDateSetListener;
+		onDateSetCalled = false;
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(new Date());
 		int year = calendar.get(Calendar.YEAR);
@@ -185,6 +190,32 @@ public class BaseActivityHelper {
 		int day = calendar.get(Calendar.DAY_OF_MONTH);
 		new DatePickerDialog(activity, (OnDateSetListener) activity, year, month, day).show();
 	}
+
+	/**
+	 * Returns the date from the data of a DatePickerDialog
+	 * 
+	 * @param year
+	 *            the year from the DatePickerDialog
+	 * @param monthOfYear
+	 *            the monthOfYear from the DatePickerDialog
+	 * @param dayOfMonth
+	 *            the dayOfMonth from the DatePickerDialog
+	 * @return the converted date
+	 */
+	public Date getDateFromPicker(int year, int monthOfYear, int dayOfMonth) {
+		if (!onDateSetCalled) {
+			onDateSetCalled = true;
+		} else {
+			onDateSetCalled = false;
+			return null;
+		}
+		Date date = new Date();
+		date = DateUtils.setYears(date, year);
+		date = DateUtils.setMonths(date, monthOfYear);
+		date = DateUtils.setDays(date, dayOfMonth);
+		return date;
+	}
+
 	// Package protected ---------------------------------------------
 
 	// Protected -----------------------------------------------------
