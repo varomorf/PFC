@@ -6,6 +6,8 @@ import android.view.Menu;
 import android.view.View;
 
 import com.gyp.pfc.R;
+import com.gyp.pfc.activities.biometric.AddWeightActivity;
+import com.gyp.pfc.activities.biometric.WeightListActivity;
 import com.gyp.pfc.activities.exercise.AddExerciseActivity;
 import com.gyp.pfc.activities.exercise.ExerciseListActivity;
 import com.gyp.pfc.activities.food.AddFoodActivity;
@@ -103,6 +105,14 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 
 	public void trainningHisctoricListButton(View view) {
 		startActivity(new Intent(this, TrainingHistoricListActivity.class));
+	}
+
+	public void weightsAddButton(View view) {
+		startActivity(new Intent(this, AddWeightActivity.class));
+	}
+
+	public void weightsListButton(View view) {
+		startActivity(new Intent(this, WeightListActivity.class));
 	}
 
 	// Package protected ---------------------------------------------

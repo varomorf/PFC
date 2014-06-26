@@ -40,6 +40,9 @@
         <activity android:name=".activities.historic.TrainingHistoricListActivity" />
         <activity android:name=".activities.historic.AddTrainingHistoricActivity" />
         <activity android:name=".activities.historic.EditTrainingHistoricActivity" />
+        <activity android:name=".activities.biometric.WeightListActivity" />
+        <activity android:name=".activities.biometric.AddWeightActivity" />
+        <activity android:name=".activities.biometric.EditWeightActivity" />
     </application>
 
 </manifest>
