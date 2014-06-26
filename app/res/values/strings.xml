@@ -105,5 +105,7 @@
     <string name="selectExercise">Selecciona un ejercicio desde la lista de ejercicios</string>
     <string name="selectDateTime">Selecciona una fecha y hora</string>
     <string name="assureHistoricDeletion">¿Seguro que desea eliminar el histórico?</string>
+    <string name="theWeight">El peso</string>
+    <string name="assureWeightDeletion">¿Seguro que desea eliminar el peso?</string>
 
 </resources>
