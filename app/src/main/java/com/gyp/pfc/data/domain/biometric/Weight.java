@@ -86,10 +86,10 @@ public class Weight implements Serializable, Comparable<Weight> {
 	 *            the weight to set
 	 */
 	public void setWeight(Double weight) {
-		if (weight == null) {
-			weight = 0d;
-		}
 		this.weight = weight;
+		if (this.weight == null) {
+			this.weight = 0d;
+		}
 	}
 
 	@Override
