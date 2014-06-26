@@ -1,5 +1,5 @@
 #
-# generated on 2014/06/24 11:37:33
+# generated on 2014/06/26 09:19:08
 #
 # --table-start--
 dataClass=com.gyp.pfc.data.domain.food.Food
@@ -219,6 +219,26 @@ dataPersister=DATE_STRING
 # --field-start--
 fieldName=end
 dataPersister=DATE_STRING
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+# --table-start--
+dataClass=com.gyp.pfc.data.domain.biometric.Weight
+tableName=weight
+# --table-fields-start--
+# --field-start--
+fieldName=id
+generatedId=true
+# --field-end--
+# --field-start--
+fieldName=date
+dataPersister=DATE_STRING
+unique=true
+# --field-end--
+# --field-start--
+fieldName=weight
+canBeNull=false
 # --field-end--
 # --table-fields-end--
 # --table-end--
