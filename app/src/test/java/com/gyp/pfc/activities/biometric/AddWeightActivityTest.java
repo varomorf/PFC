@@ -71,6 +71,42 @@ public class AddWeightActivityTest extends BaseWeightActivityTest {
 				TimeUtils.formatDate(weight.getDate()));
 	}
 
+	@Test
+	public void shouldAddWeightWithCommaSeparator() {
+		// GIVEN
+		// no weights on DB
+		assertTrue("There should be no weights on DB", weightDao.queryForAll().isEmpty());
+		// WHEN
+		// activity starts
+		createActivity();
+		// weight is entered with comma separator
+		UIUtils.setTextToUI(activity.findViewById(R.id.weightAddWeight), "75,5");
+		// ok button is pressed
+		clickOn(activity.findViewById(R.id.okButton));
+		// THEN
+		// a Weight is created with the entered data
+		assertEquals("There should be one weight", 1, weightDao.queryForAll().size());
+		Weight weight = weightDao.queryForAll().get(0);
+		assertEquals("Created weight should have correct weight", 75.5d, weight.getWeight(), 0);
+	}
+
+	@Test
+	public void shouldNotAddWeightWithIncorrectValue() {
+		// GIVEN
+		// no weights on DB
+		assertTrue("There should be no weights on DB", weightDao.queryForAll().isEmpty());
+		// WHEN
+		// activity starts
+		createActivity();
+		// incorrect weight is entered
+		UIUtils.setTextToUI(activity.findViewById(R.id.weightAddWeight), "");
+		// ok button is pressed
+		clickOn(activity.findViewById(R.id.okButton));
+		// THEN
+		// no Weight is created with the entered data
+		assertEquals("There should be no weights", 0, weightDao.queryForAll().size());
+	}
+
 	// Package protected ---------------------------------------------
 
 	// Protected -----------------------------------------------------

@@ -11,6 +11,7 @@ import android.app.DatePickerDialog.OnDateSetListener;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.DatePicker;
+import android.widget.TextView;
 
 import com.gyp.pfc.R;
 import com.gyp.pfc.TimeUtils;
@@ -63,10 +64,19 @@ public class AddWeightActivity extends OrmLiteBaseActivity<DatabaseHelper> imple
 	 *            the ok button
 	 */
 	public void okButton(View view) {
-		Double weightValue = Double.parseDouble(UIUtils.getTextFromUI(findViewById(R.id.weightAddWeight)));
-		weight.setWeight(weightValue);
-		getHelper().getWeightDao().create(weight);
-		finish();
+		try {
+			String weightString = UIUtils.getTextFromUI(findViewById(R.id.weightAddWeight));
+			// replace commas so always . is decimal separator
+			weightString = weightString.replace(',', '.');
+			Double weightValue = Double.parseDouble(weightString);
+			weight.setWeight(weightValue);
+			getHelper().getWeightDao().create(weight);
+			finish();
+		} catch (NumberFormatException e) {
+			TextView field = (TextView) findViewById(R.id.weightAddWeight);
+			field.requestFocus();
+			field.setError(getString(R.string.enterCorrectWeight));
+		}
 	}
 
 	@Override
