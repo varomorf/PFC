@@ -107,6 +107,27 @@ public class AddWeightActivityTest extends BaseWeightActivityTest {
 		assertEquals("There should be no weights", 0, weightDao.queryForAll().size());
 	}
 
+	@Test
+	public void shouldNotAddForDuplicatedDates() {
+		// GIVEN
+		// one weight for today
+		Weight weight = new Weight();
+		weight.setDate(new Date());
+		weightDao.create(weight);
+		// WHEN
+		// activity starts
+		createActivity();
+		// date is entered for the same date
+		enterDate(weight.getDate());
+		// weight is entered
+		UIUtils.setTextToUI(activity.findViewById(R.id.weightAddWeight), "75.5");
+		// ok button is pressed
+		clickOn(activity.findViewById(R.id.okButton));
+		// THEN
+		// toast with error message is shown
+		assertToastText(getText(R.string.duplicatedWeight));
+	}
+
 	// Package protected ---------------------------------------------
 
 	// Protected -----------------------------------------------------

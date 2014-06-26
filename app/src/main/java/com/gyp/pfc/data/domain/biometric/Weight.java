@@ -102,6 +102,9 @@ public class Weight implements Serializable, Comparable<Weight> {
 
 	@Override
 	public int hashCode() {
+		if (null == id) {
+			return -1;
+		}
 		return id;
 	}
 

@@ -1,35 +1,46 @@
-package com.gyp.pfc.activities.biometric;
-
-import com.gyp.pfc.activities.BaseActivityTest;
-import com.gyp.pfc.data.db.DatabaseHelper;
-import com.gyp.pfc.data.domain.biometric.Weight;
-import com.j256.ormlite.dao.RuntimeExceptionDao;
-
 /**
- * Base class for {@link Weight} related activities' testing
- * 
- * @author alfergon
  * 
  */
-public abstract class BaseWeightActivityTest extends BaseActivityTest {
+package com.gyp.pfc.activities.exception;
+
+import java.util.Date;
+
+/**
+ * Exception for when a date is duplicated
+ * 
+ * @author Alvaro
+ * 
+ */
+public class DuplicatedDateException extends Exception {
 
 	// Constants -----------------------------------------------------
 
+	private static final long serialVersionUID = 1L;
+
 	// Attributes ----------------------------------------------------
 
-	protected RuntimeExceptionDao<Weight, Integer> weightDao;
+	/** The duplicated date */
+	private final Date duplicated;
 
 	// Static --------------------------------------------------------
 
 	// Constructors --------------------------------------------------
 
+	/**
+	 * Creates a new exception specifying the duplicated date
+	 * 
+	 * @param duplicated
+	 *            the duplicated date
+	 */
+	public DuplicatedDateException(Date duplicated) {
+		super();
+		this.duplicated = duplicated;
+	}
+
 	// Public --------------------------------------------------------
 
-	@Override
-	public void before() {
-		super.before();
-		weightDao = new DatabaseHelper(realActivity).getWeightDao();
-		weightDao.delete(weightDao.queryForAll());
+	public Date getDuplicated() {
+		return duplicated;
 	}
 
 	// Package protected ---------------------------------------------
@@ -39,4 +50,5 @@ public abstract class BaseWeightActivityTest extends BaseActivityTest {
 	// Private -------------------------------------------------------
 
 	// Inner classes -------------------------------------------------
+
 }

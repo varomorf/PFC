@@ -109,6 +109,7 @@
     <string name="assureWeightDeletion">¿Seguro que desea eliminar el peso?</string>
     <string name="dateLabel">Fecha:</string>
     <string name="weightLabel">Peso:</string>
-    <string name="enterCorrectWeight">Introduzca un peso correctoO</string>
+    <string name="enterCorrectWeight">Introduzca un peso correcto</string>
+    <string name="duplicatedWeight">No se puede añadir un peso para una fecha que ya tiene peso</string>
 
 </resources>
