@@ -71,7 +71,7 @@ public class Weight implements Serializable, Comparable<Weight> {
 	 */
 	public void setDate(Date date) {
 		this.date = date != null ? date : new Date();
-		this.date = DateUtils.truncate(date, Calendar.DAY_OF_MONTH);
+		this.date = DateUtils.truncate(this.date, Calendar.DAY_OF_MONTH);
 	}
 
 	/**
