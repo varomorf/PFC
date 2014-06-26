@@ -117,6 +117,9 @@ public class AddTrainingHistoricActivity extends OrmLiteBaseActivity<DatabaseHel
 	@Override
 	public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
 		Date date = h.getDateFromPicker(year, monthOfYear, dayOfMonth);
+		if(null == date){
+			return;
+		}
 		if (starting) {
 			historic.setStart(date);
 		} else {

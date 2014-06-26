@@ -86,9 +86,11 @@ public class AddWeightActivity extends OrmLiteBaseActivity<DatabaseHelper> imple
 	@Override
 	public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
 		Date date = h.getDateFromPicker(year, monthOfYear, dayOfMonth);
-		// date is truncated on weight
-		weight.setDate(date);
-		UIUtils.setTextToUI(findViewById(R.id.weightAddDate), TimeUtils.formatDate(date));
+		if(null != date){
+			// date is truncated on weight
+			weight.setDate(date);
+			UIUtils.setTextToUI(findViewById(R.id.weightAddDate), TimeUtils.formatDate(date));
+		}
 	}
 
 	// Package protected ---------------------------------------------
