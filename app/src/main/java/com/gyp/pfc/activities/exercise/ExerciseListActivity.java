@@ -4,21 +4,15 @@ import java.util.List;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.ContextMenu;
-import android.view.ContextMenu.ContextMenuInfo;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.gyp.pfc.R;
+import com.gyp.pfc.activities.base.BaseListActivity;
 import com.gyp.pfc.activities.constants.ExerciseConstants;
 import com.gyp.pfc.adapters.ExerciseListViewAdapter;
-import com.gyp.pfc.data.db.DatabaseHelper;
 import com.gyp.pfc.data.domain.exercise.Exercise;
-import com.j256.ormlite.android.apptools.OrmLiteBaseListActivity;
 
 /**
  * Activity for listing exercises and interacting with them
@@ -26,7 +20,7 @@ import com.j256.ormlite.android.apptools.OrmLiteBaseListActivity;
  * @author Alvaro
  * 
  */
-public class ExerciseListActivity extends OrmLiteBaseListActivity<DatabaseHelper> implements ExerciseConstants {
+public class ExerciseListActivity extends BaseListActivity implements ExerciseConstants {
 
 	// Constants -----------------------------------------------------
 
@@ -44,28 +38,6 @@ public class ExerciseListActivity extends OrmLiteBaseListActivity<DatabaseHelper
 		List<Exercise> exercises = getHelper().getExerciseDao().queryForAll();
 		setListAdapter(new ExerciseListViewAdapter(this, R.layout.exercise_list_item, exercises));
 		registerForContextMenu(getListView());
-	}
-
-	@Override
-	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
-		super.onCreateContextMenu(menu, v, menuInfo);
-		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.crud_context_menu, menu);
-	}
-
-	@Override
-	public boolean onContextItemSelected(MenuItem item) {
-		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
-		switch (item.getItemId()) {
-		case R.id.delete:
-			deleteExercise(info.position);
-			return true;
-		case R.id.edit:
-			editExercise(info.position);
-			return true;
-		default:
-			return super.onContextItemSelected(item);
-		}
 	}
 
 	// Package protected ---------------------------------------------
@@ -96,8 +68,8 @@ public class ExerciseListActivity extends OrmLiteBaseListActivity<DatabaseHelper
 		getAdapter().notifyDataSetChanged();
 	}
 
-	// Private -------------------------------------------------------
-	private void deleteExercise(int position) {
+	@Override
+	protected void doDelete(int position) {
 		// get selected exercise from adapter
 		Exercise exercise = (Exercise) getListAdapter().getItem(position);
 		// delete exercise on DB
@@ -110,11 +82,8 @@ public class ExerciseListActivity extends OrmLiteBaseListActivity<DatabaseHelper
 		Toast.makeText(getApplicationContext(), R.string.exerciseDeleted, Toast.LENGTH_SHORT).show();
 	}
 
-	private ExerciseListViewAdapter getAdapter() {
-		return (ExerciseListViewAdapter) getListAdapter();
-	}
-
-	private void editExercise(int position) {
+	@Override
+	protected void doEdit(int position) {
 		// get selected exercise from adapter
 		Exercise exercise = (Exercise) getListAdapter().getItem(position);
 		// prepare intent for edition
@@ -123,6 +92,12 @@ public class ExerciseListActivity extends OrmLiteBaseListActivity<DatabaseHelper
 		intent.putExtra(ExerciseListActivity.SELECTED_EXERCISE, exercise);
 		// launch activity
 		startActivity(intent);
+	}
+
+	// Private -------------------------------------------------------
+
+	private ExerciseListViewAdapter getAdapter() {
+		return (ExerciseListViewAdapter) getListAdapter();
 	}
 
 	/**

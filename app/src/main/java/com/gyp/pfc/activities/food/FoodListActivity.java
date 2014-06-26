@@ -11,25 +11,20 @@ import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.ContextMenu;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.SearchView.OnQueryTextListener;
 import android.widget.Toast;
 
 import com.gyp.pfc.R;
+import com.gyp.pfc.activities.base.BaseListActivity;
 import com.gyp.pfc.activities.constants.FoodConstants;
 import com.gyp.pfc.activities.helpers.FoodActivityHelper;
 import com.gyp.pfc.adapters.FoodListViewAdapter;
-import com.gyp.pfc.data.db.DatabaseHelper;
 import com.gyp.pfc.data.domain.food.Food;
-import com.j256.ormlite.android.apptools.OrmLiteBaseListActivity;
 import com.j256.ormlite.stmt.PreparedQuery;
 import com.j256.ormlite.stmt.QueryBuilder;
 
@@ -38,8 +33,7 @@ import com.j256.ormlite.stmt.QueryBuilder;
  * 
  * @author Alvaro
  */
-public class FoodListActivity extends OrmLiteBaseListActivity<DatabaseHelper> implements OnQueryTextListener,
-		FoodConstants {
+public class FoodListActivity extends BaseListActivity implements OnQueryTextListener, FoodConstants {
 
 	// Constants -----------------------------------------------------
 
@@ -85,28 +79,6 @@ public class FoodListActivity extends OrmLiteBaseListActivity<DatabaseHelper> im
 			return true;
 		} else {
 			return super.onOptionsItemSelected(item);
-		}
-	}
-
-	@Override
-	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
-		super.onCreateContextMenu(menu, v, menuInfo);
-		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.crud_context_menu, menu);
-	}
-
-	@Override
-	public boolean onContextItemSelected(MenuItem item) {
-		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
-		switch (item.getItemId()) {
-		case R.id.delete:
-			deleteFood(info.position);
-			return true;
-		case R.id.edit:
-			editFood(info.position);
-			return true;
-		default:
-			return super.onContextItemSelected(item);
 		}
 	}
 
@@ -196,36 +168,25 @@ public class FoodListActivity extends OrmLiteBaseListActivity<DatabaseHelper> im
 		refreshAdapter();
 	}
 
-	// Private -------------------------------------------------------
-
-	private List<Food> getFoods() {
-		return getHelper().getFoodDao().queryForAll();
-	}
-
-	/**
-	 * Deletes the selected food via a confirmation dialog
-	 * 
-	 * @param position
-	 *            the position in the list of the selected food
-	 */
-	private void deleteFood(int position) {
+	@Override
+	protected void doDelete(int position) {
 		// get selected food from adapter and call helper with positive action
 		Food selectedFood = (Food) getListAdapter().getItem(position);
 		h.deleteWithDialog(R.string.assureFoodDeletion, deletionAction(selectedFood));
 	}
 
-	/**
-	 * Launches an intent for the edition of the food on the specified position
-	 * 
-	 * @param position
-	 *            the position in the list (starts on 0) of the food to be
-	 *            edited
-	 */
-	private void editFood(int position) {
+	@Override
+	protected void doEdit(int position) {
 		Food selectedFood = (Food) getListAdapter().getItem(position);
 		Intent editFoodIntent = new Intent(getApplicationContext(), EditFoodActivity.class);
 		editFoodIntent.putExtra(SELECTED_FOOD, selectedFood);
 		startActivityForResult(editFoodIntent, EDIT_FOOD);
+	}
+
+	// Private -------------------------------------------------------
+
+	private List<Food> getFoods() {
+		return getHelper().getFoodDao().queryForAll();
 	}
 
 	private void refreshAdapter(List<Food> foods) {
@@ -263,8 +224,8 @@ public class FoodListActivity extends OrmLiteBaseListActivity<DatabaseHelper> im
 				// refresh the adapter to update UI
 				refreshAdapter();
 				// show deletion message
-				Toast.makeText(getApplicationContext(),
-						food.getName() + " " + getString(R.string.deleteMessage), Toast.LENGTH_SHORT).show();
+				Toast.makeText(getApplicationContext(), food.getName() + " " + getString(R.string.deleteMessage),
+						Toast.LENGTH_SHORT).show();
 			}
 		};
 	}

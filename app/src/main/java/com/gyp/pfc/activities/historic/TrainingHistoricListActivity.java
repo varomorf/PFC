@@ -10,21 +10,14 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.ContextMenu;
-import android.view.ContextMenu.ContextMenuInfo;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.Toast;
 
 import com.gyp.pfc.R;
+import com.gyp.pfc.activities.base.BaseListActivity;
 import com.gyp.pfc.activities.constants.ExerciseConstants;
 import com.gyp.pfc.activities.helpers.BaseActivityHelper;
 import com.gyp.pfc.adapters.TrainingHistoricListViewAdapter;
-import com.gyp.pfc.data.db.DatabaseHelper;
 import com.gyp.pfc.data.domain.exercise.TrainingHistoric;
-import com.j256.ormlite.android.apptools.OrmLiteBaseListActivity;
 
 /**
  * Activity for listing all user's training historic
@@ -32,8 +25,7 @@ import com.j256.ormlite.android.apptools.OrmLiteBaseListActivity;
  * @author Alvaro
  * 
  */
-public class TrainingHistoricListActivity extends OrmLiteBaseListActivity<DatabaseHelper> implements
-		ExerciseConstants {
+public class TrainingHistoricListActivity extends BaseListActivity implements ExerciseConstants {
 
 	// Constants -----------------------------------------------------
 
@@ -47,28 +39,6 @@ public class TrainingHistoricListActivity extends OrmLiteBaseListActivity<Databa
 	// Constructors --------------------------------------------------
 
 	// Public --------------------------------------------------------
-
-	@Override
-	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
-		super.onCreateContextMenu(menu, v, menuInfo);
-		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.crud_context_menu, menu);
-	}
-
-	@Override
-	public boolean onContextItemSelected(MenuItem item) {
-		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
-		switch (item.getItemId()) {
-		case R.id.delete:
-			deleteHistoric(info.position);
-			return true;
-		case R.id.edit:
-			editHistoric(info.position);
-			return true;
-		default:
-			return super.onContextItemSelected(item);
-		}
-	}
 
 	// Package protected ---------------------------------------------
 
@@ -90,35 +60,23 @@ public class TrainingHistoricListActivity extends OrmLiteBaseListActivity<Databa
 		((TrainingHistoricListViewAdapter) getListAdapter()).notifyDataSetChanged();
 	}
 
-	// Private -------------------------------------------------------
-
-	/**
-	 * Deletes the selected historic via a confirmation dialog
-	 * 
-	 * @param position
-	 *            the position in the list of the selected historic
-	 */
-	private void deleteHistoric(int position) {
+	@Override
+	protected void doDelete(int position) {
 		// get selected historic from adapter and call helper with positive
 		// action
 		TrainingHistoric historic = (TrainingHistoric) getListAdapter().getItem(position);
 		h.deleteWithDialog(R.string.assureHistoricDeletion, deletionAction(historic));
 	}
 
-	/**
-	 * Launches an intent for the edition of the historic on the specified
-	 * position
-	 * 
-	 * @param position
-	 *            the position in the list (starts on 0) of the historic to be
-	 *            edited
-	 */
-	private void editHistoric(int position) {
+	@Override
+	protected void doEdit(int position) {
 		TrainingHistoric historic = (TrainingHistoric) getListAdapter().getItem(position);
 		Intent intent = new Intent(this, EditTrainingHistoricActivity.class);
 		intent.putExtra(SELECTED_HISTORIC, historic);
 		startActivityForResult(intent, EDIT_HISTORIC);
 	}
+
+	// Private -------------------------------------------------------
 
 	/**
 	 * Creates an {@link OnClickListener} that on click will delete the passed
