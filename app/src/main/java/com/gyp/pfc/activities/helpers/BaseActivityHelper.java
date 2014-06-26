@@ -1,9 +1,14 @@
 package com.gyp.pfc.activities.helpers;
 
+import java.util.Calendar;
+import java.util.Date;
+
 import org.apache.commons.lang.StringUtils;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
+import android.app.DatePickerDialog.OnDateSetListener;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.view.View;
@@ -168,6 +173,18 @@ public class BaseActivityHelper {
 				}).create().show();
 	}
 
+	/**
+	 * Shows a {@link DatePickerDialog} for today's date
+	 */
+	public void showDatePickerDialogForToday() {
+		assert activity instanceof OnDateSetListener;
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(new Date());
+		int year = calendar.get(Calendar.YEAR);
+		int month = calendar.get(Calendar.MONTH);
+		int day = calendar.get(Calendar.DAY_OF_MONTH);
+		new DatePickerDialog(activity, (OnDateSetListener) activity, year, month, day).show();
+	}
 	// Package protected ---------------------------------------------
 
 	// Protected -----------------------------------------------------

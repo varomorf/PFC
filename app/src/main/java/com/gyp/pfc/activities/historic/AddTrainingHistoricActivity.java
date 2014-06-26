@@ -8,7 +8,6 @@ import java.util.Date;
 
 import org.apache.commons.lang.time.DateUtils;
 
-import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.TimePickerDialog;
 import android.app.TimePickerDialog.OnTimeSetListener;
@@ -23,6 +22,7 @@ import com.gyp.pfc.TimeUtils;
 import com.gyp.pfc.UIUtils;
 import com.gyp.pfc.activities.constants.ExerciseConstants;
 import com.gyp.pfc.activities.exercise.ExerciseListActivity;
+import com.gyp.pfc.activities.helpers.BaseActivityHelper;
 import com.gyp.pfc.data.db.DatabaseHelper;
 import com.gyp.pfc.data.domain.exercise.Exercise;
 import com.gyp.pfc.data.domain.exercise.Training;
@@ -59,6 +59,9 @@ public class AddTrainingHistoricActivity extends OrmLiteBaseActivity<DatabaseHel
 	/** Flag for workaround known DatePickerDialog bug */
 	private boolean onDateSetCalled;
 
+	/** Helper to be used */
+	private BaseActivityHelper h;
+
 	// Static --------------------------------------------------------
 
 	// Constructors --------------------------------------------------
@@ -86,7 +89,7 @@ public class AddTrainingHistoricActivity extends OrmLiteBaseActivity<DatabaseHel
 	public void startingDate(View view) {
 		starting = true;
 		onDateSetCalled = false;
-		showDatePickerDialogForToday();
+		h.showDatePickerDialogForToday();
 	}
 
 	/**
@@ -98,7 +101,7 @@ public class AddTrainingHistoricActivity extends OrmLiteBaseActivity<DatabaseHel
 	public void endingDate(View view) {
 		starting = false;
 		onDateSetCalled = false;
-		showDatePickerDialogForToday();
+		h.showDatePickerDialogForToday();
 	}
 
 	/**
@@ -162,6 +165,7 @@ public class AddTrainingHistoricActivity extends OrmLiteBaseActivity<DatabaseHel
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		h = new BaseActivityHelper(this);
 
 		setContentView(R.layout.training_historic_add);
 	}
@@ -170,18 +174,6 @@ public class AddTrainingHistoricActivity extends OrmLiteBaseActivity<DatabaseHel
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		exercise = (Exercise) data.getExtras().get(SELECTED_EXERCISE);
 		UIUtils.setTextToUI(findViewById(R.id.addTrainingHistoricExerciseName), exercise.getName());
-	}
-
-	/**
-	 * Shows a {@link DatePickerDialog} for today's date
-	 */
-	protected void showDatePickerDialogForToday() {
-		Calendar calendar = Calendar.getInstance();
-		calendar.setTime(new Date());
-		int year = calendar.get(Calendar.YEAR);
-		int month = calendar.get(Calendar.MONTH);
-		int day = calendar.get(Calendar.DAY_OF_MONTH);
-		new DatePickerDialog(this, this, year, month, day).show();
 	}
 
 	/**

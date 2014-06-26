@@ -107,5 +107,7 @@
     <string name="assureHistoricDeletion">¿Seguro que desea eliminar el histórico?</string>
     <string name="theWeight">El peso</string>
     <string name="assureWeightDeletion">¿Seguro que desea eliminar el peso?</string>
+    <string name="dateLabel">Fecha:</string>
+    <string name="weightLabel">Peso:</string>
 
 </resources>
