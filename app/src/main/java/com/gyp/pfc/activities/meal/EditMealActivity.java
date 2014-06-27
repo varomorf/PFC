@@ -256,9 +256,7 @@ public class EditMealActivity extends OrmLiteBaseActivity<DatabaseHelper> implem
 		portionAdapter.clear();
 		if (meal.getId() != null) {
 			getHelper().getMealDao().refresh(meal);
-			for (Portion obj : meal.getPortions()) {
-				portionAdapter.add(obj);
-			}
+			portionAdapter.setPortions(meal.getPortions());
 		}
 		portionAdapter.notifyDataSetChanged();
 	}

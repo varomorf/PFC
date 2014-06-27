@@ -1,5 +1,6 @@
 package com.gyp.pfc.adapters;
 
+import java.util.Collection;
 import java.util.List;
 
 import android.content.Context;
@@ -65,9 +66,10 @@ public class PortionArrayAdapter extends ArrayAdapter<Portion> {
 	}
 
 	/**
-	 * Sets the collection on the adapter to the contents of the passed list
+	 * Sets the collection on the adapter to the contents of the passed
+	 * collection
 	 */
-	public void setPortions(List<Portion> portions) {
+	public void setPortions(Collection<Portion> portions) {
 		clear();
 		for (Portion food : portions) {
 			add(food);
