@@ -81,7 +81,7 @@ public class Food implements Serializable, NutritionalInformationProvider {
 		return calories;
 	}
 
-	public void setCalories(double calories) {
+	public void setCalories(Double calories) {
 		this.calories = calories;
 	}
 
