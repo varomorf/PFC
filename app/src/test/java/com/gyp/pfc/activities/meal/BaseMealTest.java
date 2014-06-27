@@ -12,6 +12,7 @@ import com.gyp.pfc.data.db.DatabaseHelper;
 import com.gyp.pfc.data.domain.builder.FoodBuilder;
 import com.gyp.pfc.data.domain.builder.PortionBuilder;
 import com.gyp.pfc.data.domain.food.Food;
+import com.gyp.pfc.data.domain.manager.MealNameManager;
 import com.gyp.pfc.data.domain.meal.Meal;
 import com.gyp.pfc.data.domain.meal.MealName;
 import com.gyp.pfc.data.domain.meal.Portion;
@@ -50,18 +51,15 @@ public abstract class BaseMealTest extends BaseActivityTest implements FoodConst
 		daoFood = new DatabaseHelper(realActivity).getFoodDao();
 		daoPortion = new DatabaseHelper(realActivity).getPortionDao();
 
+		MealNameManager.getInstance().setMealNameDao(daoNames);
+
 		List<MealName> mealNames = daoNames.queryForAll();
 		daoNames.delete(mealNames);
 		firstName = createMeal(1, "First", 1);
 	}
 
 	protected MealName createMeal(int id, String name, int order) {
-		MealName mealName = new MealName();
-		mealName.setId(id);
-		mealName.setName(name);
-		mealName.setOrder(order);
-		daoNames.create(mealName);
-		return mealName;
+		return MealNameManager.getInstance().createMealNameIfOrderNotPresent(name, order);
 	}
 
 	protected Portion createPortion(int quantity, double calories, double carbs, double protein, double fats) {
