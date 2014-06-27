@@ -10,6 +10,7 @@ import com.gyp.pfc.R;
 import com.gyp.pfc.activities.exception.MandatoryFieldNotFilledException;
 import com.gyp.pfc.activities.helpers.FoodActivityHelper;
 import com.gyp.pfc.data.db.DatabaseHelper;
+import com.gyp.pfc.data.domain.builder.FoodBuilder;
 import com.gyp.pfc.data.domain.food.Food;
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 
@@ -22,7 +23,7 @@ import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
  * @author Alvaro
  * 
  */
-public class AddFoodActivity extends OrmLiteBaseActivity<DatabaseHelper>  {
+public class AddFoodActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 
 	// Constants -----------------------------------------------------
 
@@ -80,9 +81,9 @@ public class AddFoodActivity extends OrmLiteBaseActivity<DatabaseHelper>  {
 	 * @return the food created
 	 */
 	private Food createFood() {
-		Food food = new Food();
-		h.fillFoodData(food);
-		return food;
+		FoodBuilder fb = new FoodBuilder();
+		h.fillFoodData(fb);
+		return fb.getFood();
 	}
 
 	// Inner classes -------------------------------------------------

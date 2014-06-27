@@ -33,6 +33,17 @@ public class FoodBuilder {
 		this.food = new Food();
 	}
 
+	/**
+	 * Creates a new {@link FoodBuilder} initializing the built food with the
+	 * one passed
+	 * 
+	 * @param food
+	 *            the food to build
+	 */
+	public FoodBuilder(Food food) {
+		this.food = food;
+	}
+
 	// Public --------------------------------------------------------
 
 	/**
@@ -247,6 +258,18 @@ public class FoodBuilder {
 	 * @return this {@link PortionBuilder}
 	 */
 	public FoodBuilder sodium(Double sodium) {
+		food.setSodium(sodium);
+		return this;
+	}
+	
+	/**
+	 * Sets the food's sodium
+	 * 
+	 * @param sodium
+	 *            the sodium to be set to the built food
+	 * @return this {@link PortionBuilder}
+	 */
+	public FoodBuilder sodium(String sodium) {
 		food.setSodium(sodium);
 		return this;
 	}
