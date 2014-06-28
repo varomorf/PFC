@@ -17,7 +17,7 @@ public enum FileSharingName {
 	FOOD(Food.class.getName(), "foods.yaml"), EXERCISE(Exercise.class.getName(), "exercises.yaml"), TRAINING(
 			Training.class.getName(), "trainings.yaml");
 
-	public static final String DATA_DIR_NAME = "data";
+	public static final String DATA_DIR_NAME = "PersonalFitnessCoach";
 
 	// Attributes ----------------------------------------------------
 

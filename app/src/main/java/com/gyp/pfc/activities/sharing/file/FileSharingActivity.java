@@ -89,6 +89,11 @@ public class FileSharingActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.file_sharing);
+
+		String state = Environment.getExternalStorageState();
+		if (Environment.MEDIA_MOUNTED.equals(state)) {
+			Log.i(LOG_TAG, "Can write");
+		}
 	}
 
 	// Private -------------------------------------------------------
@@ -119,7 +124,7 @@ public class FileSharingActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 	 */
 	private File getDataStorageDir() {
 		// Get the directory for the user's public pictures directory.
-		File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
+		File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
 				DATA_DIR_NAME);
 		if (!file.mkdirs()) {
 			Log.e(LOG_TAG, "Directory not created");
