@@ -8,6 +8,7 @@
     <string name="trainnings">Entrenamientos</string>
     <string name="trainningHisctoric">Histórico Entrenamientos</string>
     <string name="weights">Histórico Pesos</string>
+    <string name="sharing">Back Up</string>
     <string name="breakfast">Desayuno</string>
     <string name="lunch">Almuerzo</string>
     <string name="dinner">Cena</string>
@@ -113,5 +114,6 @@
     <string name="enterCorrectWeight">Introduzca un peso correcto</string>
     <string name="duplicatedWeight">No se puede añadir un peso para una fecha que ya tiene peso</string>
     <string name="exportData">Exporta los datos de esta entidad a un fichero</string>
+    <string name="sharingButtonDescription">Lanza la actividad para back ups</string>
 
 </resources>

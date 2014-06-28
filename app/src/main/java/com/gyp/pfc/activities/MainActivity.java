@@ -16,6 +16,7 @@ import com.gyp.pfc.activities.historic.AddTrainingHistoricActivity;
 import com.gyp.pfc.activities.historic.TrainingHistoricListActivity;
 import com.gyp.pfc.activities.meal.EditMealActivity;
 import com.gyp.pfc.activities.meal.MealListActivity;
+import com.gyp.pfc.activities.sharing.file.FileSharingActivity;
 import com.gyp.pfc.activities.training.AddTrainingActivity;
 import com.gyp.pfc.activities.training.TrainingListActivity;
 import com.gyp.pfc.data.db.DatabaseHelper;
@@ -113,6 +114,10 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 
 	public void weightsListButton(View view) {
 		startActivity(new Intent(this, WeightListActivity.class));
+	}
+
+	public void sharingButton(View view) {
+		startActivity(new Intent(this, FileSharingActivity.class));
 	}
 
 	// Package protected ---------------------------------------------

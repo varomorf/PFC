@@ -7,8 +7,8 @@
     <uses-sdk
         android:minSdkVersion="11"
         android:targetSdkVersion="19" />
-
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
@@ -45,6 +45,7 @@
         <activity android:name=".activities.biometric.WeightListActivity" />
         <activity android:name=".activities.biometric.AddWeightActivity" />
         <activity android:name=".activities.biometric.EditWeightActivity" />
+        <activity android:name=".activities.sharing.file.FileSharingActivity" />
     </application>
 
 </manifest>
