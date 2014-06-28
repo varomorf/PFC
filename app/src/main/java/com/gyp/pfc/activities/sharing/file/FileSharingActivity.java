@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.gyp.pfc.R;
 import com.gyp.pfc.data.db.DatabaseHelper;
@@ -115,6 +116,7 @@ public class FileSharingActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 			Log.e(LOG_TAG, "An error ocurred while exporting entities of type " + fileSharingName.getClassName(),
 					e);
 		}
+		Toast.makeText(this, getString(R.string.fileExportCompleted), Toast.LENGTH_SHORT).show();
 	}
 
 	/**
