@@ -112,5 +112,6 @@
     <string name="weightLabel">Peso:</string>
     <string name="enterCorrectWeight">Introduzca un peso correcto</string>
     <string name="duplicatedWeight">No se puede añadir un peso para una fecha que ya tiene peso</string>
+    <string name="exportData">Exporta los datos de esta entidad a un fichero</string>
 
 </resources>

@@ -82,7 +82,7 @@ public class NullForeignCollection<T, I> extends BaseForeignCollection<T, I> {
 
 	@Override
 	public int size() {
-		return 0;
+		return list.size();
 	}
 
 	@Override

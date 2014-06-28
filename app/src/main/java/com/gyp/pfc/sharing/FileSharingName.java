@@ -1,4 +1,4 @@
-package com.gyp.pfc.activities.constants;
+package com.gyp.pfc.sharing;
 
 import com.gyp.pfc.data.domain.exercise.Exercise;
 import com.gyp.pfc.data.domain.exercise.Training;

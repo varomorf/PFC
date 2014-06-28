@@ -50,6 +50,19 @@ public class Training implements Serializable {
 
 	// Public --------------------------------------------------------
 
+	/**
+	 * Adds the passed {@link TrainingExercise} to the exercises collection and
+	 * also sets this {@link Training} as the {@link Training} of the
+	 * {@link TrainingExercise}
+	 * 
+	 * @param te
+	 *            the {@link TrainingExercise} to be added
+	 */
+	public void addTrainingExercise(TrainingExercise te) {
+		te.setTraining(this);
+		exercises.add(te);
+	}
+
 	public int getId() {
 		return id;
 	}
