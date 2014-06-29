@@ -1,5 +1,6 @@
 package com.gyp.pfc.sharing;
 
+import com.gyp.pfc.data.domain.biometric.UserData;
 import com.gyp.pfc.data.domain.exercise.Exercise;
 import com.gyp.pfc.data.domain.exercise.Training;
 import com.gyp.pfc.data.domain.food.Food;
@@ -15,7 +16,7 @@ public enum FileSharingName {
 	// Constants -----------------------------------------------------
 
 	FOOD(Food.class.getName(), "foods.yaml"), EXERCISE(Exercise.class.getName(), "exercises.yaml"), TRAINING(
-			Training.class.getName(), "trainings.yaml");
+			Training.class.getName(), "trainings.yaml"), USER_DATA(UserData.class.getName(), "userData");
 
 	public static final String DATA_DIR_NAME = "PersonalFitnessCoach";
 

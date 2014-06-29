@@ -1,8 +1,5 @@
 package com.gyp.pfc.activities.biometric;
 
-import java.util.Collections;
-import java.util.List;
-
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
@@ -15,6 +12,7 @@ import com.gyp.pfc.activities.constants.BiometricConstants;
 import com.gyp.pfc.activities.helpers.BaseActivityHelper;
 import com.gyp.pfc.adapters.WeightListViewAdapter;
 import com.gyp.pfc.data.domain.biometric.Weight;
+import com.gyp.pfc.data.domain.manager.WeightManager;
 
 /**
  * Activity for listing all weights on DB ordered from the latest.
@@ -49,7 +47,7 @@ public class WeightListActivity extends BaseListActivity implements BiometricCon
 
 		setContentView(R.layout.no_search_list);
 		// list of weights must be ordered
-		setListAdapter(new WeightListViewAdapter(this, getSortedWeights()));
+		setListAdapter(new WeightListViewAdapter(this, WeightManager.it().getSortedWeights()));
 		// list items must have context menu
 		registerForContextMenu(getListView());
 	}
@@ -71,26 +69,15 @@ public class WeightListActivity extends BaseListActivity implements BiometricCon
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		((WeightListViewAdapter) getListAdapter()).setData(getSortedWeights());
+		((WeightListViewAdapter) getListAdapter()).setData(WeightManager.it().getSortedWeights());
 		((WeightListViewAdapter) getListAdapter()).notifyDataSetChanged();
 	}
 
 	// Private -------------------------------------------------------
 
 	/**
-	 * Returns all {@link Weight} entities on DB sorted descending by date
-	 * 
-	 * @return all {@link Weight} entities on DB sorted descending by date
-	 */
-	private List<Weight> getSortedWeights() {
-		List<Weight> weights = getHelper().getWeightDao().queryForAll();
-		Collections.sort(weights, Collections.reverseOrder());
-		return weights;
-	}
-
-	/**
-	 * Creates an {@link OnClickListener} that on click will delete the passed
-	 * weight from DB, refresh the adapter and show a toast to the user
+	 * Creates an {@link OnClickListener} that on click will delete the passed weight from DB, refresh the adapter
+	 * and show a toast to the user
 	 * 
 	 * @param weight
 	 *            the weight to be deleted

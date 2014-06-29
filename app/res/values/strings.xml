@@ -121,4 +121,12 @@
     <string name="fileImportStarted">Iniciada importación desde fichero</string>
     <string name="fileImportCompleted">Terminada importación desde fichero</string>
 
+    <!-- User data -->
+    <string name="userAge">Edad:</string>
+    <string name="userSex">Sexo:</string>
+    <string name="userHeight">Altura:</string>
+    <string name="userWeight">Último peso:</string>
+    <string name="man">Hombre</string>
+    <string name="woman">Mujer</string>
+
 </resources>

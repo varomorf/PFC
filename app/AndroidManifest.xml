@@ -45,6 +45,7 @@
         <activity android:name=".activities.biometric.AddWeightActivity" />
         <activity android:name=".activities.biometric.EditWeightActivity" />
         <activity android:name=".activities.sharing.file.FileSharingActivity" />
+        <activity android:name=".activities.biometric.ShowUserBiometricData" />
     </application>
 
 </manifest>

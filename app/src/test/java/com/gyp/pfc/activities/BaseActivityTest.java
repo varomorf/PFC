@@ -7,6 +7,12 @@ import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
+
+import java.io.File;
+import java.io.IOException;
+
+import org.apache.commons.io.FileUtils;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
@@ -21,6 +27,7 @@ import com.gyp.pfc.R;
 import com.gyp.pfc.UIUtils;
 import com.gyp.pfc.data.db.DatabaseHelper;
 import com.gyp.pfc.matchers.ContainsMatcher;
+import com.gyp.pfc.sharing.FileSharingName;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.xtremelabs.robolectric.shadows.ShadowActivity;
 import com.xtremelabs.robolectric.shadows.ShadowActivity.IntentForResult;
@@ -212,9 +219,17 @@ public abstract class BaseActivityTest {
 		edit.setText(Integer.toString(text));
 	}
 
+	protected void copyExternalTestFile(FileSharingName name) throws IOException {
+		File origin = new File("target/test-classes", name.getFileName());
+		FileUtils.copyFile(origin, new File(getExternalDir(), name.getFileName()));
+	}
+
+	private File getExternalDir() {
+		return new File(ShadowActivity.EXTERNAL_FILES_DIR, FileSharingName.DATA_DIR_NAME);
+	}
+
 	/**
-	 * Is the value contained into another value, as tested by the
-	 * {@link java.lang.String#contains} invokedMethod?
+	 * Is the value contained into another value, as tested by the {@link java.lang.String#contains} invokedMethod?
 	 */
 	public static <T> org.hamcrest.Matcher<T> contains(T operand) {
 		return ContainsMatcher.contains(operand);

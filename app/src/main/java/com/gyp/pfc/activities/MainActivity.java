@@ -27,6 +27,7 @@ import com.gyp.pfc.data.domain.manager.ExerciseManager;
 import com.gyp.pfc.data.domain.manager.FoodManager;
 import com.gyp.pfc.data.domain.manager.MealNameManager;
 import com.gyp.pfc.data.domain.manager.TrainingManager;
+import com.gyp.pfc.data.domain.manager.WeightManager;
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 
 /**
@@ -190,6 +191,7 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 		FoodManager.it().setFoodDao(getHelper().getFoodDao());
 		ExerciseManager.it().setExerciseDao(getHelper().getExerciseDao());
 		MealNameManager.getInstance().setMealNameDao(getHelper().getMealNameDao());
+		WeightManager.it().setWeightDao(getHelper().getWeightDao());
 	}
 
 	// Inner classes -------------------------------------------------

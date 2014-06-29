@@ -13,8 +13,7 @@ import com.j256.ormlite.table.DatabaseTable;
 /**
  * Entity for entering the weight for a certain day.
  * 
- * The saved date will be truncated to the day (so 01/01/2014 @ 9:00 will become
- * 01/01/2014 @ 00:00)
+ * The saved date will be truncated to the day (so 01/01/2014 @ 9:00 will become 01/01/2014 @ 00:00)
  * 
  * @author alfergon
  * 
@@ -114,6 +113,15 @@ public class Weight implements Serializable, Comparable<Weight> {
 			return 1;
 		}
 		return date.compareTo(o.getDate());
+	}
+
+	/**
+	 * Returns the formatted value of the weight in kilograms
+	 * 
+	 * @return the formatted value of the weight in kilograms
+	 */
+	public CharSequence getFormattedWeight() {
+		return weight.toString() + " Kg.";
 	}
 
 	// Package protected ---------------------------------------------

@@ -11,7 +11,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.io.FileUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -31,7 +30,6 @@ import com.gyp.pfc.data.domain.food.Food;
 import com.gyp.pfc.data.domain.manager.ExerciseManager;
 import com.gyp.pfc.data.domain.manager.FoodManager;
 import com.gyp.pfc.data.domain.manager.TrainingManager;
-import com.gyp.pfc.sharing.FileSharingName;
 import com.gyp.pfc.sharing.TrainingConstructor;
 import com.xtremelabs.robolectric.shadows.ShadowActivity;
 
@@ -192,7 +190,7 @@ public class FileSharingActivityTest extends BaseActivityTest {
 		// one that wont be
 		FoodManager.it().createFood("I will survive", 100d, 10d, 20d, 30d);
 		// a yaml file with two foods, one that exists (named "Override me") and another that is not on DB
-		copyTestFile(FOOD);
+		copyExternalTestFile(FOOD);
 		// WHEN
 		// activity is started
 		createActivity();
@@ -233,7 +231,7 @@ public class FileSharingActivityTest extends BaseActivityTest {
 		// one that wont be
 		ExerciseManager.it().createExercise("I will survive", "Yes I will", 100);
 		// a yaml file with two exercises, one that exists (named "Override me") and another that is not on DB
-		copyTestFile(EXERCISE);
+		copyExternalTestFile(EXERCISE);
 		// WHEN
 		// activity is started
 		createActivity();
@@ -272,7 +270,7 @@ public class FileSharingActivityTest extends BaseActivityTest {
 		TrainingManager.it().addExerciseToTraining(t2, e, 20, 2);
 		TrainingManager.it().addExerciseToTraining(t2, e, 30, 3);
 		// a yaml file with two trainings, one that uses existing exercise and other that uses new exercise
-		copyTestFile(TRAINING);
+		copyExternalTestFile(TRAINING);
 		// WHEN
 		// activity is started
 		createActivity();
@@ -331,15 +329,6 @@ public class FileSharingActivityTest extends BaseActivityTest {
 	}
 
 	// Private -------------------------------------------------------
-
-	private void copyTestFile(FileSharingName name) throws IOException {
-		File origin = new File("target/test-classes", name.getFileName());
-		FileUtils.copyFile(origin, new File(getExternalDir(), name.getFileName()));
-	}
-
-	private File getExternalDir() {
-		return new File(ShadowActivity.EXTERNAL_FILES_DIR, FileSharingName.DATA_DIR_NAME);
-	}
 
 	// Inner classes -------------------------------------------------
 }
