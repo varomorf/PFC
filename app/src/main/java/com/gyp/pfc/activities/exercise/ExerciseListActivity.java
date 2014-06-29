@@ -13,6 +13,7 @@ import com.gyp.pfc.activities.base.BaseListActivity;
 import com.gyp.pfc.activities.constants.ExerciseConstants;
 import com.gyp.pfc.adapters.ExerciseListViewAdapter;
 import com.gyp.pfc.data.domain.exercise.Exercise;
+import com.gyp.pfc.data.domain.manager.ExerciseManager;
 
 /**
  * Activity for listing exercises and interacting with them
@@ -35,7 +36,7 @@ public class ExerciseListActivity extends BaseListActivity implements ExerciseCo
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.entity_list);
-		List<Exercise> exercises = getHelper().getExerciseDao().queryForAll();
+		List<Exercise> exercises = ExerciseManager.it().getAllExercises();
 		setListAdapter(new ExerciseListViewAdapter(this, R.layout.exercise_list_item, exercises));
 		registerForContextMenu(getListView());
 	}
@@ -61,7 +62,7 @@ public class ExerciseListActivity extends BaseListActivity implements ExerciseCo
 		// remove all exercises from adapter
 		getAdapter().clear();
 		// set list from DAO
-		for (Exercise exercise : getHelper().getExerciseDao().queryForAll()) {
+		for (Exercise exercise : ExerciseManager.it().getAllExercises()) {
 			getAdapter().add(exercise);
 		}
 		// refresh the adapter to update UI

@@ -128,23 +128,22 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 		// load test food
 		FoodManager.it().createFood("Arroz", "", 364, 6.67, 81.60, 0, 1.4, 0.9, 0.19, 0.0039);
 		FoodManager.it().createFood("Huevo", "", 162, 12.68, 0.68, 0, 0, 12.10, 3.3, 0.144);
-		FoodManager.it()
-				.createFood("Pan blanco", "Mercadona", 261, 8.47, 51.50, 0, 3.5, 1.6, 0.39, 0.540);
+		FoodManager.it().createFood("Pan blanco", "Mercadona", 261, 8.47, 51.50, 0, 3.5, 1.6, 0.39, 0.540);
 		// load test exercises
 		Exercise exercise1 = ExerciseManager
-				.getInstance()
+				.it()
 				.createExercise(
 						"Planchas",
 						"Boca abajo, apoyamos las manos contra el suelo a la altura de los hombros y elevamos el cuerpo mediante una extensión de los brazos. Mediante una flexión controlada, volvemos a la posición de partida.",
 						50);
 		Exercise exercise2 = ExerciseManager
-				.getInstance()
+				.it()
 				.createExercise(
 						"Abdominales",
 						"Boca arriba, flexionamos las piernas de modo que los pies toquen el suelo. Elevamos el tronco hasta erguirnos. Bajamos el tronco a la posición de partida de forma controlada.",
 						100);
 		Exercise exercise3 = ExerciseManager
-				.getInstance()
+				.it()
 				.createExercise(
 						"Zancadas",
 						"De pie, damos un paso con una pierna, dejando la otra en el sitio. Flexionamos la rodilla adelantada, de tal modo que la rodilla atrasada llegue a tocar el suelo. Volvemos a la posición de partida.",
@@ -189,7 +188,7 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 		TrainingManager.getInstance().setTrainingDao(getHelper().getTrainingDao());
 		TrainingManager.getInstance().setTrainingExerciseDao(getHelper().getTrainingExerciseDao());
 		FoodManager.it().setFoodDao(getHelper().getFoodDao());
-		ExerciseManager.getInstance().setExerciseDao(getHelper().getExerciseDao());
+		ExerciseManager.it().setExerciseDao(getHelper().getExerciseDao());
 		MealNameManager.getInstance().setMealNameDao(getHelper().getMealNameDao());
 	}
 

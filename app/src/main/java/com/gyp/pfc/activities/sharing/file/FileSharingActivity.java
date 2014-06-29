@@ -22,6 +22,7 @@ import com.gyp.pfc.data.db.DatabaseHelper;
 import com.gyp.pfc.data.domain.exercise.Exercise;
 import com.gyp.pfc.data.domain.exercise.Training;
 import com.gyp.pfc.data.domain.food.Food;
+import com.gyp.pfc.data.domain.manager.ExerciseManager;
 import com.gyp.pfc.data.domain.manager.FoodManager;
 import com.gyp.pfc.sharing.FileSharingName;
 import com.gyp.pfc.sharing.TrainingRepresenter;
@@ -41,6 +42,8 @@ public class FileSharingActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 
 	// Constants -----------------------------------------------------
 
+	private static final String ERROR_EXPORTING = "An error ocurred while exporting entities of type ";
+	private static final String ERROR_IMPORTING = "An error ocurred while importing entities of type ";
 	private static final String LOG_TAG = FileSharingActivity.class.getName();
 
 	// Attributes ----------------------------------------------------
@@ -71,15 +74,14 @@ public class FileSharingActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 	 *            the button that calls
 	 */
 	public void importFoods(View view) {
-		File file = new File(getDataStorageDir(), FOOD.getFileName());
-		try {
-			for (Object o : new Yaml().loadAll(new FileInputStream(file))) {
-				Food food = (Food) o;
-				FoodManager.it().importFood(food);
+		importEntities(FOOD, new Closure() {
+
+			@Override
+			public Object call(Object it) {
+				FoodManager.it().importFood((Food) it);
+				return null;
 			}
-		} catch (FileNotFoundException e) {
-			Log.e(LOG_TAG, "An error ocurred while importing entities of type " + FOOD.getClassName(), e);
-		}
+		});
 	}
 
 	/**
@@ -89,8 +91,27 @@ public class FileSharingActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 	 *            the button that calls
 	 */
 	public void exportExercises(View view) {
-		List<Exercise> exercises = getHelper().getExerciseDao().queryForAll();
+		List<Exercise> exercises = ExerciseManager.it().getAllExercises();
 		exportEntities(exercises, EXERCISE);
+	}
+
+	/**
+	 * Imports all the {@link Exercise} entries from its corresponding file if it exists.
+	 * 
+	 * Once loaded, they will be loaded on DB overriding exiting ones if name is equal.
+	 * 
+	 * @param view
+	 *            the button that calls
+	 */
+	public void importExercises(View view) {
+		importEntities(EXERCISE, new Closure() {
+
+			@Override
+			public Object call(Object it) {
+				ExerciseManager.it().importExercise((Exercise) it);
+				return null;
+			}
+		});
 	}
 
 	/**
@@ -137,10 +158,28 @@ public class FileSharingActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 			FileWriter writer = new FileWriter(exportFile);
 			new Yaml(new TrainingRepresenter()).dumpAll(iterable.iterator(), writer);
 		} catch (IOException e) {
-			Log.e(LOG_TAG, "An error ocurred while exporting entities of type " + fileSharingName.getClassName(),
-					e);
+			Log.e(LOG_TAG, ERROR_EXPORTING + fileSharingName.getClassName(), e);
 		}
 		Toast.makeText(this, getString(R.string.fileExportCompleted), Toast.LENGTH_SHORT).show();
+	}
+
+	/**
+	 * Imports the entities for the passed fileSharingName executing the passed closure for each read entity
+	 * 
+	 * @param fileSharingName
+	 *            the {@link FileSharingName} to use when exporting the entities
+	 * @param closure
+	 *            the closure that will be executed for each read entity
+	 */
+	private void importEntities(FileSharingName fileSharingName, Closure closure) {
+		File file = new File(getDataStorageDir(), fileSharingName.getFileName());
+		try {
+			for (Object o : new Yaml().loadAll(new FileInputStream(file))) {
+				closure.call(o);
+			}
+		} catch (FileNotFoundException e) {
+			Log.e(LOG_TAG, ERROR_IMPORTING + fileSharingName.getClassName(), e);
+		}
 	}
 
 	/**

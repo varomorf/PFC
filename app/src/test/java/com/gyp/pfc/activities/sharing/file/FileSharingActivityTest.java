@@ -57,7 +57,7 @@ public class FileSharingActivityTest extends BaseActivityTest {
 		super.before();
 		DatabaseHelper dbh = new DatabaseHelper(realActivity);
 		FoodManager.it().setFoodDao(dbh.getFoodDao());
-		ExerciseManager.getInstance().setExerciseDao(dbh.getExerciseDao());
+		ExerciseManager.it().setExerciseDao(dbh.getExerciseDao());
 		TrainingManager.getInstance().setTrainingExerciseDao(dbh.getTrainingExerciseDao());
 		TrainingManager.getInstance().setTrainingDao(dbh.getTrainingDao());
 	}
@@ -105,8 +105,8 @@ public class FileSharingActivityTest extends BaseActivityTest {
 	public void shouldExportExecutableTrainingEntities() throws FileNotFoundException, EntityNameException {
 		// GIVEN
 		// two executable trainings on DB with two different exercises
-		Exercise e1 = ExerciseManager.getInstance().createExercise("One", "", 100);
-		Exercise e2 = ExerciseManager.getInstance().createExercise("Two", "", 200);
+		Exercise e1 = ExerciseManager.it().createExercise("One", "", 100);
+		Exercise e2 = ExerciseManager.it().createExercise("Two", "", 200);
 		Training t1 = TrainingManager.getInstance().createTraining("One");
 		Training t2 = TrainingManager.getInstance().createTraining("Two");
 		TrainingManager.getInstance().addExerciseToTraining(t1, e1, 10, 1);
@@ -152,8 +152,8 @@ public class FileSharingActivityTest extends BaseActivityTest {
 		// two exercises on DB
 		String description = "With short description";
 		String longDescription = "With long description With long descriptionWith long descriptionWith long descriptionWith long descriptionWith long descriptionWith long descriptionWith long descriptionWith long descriptionWith long descriptionWith long description";
-		ExerciseManager.getInstance().createExercise("One", "With short description", 100);
-		ExerciseManager.getInstance().createExercise("Two", longDescription, 200);
+		ExerciseManager.it().createExercise("One", "With short description", 100);
+		ExerciseManager.it().createExercise("Two", longDescription, 200);
 		// WHEN
 		// activity is created
 		createActivity();
@@ -187,7 +187,7 @@ public class FileSharingActivityTest extends BaseActivityTest {
 	public void shouldImportFoodsOverridingExistingByName() throws IOException {
 		// GIVEN
 		// two foods on DB
-		// one that will be overridden
+		// one that will be overwritten
 		FoodManager.it().createFood("Override me", 100d, 10d, 20d, 30d);
 		// one that wont be
 		FoodManager.it().createFood("I will survive", 100d, 10d, 20d, 30d);
@@ -201,13 +201,13 @@ public class FileSharingActivityTest extends BaseActivityTest {
 		// THEN
 		List<Food> foods = FoodManager.it().getAllFoods();
 		assertEquals("There should be 3 foods in total", 3, foods.size());
-		// assert overridden food that must have same id as before
-		Food overridden = foods.get(0);
-		assertEquals("Override me", overridden.getName());
-		assertEquals(200d, overridden.getCalories(), 0);
-		assertEquals(20d, overridden.getProtein(), 0);
-		assertEquals(40d, overridden.getCarbs(), 0);
-		assertEquals(0d, overridden.getFats(), 0);
+		// assert overwritten food that must have same id as before
+		Food overwritten = foods.get(0);
+		assertEquals("Override me", overwritten.getName());
+		assertEquals(200d, overwritten.getCalories(), 0);
+		assertEquals(20d, overwritten.getProtein(), 0);
+		assertEquals(40d, overwritten.getCarbs(), 0);
+		assertEquals(0d, overwritten.getFats(), 0);
 		// assert survivor food that must have same id as before
 		Food survivor = foods.get(1);
 		assertEquals("I will survive", survivor.getName());
@@ -222,6 +222,41 @@ public class FileSharingActivityTest extends BaseActivityTest {
 		assertEquals(10d, newFood.getProtein(), 0);
 		assertEquals(150d, newFood.getCarbs(), 0);
 		assertEquals(10d, newFood.getFats(), 0);
+	}
+
+	@Test
+	public void shouldImportExercisesOverridinByName() throws EntityNameException, IOException {
+		// GIVEN
+		// two exercises on DB
+		// one that will be overwritten
+		ExerciseManager.it().createExercise("Override me", "", 100);
+		// one that wont be
+		ExerciseManager.it().createExercise("I will survive", "Yes I will", 100);
+		// a yaml file with two exercises, one that exists (named "Override me") and another that is not on DB
+		copyTestFile(EXERCISE);
+		// WHEN
+		// activity is started
+		createActivity();
+		// import of exercises is requested
+		clickOn(activity.findViewById(R.id.fileImportExerciseButton));
+		// THEN
+		List<Exercise> exercises = ExerciseManager.it().getAllExercises();
+		assertEquals("There should be 3 exercises in total", 3, exercises.size());
+		// assert overwritten exercise that must have same id as before
+		Exercise overwritten = exercises.get(0);
+		assertEquals("Override me", overwritten.getName());
+		assertEquals("Overriden description", overwritten.getDescription());
+		assertEquals(500d, overwritten.getBurntCalories(), 0);
+		// assert survivor exercise that must have same id as before
+		Exercise survivor = exercises.get(1);
+		assertEquals("I will survive", survivor.getName());
+		assertEquals("Yes I will", survivor.getDescription());
+		assertEquals(100d, survivor.getBurntCalories(), 0);
+		// assert new exercise that must have new id
+		Exercise newExercise = exercises.get(2);
+		assertEquals("Flexiones", newExercise.getName());
+		assertEquals("Hacer flexiones XD", newExercise.getDescription());
+		assertEquals(200d, newExercise.getBurntCalories(), 0);
 	}
 
 	// Package protected ---------------------------------------------

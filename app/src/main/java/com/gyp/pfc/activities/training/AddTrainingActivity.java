@@ -21,6 +21,7 @@ import com.gyp.pfc.data.db.DatabaseHelper;
 import com.gyp.pfc.data.domain.exercise.Exercise;
 import com.gyp.pfc.data.domain.exercise.Training;
 import com.gyp.pfc.data.domain.exercise.TrainingExercise;
+import com.gyp.pfc.data.domain.manager.ExerciseManager;
 import com.gyp.pfc.dialogs.AddExerciseDialog;
 import com.gyp.pfc.dialogs.AddExerciseDialog.AddExerciseDialogListener;
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
@@ -120,8 +121,7 @@ public class AddTrainingActivity extends OrmLiteBaseActivity<DatabaseHelper> imp
 	}
 
 	/**
-	 * Extracts the data from the closing dialog and creates a TrainingExercise
-	 * entity with it
+	 * Extracts the data from the closing dialog and creates a TrainingExercise entity with it
 	 */
 	public void addNewExercise(AddExerciseDialog dialog) {
 		// save training so it can be assigned on the TrainingExercise
@@ -139,8 +139,7 @@ public class AddTrainingActivity extends OrmLiteBaseActivity<DatabaseHelper> imp
 	}
 
 	/**
-	 * Extracts the data from the closing dialog and updates the
-	 * TrainingExercise entity with it
+	 * Extracts the data from the closing dialog and updates the TrainingExercise entity with it
 	 */
 	public void updateExercise(AddExerciseDialog dialog) {
 		// get trainingExercise from dialog
@@ -307,7 +306,7 @@ public class AddTrainingActivity extends OrmLiteBaseActivity<DatabaseHelper> imp
 
 	private void prepareAndShowDialog(TrainingExercise selected) {
 		// get list of exercises
-		List<Exercise> exercises = getHelper().getExerciseDao().queryForAll();
+		List<Exercise> exercises = ExerciseManager.it().getAllExercises();
 		if (!exercises.isEmpty()) {
 			// create dialog passing this activity as listener
 			Dialog dialog = new AddExerciseDialog(this, this, exercises, selected);

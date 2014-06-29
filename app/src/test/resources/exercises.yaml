@@ -1,0 +1,4 @@
+!!com.gyp.pfc.data.domain.exercise.Exercise {burntCalories: 500, description: Overriden description,
+  id: 1, name: Override me}
+--- !!com.gyp.pfc.data.domain.exercise.Exercise {burntCalories: 200, description: Hacer flexiones XD,
+  id: 2, name: Flexiones}

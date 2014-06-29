@@ -35,7 +35,7 @@ public class EditExerciseActivity extends AddExerciseActivity {
 		exercise.setDescription(h.getTextFromUI(R.id.exerciseDescription));
 		exercise.setBurntCalories(h.getIntFromUI(R.id.exerciseCalories));
 		try {
-			ExerciseManager.getInstance().updateExercise(exercise);
+			ExerciseManager.it().updateExercise(exercise);
 			Toast.makeText(getApplicationContext(), R.string.exerciseEdited, Toast.LENGTH_SHORT).show();
 			finish();
 		} catch (EntityNameException e) {

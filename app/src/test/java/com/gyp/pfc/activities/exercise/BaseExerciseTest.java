@@ -42,7 +42,7 @@ public abstract class BaseExerciseTest extends BaseActivityTest {
 	public void before() {
 		super.before();
 		dao = new DatabaseHelper(realActivity).getExerciseDao();
-		ExerciseManager.getInstance().setExerciseDao(dao);
+		ExerciseManager.it().setExerciseDao(dao);
 	}
 
 	/**

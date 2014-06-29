@@ -3,14 +3,18 @@
  */
 package com.gyp.pfc.data.domain.manager;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
+
+import android.util.Log;
 
 import com.gyp.pfc.R;
 import com.gyp.pfc.data.domain.exception.EntityNameException;
 import com.gyp.pfc.data.domain.exercise.Exercise;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
+import com.j256.ormlite.stmt.QueryBuilder;
 
 /**
  * Manager for operations with {@link Exercise} entities
@@ -21,6 +25,8 @@ import com.j256.ormlite.dao.RuntimeExceptionDao;
 public class ExerciseManager {
 
 	// Constants -----------------------------------------------------
+
+	private static final String LOG_TAG = ExerciseManager.class.getName();
 
 	// Attributes ----------------------------------------------------
 
@@ -37,7 +43,7 @@ public class ExerciseManager {
 	 * 
 	 * @return the singleton instance of the ExerciseManager
 	 */
-	public static ExerciseManager getInstance() {
+	public static ExerciseManager it() {
 		if (null == instance) {
 			instance = new ExerciseManager();
 		}
@@ -66,8 +72,8 @@ public class ExerciseManager {
 	}
 
 	/**
-	 * Creates a new exercise specifying its name and description. This method
-	 * assures that the name is not blank nor repeated.
+	 * Creates a new exercise specifying its name and description. This method assures that the name is not blank
+	 * nor repeated.
 	 * 
 	 * @param name
 	 *            the name of the new exercise
@@ -92,8 +98,7 @@ public class ExerciseManager {
 	}
 
 	/**
-	 * Updates the passed exercise after checking that its name is not blank nor
-	 * repeated.
+	 * Updates the passed exercise after checking that its name is not blank nor repeated.
 	 * 
 	 * @param exercise
 	 *            the exercise to be updated
@@ -129,8 +134,44 @@ public class ExerciseManager {
 		}
 		List<Exercise> tmp = exerciseDao.queryForEq("name", exercise.getName());
 		// if there are exercises with specified name -> name is duplicated
-		if (!tmp.isEmpty() && tmp.get(0).getId() != exercise.getId()) {
+		if (!tmp.isEmpty() && !exercise.equals(tmp.get(0))) {
 			throw new EntityNameException(R.string.exerciseNameDuplicated);
+		}
+	}
+
+	/**
+	 * Returns a list with all the {@link Exercise} entities on DB
+	 * 
+	 * @return a list with all the {@link Exercise} entities on DB
+	 */
+	public List<Exercise> getAllExercises() {
+		return exerciseDao.queryForAll();
+	}
+
+	/**
+	 * It will import the specified {@link Exercise}.
+	 * 
+	 * This means, that it will save this {@link Exercise} to DB, but if DB already holds an {@link Exercise} with
+	 * the same name as the one passed, it will override said exercise with the one passed.
+	 * 
+	 * @param exercise
+	 */
+	public void importExercise(Exercise exercise) {
+		QueryBuilder<Exercise, Integer> query = exerciseDao.queryBuilder();
+		// id will be either given by DB or copied from existing food
+		exercise.clearId();
+		try {
+			query.where().eq("name", exercise.getName());
+			List<Exercise> dbExercises = query.query();
+			if (!dbExercises.isEmpty()) {
+				Exercise dbExercise = dbExercises.get(0);
+				exercise.setId(dbExercise.getId());
+				exerciseDao.update(exercise);
+			} else {
+				exerciseDao.create(exercise);
+			}
+		} catch (SQLException e) {
+			Log.e(LOG_TAG, "Error while importing exercise with name " + exercise.getName(), e);
 		}
 	}
 

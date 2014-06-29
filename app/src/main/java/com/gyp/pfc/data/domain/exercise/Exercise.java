@@ -21,7 +21,7 @@ public class Exercise implements Serializable {
 	// Attributes ----------------------------------------------------
 
 	@DatabaseField(generatedId = true)
-	private int id;
+	private Integer id;
 	@DatabaseField(unique = true, canBeNull = false)
 	private String name;
 	@DatabaseField
@@ -81,6 +81,9 @@ public class Exercise implements Serializable {
 
 	@Override
 	public boolean equals(Object o) {
+		if(null == id){
+			return false;
+		}
 		if (o instanceof Exercise) {
 			return ((Exercise) o).getId() == id;
 		}
@@ -90,6 +93,13 @@ public class Exercise implements Serializable {
 	@Override
 	public int hashCode() {
 		return id;
+	}
+
+	/**
+	 * Clear the exercise's id
+	 */
+	public void clearId() {
+		id = null;
 	}
 
 	// Package protected ---------------------------------------------

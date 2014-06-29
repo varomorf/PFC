@@ -44,7 +44,7 @@ public class AddExerciseActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 		Integer calories = h.getIntFromUI(R.id.exerciseCalories);
 		try {
 			// on positive case -> create entity, show message and exit
-			ExerciseManager.getInstance().createExercise(name, description, calories);
+			ExerciseManager.it().createExercise(name, description, calories);
 			Toast.makeText(getApplicationContext(), R.string.exerciseCreated, Toast.LENGTH_SHORT).show();
 			finish();
 		} catch (EntityNameException e) {
