@@ -44,29 +44,36 @@ public class ShowUserBiometricDataTest extends BaseWeightActivityTest {
 	}
 
 	@Test
-	public void enclosing_method() throws IOException {
+	public void shouldShowUserDataFromConfiguration() throws IOException {
 		// GIVEN
 		// there is a weight
 		Weight w = new Weight();
 		w.setWeight(50d);
 		weightDao.create(w);
 		// set preferences values
-		TestSharedPreferences preferences = (TestSharedPreferences) activity.getSharedPreferences(
-				FileSharingName.USER_DATA.getFileName(), 0);
-		SharedPreferences.Editor editor = preferences.edit();
-		editor.putInt(UserData.AGE_KEY, 27);
-		editor.putBoolean(UserData.SEX_IS_MAN_KEY, false);
-		editor.putInt(UserData.HEIGHT_KEY, 163);
-		editor.commit();
-		System.out.println(preferences.getInt(UserData.AGE_KEY, 5));
+		prepareTestUserData();
 		// WHEN
 		// activity is started
 		createActivity();
 		// THEN
 		assertViewText(R.id.userDataShowAge, "27");
 		assertViewText(R.id.userDataShowSex, activity.getString(R.string.woman));
-		assertViewText(R.id.userDataShowHeight, "1.63 m.");
-		assertViewText(R.id.userDataShowWeight, "50.0 Kg.");
+		assertViewText(R.id.userDataShowHeight, "1,63 m.");
+		assertViewText(R.id.userDataShowWeight, "50,00 Kg.");
+		assertViewText(R.id.userDataShowBMI, "18,82");
+	}
+
+	@Test
+	public void shouldFillWithZeroIfNoWeightPresent() {
+		// GIVEN
+		// set preferences values
+		prepareTestUserData();
+		// WHEN
+		// activity is started
+		createActivity();
+		// THEN
+		assertViewText(R.id.userDataShowWeight, "0,00 Kg.");
+		assertViewText(R.id.userDataShowBMI, "0,00");
 	}
 
 	// Package protected ---------------------------------------------
@@ -79,6 +86,16 @@ public class ShowUserBiometricDataTest extends BaseWeightActivityTest {
 	}
 
 	// Private -------------------------------------------------------
+
+	private void prepareTestUserData() {
+		TestSharedPreferences preferences = (TestSharedPreferences) activity.getSharedPreferences(
+				FileSharingName.USER_DATA.getFileName(), 0);
+		SharedPreferences.Editor editor = preferences.edit();
+		editor.putInt(UserData.AGE_KEY, 27);
+		editor.putBoolean(UserData.SEX_IS_MAN_KEY, false);
+		editor.putInt(UserData.HEIGHT_KEY, 163);
+		editor.commit();
+	}
 
 	// Inner classes -------------------------------------------------
 

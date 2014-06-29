@@ -3,6 +3,10 @@
  */
 package com.gyp.pfc.data.domain.biometric;
 
+import java.text.DecimalFormat;
+
+import com.gyp.pfc.data.domain.manager.WeightManager;
+
 /**
  * Bean for the user's biometric data.
  * 
@@ -17,11 +21,15 @@ public class UserData {
 
 	public static final int DEFAULT_HEIGHT = 150;
 
+	public static final double DEFAULT_WEIGHT = 70d;
+
 	public static final String AGE_KEY = "AGE_KEY";
 
 	public static final String SEX_IS_MAN_KEY = "SEX_IS_MAN_KEY";
 
 	public static final String HEIGHT_KEY = "HEIGHT_KEY";
+
+	public static final DecimalFormat df = new DecimalFormat("####0.00");
 
 	// Attributes ----------------------------------------------------
 
@@ -100,12 +108,64 @@ public class UserData {
 	}
 
 	/**
-	 * Returns the user's height formatted as meters
+	 * Returns the last user's weight value from DB
+	 * 
+	 * @return the last user's weight value
+	 */
+	public Double getWeight() {
+		Weight weight = WeightManager.it().getLastWeight();
+		if (null == weight) {
+			weight = new Weight();
+			weight.setWeight(0d);
+		}
+		return weight.getWeight();
+	}
+
+	/**
+	 * Returns the user's height formatted as meters rounded to two decimals
 	 * 
 	 * @return the user's height formatted as meters
 	 */
 	public String getFormattedHeight() {
-		return new Double(height / 100d).toString() + " m.";
+		return df.format(getHeightInMeters()) + " m.";
+	}
+
+	/**
+	 * Returns the user's weight formatted as kilograms rounded to two decimals
+	 * 
+	 * @return the user's weight formatted as meters
+	 */
+	public String getFormattedWeight() {
+		return df.format(getWeight()) + " Kg.";
+	}
+
+	/**
+	 * Returns the user's height in centimeters
+	 * 
+	 * @return the user's height in centimeters
+	 */
+	public Double getHeightInMeters() {
+		return new Double(height / 100d);
+	}
+
+	/**
+	 * Returns the user's BMI
+	 * 
+	 * {@link http://en.wikipedia.org/wiki/Body_mass_index}
+	 * 
+	 * @return
+	 */
+	public Double getBMI() {
+		return getWeight() / Math.pow(getHeightInMeters(), 2);
+	}
+
+	/**
+	 * Returns the user's BMI string representation rounded to two decimals
+	 * 
+	 * @return the user's BMI string representation rounded to two decimals
+	 */
+	public String getFormattedBMI() {
+		return df.format(getBMI());
 	}
 
 	// Package protected ---------------------------------------------

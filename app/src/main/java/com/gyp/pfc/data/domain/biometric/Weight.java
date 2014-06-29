@@ -115,15 +115,6 @@ public class Weight implements Serializable, Comparable<Weight> {
 		return date.compareTo(o.getDate());
 	}
 
-	/**
-	 * Returns the formatted value of the weight in kilograms
-	 * 
-	 * @return the formatted value of the weight in kilograms
-	 */
-	public CharSequence getFormattedWeight() {
-		return weight.toString() + " Kg.";
-	}
-
 	// Package protected ---------------------------------------------
 
 	// Protected -----------------------------------------------------

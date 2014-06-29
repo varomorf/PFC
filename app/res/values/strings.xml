@@ -126,6 +126,7 @@
     <string name="userSex">Sexo:</string>
     <string name="userHeight">Altura:</string>
     <string name="userWeight">Último peso:</string>
+    <string name="userBMI">IMC:</string>
     <string name="man">Hombre</string>
     <string name="woman">Mujer</string>
 
