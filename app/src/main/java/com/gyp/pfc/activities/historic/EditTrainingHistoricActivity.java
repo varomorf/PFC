@@ -43,8 +43,8 @@ public class EditTrainingHistoricActivity extends AddTrainingHistoricActivity {
 		// remove previous training
 		getHelper().getTrainingDao().delete(historic.getTraining());
 		// add new exercise
-		Training training = TrainingManager.getInstance().createTraining(exercise.getName(), false);
-		TrainingManager.getInstance().addExerciseToTraining(training, exercise, seconds.intValue(), 1);
+		Training training = TrainingManager.it().createTraining(exercise.getName(), false);
+		TrainingManager.it().addExerciseToTraining(training, exercise, seconds.intValue(), 1);
 		historic.setTraining(training);
 		getHelper().getTrainingHistoricDao().update(historic);
 		// prepare intent for return

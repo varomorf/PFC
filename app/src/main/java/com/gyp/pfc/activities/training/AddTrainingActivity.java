@@ -208,7 +208,7 @@ public class AddTrainingActivity extends OrmLiteBaseActivity<DatabaseHelper> imp
 		// if the list holds trainings -> name is duplicated
 		if (!tmp.isEmpty()) {
 			// if only returned training has same id than passed is ok
-			if (tmp.size() == 1 && tmp.get(0).getId() == training.getId()) {
+			if (tmp.size() == 1 && training.equals(tmp.get(0))) {
 				return true;
 			}
 			// duplicated name -> show toast and return false

@@ -1,0 +1,31 @@
+&id001 !!com.gyp.pfc.data.domain.exercise.Training
+executable: true
+exercises: !!map
+- !!com.gyp.pfc.data.domain.exercise.TrainingExercise
+  exercise: {burntCalories: 200, description: Soy nuevo, id: 1, name: Nuevo}
+  id: 1
+  pos: 0
+  reps: 10
+  seconds: 60
+  training: *id001
+id: 1
+name: I will be overwritten
+--- &id001 !!com.gyp.pfc.data.domain.exercise.Training
+executable: true
+exercises: !!map
+- !!com.gyp.pfc.data.domain.exercise.TrainingExercise
+  exercise: {burntCalories: 100, description: Pre-existent, id: 1, name: Exercise}
+  id: 2
+  pos: 0
+  reps: 10
+  seconds: 10
+  training: *id001
+- !!com.gyp.pfc.data.domain.exercise.TrainingExercise
+  exercise: {burntCalories: 100, description: Pre-existent, id: 2, name: Exercise}
+  id: 3
+  pos: 1
+  reps: 10
+  seconds: 20
+  training: *id001
+id: 2
+name: New training

@@ -118,5 +118,7 @@
     <string name="sharingButtonDescription">Lanza la actividad para back ups</string>
     <string name="fileExportStarted">Iniciada exportación a fichero</string>
     <string name="fileExportCompleted">Terminada exportación a fichero</string>
+    <string name="fileImportStarted">Iniciada importación desde fichero</string>
+    <string name="fileImportCompleted">Terminada importación desde fichero</string>
 
 </resources>

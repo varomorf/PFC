@@ -81,7 +81,7 @@ public class Exercise implements Serializable {
 
 	@Override
 	public boolean equals(Object o) {
-		if(null == id){
+		if (null == id) {
 			return false;
 		}
 		if (o instanceof Exercise) {
@@ -92,6 +92,9 @@ public class Exercise implements Serializable {
 
 	@Override
 	public int hashCode() {
+		if (null == id) {
+			return -1;
+		}
 		return id;
 	}
 

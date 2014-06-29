@@ -9,6 +9,7 @@ import com.gyp.pfc.data.db.DatabaseHelper;
 import com.gyp.pfc.data.domain.exercise.Exercise;
 import com.gyp.pfc.data.domain.exercise.Training;
 import com.gyp.pfc.data.domain.exercise.TrainingExercise;
+import com.gyp.pfc.data.domain.manager.ExerciseManager;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
 
 public abstract class BaseTrainingTest extends BaseActivityTest {
@@ -39,6 +40,7 @@ public abstract class BaseTrainingTest extends BaseActivityTest {
 		trainingDao.delete(trainings);
 		List<Exercise> exercises = exerciseDao.queryForAll();
 		exerciseDao.delete(exercises);
+		ExerciseManager.it().setExerciseDao(exerciseDao);
 	}
 
 	// Package protected ---------------------------------------------

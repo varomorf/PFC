@@ -24,7 +24,7 @@ public class Training implements Serializable {
 	// Attributes ----------------------------------------------------
 
 	@DatabaseField(generatedId = true)
-	private int id;
+	private Integer id;
 
 	@DatabaseField(canBeNull = false)
 	private String name;
@@ -51,9 +51,8 @@ public class Training implements Serializable {
 	// Public --------------------------------------------------------
 
 	/**
-	 * Adds the passed {@link TrainingExercise} to the exercises collection and
-	 * also sets this {@link Training} as the {@link Training} of the
-	 * {@link TrainingExercise}
+	 * Adds the passed {@link TrainingExercise} to the exercises collection and also sets this {@link Training} as
+	 * the {@link Training} of the {@link TrainingExercise}
 	 * 
 	 * @param te
 	 *            the {@link TrainingExercise} to be added
@@ -98,19 +97,21 @@ public class Training implements Serializable {
 	@Override
 	public boolean equals(Object o) {
 		if (o instanceof Training) {
-			return ((Training) o).getId() == id;
+			return hashCode() == o.hashCode();
 		}
 		return false;
 	}
 
 	@Override
 	public int hashCode() {
+		if (null == id) {
+			return -1;
+		}
 		return id;
 	}
 
 	/**
-	 * Returns the amount of calories burnt in this training by adding up all
-	 * the burnt calories of the exercises
+	 * Returns the amount of calories burnt in this training by adding up all the burnt calories of the exercises
 	 * 
 	 * @return the amount of calories burnt in this training
 	 */
@@ -123,6 +124,13 @@ public class Training implements Serializable {
 			calories += reps * ((cals / 3600d) * secs);
 		}
 		return calories.intValue();
+	}
+
+	/**
+	 * Clear the id
+	 */
+	public void clearId() {
+		id = null;
 	}
 
 	// Package protected ---------------------------------------------

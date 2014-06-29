@@ -12,6 +12,7 @@ import com.gyp.pfc.R;
 import com.gyp.pfc.adapters.TrainingAdapter;
 import com.gyp.pfc.data.db.DatabaseHelper;
 import com.gyp.pfc.data.domain.exercise.Training;
+import com.gyp.pfc.data.domain.manager.TrainingManager;
 import com.j256.ormlite.android.apptools.OrmLiteBaseListActivity;
 
 /**
@@ -102,7 +103,7 @@ public class TrainingListActivity extends OrmLiteBaseListActivity<DatabaseHelper
 		// clear the list
 		getAdapter().clear();
 		// add all trainings
-		for (Training training : getHelper().getTrainingDao().queryForAll()) {
+		for (Training training : TrainingManager.it().getAllTrainings()) {
 			getAdapter().add(training);
 		}
 		// refresh UI

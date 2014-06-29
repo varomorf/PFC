@@ -155,6 +155,7 @@ public class ExerciseManager {
 	 * the same name as the one passed, it will override said exercise with the one passed.
 	 * 
 	 * @param exercise
+	 *            the {@link Exercise} to be imported
 	 */
 	public void importExercise(Exercise exercise) {
 		QueryBuilder<Exercise, Integer> query = exerciseDao.queryBuilder();

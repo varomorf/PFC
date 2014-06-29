@@ -58,8 +58,8 @@ public class FileSharingActivityTest extends BaseActivityTest {
 		DatabaseHelper dbh = new DatabaseHelper(realActivity);
 		FoodManager.it().setFoodDao(dbh.getFoodDao());
 		ExerciseManager.it().setExerciseDao(dbh.getExerciseDao());
-		TrainingManager.getInstance().setTrainingExerciseDao(dbh.getTrainingExerciseDao());
-		TrainingManager.getInstance().setTrainingDao(dbh.getTrainingDao());
+		TrainingManager.it().setTrainingExerciseDao(dbh.getTrainingExerciseDao());
+		TrainingManager.it().setTrainingDao(dbh.getTrainingDao());
 	}
 
 	@Test
@@ -107,13 +107,13 @@ public class FileSharingActivityTest extends BaseActivityTest {
 		// two executable trainings on DB with two different exercises
 		Exercise e1 = ExerciseManager.it().createExercise("One", "", 100);
 		Exercise e2 = ExerciseManager.it().createExercise("Two", "", 200);
-		Training t1 = TrainingManager.getInstance().createTraining("One");
-		Training t2 = TrainingManager.getInstance().createTraining("Two");
-		TrainingManager.getInstance().addExerciseToTraining(t1, e1, 10, 1);
-		TrainingManager.getInstance().addExerciseToTraining(t2, e1, 20, 2);
-		TrainingManager.getInstance().addExerciseToTraining(t2, e2, 30, 3);
+		Training t1 = TrainingManager.it().createTraining("One");
+		Training t2 = TrainingManager.it().createTraining("Two");
+		TrainingManager.it().addExerciseToTraining(t1, e1, 10, 1);
+		TrainingManager.it().addExerciseToTraining(t2, e1, 20, 2);
+		TrainingManager.it().addExerciseToTraining(t2, e2, 30, 3);
 		// one not executable training
-		TrainingManager.getInstance().createTraining("Three", false);
+		TrainingManager.it().createTraining("Three", false);
 		// WHEN
 		// activity is created
 		createActivity();
@@ -257,6 +257,68 @@ public class FileSharingActivityTest extends BaseActivityTest {
 		assertEquals("Flexiones", newExercise.getName());
 		assertEquals("Hacer flexiones XD", newExercise.getDescription());
 		assertEquals(200d, newExercise.getBurntCalories(), 0);
+	}
+
+	@Test
+	public void shouldImportTrainingsOverridingExistingByNameAndAddingExercises() throws EntityNameException,
+			IOException {
+		// GIVEN
+		// one exercises on DB that must not be overwritten
+		Exercise e = ExerciseManager.it().createExercise("Exercise", "Pre-existent", 100);
+		// two executable trainings on DB. One will be overwritten
+		Training t1 = TrainingManager.it().createTraining("I won't");
+		TrainingManager.it().addExerciseToTraining(t1, e, 10, 1);
+		Training t2 = TrainingManager.it().createTraining("I will be overwritten");
+		TrainingManager.it().addExerciseToTraining(t2, e, 20, 2);
+		TrainingManager.it().addExerciseToTraining(t2, e, 30, 3);
+		// a yaml file with two trainings, one that uses existing exercise and other that uses new exercise
+		copyTestFile(TRAINING);
+		// WHEN
+		// activity is started
+		createActivity();
+		// import of exercises is requested
+		clickOn(activity.findViewById(R.id.fileImportTrainingButton));
+		// THEN
+		List<Training> trainings = TrainingManager.it().getAllTrainings();
+		assertEquals("There should be 3 trainings in total", 3, trainings.size());
+		List<Exercise> exercises = ExerciseManager.it().getAllExercises();
+		assertEquals("There should be 2 exercises in total", 2, exercises.size());
+		// first assert the new exercise
+		Exercise newExercise = exercises.get(1);
+		assertEquals("Nuevo", newExercise.getName());
+		assertEquals("Soy nuevo", newExercise.getDescription());
+		assertEquals(200d, newExercise.getBurntCalories(), 0);
+		// assert not overwritten training
+		Training notOverwritten = trainings.get(0);
+		assertEquals("I won't", notOverwritten.getName());
+		assertTrue(notOverwritten.isExecutable());
+		assertEquals(1, notOverwritten.getExercises().size());
+		TrainingExercise te1 = (TrainingExercise) notOverwritten.getExercises().toArray()[0];
+		assertEquals(e.getName(), te1.getExercise().getName());
+		assertEquals(10, te1.getSeconds());
+		assertEquals(1, te1.getReps());
+		// assert overwritten training (now it uses the new exercise)
+		Training overwritten = trainings.get(1);
+		assertEquals("I will be overwritten", overwritten.getName());
+		assertTrue(overwritten.isExecutable());
+		assertEquals(1, overwritten.getExercises().size());
+		TrainingExercise te2 = (TrainingExercise) overwritten.getExercises().toArray()[0];
+		assertEquals(newExercise.getName(), te2.getExercise().getName());
+		assertEquals(60, te2.getSeconds());
+		assertEquals(10, te2.getReps());
+		// assert new training (uses the previous exercise 2 times)
+		Training newTraining = trainings.get(2);
+		assertEquals("New training", newTraining.getName());
+		assertTrue(newTraining.isExecutable());
+		assertEquals(2, newTraining.getExercises().size());
+		TrainingExercise te3 = (TrainingExercise) newTraining.getExercises().toArray()[0];
+		assertEquals(e.getName(), te3.getExercise().getName());
+		assertEquals(10, te3.getSeconds());
+		assertEquals(10, te3.getReps());
+		TrainingExercise te4 = (TrainingExercise) newTraining.getExercises().toArray()[1];
+		assertEquals(e.getName(), te4.getExercise().getName());
+		assertEquals(20, te4.getSeconds());
+		assertEquals(10, te4.getReps());
 	}
 
 	// Package protected ---------------------------------------------

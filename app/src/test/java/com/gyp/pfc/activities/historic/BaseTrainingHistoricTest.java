@@ -46,7 +46,7 @@ public abstract class BaseTrainingHistoricTest extends BaseActivityTest {
 	public void before() {
 		super.before();
 		trainingHistoricDao = new DatabaseHelper(realActivity).getTrainingHistoricDao();
-		trainingManager = TrainingManager.getInstance();
+		trainingManager = TrainingManager.it();
 		trainingManager.setTrainingDao(new DatabaseHelper(realActivity).getTrainingDao());
 		trainingManager.setTrainingExerciseDao(new DatabaseHelper(realActivity).getTrainingExerciseDao());
 		exerciseManager = ExerciseManager.it();

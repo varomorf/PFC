@@ -145,6 +145,7 @@ public class FoodManager {
 	 * name as the one passed, it will override said food with the one passed.
 	 * 
 	 * @param food
+	 *            the {@link Food} to be imported
 	 */
 	public void importFood(Food food) {
 		QueryBuilder<Food, Integer> query = foodDAO.queryBuilder();

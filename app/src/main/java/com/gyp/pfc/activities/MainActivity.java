@@ -149,24 +149,24 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 						"De pie, damos un paso con una pierna, dejando la otra en el sitio. Flexionamos la rodilla adelantada, de tal modo que la rodilla atrasada llegue a tocar el suelo. Volvemos a la posición de partida.",
 						150);
 		// load test trainings
-		Training training1 = TrainingManager.getInstance().createTraining("Pirámide de abdominales");
-		TrainingManager.getInstance().addExerciseToTraining(training1, exercise2, 0, 20);
-		TrainingManager.getInstance().addExerciseToTraining(training1, exercise2, 0, 30);
-		TrainingManager.getInstance().addExerciseToTraining(training1, exercise2, 0, 40);
-		TrainingManager.getInstance().addExerciseToTraining(training1, exercise2, 0, 30);
-		TrainingManager.getInstance().addExerciseToTraining(training1, exercise2, 0, 20);
-		Training training2 = TrainingManager.getInstance().createTraining("Serie de flexiones");
-		TrainingManager.getInstance().addExerciseToTraining(training2, exercise1, 0, 10);
-		TrainingManager.getInstance().addExerciseToTraining(training2, exercise1, 0, 10);
-		TrainingManager.getInstance().addExerciseToTraining(training2, exercise1, 0, 10);
-		TrainingManager.getInstance().addExerciseToTraining(training2, exercise1, 0, 10);
-		Training training3 = TrainingManager.getInstance().createTraining("Serie variada");
-		TrainingManager.getInstance().addExerciseToTraining(training3, exercise1, 30, 1);
-		TrainingManager.getInstance().addExerciseToTraining(training3, exercise2, 30, 1);
-		TrainingManager.getInstance().addExerciseToTraining(training3, exercise3, 30, 1);
-		TrainingManager.getInstance().addExerciseToTraining(training3, exercise1, 30, 1);
-		TrainingManager.getInstance().addExerciseToTraining(training3, exercise2, 30, 1);
-		TrainingManager.getInstance().addExerciseToTraining(training3, exercise3, 30, 1);
+		Training training1 = TrainingManager.it().createTraining("Pirámide de abdominales");
+		TrainingManager.it().addExerciseToTraining(training1, exercise2, 0, 20);
+		TrainingManager.it().addExerciseToTraining(training1, exercise2, 0, 30);
+		TrainingManager.it().addExerciseToTraining(training1, exercise2, 0, 40);
+		TrainingManager.it().addExerciseToTraining(training1, exercise2, 0, 30);
+		TrainingManager.it().addExerciseToTraining(training1, exercise2, 0, 20);
+		Training training2 = TrainingManager.it().createTraining("Serie de flexiones");
+		TrainingManager.it().addExerciseToTraining(training2, exercise1, 0, 10);
+		TrainingManager.it().addExerciseToTraining(training2, exercise1, 0, 10);
+		TrainingManager.it().addExerciseToTraining(training2, exercise1, 0, 10);
+		TrainingManager.it().addExerciseToTraining(training2, exercise1, 0, 10);
+		Training training3 = TrainingManager.it().createTraining("Serie variada");
+		TrainingManager.it().addExerciseToTraining(training3, exercise1, 30, 1);
+		TrainingManager.it().addExerciseToTraining(training3, exercise2, 30, 1);
+		TrainingManager.it().addExerciseToTraining(training3, exercise3, 30, 1);
+		TrainingManager.it().addExerciseToTraining(training3, exercise1, 30, 1);
+		TrainingManager.it().addExerciseToTraining(training3, exercise2, 30, 1);
+		TrainingManager.it().addExerciseToTraining(training3, exercise3, 30, 1);
 	}
 
 	/**
@@ -185,8 +185,8 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 	 * Initializes all managers
 	 */
 	private void initializeManagers() {
-		TrainingManager.getInstance().setTrainingDao(getHelper().getTrainingDao());
-		TrainingManager.getInstance().setTrainingExerciseDao(getHelper().getTrainingExerciseDao());
+		TrainingManager.it().setTrainingDao(getHelper().getTrainingDao());
+		TrainingManager.it().setTrainingExerciseDao(getHelper().getTrainingExerciseDao());
 		FoodManager.it().setFoodDao(getHelper().getFoodDao());
 		ExerciseManager.it().setExerciseDao(getHelper().getExerciseDao());
 		MealNameManager.getInstance().setMealNameDao(getHelper().getMealNameDao());

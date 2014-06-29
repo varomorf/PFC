@@ -7,7 +7,9 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.yaml.snakeyaml.Yaml;
 
@@ -24,7 +26,9 @@ import com.gyp.pfc.data.domain.exercise.Training;
 import com.gyp.pfc.data.domain.food.Food;
 import com.gyp.pfc.data.domain.manager.ExerciseManager;
 import com.gyp.pfc.data.domain.manager.FoodManager;
+import com.gyp.pfc.data.domain.manager.TrainingManager;
 import com.gyp.pfc.sharing.FileSharingName;
+import com.gyp.pfc.sharing.TrainingConstructor;
 import com.gyp.pfc.sharing.TrainingRepresenter;
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 
@@ -126,6 +130,32 @@ public class FileSharingActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 		exportEntities(trainings, TRAINING);
 	}
 
+	/**
+	 * Imports all the {@link Training} entries from its corresponding file if it exists.
+	 * 
+	 * Once loaded, they will be loaded on DB overriding exiting ones if name is equal. The {@link Exercise}
+	 * entities used on the trainings will not be overwritten, but new ones will also be added to DB.
+	 * 
+	 * @param view
+	 *            the button that calls
+	 */
+	public void importTrainings(View view) {
+		// create a map of existing Exercises with their name as key for preformance reasons
+		final Map<String, Exercise> exercises = new HashMap<String, Exercise>();
+		for (Exercise exercise : ExerciseManager.it().getAllExercises()) {
+			exercises.put(exercise.getName(), exercise);
+		}
+		ExerciseManager.it().getAllExercises();
+		importEntities(TRAINING, new Closure() {
+
+			@Override
+			public Object call(Object it) {
+				TrainingManager.it().importTraining((Training) it, exercises);
+				return null;
+			}
+		});
+	}
+
 	// Package protected ---------------------------------------------
 
 	// Protected -----------------------------------------------------
@@ -173,13 +203,15 @@ public class FileSharingActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 	 */
 	private void importEntities(FileSharingName fileSharingName, Closure closure) {
 		File file = new File(getDataStorageDir(), fileSharingName.getFileName());
+		Toast.makeText(this, getString(R.string.fileImportStarted), Toast.LENGTH_SHORT).show();
 		try {
-			for (Object o : new Yaml().loadAll(new FileInputStream(file))) {
+			for (Object o : new Yaml(new TrainingConstructor()).loadAll(new FileInputStream(file))) {
 				closure.call(o);
 			}
 		} catch (FileNotFoundException e) {
 			Log.e(LOG_TAG, ERROR_IMPORTING + fileSharingName.getClassName(), e);
 		}
+		Toast.makeText(this, getString(R.string.fileImportCompleted), Toast.LENGTH_SHORT).show();
 	}
 
 	/**
@@ -189,12 +221,11 @@ public class FileSharingActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 	 */
 	private File getDataStorageDir() {
 		// Get the directory for the user's public pictures directory.
-		File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
-				DATA_DIR_NAME);
-		if (!file.mkdirs()) {
-			Log.e(LOG_TAG, "Directory not created");
+		File dir = Environment.getExternalStoragePublicDirectory(DATA_DIR_NAME);
+		if (!dir.exists()) {
+			dir.mkdirs();
 		}
-		return file;
+		return dir;
 	}
 
 	// Inner classes -------------------------------------------------

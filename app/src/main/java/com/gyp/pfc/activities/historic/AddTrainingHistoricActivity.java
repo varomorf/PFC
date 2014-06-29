@@ -107,8 +107,8 @@ public class AddTrainingHistoricActivity extends OrmLiteBaseActivity<DatabaseHel
 	 */
 	public void okButton(View view) {
 		Long seconds = (historic.getEnd().getTime() - historic.getStart().getTime()) / 1000;
-		Training training = TrainingManager.getInstance().createTraining(exercise.getName(), false);
-		TrainingManager.getInstance().addExerciseToTraining(training, exercise, seconds.intValue(), 1);
+		Training training = TrainingManager.it().createTraining(exercise.getName(), false);
+		TrainingManager.it().addExerciseToTraining(training, exercise, seconds.intValue(), 1);
 		historic.setTraining(training);
 		getHelper().getTrainingHistoricDao().create(historic);
 		finish();

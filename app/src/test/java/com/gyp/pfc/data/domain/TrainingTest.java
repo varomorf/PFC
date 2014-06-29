@@ -57,6 +57,23 @@ public class TrainingTest {
 		assertEquals("Training doesn't return expected burnt calories", 100, calories);
 	}
 
+	@Test
+	public void shouldCalculateHashCorrectly() {
+		// GIVEN
+		// a training with id
+		Training id = new Training();
+		id.setId(1);
+		// a training without id
+		Training noId = new Training();
+		// WHEN
+		// hashcode get from each
+		int hashId = id.hashCode();
+		int hashNoId = noId.hashCode();
+		// THEN
+		assertEquals("If id is present, hashcode must be the id", 1, hashId);
+		assertEquals("If id is not present, -1 must be the id", -1, hashNoId);
+	}
+
 	// Package protected ---------------------------------------------
 
 	// Protected -----------------------------------------------------
