@@ -25,6 +25,14 @@
             android:contentDescription="@string/exportData"
             android:onClick="exportFoods"
             android:src="@drawable/export_entities" />
+
+        <ImageButton
+            android:id="@+id/fileImportFoodButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/importData"
+            android:onClick="importFoods"
+            android:src="@drawable/import_entities" />
     </LinearLayout>
 
     <LinearLayout
@@ -47,6 +55,14 @@
             android:contentDescription="@string/exportData"
             android:onClick="exportExercises"
             android:src="@drawable/export_entities" />
+
+        <ImageButton
+            android:id="@+id/fileImportExerciseButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/importData"
+            android:onClick="importExercises"
+            android:src="@drawable/import_entities" />
     </LinearLayout>
 
     <LinearLayout
@@ -69,6 +85,14 @@
             android:contentDescription="@string/exportData"
             android:onClick="exportTrainings"
             android:src="@drawable/export_entities" />
+
+        <ImageButton
+            android:id="@+id/fileImportTrainingButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/importData"
+            android:onClick="importTrainings"
+            android:src="@drawable/import_entities" />
     </LinearLayout>
 
 </LinearLayout>

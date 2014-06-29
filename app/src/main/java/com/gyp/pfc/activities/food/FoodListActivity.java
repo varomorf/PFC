@@ -25,6 +25,7 @@ import com.gyp.pfc.activities.constants.FoodConstants;
 import com.gyp.pfc.activities.helpers.FoodActivityHelper;
 import com.gyp.pfc.adapters.FoodListViewAdapter;
 import com.gyp.pfc.data.domain.food.Food;
+import com.gyp.pfc.data.domain.manager.FoodManager;
 import com.j256.ormlite.stmt.PreparedQuery;
 import com.j256.ormlite.stmt.QueryBuilder;
 
@@ -60,7 +61,7 @@ public class FoodListActivity extends BaseListActivity implements OnQueryTextLis
 		setContentView(R.layout.entity_list);
 		SearchView searchView = (SearchView) findViewById(R.id.search);
 		searchView.setOnQueryTextListener(this);
-		setListAdapter(new FoodListViewAdapter(this, R.layout.food_list_item, getFoods()));
+		setListAdapter(new FoodListViewAdapter(this, R.layout.food_list_item, FoodManager.it().getAllFoods()));
 		registerForContextMenu(getListView());
 	}
 
@@ -97,7 +98,7 @@ public class FoodListActivity extends BaseListActivity implements OnQueryTextLis
 	@Override
 	public boolean onQueryTextChange(String newText) {
 		if (StringUtils.isBlank(newText)) {
-			refreshAdapter(getFoods());
+			refreshAdapter(FoodManager.it().getAllFoods());
 		}
 		if (newText.length() >= MIN_QUERY_LENGTH) {
 			List<Food> foods;
@@ -108,7 +109,7 @@ public class FoodListActivity extends BaseListActivity implements OnQueryTextLis
 				foods = getHelper().getFoodDao().query(pq);
 			} catch (SQLException e) {
 				Log.e(TAG, "Error while finding foods with name like " + newText, e);
-				foods = getFoods();
+				foods = FoodManager.it().getAllFoods();
 			}
 			refreshAdapter(foods);
 		}
@@ -185,10 +186,6 @@ public class FoodListActivity extends BaseListActivity implements OnQueryTextLis
 
 	// Private -------------------------------------------------------
 
-	private List<Food> getFoods() {
-		return getHelper().getFoodDao().queryForAll();
-	}
-
 	private void refreshAdapter(List<Food> foods) {
 		FoodListViewAdapter adapter = (FoodListViewAdapter) getListAdapter();
 		adapter.setFoods(foods);
@@ -196,7 +193,7 @@ public class FoodListActivity extends BaseListActivity implements OnQueryTextLis
 	}
 
 	private void refreshAdapter() {
-		refreshAdapter(getFoods());
+		refreshAdapter(FoodManager.it().getAllFoods());
 	}
 
 	/**

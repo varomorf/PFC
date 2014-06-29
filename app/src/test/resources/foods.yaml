@@ -1,0 +1,6 @@
+!!com.gyp.pfc.data.domain.food.Food {brandName: '', calories: 200.0, carbs: 40.0,
+  fats: 0.0, fiber: 0.0, id: 1, name: Override me, protein: 20.0, saturatedFats: 0.0, sodium: 0.0,
+  sugar: 0.0}
+--- !!com.gyp.pfc.data.domain.food.Food {brandName: '', calories: 250.0, carbs: 150.0,
+  fats: 10.0, fiber: 0.0, id: 2, name: Pan, protein: 10.0, saturatedFats: 0.0, sodium: 0.0,
+  sugar: 0.0}

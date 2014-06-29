@@ -28,7 +28,7 @@ public class Food implements Serializable, NutritionalInformationProvider {
 
 	@DatabaseField(generatedId = true)
 	private Integer id;
-	@DatabaseField(canBeNull = false)
+	@DatabaseField(canBeNull = false, unique = true)
 	private String name;
 	@DatabaseField(columnName = "brandname")
 	private String brandName;
@@ -86,8 +86,7 @@ public class Food implements Serializable, NutritionalInformationProvider {
 	}
 
 	/**
-	 * Sets the calories trying to parse an int from the passed String. If no
-	 * int can be parsed, null will be set.
+	 * Sets the calories trying to parse an int from the passed String. If no int can be parsed, null will be set.
 	 * 
 	 * @param calories
 	 *            the string with the amount of calories
@@ -105,8 +104,8 @@ public class Food implements Serializable, NutritionalInformationProvider {
 	}
 
 	/**
-	 * Sets the sugar trying to parse a double from the passed String. If no
-	 * double can be parsed, null will be set.
+	 * Sets the sugar trying to parse a double from the passed String. If no double can be parsed, null will be
+	 * set.
 	 * 
 	 * @param sugar
 	 *            the string with the amount of sugar
@@ -124,8 +123,7 @@ public class Food implements Serializable, NutritionalInformationProvider {
 	}
 
 	/**
-	 * Sets the fats trying to parse a double from the passed String. If no
-	 * double can be parsed, null will be set.
+	 * Sets the fats trying to parse a double from the passed String. If no double can be parsed, null will be set.
 	 * 
 	 * @param fats
 	 *            the string with the amount of fats
@@ -151,8 +149,8 @@ public class Food implements Serializable, NutritionalInformationProvider {
 	}
 
 	/**
-	 * Sets the protein trying to parse a double from the passed String. If no
-	 * double can be parsed, null will be set.
+	 * Sets the protein trying to parse a double from the passed String. If no double can be parsed, null will be
+	 * set.
 	 * 
 	 * @param protein
 	 *            the string with the amount of protein
@@ -170,8 +168,8 @@ public class Food implements Serializable, NutritionalInformationProvider {
 	}
 
 	/**
-	 * Sets the carbs trying to parse a double from the passed String. If no
-	 * double can be parsed, null will be set.
+	 * Sets the carbs trying to parse a double from the passed String. If no double can be parsed, null will be
+	 * set.
 	 * 
 	 * @param carbs
 	 *            the string with the amount of carbs
@@ -189,8 +187,8 @@ public class Food implements Serializable, NutritionalInformationProvider {
 	}
 
 	/**
-	 * Sets the fiber trying to parse a double from the passed String. If no
-	 * double can be parsed, null will be set.
+	 * Sets the fiber trying to parse a double from the passed String. If no double can be parsed, null will be
+	 * set.
 	 * 
 	 * @param fiber
 	 *            the string with the amount of fiber
@@ -208,8 +206,8 @@ public class Food implements Serializable, NutritionalInformationProvider {
 	}
 
 	/**
-	 * Sets the saturatedFats trying to parse a double from the passed String.
-	 * If no double can be parsed, null will be set.
+	 * Sets the saturatedFats trying to parse a double from the passed String. If no double can be parsed, null
+	 * will be set.
 	 * 
 	 * @param saturatedFats
 	 *            the string with the amount of saturatedFats
@@ -227,8 +225,8 @@ public class Food implements Serializable, NutritionalInformationProvider {
 	}
 
 	/**
-	 * Sets the sodium trying to parse a double from the passed String. If no
-	 * double can be parsed, null will be set.
+	 * Sets the sodium trying to parse a double from the passed String. If no double can be parsed, null will be
+	 * set.
 	 * 
 	 * @param sodium
 	 *            the string with the amount of sodium
@@ -282,6 +280,13 @@ public class Food implements Serializable, NutritionalInformationProvider {
 	@Override
 	public int hashCode() {
 		return id;
+	}
+
+	/**
+	 * Clear the food's id
+	 */
+	public void clearId() {
+		id = null;
 	}
 
 	// Package protected ---------------------------------------------

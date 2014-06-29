@@ -56,10 +56,10 @@ public class FoodListActivityTest extends BaseFoodTest implements FoodConstants,
 		super.before();
 		List<Food> foods = dao.queryForAll();
 		dao.delete(foods);
-		FoodManager.getInstance().setFoodDao(dao);
-		FoodManager.getInstance().createFood(FOOD0, "", 364, 6.67, 81.60, 0, 1.4, 0.9, 0.19, 0.0039);
-		FoodManager.getInstance().createFood(FOOD1, "", 162, 12.68, 0.68, 0, 0, 12.10, 3.3, 0.144);
-		FoodManager.getInstance().createFood(FOOD2, BRAND2, 261, 8.47, 51.50, 0, 3.5, 1.6, 0.39, 0.540);
+		FoodManager.it().setFoodDao(dao);
+		FoodManager.it().createFood(FOOD0, "", 364, 6.67, 81.60, 0, 1.4, 0.9, 0.19, 0.0039);
+		FoodManager.it().createFood(FOOD1, "", 162, 12.68, 0.68, 0, 0, 12.10, 3.3, 0.144);
+		FoodManager.it().createFood(FOOD2, BRAND2, 261, 8.47, 51.50, 0, 3.5, 1.6, 0.39, 0.540);
 	}
 
 	@Test

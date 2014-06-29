@@ -3,8 +3,14 @@
  */
 package com.gyp.pfc.data.domain.manager;
 
+import java.sql.SQLException;
+import java.util.List;
+
+import android.util.Log;
+
 import com.gyp.pfc.data.domain.food.Food;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
+import com.j256.ormlite.stmt.QueryBuilder;
 
 /**
  * Manager for operations with {@link Food} entities
@@ -15,6 +21,8 @@ import com.j256.ormlite.dao.RuntimeExceptionDao;
 public class FoodManager {
 
 	// Constants -----------------------------------------------------
+
+	private static final String LOG_TAG = FoodManager.class.getName();
 
 	// Attributes ----------------------------------------------------
 
@@ -31,7 +39,7 @@ public class FoodManager {
 	 * 
 	 * @return the singleton instance of the FoodManager
 	 */
-	public static FoodManager getInstance() {
+	public static FoodManager it() {
 		if (null == instance) {
 			instance = new FoodManager();
 		}
@@ -60,8 +68,7 @@ public class FoodManager {
 	}
 
 	/**
-	 * Creates a new food specifying its name, calories, grams of proteins,
-	 * grams of carbs and grams of fats
+	 * Creates a new food specifying its name, calories, grams of proteins, grams of carbs and grams of fats
 	 * 
 	 * @param name
 	 *            the name of the food
@@ -80,9 +87,8 @@ public class FoodManager {
 	}
 
 	/**
-	 * Creates a new food specifying its name, brand name, calories, grams of
-	 * protein, grams of carbs, grams of sugar, grams of fiber, grams of fats,
-	 * grams of saturated fats and grams of sodium
+	 * Creates a new food specifying its name, brand name, calories, grams of protein, grams of carbs, grams of
+	 * sugar, grams of fiber, grams of fats, grams of saturated fats and grams of sodium
 	 * 
 	 * @param name
 	 *            the name of the food
@@ -121,6 +127,42 @@ public class FoodManager {
 		food.setSodium(sodium);
 		foodDAO.create(food);
 		return food;
+	}
+
+	/**
+	 * Returns a list with all the {@link Food} entities on DB
+	 * 
+	 * @return a list with all the {@link Food} entities on DB
+	 */
+	public List<Food> getAllFoods() {
+		return foodDAO.queryForAll();
+	}
+
+	/**
+	 * It will import the specified {@link Food}.
+	 * 
+	 * This means, that it will save this {@link Food} to DB, but if DB already holds a {@link Food} with the same
+	 * name as the one passed, it will override said food with the one passed.
+	 * 
+	 * @param food
+	 */
+	public void importFood(Food food) {
+		QueryBuilder<Food, Integer> query = foodDAO.queryBuilder();
+		// id will be either given by DB or copied from existing food
+		food.clearId();
+		try {
+			query.where().eq("name", food.getName());
+			List<Food> dbFoods = query.query();
+			if (!dbFoods.isEmpty()) {
+				Food dbFood = dbFoods.get(0);
+				food.setId(dbFood.getId());
+				foodDAO.update(food);
+			} else {
+				foodDAO.create(food);
+			}
+		} catch (SQLException e) {
+			Log.e(LOG_TAG, "Error while importing food with name " + food.getName(), e);
+		}
 	}
 
 	// Package protected ---------------------------------------------

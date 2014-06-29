@@ -114,7 +114,9 @@
     <string name="enterCorrectWeight">Introduzca un peso correcto</string>
     <string name="duplicatedWeight">No se puede añadir un peso para una fecha que ya tiene peso</string>
     <string name="exportData">Exporta los datos de esta entidad a un fichero</string>
+    <string name="importData">Importa los datos del fichero de esta entidad</string>
     <string name="sharingButtonDescription">Lanza la actividad para back ups</string>
-    <string name="sharingButtonDescription">Terminada exportación a ficheros</string>
+    <string name="fileExportStarted">Iniciada exportación a fichero</string>
+    <string name="fileExportCompleted">Terminada exportación a fichero</string>
 
 </resources>

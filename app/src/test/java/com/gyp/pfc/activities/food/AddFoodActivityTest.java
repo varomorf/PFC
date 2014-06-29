@@ -43,7 +43,7 @@ public class AddFoodActivityTest extends BaseFoodTest {
 		super.before();
 		List<Food> foods = dao.queryForAll();
 		dao.delete(foods);
-		FoodManager.getInstance().setFoodDao(dao);
+		FoodManager.it().setFoodDao(dao);
 	}
 
 	@Test

@@ -126,9 +126,9 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 
 	protected void loadTestData() throws EntityNameException {
 		// load test food
-		FoodManager.getInstance().createFood("Arroz", "", 364, 6.67, 81.60, 0, 1.4, 0.9, 0.19, 0.0039);
-		FoodManager.getInstance().createFood("Huevo", "", 162, 12.68, 0.68, 0, 0, 12.10, 3.3, 0.144);
-		FoodManager.getInstance()
+		FoodManager.it().createFood("Arroz", "", 364, 6.67, 81.60, 0, 1.4, 0.9, 0.19, 0.0039);
+		FoodManager.it().createFood("Huevo", "", 162, 12.68, 0.68, 0, 0, 12.10, 3.3, 0.144);
+		FoodManager.it()
 				.createFood("Pan blanco", "Mercadona", 261, 8.47, 51.50, 0, 3.5, 1.6, 0.39, 0.540);
 		// load test exercises
 		Exercise exercise1 = ExerciseManager
@@ -188,7 +188,7 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 	private void initializeManagers() {
 		TrainingManager.getInstance().setTrainingDao(getHelper().getTrainingDao());
 		TrainingManager.getInstance().setTrainingExerciseDao(getHelper().getTrainingExerciseDao());
-		FoodManager.getInstance().setFoodDao(getHelper().getFoodDao());
+		FoodManager.it().setFoodDao(getHelper().getFoodDao());
 		ExerciseManager.getInstance().setExerciseDao(getHelper().getExerciseDao());
 		MealNameManager.getInstance().setMealNameDao(getHelper().getMealNameDao());
 	}

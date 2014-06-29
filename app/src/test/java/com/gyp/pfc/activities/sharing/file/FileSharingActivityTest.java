@@ -1,15 +1,17 @@
 package com.gyp.pfc.activities.sharing.file;
 
 import static com.gyp.pfc.sharing.FileSharingName.*;
-import static com.xtremelabs.robolectric.Robolectric.clickOn;
+import static com.xtremelabs.robolectric.Robolectric.*;
 import static org.junit.Assert.*;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.io.FileUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -29,6 +31,7 @@ import com.gyp.pfc.data.domain.food.Food;
 import com.gyp.pfc.data.domain.manager.ExerciseManager;
 import com.gyp.pfc.data.domain.manager.FoodManager;
 import com.gyp.pfc.data.domain.manager.TrainingManager;
+import com.gyp.pfc.sharing.FileSharingName;
 import com.gyp.pfc.sharing.TrainingConstructor;
 import com.xtremelabs.robolectric.shadows.ShadowActivity;
 
@@ -53,7 +56,7 @@ public class FileSharingActivityTest extends BaseActivityTest {
 	public void before() {
 		super.before();
 		DatabaseHelper dbh = new DatabaseHelper(realActivity);
-		FoodManager.getInstance().setFoodDao(dbh.getFoodDao());
+		FoodManager.it().setFoodDao(dbh.getFoodDao());
 		ExerciseManager.getInstance().setExerciseDao(dbh.getExerciseDao());
 		TrainingManager.getInstance().setTrainingExerciseDao(dbh.getTrainingExerciseDao());
 		TrainingManager.getInstance().setTrainingDao(dbh.getTrainingDao());
@@ -63,8 +66,8 @@ public class FileSharingActivityTest extends BaseActivityTest {
 	public void shouldExportFoodEntities() throws FileNotFoundException {
 		// GIVEN
 		// two foods on DB
-		FoodManager.getInstance().createFood("Arroz", 150d, 50d, 100d, 5d);
-		FoodManager.getInstance().createFood("Pan", 250d, 10d, 150d, 10d);
+		FoodManager.it().createFood("Arroz", 150d, 50d, 100d, 5d);
+		FoodManager.it().createFood("Pan", 250d, 10d, 150d, 10d);
 		// WHEN
 		// activity is created
 		createActivity();
@@ -72,6 +75,8 @@ public class FileSharingActivityTest extends BaseActivityTest {
 		clickOn(activity.findViewById(R.id.fileSharingFoodButton));
 		// THEN
 		File file = new File(new File(ShadowActivity.EXTERNAL_FILES_DIR, DATA_DIR_NAME), FOOD.getFileName());
+		// print file path for checking it
+		System.out.println(file.getPath());
 		// the file must exist
 		assertTrue("The file for the export does not exist", file.isFile());
 		// file should have expected data
@@ -116,6 +121,8 @@ public class FileSharingActivityTest extends BaseActivityTest {
 		clickOn(activity.findViewById(R.id.fileSharingTrainingButton));
 		// THEN
 		File file = new File(new File(ShadowActivity.EXTERNAL_FILES_DIR, DATA_DIR_NAME), TRAINING.getFileName());
+		// print file path for checking it
+		System.out.println(file.getPath());
 		// the file must exist
 		assertTrue("The file for the export does not exist", file.isFile());
 		// file should have expected data
@@ -154,6 +161,8 @@ public class FileSharingActivityTest extends BaseActivityTest {
 		clickOn(activity.findViewById(R.id.fileSharingExerciseButton));
 		// THEN
 		File file = new File(new File(ShadowActivity.EXTERNAL_FILES_DIR, DATA_DIR_NAME), EXERCISE.getFileName());
+		// print file path for checking it
+		System.out.println(file.getPath());
 		// the file must exist
 		assertTrue("The file for the export does not exist", file.isFile());
 		// file should have expected data
@@ -174,6 +183,47 @@ public class FileSharingActivityTest extends BaseActivityTest {
 		assertEquals(200, exercise2.getBurntCalories(), 0);
 	}
 
+	@Test
+	public void shouldImportFoodsOverridingExistingByName() throws IOException {
+		// GIVEN
+		// two foods on DB
+		// one that will be overridden
+		FoodManager.it().createFood("Override me", 100d, 10d, 20d, 30d);
+		// one that wont be
+		FoodManager.it().createFood("I will survive", 100d, 10d, 20d, 30d);
+		// a yaml file with two foods, one that exists (named "Override me") and another that is not on DB
+		copyTestFile(FOOD);
+		// WHEN
+		// activity is started
+		createActivity();
+		// import of foods is requested
+		clickOn(activity.findViewById(R.id.fileImportFoodButton));
+		// THEN
+		List<Food> foods = FoodManager.it().getAllFoods();
+		assertEquals("There should be 3 foods in total", 3, foods.size());
+		// assert overridden food that must have same id as before
+		Food overridden = foods.get(0);
+		assertEquals("Override me", overridden.getName());
+		assertEquals(200d, overridden.getCalories(), 0);
+		assertEquals(20d, overridden.getProtein(), 0);
+		assertEquals(40d, overridden.getCarbs(), 0);
+		assertEquals(0d, overridden.getFats(), 0);
+		// assert survivor food that must have same id as before
+		Food survivor = foods.get(1);
+		assertEquals("I will survive", survivor.getName());
+		assertEquals(100d, survivor.getCalories(), 0);
+		assertEquals(10d, survivor.getProtein(), 0);
+		assertEquals(20d, survivor.getCarbs(), 0);
+		assertEquals(30d, survivor.getFats(), 0);
+		// assert new food that must have new id
+		Food newFood = foods.get(2);
+		assertEquals("Pan", newFood.getName());
+		assertEquals(250d, newFood.getCalories(), 0);
+		assertEquals(10d, newFood.getProtein(), 0);
+		assertEquals(150d, newFood.getCarbs(), 0);
+		assertEquals(10d, newFood.getFats(), 0);
+	}
+
 	// Package protected ---------------------------------------------
 
 	// Protected -----------------------------------------------------
@@ -184,6 +234,15 @@ public class FileSharingActivityTest extends BaseActivityTest {
 	}
 
 	// Private -------------------------------------------------------
+
+	private void copyTestFile(FileSharingName name) throws IOException {
+		File origin = new File("target/test-classes", name.getFileName());
+		FileUtils.copyFile(origin, new File(getExternalDir(), name.getFileName()));
+	}
+
+	private File getExternalDir() {
+		return new File(ShadowActivity.EXTERNAL_FILES_DIR, FileSharingName.DATA_DIR_NAME);
+	}
 
 	// Inner classes -------------------------------------------------
 }
