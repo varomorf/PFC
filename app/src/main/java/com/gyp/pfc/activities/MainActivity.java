@@ -7,6 +7,7 @@ import android.view.View;
 
 import com.gyp.pfc.R;
 import com.gyp.pfc.activities.biometric.AddWeightActivity;
+import com.gyp.pfc.activities.biometric.ShowUserBiometricDataActivity;
 import com.gyp.pfc.activities.biometric.WeightListActivity;
 import com.gyp.pfc.activities.exercise.AddExerciseActivity;
 import com.gyp.pfc.activities.exercise.ExerciseListActivity;
@@ -119,6 +120,10 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 
 	public void sharingButton(View view) {
 		startActivity(new Intent(this, FileSharingActivity.class));
+	}
+
+	public void biometricButton(View view) {
+		startActivity(new Intent(this, ShowUserBiometricDataActivity.class));
 	}
 
 	// Package protected ---------------------------------------------

@@ -3,6 +3,9 @@
  */
 package com.gyp.pfc.activities.biometric;
 
+import static com.xtremelabs.robolectric.Robolectric.*;
+import static org.junit.Assert.*;
+
 import java.io.IOException;
 
 import org.junit.Before;
@@ -20,7 +23,7 @@ import com.gyp.pfc.sharing.FileSharingName;
 import com.xtremelabs.robolectric.tester.android.content.TestSharedPreferences;
 
 /**
- * Tests for the {@link ShowUserBiometricData} activity
+ * Tests for the {@link ShowUserBiometricDataActivity} activity
  * 
  * @author Alvaro
  * 
@@ -76,13 +79,26 @@ public class ShowUserBiometricDataTest extends BaseWeightActivityTest {
 		assertViewText(R.id.userDataShowBMI, "0,00");
 	}
 
+	@Test
+	public void shouldStartEditActivityWhenEditButtonIsPressed() {
+		// GIVEN
+		// WHEN
+		// activity is started
+		createActivity();
+		// click on edit button
+		clickOn(activity.findViewById(R.id.editButton));
+		// THEN
+		assertAndReturnNextActivity(EditUserDataActivity.class);
+		assertTrue("Applicatoin should be finishing", activity.isFinishing());
+	}
+
 	// Package protected ---------------------------------------------
 
 	// Protected -----------------------------------------------------
 
 	@Override
 	protected Activity newActivity() {
-		return new ShowUserBiometricData();
+		return new ShowUserBiometricDataActivity();
 	}
 
 	// Private -------------------------------------------------------

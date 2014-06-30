@@ -29,7 +29,7 @@ public class UserData {
 
 	public static final String HEIGHT_KEY = "HEIGHT_KEY";
 
-	public static final DecimalFormat df = new DecimalFormat("####0.00");
+	public static final DecimalFormat DF = new DecimalFormat("####0.00");
 
 	// Attributes ----------------------------------------------------
 
@@ -127,7 +127,7 @@ public class UserData {
 	 * @return the user's height formatted as meters
 	 */
 	public String getFormattedHeight() {
-		return df.format(getHeightInMeters()) + " m.";
+		return DF.format(getHeightInMeters()) + " m.";
 	}
 
 	/**
@@ -136,7 +136,7 @@ public class UserData {
 	 * @return the user's weight formatted as meters
 	 */
 	public String getFormattedWeight() {
-		return df.format(getWeight()) + " Kg.";
+		return DF.format(getWeight()) + " Kg.";
 	}
 
 	/**
@@ -165,7 +165,7 @@ public class UserData {
 	 * @return the user's BMI string representation rounded to two decimals
 	 */
 	public String getFormattedBMI() {
-		return df.format(getBMI());
+		return DF.format(getBMI());
 	}
 
 	// Package protected ---------------------------------------------

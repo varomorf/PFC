@@ -4,13 +4,14 @@
 package com.gyp.pfc.activities.biometric;
 
 import android.app.Activity;
-import android.content.SharedPreferences;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import com.gyp.pfc.R;
 import com.gyp.pfc.UIUtils;
+import com.gyp.pfc.activities.helpers.UserHelper;
 import com.gyp.pfc.data.domain.biometric.UserData;
-import com.gyp.pfc.data.domain.biometric.UserSex;
 import com.gyp.pfc.sharing.FileSharingName;
 
 /**
@@ -22,7 +23,7 @@ import com.gyp.pfc.sharing.FileSharingName;
  * @author Alvaro
  * 
  */
-public class ShowUserBiometricData extends Activity {
+public class ShowUserBiometricDataActivity extends Activity {
 
 	// Constants -----------------------------------------------------
 
@@ -34,6 +35,17 @@ public class ShowUserBiometricData extends Activity {
 
 	// Public --------------------------------------------------------
 
+	/**
+	 * Callback method for the editButton
+	 * 
+	 * @param view
+	 *            the editButton
+	 */
+	public void editButton(View view) {
+		finish();
+		startActivity(new Intent(this, EditUserDataActivity.class));
+	}
+
 	// Package protected ---------------------------------------------
 
 	// Protected -----------------------------------------------------
@@ -41,11 +53,13 @@ public class ShowUserBiometricData extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		if (getSharedPreferences(FileSharingName.USER_DATA.getFileName(), 0).getAll().isEmpty()) {
+			// if no preferences go directly to edit
+			editButton(null);
+		}
 		setContentView(R.layout.user_data_show);
 
-		UserData user = getUserData();
-
-		updateUi(user);
+		updateUi(new UserHelper(this).getUserData());
 	}
 
 	// Private -------------------------------------------------------
@@ -62,23 +76,6 @@ public class ShowUserBiometricData extends Activity {
 		UIUtils.setTextToUI(findViewById(R.id.userDataShowHeight), user.getFormattedHeight());
 		UIUtils.setTextToUI(findViewById(R.id.userDataShowWeight), user.getFormattedWeight());
 		UIUtils.setTextToUI(findViewById(R.id.userDataShowBMI), user.getFormattedBMI());
-	}
-
-	/**
-	 * Gets the user data from the {@link SharedPreferences}
-	 * 
-	 * @return the user data
-	 */
-	private UserData getUserData() {
-		UserData user = new UserData();
-		// get user data from preferences
-		SharedPreferences preferences = getSharedPreferences(FileSharingName.USER_DATA.getFileName(), 0);
-		user.setAge(preferences.getInt(UserData.AGE_KEY, UserData.DEFAULT_AGE));
-		if (!preferences.getBoolean(UserData.SEX_IS_MAN_KEY, true)) {
-			user.setSex(UserSex.WOMAN);
-		}
-		user.setHeight(preferences.getInt(UserData.HEIGHT_KEY, UserData.DEFAULT_HEIGHT));
-		return user;
 	}
 
 	// Inner classes -------------------------------------------------

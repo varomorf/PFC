@@ -9,6 +9,7 @@
     <string name="trainningHisctoric">Histórico Entrenamientos</string>
     <string name="weights">Histórico Pesos</string>
     <string name="sharing">Back Up</string>
+    <string name="biometricName">Datos biometricos</string>
     <string name="breakfast">Desayuno</string>
     <string name="lunch">Almuerzo</string>
     <string name="dinner">Cena</string>
@@ -17,6 +18,7 @@
     <string name="main_add">Añadir</string>
     <string name="main_list">Listar</string>
     <string name="button_save">Guardar</string>
+    <string name="edit">Editar</string>
 
     <!-- Food related -->
     <string name="label_brandName">Marca</string>
@@ -125,6 +127,7 @@
     <string name="userAge">Edad:</string>
     <string name="userSex">Sexo:</string>
     <string name="userHeight">Altura:</string>
+    <string name="userHeightEdit">Altura en metros:</string>
     <string name="userWeight">Último peso:</string>
     <string name="userBMI">IMC:</string>
     <string name="man">Hombre</string>
