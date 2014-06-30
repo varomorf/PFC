@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 
 import com.gyp.pfc.data.domain.biometric.UserData;
 import com.gyp.pfc.data.domain.biometric.UserSex;
+import com.gyp.pfc.data.domain.manager.WeightManager;
 import com.gyp.pfc.sharing.FileSharingName;
 
 /**
@@ -52,6 +53,7 @@ public class UserHelper extends BaseActivityHelper {
 			user.setSex(UserSex.WOMAN);
 		}
 		user.setHeight(preferences.getInt(UserData.HEIGHT_KEY, UserData.DEFAULT_HEIGHT));
+		user.setWeight(WeightManager.it().getLastWeight());
 		return user;
 	}
 

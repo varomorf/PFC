@@ -29,7 +29,7 @@ import com.xtremelabs.robolectric.tester.android.content.TestSharedPreferences;
  * 
  */
 @RunWith(CustomTestRunner.class)
-public class ShowUserBiometricDataTest extends BaseWeightActivityTest {
+public class ShowUserBiometricDataActivityTest extends BaseWeightActivityTest {
 
 	// Constants -----------------------------------------------------
 

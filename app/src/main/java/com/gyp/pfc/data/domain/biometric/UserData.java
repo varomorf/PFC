@@ -5,8 +5,6 @@ package com.gyp.pfc.data.domain.biometric;
 
 import java.text.DecimalFormat;
 
-import com.gyp.pfc.data.domain.manager.WeightManager;
-
 /**
  * Bean for the user's biometric data.
  * 
@@ -46,6 +44,11 @@ public class UserData {
 	 * {@link UserData#DEFAULT_HEIGHT}.
 	 */
 	private Integer height = DEFAULT_HEIGHT;
+
+	/**
+	 * The user's weight
+	 */
+	private Weight weight = new Weight();
 
 	// Static --------------------------------------------------------
 
@@ -108,17 +111,21 @@ public class UserData {
 	}
 
 	/**
-	 * Returns the last user's weight value from DB
-	 * 
-	 * @return the last user's weight value
+	 * @return the user's weight
 	 */
-	public Double getWeight() {
-		Weight weight = WeightManager.it().getLastWeight();
-		if (null == weight) {
-			weight = new Weight();
-			weight.setWeight(0d);
+	public Weight getWeight() {
+		return weight;
+	}
+
+	/**
+	 * @param weight
+	 *            the weight to set
+	 */
+	public void setWeight(Weight weight) {
+		this.weight = weight;
+		if (null == this.weight) {
+			this.weight = new Weight();
 		}
-		return weight.getWeight();
 	}
 
 	/**
@@ -136,7 +143,7 @@ public class UserData {
 	 * @return the user's weight formatted as meters
 	 */
 	public String getFormattedWeight() {
-		return DF.format(getWeight()) + " Kg.";
+		return DF.format(weight.getWeight()) + " Kg.";
 	}
 
 	/**
@@ -156,7 +163,7 @@ public class UserData {
 	 * @return
 	 */
 	public Double getBMI() {
-		return getWeight() / Math.pow(getHeightInMeters(), 2);
+		return weight.getWeight() / Math.pow(getHeightInMeters(), 2);
 	}
 
 	/**
