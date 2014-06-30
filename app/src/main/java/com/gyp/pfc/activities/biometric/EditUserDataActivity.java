@@ -69,12 +69,11 @@ public class EditUserDataActivity extends Activity {
 
 		UserData user = new UserHelper(this).getUserData();
 		UIUtils.setTextToUI(findViewById(R.id.userDataEditAge), user.getAge().toString());
-		UIUtils.setTextToUI(findViewById(R.id.userDataEditHeight), user.getHeight().toString());
+		UIUtils.setTextToUI(findViewById(R.id.userDataEditHeight), user.getHeightInMeters().toString());
 		if (user.getSex() != UserSex.MAN) {
 			((RadioButton) findViewById(R.id.radioWoman)).setChecked(true);
 		}
 	}
-
 	// Private -------------------------------------------------------
 
 	// Inner classes -------------------------------------------------

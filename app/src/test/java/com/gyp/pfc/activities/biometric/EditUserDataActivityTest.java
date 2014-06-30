@@ -17,7 +17,6 @@ import android.widget.RadioButton;
 import com.gyp.pfc.CustomTestRunner;
 import com.gyp.pfc.R;
 import com.gyp.pfc.UIUtils;
-import com.gyp.pfc.activities.BaseActivityTest;
 import com.gyp.pfc.data.domain.biometric.UserData;
 import com.gyp.pfc.sharing.FileSharingName;
 import com.xtremelabs.robolectric.tester.android.content.TestSharedPreferences;
@@ -29,7 +28,7 @@ import com.xtremelabs.robolectric.tester.android.content.TestSharedPreferences;
  * 
  */
 @RunWith(CustomTestRunner.class)
-public class EditUserDataActivityTest extends BaseActivityTest {
+public class EditUserDataActivityTest extends BaseWeightActivityTest {
 
 	// Constants -----------------------------------------------------
 
@@ -83,7 +82,7 @@ public class EditUserDataActivityTest extends BaseActivityTest {
 		assertViewText(R.id.userDataEditAge, "27");
 		assertTrue("Woman radio button should be checked",
 				((RadioButton) activity.findViewById(R.id.radioWoman)).isChecked());
-		assertViewText(R.id.userDataEditHeight, "163");
+		assertViewText(R.id.userDataEditHeight, "1.63");
 	}
 
 	// Package protected ---------------------------------------------
