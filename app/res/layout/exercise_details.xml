@@ -39,11 +39,10 @@
         android:text="@string/caloriesBurnt"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <EditText
+    <TextView
         android:id="@+id/exerciseCalories"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="number" />
+        android:ems="10" />
 
 </LinearLayout>
