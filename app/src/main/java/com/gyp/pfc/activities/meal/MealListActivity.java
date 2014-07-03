@@ -85,8 +85,10 @@ public class MealListActivity extends OrmLiteBaseListActivity<DatabaseHelper> im
 		} catch (SQLException e) {
 			Log.e(TAG, "SQLException while getting first date", e);
 		}
-		for (Iterator<Date> iterator = new DateIterator(new Date(), mealDate); iterator.hasNext();) {
-			dates.add(iterator.next());
+		if (null != mealDate) {
+			for (Iterator<Date> iterator = new DateIterator(new Date(), mealDate); iterator.hasNext();) {
+				dates.add(iterator.next());
+			}
 		}
 		return dates;
 	}

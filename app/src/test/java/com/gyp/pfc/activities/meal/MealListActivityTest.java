@@ -91,6 +91,19 @@ public class MealListActivityTest extends BaseMealTest {
 		String formatedDate = TimeUtils.formatDate(date);
 		assertEquals("Intent doesn't have the expected date", expectedDate, formatedDate);
 	}
+	
+	@Test
+	public void shouldShowNothingIfNoMealsArePresent() {
+		// GIVEN
+		// no meals on DB
+		assertTrue("There should be no meals on DB", dao.queryForAll().isEmpty());
+		// WHEN
+		// activity is started
+		createActivity();
+		// THEN
+		// there should be no items on the list
+		assertListSize(0);
+	}
 
 	// Package protected ---------------------------------------------
 
