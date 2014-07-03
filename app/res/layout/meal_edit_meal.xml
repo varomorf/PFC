@@ -24,7 +24,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_weight="1"
+            android:layout_weight="5"
             android:orientation="horizontal" >
 
             <ImageButton
@@ -59,7 +59,7 @@
             android:id="@+id/mealNameSpinner"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:layout_weight="4" />
     </LinearLayout>
 
     <LinearLayout
