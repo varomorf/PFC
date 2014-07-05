@@ -124,6 +124,7 @@ public class ExecuteTrainingActivity extends OrmLiteBaseActivity<DatabaseHelper>
 				Toast.makeText(this, R.string.trainingEnded, Toast.LENGTH_SHORT).show();
 				// exit from activity
 				finish();
+				return;
 			}
 		}
 		// and then start again the timer if exercise has duration
