@@ -2,6 +2,8 @@ package com.gyp.pfc.activities.training;
 
 import java.util.List;
 
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -9,6 +11,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.gyp.pfc.R;
+import com.gyp.pfc.activities.helpers.BaseActivityHelper;
 import com.gyp.pfc.adapters.TrainingAdapter;
 import com.gyp.pfc.data.db.DatabaseHelper;
 import com.gyp.pfc.data.domain.exercise.Training;
@@ -27,6 +30,9 @@ public class TrainingListActivity extends OrmLiteBaseListActivity<DatabaseHelper
 
 	// Attributes ----------------------------------------------------
 
+	/** Helper to be used */
+	private BaseActivityHelper h;
+
 	// Static --------------------------------------------------------
 
 	// Constructors --------------------------------------------------
@@ -41,15 +47,7 @@ public class TrainingListActivity extends OrmLiteBaseListActivity<DatabaseHelper
 	public void deleteButton(View view) {
 		// get the training from item of button pressed
 		Training training = getTrainingForClickedButtonListItem(view);
-		// remove related TrainginExercises
-		getHelper().getTrainingExerciseDao().delete(training.getExercises());
-		// remove from DB
-		getHelper().getTrainingDao().delete(training);
-		// remove from UI
-		getAdapter().remove(training);
-		getAdapter().notifyDataSetChanged();
-		// show deletion message
-		Toast.makeText(getApplicationContext(), R.string.trainingDeleted, Toast.LENGTH_SHORT).show();
+		h.deleteWithDialog(R.string.assureTrainingDeletion, deletionAction(training));
 	}
 
 	/**
@@ -91,6 +89,7 @@ public class TrainingListActivity extends OrmLiteBaseListActivity<DatabaseHelper
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		h = new BaseActivityHelper(this);
 		setContentView(R.layout.entity_list);
 
 		List<Training> trainings = getHelper().getTrainingDao().queryForEq("executable", true);
@@ -127,6 +126,30 @@ public class TrainingListActivity extends OrmLiteBaseListActivity<DatabaseHelper
 		int index = getIndexOfItemForPressedButton(view);
 		// get the training from the adapter
 		return getAdapter().getItem(index);
+	}
+
+	/**
+	 * Creates an {@link OnClickListener} that on click will delete the passed training from DB, refresh the
+	 * adapter and show a toast to the user
+	 * 
+	 * @param training
+	 *            the {@link Training} to be deleted
+	 * @return the {@link OnClickListener}
+	 */
+	private OnClickListener deletionAction(final Training training) {
+		return new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int id) {
+				// remove related TrainginExercises
+				getHelper().getTrainingExerciseDao().delete(training.getExercises());
+				// remove from DB
+				getHelper().getTrainingDao().delete(training);
+				// remove from UI
+				getAdapter().remove(training);
+				getAdapter().notifyDataSetChanged();
+				// show deletion message
+				Toast.makeText(getApplicationContext(), R.string.trainingDeleted, Toast.LENGTH_SHORT).show();
+			}
+		};
 	}
 
 	// Inner classes -------------------------------------------------

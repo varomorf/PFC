@@ -81,6 +81,7 @@
     <string name="duration">Duración</string>
     <string name="repetitions">Repeticiones</string>
     <string name="emptyExercisesList">La lista de ejercicios está vacía.</string>
+    <string name="assureTrainingDeletion">¿Seguro que desea eliminar este entrenamiento?</string>
     <string name="label_play">Ejecutar</string>
     <string name="totalTimeLeft">Total restante:</string>
     <string name="resumePause">Continuar/Pausa</string>

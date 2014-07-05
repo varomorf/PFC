@@ -64,6 +64,10 @@ public class TrainingListActivityTest extends BaseTrainingTest {
 		// WHEN
 		// delete button pressed on item 1
 		clickOnListItemButton(1, R.id.deleteButton);
+		// question is asked for deletion
+		assertAlertDialogText(R.string.assureTrainingDeletion);
+		// click on yes
+		clickYesOnDialog();
 		// THEN
 		// toast with message is shown
 		assertToastText(R.string.trainingDeleted);
