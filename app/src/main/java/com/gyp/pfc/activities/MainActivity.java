@@ -21,9 +21,6 @@ import com.gyp.pfc.activities.sharing.file.FileSharingActivity;
 import com.gyp.pfc.activities.training.AddTrainingActivity;
 import com.gyp.pfc.activities.training.TrainingListActivity;
 import com.gyp.pfc.data.db.DatabaseHelper;
-import com.gyp.pfc.data.domain.exception.EntityNameException;
-import com.gyp.pfc.data.domain.exercise.Exercise;
-import com.gyp.pfc.data.domain.exercise.Training;
 import com.gyp.pfc.data.domain.manager.ExerciseManager;
 import com.gyp.pfc.data.domain.manager.FoodManager;
 import com.gyp.pfc.data.domain.manager.MealNameManager;
@@ -54,12 +51,6 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main_activity);
 		initializeManagers();
-		try {
-			// TODO change me
-			loadTestData();
-		} catch (EntityNameException e) {
-			// NOOP
-		}
 		loadDefaultMeals();
 	}
 
@@ -129,51 +120,6 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 	// Package protected ---------------------------------------------
 
 	// Protected -----------------------------------------------------
-
-	protected void loadTestData() throws EntityNameException {
-		// load test food
-		FoodManager.it().createFood("Arroz", "", 364, 6.67, 81.60, 0, 1.4, 0.9, 0.19, 0.0039);
-		FoodManager.it().createFood("Huevo", "", 162, 12.68, 0.68, 0, 0, 12.10, 3.3, 0.144);
-		FoodManager.it().createFood("Pan blanco", "Mercadona", 261, 8.47, 51.50, 0, 3.5, 1.6, 0.39, 0.540);
-		// load test exercises
-		Exercise exercise1 = ExerciseManager
-				.it()
-				.createExercise(
-						"Planchas",
-						"Boca abajo, apoyamos las manos contra el suelo a la altura de los hombros y elevamos el cuerpo mediante una extensión de los brazos. Mediante una flexión controlada, volvemos a la posición de partida.",
-						50);
-		Exercise exercise2 = ExerciseManager
-				.it()
-				.createExercise(
-						"Abdominales",
-						"Boca arriba, flexionamos las piernas de modo que los pies toquen el suelo. Elevamos el tronco hasta erguirnos. Bajamos el tronco a la posición de partida de forma controlada.",
-						100);
-		Exercise exercise3 = ExerciseManager
-				.it()
-				.createExercise(
-						"Zancadas",
-						"De pie, damos un paso con una pierna, dejando la otra en el sitio. Flexionamos la rodilla adelantada, de tal modo que la rodilla atrasada llegue a tocar el suelo. Volvemos a la posición de partida.",
-						150);
-		// load test trainings
-		Training training1 = TrainingManager.it().createTraining("Pirámide de abdominales");
-		TrainingManager.it().addExerciseToTraining(training1, exercise2, 0, 20);
-		TrainingManager.it().addExerciseToTraining(training1, exercise2, 0, 30);
-		TrainingManager.it().addExerciseToTraining(training1, exercise2, 0, 40);
-		TrainingManager.it().addExerciseToTraining(training1, exercise2, 0, 30);
-		TrainingManager.it().addExerciseToTraining(training1, exercise2, 0, 20);
-		Training training2 = TrainingManager.it().createTraining("Serie de flexiones");
-		TrainingManager.it().addExerciseToTraining(training2, exercise1, 0, 10);
-		TrainingManager.it().addExerciseToTraining(training2, exercise1, 0, 10);
-		TrainingManager.it().addExerciseToTraining(training2, exercise1, 0, 10);
-		TrainingManager.it().addExerciseToTraining(training2, exercise1, 0, 10);
-		Training training3 = TrainingManager.it().createTraining("Serie variada");
-		TrainingManager.it().addExerciseToTraining(training3, exercise1, 30, 1);
-		TrainingManager.it().addExerciseToTraining(training3, exercise2, 30, 1);
-		TrainingManager.it().addExerciseToTraining(training3, exercise3, 30, 1);
-		TrainingManager.it().addExerciseToTraining(training3, exercise1, 30, 1);
-		TrainingManager.it().addExerciseToTraining(training3, exercise2, 30, 1);
-		TrainingManager.it().addExerciseToTraining(training3, exercise3, 30, 1);
-	}
 
 	/**
 	 * Loads the default meal names

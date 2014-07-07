@@ -203,6 +203,23 @@ public class TrainingManager {
 		}
 	}
 
+	public TrainingExercise getTrainingExerciseForPos(Training training, int pos) {
+		TrainingExercise output = null;
+		QueryBuilder<TrainingExercise, Integer> query = trainingExerciseDao.queryBuilder();
+		try {
+			query.where().eq("training_id", training.getId()).and().eq("pos", pos);
+			List<TrainingExercise> dbTrainingExercises = query.query();
+			if (!dbTrainingExercises.isEmpty()) {
+				output = dbTrainingExercises.get(0);
+			}
+		} catch (SQLException e) {
+			Log.e(LOG_TAG,
+					"Error while getting training exercise with pos " + pos + " for training "
+							+ training.getName(), e);
+		}
+		return output;
+	}
+
 	// Package protected ---------------------------------------------
 
 	// Protected -----------------------------------------------------

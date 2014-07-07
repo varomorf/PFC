@@ -22,6 +22,7 @@ import com.gyp.pfc.data.domain.exercise.Exercise;
 import com.gyp.pfc.data.domain.exercise.Training;
 import com.gyp.pfc.data.domain.exercise.TrainingExercise;
 import com.gyp.pfc.data.domain.manager.ExerciseManager;
+import com.gyp.pfc.data.domain.manager.TrainingManager;
 import com.gyp.pfc.dialogs.AddExerciseDialog;
 import com.gyp.pfc.dialogs.AddExerciseDialog.AddExerciseDialogListener;
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
@@ -296,12 +297,7 @@ public class AddTrainingActivity extends OrmLiteBaseActivity<DatabaseHelper> imp
 	}
 
 	private TrainingExercise getTrainingExercise(int pos) {
-		// prepare matcher object
-		TrainingExercise matcher = new TrainingExercise();
-		matcher.setPos(pos);
-		matcher.setTraining(training);
-		// get entity from DB
-		return getHelper().getTrainingExerciseDao().queryForMatching(matcher).get(0);
+		return TrainingManager.it().getTrainingExerciseForPos(training, pos);
 	}
 
 	private void prepareAndShowDialog(TrainingExercise selected) {
