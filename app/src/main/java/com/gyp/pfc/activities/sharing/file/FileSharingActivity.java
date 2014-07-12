@@ -7,9 +7,11 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Callable;
 
 import org.yaml.snakeyaml.Yaml;
 
@@ -201,16 +203,22 @@ public class FileSharingActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 	 * @param closure
 	 *            the closure that will be executed for each read entity
 	 */
-	private void importEntities(FileSharingName fileSharingName, Closure closure) {
-		File file = new File(getDataStorageDir(), fileSharingName.getFileName());
+	private void importEntities(final FileSharingName fileSharingName, final Closure closure) {
+		final File file = new File(getDataStorageDir(), fileSharingName.getFileName());
 		Toast.makeText(this, getString(R.string.fileImportStarted), Toast.LENGTH_SHORT).show();
-		try {
-			for (Object o : new Yaml(new TrainingConstructor()).loadAll(new FileInputStream(file))) {
-				closure.call(o);
+		getHelper().getFoodDao().callBatchTasks(new Callable<Void>() {
+			public Void call() throws SQLException {
+				try {
+					for (Object o : new Yaml(new TrainingConstructor()).loadAll(new FileInputStream(file))) {
+						closure.call(o);
+					}
+				} catch (FileNotFoundException e) {
+					Log.e(LOG_TAG, ERROR_IMPORTING + fileSharingName.getClassName(), e);
+				}
+				return null;
 			}
-		} catch (FileNotFoundException e) {
-			Log.e(LOG_TAG, ERROR_IMPORTING + fileSharingName.getClassName(), e);
-		}
+		});
+
 		Toast.makeText(this, getString(R.string.fileImportCompleted), Toast.LENGTH_SHORT).show();
 	}
 
