@@ -3,11 +3,11 @@
 
 	<modelVersion>4.0.0</modelVersion>
 
-	 <parent>
+	<parent>
 		<groupId>com.gyp.pfc</groupId>
-        <artifactId>PersonalFitnessCoach</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
-    </parent>
+		<artifactId>PersonalFitnessCoach</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
 	<artifactId>PersonalFitnessCoach-AndroidApp</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>apk</packaging>
@@ -68,6 +68,12 @@
 			<version>4.42</version>
 		</dependency>
 
+		<dependency>
+			<groupId>com.jamonapi</groupId>
+			<artifactId>jamon</artifactId>
+			<version>2.77</version>
+		</dependency>
+
 		<!-- Test dependencies -->
 
 		<dependency>
@@ -76,7 +82,7 @@
 			<version>4.8</version>
 			<scope>test</scope>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>com.pivotallabs</groupId>
 			<artifactId>robolectric</artifactId>
@@ -92,6 +98,7 @@
 		</dependency>
 
 	</dependencies>
+
 	<build>
 		<finalName>${project.artifactId}</finalName>
 		<plugins>
