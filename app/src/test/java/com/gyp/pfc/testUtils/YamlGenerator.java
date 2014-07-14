@@ -52,7 +52,7 @@ public class YamlGenerator extends FileSharingActivityTest {
 		// GIVEN
 		// WHEN
 		for (int i = 0; i < number; i++) {
-			FoodManager.it().createFood("" + i, "", 0, 0, 0, 0, 0, 0, 0, 0);
+			FoodManager.it().createFood("Food " + i, "", 0, 0, 0, 0, 0, 0, 0, 0);
 		}
 		createActivity();
 		// export of foods is requested
@@ -67,7 +67,7 @@ public class YamlGenerator extends FileSharingActivityTest {
 		// GIVEN
 		// WHEN
 		for (int i = 0; i < number; i++) {
-			ExerciseManager.it().createExercise("asdfasdf" + i, "asdfasdfasdfasdf", 100);
+			ExerciseManager.it().createExercise("Exercise " + i, "Do the exercise", 100);
 		}
 		createActivity();
 		// export of foods is requested
@@ -82,8 +82,8 @@ public class YamlGenerator extends FileSharingActivityTest {
 		// GIVEN
 		// WHEN
 		for (int i = 0; i < number; i++) {
-			Exercise e1 = ExerciseManager.it().createExercise("" + i, "", 100);
-			Training t1 = TrainingManager.it().createTraining("" + i);
+			Exercise e1 = ExerciseManager.it().createExercise("Exercise " + i, "", 100);
+			Training t1 = TrainingManager.it().createTraining("Training " + i);
 			TrainingManager.it().addExerciseToTraining(t1, e1, 10, 1);
 			TrainingManager.it().addExerciseToTraining(t1, e1, 20, 2);
 			TrainingManager.it().addExerciseToTraining(t1, e1, 30, 3);
