@@ -5,7 +5,7 @@
     project="PersonalFitnessCoach-AndroidApp" 
     file="/PersonalFitnessCoach-AndroidApp/src/main/java/com/gyp/pfc/activities/sharing/file/Closure.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="315" y="119"/>    
+    <position height="-1" width="-1" x="-375" y="648"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -16,7 +16,7 @@
     project="PersonalFitnessCoach-AndroidApp" 
     file="/PersonalFitnessCoach-AndroidApp/src/main/java/com/gyp/pfc/activities/sharing/file/FileSharingActivity.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="314" y="295"/>    
+    <position height="-1" width="-1" x="-101" y="649"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="false" package="false" protected="false" private="false" static="true"/>      
@@ -27,7 +27,7 @@
     project="PersonalFitnessCoach-AndroidApp" 
     file="/PersonalFitnessCoach-AndroidApp/src/main/java/com/gyp/pfc/sharing/TrainingRepresenter.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="812" y="151"/>    
+    <position height="-1" width="-1" x="170" y="863"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -38,7 +38,7 @@
     project="PersonalFitnessCoach-AndroidApp" 
     file="/PersonalFitnessCoach-AndroidApp/src/main/java/com/gyp/pfc/sharing/TrainingConstructor.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="566" y="547"/>    
+    <position height="-1" width="-1" x="-376" y="1137"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -49,7 +49,7 @@
     project="PersonalFitnessCoach-AndroidApp" 
     file="/PersonalFitnessCoach-AndroidApp/src/main/java/com/gyp/pfc/sharing/TrainingYamlPropertyPosition.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="812" y="309"/>    
+    <position height="-1" width="-1" x="-101" y="863"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -60,10 +60,10 @@
     project="PersonalFitnessCoach-AndroidApp" 
     file="/PersonalFitnessCoach-AndroidApp/src/main/java/com/gyp/pfc/sharing/FileSharingName.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="310" y="557"/>    
+    <position height="-1" width="-1" x="-101" y="367"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <attributes public="true" package="true" protected="true" private="false" static="true"/>      
       <operations public="true" package="true" protected="true" private="false" static="true"/>    
     </display>  
   </enumeration>  
@@ -71,7 +71,7 @@
     project="PersonalFitnessCoach-AndroidApp" 
     file="/PersonalFitnessCoach-AndroidApp/src/main/java/com/gyp/pfc/sharing/TrainingConstructor.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="812" y="497"/>    
+    <position height="-1" width="-1" x="-376" y="863"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -81,7 +81,7 @@
   <class id="8" language="java" name="com.gyp.pfc.sharing.TrainingConstructor" project="PersonalFitnessCoach-AndroidApp" 
     file="/PersonalFitnessCoach-AndroidApp/src/main/java/com/gyp/pfc/sharing/TrainingConstructor.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="566" y="432"/>    
+    <position height="-1" width="-1" x="-376" y="995"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -91,7 +91,7 @@
   <class id="9" language="java" name="com.gyp.pfc.sharing.TrainingRepresenter" project="PersonalFitnessCoach-AndroidApp" 
     file="/PersonalFitnessCoach-AndroidApp/src/main/java/com/gyp/pfc/sharing/TrainingRepresenter.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="567" y="151"/>    
+    <position height="-1" width="-1" x="170" y="648"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -102,56 +102,111 @@
     project="PersonalFitnessCoach-AndroidApp" 
     file="/PersonalFitnessCoach-AndroidApp/src/main/java/com/gyp/pfc/sharing/TrainingExerciseYamlPropertyPosition.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="572" y="697"/>    
+    <position height="-1" width="-1" x="-101" y="1134"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="false" static="true"/>    
     </display>  
   </enumeration>  
-  <class id="11" language="java" name="org.yaml.snakeyaml.Yaml" project="PersonalFitnessCoach-AndroidApp" 
-    file="C:/Users/Alvaro/.m2/repository/org/yaml/snakeyaml/1.14-SNAPSHOT/snakeyaml-1.14-SNAPSHOT.jar" binary="true" 
-    corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="567" y="295"/>    
+  <class id="11" language="java" name="com.gyp.pfc.activities.sharing.file.BaseFileSharingTask" 
+    project="PersonalFitnessCoach-AndroidApp" 
+    file="/PersonalFitnessCoach-AndroidApp/src/main/java/com/gyp/pfc/activities/sharing/file/BaseFileSharingTask.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="-102" y="140"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
-      <attributes public="false" package="false" protected="false" private="false" static="true"/>      
-      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+      <attributes public="true" package="true" protected="false" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <dependency id="12">    
+  <class id="12" language="java" name="com.gyp.pfc.activities.sharing.file.ExportingTask" 
+    project="PersonalFitnessCoach-AndroidApp" 
+    file="/PersonalFitnessCoach-AndroidApp/src/main/java/com/gyp/pfc/activities/sharing/file/ExportingTask.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="170" y="367"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="13" language="java" name="com.gyp.pfc.activities.sharing.file.ImportingTask" 
+    project="PersonalFitnessCoach-AndroidApp" 
+    file="/PersonalFitnessCoach-AndroidApp/src/main/java/com/gyp/pfc/activities/sharing/file/ImportingTask.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="-361" y="366"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <dependency id="14">    
     <end type="SOURCE" refId="4"/>    
     <end type="TARGET" refId="10"/>  
   </dependency>  
-  <dependency id="13">    
-    <end type="SOURCE" refId="2"/>    
-    <end type="TARGET" refId="6"/>  
-  </dependency>  
-  <nesting id="14">    
-    <end type="SOURCE" refId="9"/>    
-    <end type="TARGET" refId="3"/>  
-  </nesting>  
   <dependency id="15">    
-    <end type="SOURCE" refId="7"/>    
-    <end type="TARGET" refId="5"/>  
-  </dependency>  
-  <dependency id="16">    
     <end type="SOURCE" refId="2"/>    
-    <end type="TARGET" refId="11"/>  
+    <end type="TARGET" refId="13"/>  
   </dependency>  
-  <dependency id="17">    
+  <association id="16">    
+    <end type="SOURCE" refId="11" navigable="false">      
+      <attribute id="17" name="fileSharingName"/>      
+      <multiplicity id="18" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="6" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="19">    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="9"/>  
+  </dependency>  
+  <dependency id="20">    
     <end type="SOURCE" refId="3"/>    
     <end type="TARGET" refId="5"/>  
   </dependency>  
-  <nesting id="18">    
-    <end type="SOURCE" refId="8"/>    
-    <end type="TARGET" refId="7"/>  
+  <dependency id="21">    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="2"/>  
+  </dependency>  
+  <generalization id="22">    
+    <end type="SOURCE" refId="13"/>    
+    <end type="TARGET" refId="11"/>  
+  </generalization>  
+  <generalization id="23">    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="11"/>  
+  </generalization>  
+  <dependency id="24">    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="6"/>  
+  </dependency>  
+  <dependency id="25">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="6"/>  
+  </dependency>  
+  <nesting id="26">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="3"/>  
   </nesting>  
-  <dependency id="19">    
+  <dependency id="27">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="5"/>  
+  </dependency>  
+  <dependency id="28">    
     <end type="SOURCE" refId="2"/>    
     <end type="TARGET" refId="1"/>  
   </dependency>  
-  <nesting id="20">    
+  <nesting id="29">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="7"/>  
+  </nesting>  
+  <dependency id="30">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="9"/>  
+  </dependency>  
+  <nesting id="31">    
     <end type="SOURCE" refId="8"/>    
     <end type="TARGET" refId="4"/>  
   </nesting>  
