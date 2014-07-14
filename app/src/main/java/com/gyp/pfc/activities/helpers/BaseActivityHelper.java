@@ -56,9 +56,8 @@ public class BaseActivityHelper {
 	// Public --------------------------------------------------------
 
 	/**
-	 * Returns the value of the EditText with the passed id. If the value is
-	 * blank, an error will be shown for the specified string id and an
-	 * IllegalArgumentException will be thrown
+	 * Returns the value of the EditText with the passed id. If the value is blank, an error will be shown for the
+	 * specified string id and an IllegalArgumentException will be thrown
 	 * 
 	 * @param viewId
 	 *            the id of the EditText
@@ -77,13 +76,12 @@ public class BaseActivityHelper {
 	}
 
 	/**
-	 * Returns the String representation of the text held by the view with the
-	 * specified id as long as this view is a {@link TextView}
+	 * Returns the String representation of the text held by the view with the specified id as long as this view is
+	 * a {@link TextView}
 	 * 
 	 * @param viewId
 	 *            The id of the view from which to extract the text
-	 * @return The extracted text of null if the viewId does not belongs to a
-	 *         {@link TextView}
+	 * @return The extracted text of null if the viewId does not belongs to a {@link TextView}
 	 */
 	public String getTextFromUI(int viewId) {
 		return getTextFromUI(activity.findViewById(viewId));
@@ -91,22 +89,21 @@ public class BaseActivityHelper {
 
 	/**
 	 * <p>
-	 * Returns the String representation of the text held by the passed view as
-	 * long as this view is a {@link TextView}
+	 * Returns the String representation of the text held by the passed view as long as this view is a
+	 * {@link TextView}
 	 * </p>
 	 * 
 	 * @param view
 	 *            The view from which to extract the text
-	 * @return The extracted text of null if the view is null or not
-	 *         {@link TextView}
+	 * @return The extracted text of null if the view is null or not {@link TextView}
 	 */
 	public String getTextFromUI(View view) {
 		return UIUtils.getTextFromUI(view);
 	}
 
 	/**
-	 * Sets the text with the passed id as the view's text as long as the
-	 * specified viewId belongs to a {@link TextView}
+	 * Sets the text with the passed id as the view's text as long as the specified viewId belongs to a
+	 * {@link TextView}
 	 * 
 	 * @param viewId
 	 *            The id of the view to which to set the text
@@ -118,8 +115,7 @@ public class BaseActivityHelper {
 	}
 
 	/**
-	 * Sets the passed text as the view's text as long as the specified viewId
-	 * belongs to a {@link TextView}
+	 * Sets the passed text as the view's text as long as the specified viewId belongs to a {@link TextView}
 	 * 
 	 * @param viewId
 	 *            The id of the view to which to set the text
@@ -158,8 +154,8 @@ public class BaseActivityHelper {
 	}
 
 	/**
-	 * Shows a dialog for confirming the deletion of an entity, deleting it only
-	 * if affirmative response is given by the user
+	 * Shows a dialog for confirming the deletion of an entity, deleting it only if affirmative response is given
+	 * by the user
 	 * 
 	 * @param messageId
 	 *            the id of the string with the displayed message
@@ -170,6 +166,7 @@ public class BaseActivityHelper {
 		new AlertDialog.Builder(activity).setMessage(messageId).setCancelable(false)
 				.setPositiveButton(android.R.string.yes, yesOptionListener)
 				.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+					@Override
 					public void onClick(DialogInterface dialog, int id) {
 						// do not delete -> close dialog
 						dialog.cancel();

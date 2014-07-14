@@ -203,6 +203,15 @@ public class TrainingManager {
 		}
 	}
 
+	/**
+	 * Returns the {@link TrainingExercise} of the passed {@link Training} under the specified position
+	 * 
+	 * @param training
+	 *            the {@link Training} from which to get the {@link TrainingExercise}
+	 * @param pos
+	 *            the position of the {@link TrainingExercise} in the {@link Training}
+	 * @return the requested {@link TrainingExercise}
+	 */
 	public TrainingExercise getTrainingExerciseForPos(Training training, int pos) {
 		TrainingExercise output = null;
 		QueryBuilder<TrainingExercise, Integer> query = trainingExerciseDao.queryBuilder();

@@ -59,6 +59,7 @@ public class ImportingTask extends BaseFileSharingTask {
 		final File file = new File(getDataStorageDir(), fileSharingName.getFileName());
 		computeNumberOfEntities(file);
 		context.getHelper().getFoodDao().callBatchTasks(new Callable<Void>() {
+			@Override
 			public Void call() throws SQLException {
 				// counter for the publishing of the progress
 				int i = 0;

@@ -62,6 +62,7 @@ public class ExportingTask<T> extends BaseFileSharingTask {
 		final File file = new File(getDataStorageDir(), fileSharingName.getFileName());
 		entities = new Double(list.size());
 		context.getHelper().getFoodDao().callBatchTasks(new Callable<Void>() {
+			@Override
 			public Void call() throws SQLException {
 				// counter for the publishing of the progress
 				int i = 0;

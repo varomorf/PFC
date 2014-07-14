@@ -30,14 +30,28 @@ public class ExecuteTrainingActivity extends OrmLiteBaseActivity<DatabaseHelper>
 
 	// Attributes ----------------------------------------------------
 
+	/** Executed {@link Training} */
 	private Training training;
+
+	/** Index of the exercise being executed. Starts on 0. */
 	private int exerciseIndex;
+
+	/** All the exercises to be executed */
 	private TrainingExercise[] exercises = new TrainingExercise[0];
+
+	/** Total number of repetitions for the current exercise */
 	private int repetition;
 
+	/** Timer used for exercises with duration */
 	private CountdownTimer timer;
+
+	/** Sound pool for the start/stop sounds */
 	private SoundPool soundPool;
+
+	/** Id of the short sound */
 	private int whistleShort;
+
+	/** Id of the long sound */
 	private int whistleLong;
 
 	/** Helper to be used */
@@ -137,11 +151,13 @@ public class ExecuteTrainingActivity extends OrmLiteBaseActivity<DatabaseHelper>
 	public void onBackPressed() {
 		new AlertDialog.Builder(this).setMessage(R.string.assureExit).setCancelable(false)
 				.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+					@Override
 					public void onClick(DialogInterface dialog, int id) {
 						// exit is confirmed -> finish
 						finish();
 					}
 				}).setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+					@Override
 					public void onClick(DialogInterface dialog, int id) {
 						// do not exit -> close dialog
 						dialog.cancel();

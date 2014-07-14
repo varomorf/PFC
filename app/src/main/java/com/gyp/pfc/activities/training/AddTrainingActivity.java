@@ -43,8 +43,13 @@ public class AddTrainingActivity extends OrmLiteBaseActivity<DatabaseHelper> imp
 
 	// Attributes ----------------------------------------------------
 
+	/** Adapter used for the list of {@link TrainingExercise} entities */
 	private TrainingExerciseAdapter adapter;
+
+	/** The created {@link Training} */
 	private Training training;
+
+	/** Drop listener for the {@link DragSortListView} */
 	private DragSortListView.DropListener onDrop = new DragSortListView.DropListener() {
 		@Override
 		public void drop(int from, int to) {

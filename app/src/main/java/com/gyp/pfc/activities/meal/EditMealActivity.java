@@ -46,7 +46,7 @@ public class EditMealActivity extends OrmLiteBaseActivity<DatabaseHelper> implem
 
 	// Constants -----------------------------------------------------
 
-	static final String TAG = EditMealActivity.class.getName();
+	private static final String TAG = EditMealActivity.class.getName();
 
 	// Attributes ----------------------------------------------------
 
@@ -110,6 +110,7 @@ public class EditMealActivity extends OrmLiteBaseActivity<DatabaseHelper> implem
 	public void deleteButton(View view) {
 		final Portion portion = getPortionFromListItemButton(view);
 		h.deleteWithDialog(new DialogInterface.OnClickListener() {
+			@Override
 			public void onClick(DialogInterface dialog, int id) {
 				doDeletePortion(portion);
 			}
@@ -184,12 +185,10 @@ public class EditMealActivity extends OrmLiteBaseActivity<DatabaseHelper> implem
 	// Private -------------------------------------------------------
 
 	/**
-	 * Changes the currently edited meal to the one with the specified days
-	 * added
+	 * Changes the currently edited meal to the one with the specified days added
 	 * 
 	 * @param days
-	 *            the days to add (or subtract if negative) to the current
-	 *            meal's date
+	 *            the days to add (or subtract if negative) to the current meal's date
 	 */
 	private void moveMealDate(int days) {
 		meal = h.createMealFor(DateUtils.addDays(meal.getDate(), days), getFirstName());
@@ -211,8 +210,7 @@ public class EditMealActivity extends OrmLiteBaseActivity<DatabaseHelper> implem
 	}
 
 	/**
-	 * Searches for a meal with the requested data on DB and if any, sets it as
-	 * the activity's meal
+	 * Searches for a meal with the requested data on DB and if any, sets it as the activity's meal
 	 */
 	private void updateMealWithDB() {
 		QueryBuilder<Meal, Integer> qb = getHelper().getMealDao().queryBuilder();
@@ -313,9 +311,8 @@ public class EditMealActivity extends OrmLiteBaseActivity<DatabaseHelper> implem
 	}
 
 	/**
-	 * Returns the date that will be used for loading the meal. This date will
-	 * be the one passed on the starting index, or if none present, today's
-	 * date.
+	 * Returns the date that will be used for loading the meal. This date will be the one passed on the starting
+	 * index, or if none present, today's date.
 	 * 
 	 * @return the date that will be used for loading the meal
 	 */

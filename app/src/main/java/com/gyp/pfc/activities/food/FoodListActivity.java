@@ -206,8 +206,8 @@ public class FoodListActivity extends BaseListActivity implements OnQueryTextLis
 	}
 
 	/**
-	 * Creates an {@link OnClickListener} that on click will delete the passed
-	 * food from DB, refresh the adapter and show a toast to the user
+	 * Creates an {@link OnClickListener} that on click will delete the passed food from DB, refresh the adapter
+	 * and show a toast to the user
 	 * 
 	 * @param food
 	 *            the food to be deleted
@@ -215,6 +215,7 @@ public class FoodListActivity extends BaseListActivity implements OnQueryTextLis
 	 */
 	private OnClickListener deletionAction(final Food food) {
 		return new DialogInterface.OnClickListener() {
+			@Override
 			public void onClick(DialogInterface dialog, int id) {
 				// delete food on DB
 				getHelper().getFoodDao().delete(food);

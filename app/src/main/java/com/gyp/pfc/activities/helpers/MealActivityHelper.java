@@ -43,8 +43,7 @@ public class MealActivityHelper extends BaseActivityHelper {
 	// Public --------------------------------------------------------
 
 	/**
-	 * Creates and returns a new {@link Meal} with the passed date and
-	 * {@link MealName}
+	 * Creates and returns a new {@link Meal} with the passed date and {@link MealName}
 	 * 
 	 * @param date
 	 *            the date of the new meal
@@ -58,10 +57,10 @@ public class MealActivityHelper extends BaseActivityHelper {
 		meal.setName(mealName);
 		return meal;
 	}
-	
+
 	/**
-	 * Shows a dialog for confirming a portion deletion, deleting it only
-	 * if affirmative response is given by the user
+	 * Shows a dialog for confirming a portion deletion, deleting it only if affirmative response is given by the
+	 * user
 	 * 
 	 * @param yesOptionListener
 	 *            OnClickListener for affirmative action
@@ -70,6 +69,7 @@ public class MealActivityHelper extends BaseActivityHelper {
 		new AlertDialog.Builder(activity).setMessage(R.string.assurePortionDeletion).setCancelable(false)
 				.setPositiveButton(android.R.string.yes, yesOptionListener)
 				.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+					@Override
 					public void onClick(DialogInterface dialog, int id) {
 						// do not delete -> close dialog
 						dialog.cancel();

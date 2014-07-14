@@ -88,6 +88,7 @@ public class TrainingHistoricListActivity extends BaseListActivity implements Ex
 	 */
 	private OnClickListener deletionAction(final TrainingHistoric historic) {
 		return new DialogInterface.OnClickListener() {
+			@Override
 			public void onClick(DialogInterface dialog, int id) {
 				// delete historic on DB
 				getHelper().getTrainingHistoricDao().delete(historic);

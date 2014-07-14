@@ -61,58 +61,142 @@ public class MainActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 		return true;
 	}
 
+	/**
+	 * Starts the {@link AddFoodActivity}
+	 * 
+	 * @param view
+	 *            the button that launched this event
+	 */
 	public void foodsAddButton(View view) {
 		startActivity(new Intent(this, AddFoodActivity.class));
 	}
 
+	/**
+	 * Starts the {@link FoodListActivity}
+	 * 
+	 * @param view
+	 *            the button that launched this event
+	 */
 	public void foodsListButton(View view) {
 		startActivity(new Intent(this, FoodListActivity.class));
 	}
 
+	/**
+	 * Starts the {@link EditMealActivity}
+	 * 
+	 * @param view
+	 *            the button that launched this event
+	 */
 	public void mealsAddButton(View view) {
 		startActivity(new Intent(this, EditMealActivity.class));
 	}
 
+	/**
+	 * Starts the {@link MealListActivity}
+	 * 
+	 * @param view
+	 *            the button that launched this event
+	 */
 	public void mealsListButton(View view) {
 		startActivity(new Intent(this, MealListActivity.class));
 	}
 
+	/**
+	 * Starts the {@link AddExerciseActivity}
+	 * 
+	 * @param view
+	 *            the button that launched this event
+	 */
 	public void exercisesAddButton(View view) {
 		startActivity(new Intent(this, AddExerciseActivity.class));
 	}
 
+	/**
+	 * Starts the {@link ExerciseListActivity}
+	 * 
+	 * @param view
+	 *            the button that launched this event
+	 */
 	public void exercisesListButton(View view) {
 		startActivity(new Intent(this, ExerciseListActivity.class));
 	}
 
+	/**
+	 * Starts the {@link AddTrainingActivity}
+	 * 
+	 * @param view
+	 *            the button that launched this event
+	 */
 	public void trainningsAddButton(View view) {
 		startActivity(new Intent(this, AddTrainingActivity.class));
 	}
 
+	/**
+	 * Starts the {@link TrainingListActivity}
+	 * 
+	 * @param view
+	 *            the button that launched this event
+	 */
 	public void trainningsListButton(View view) {
 		startActivity(new Intent(this, TrainingListActivity.class));
 	}
 
+	/**
+	 * Starts the {@link AddTrainingHistoricActivity}
+	 * 
+	 * @param view
+	 *            the button that launched this event
+	 */
 	public void trainningHisctoricAddButton(View view) {
 		startActivity(new Intent(this, AddTrainingHistoricActivity.class));
 	}
 
+	/**
+	 * Starts the {@link TrainingHistoricListActivity}
+	 * 
+	 * @param view
+	 *            the button that launched this event
+	 */
 	public void trainningHisctoricListButton(View view) {
 		startActivity(new Intent(this, TrainingHistoricListActivity.class));
 	}
 
+	/**
+	 * Starts the {@link AddWeightActivity}
+	 * 
+	 * @param view
+	 *            the button that launched this event
+	 */
 	public void weightsAddButton(View view) {
 		startActivity(new Intent(this, AddWeightActivity.class));
 	}
 
+	/**
+	 * Starts the {@link WeightListActivity}
+	 * 
+	 * @param view
+	 *            the button that launched this event
+	 */
 	public void weightsListButton(View view) {
 		startActivity(new Intent(this, WeightListActivity.class));
 	}
 
+	/**
+	 * Starts the {@link FileSharingActivity}
+	 * 
+	 * @param view
+	 *            the button that launched this event
+	 */
 	public void sharingButton(View view) {
 		startActivity(new Intent(this, FileSharingActivity.class));
 	}
 
+	/**
+	 * Starts the {@link ShowUserBiometricDataActivity}
+	 * 
+	 * @param view
+	 *            the button that launched this event
+	 */
 	public void biometricButton(View view) {
 		startActivity(new Intent(this, ShowUserBiometricDataActivity.class));
 	}

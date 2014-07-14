@@ -85,6 +85,7 @@ public class WeightListActivity extends BaseListActivity implements BiometricCon
 	 */
 	private OnClickListener deletionAction(final Weight weight) {
 		return new DialogInterface.OnClickListener() {
+			@Override
 			public void onClick(DialogInterface dialog, int id) {
 				// delete weight on DB
 				getHelper().getWeightDao().delete(weight);

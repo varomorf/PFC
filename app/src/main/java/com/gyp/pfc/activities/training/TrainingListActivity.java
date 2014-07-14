@@ -138,6 +138,7 @@ public class TrainingListActivity extends OrmLiteBaseListActivity<DatabaseHelper
 	 */
 	private OnClickListener deletionAction(final Training training) {
 		return new DialogInterface.OnClickListener() {
+			@Override
 			public void onClick(DialogInterface dialog, int id) {
 				// remove related TrainginExercises
 				getHelper().getTrainingExerciseDao().delete(training.getExercises());

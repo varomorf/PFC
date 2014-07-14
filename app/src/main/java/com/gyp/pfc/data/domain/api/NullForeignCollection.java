@@ -34,6 +34,9 @@ public class NullForeignCollection<T, I> extends BaseForeignCollection<T, I> {
 
 	// Constructors --------------------------------------------------
 
+	/**
+	 * Creates a new {@link NullForeignCollection} with default values
+	 */
 	public NullForeignCollection() {
 		super(null, null, null, null, null, false);
 	}

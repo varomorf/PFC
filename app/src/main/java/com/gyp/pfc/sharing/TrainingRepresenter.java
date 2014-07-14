@@ -14,8 +14,8 @@ import com.gyp.pfc.data.domain.exercise.TrainingExercise;
 import com.j256.ormlite.dao.ForeignCollection;
 
 /**
- * Specific {@link Representer} for {@link Training} entities for handling the
- * {@link Training#exercises} collection
+ * Specific {@link Representer} for {@link Training} entities for handling the {@link Training#exercises}
+ * collection
  * 
  * @author alfergon
  * 
@@ -31,9 +31,8 @@ public class TrainingRepresenter extends Representer {
 	// Constructors --------------------------------------------------
 
 	/**
-	 * Creates a new {@link TrainingRepresenter} putting the specific
-	 * {@link RepresentTraining} as {@link Represent} for {@link Training}
-	 * JavaBeans
+	 * Creates a new {@link TrainingRepresenter} putting the specific {@link RepresentTraining} as
+	 * {@link Represent} for {@link Training} JavaBeans
 	 */
 	public TrainingRepresenter() {
 		this.representers.put(Training.class, new RepresentTraining());
@@ -57,6 +56,7 @@ public class TrainingRepresenter extends Representer {
 	 */
 	private class RepresentTraining extends RepresentJavaBean {
 
+		@Override
 		public Node representData(Object data) {
 			Training training = (Training) data;
 			ForeignCollection<TrainingExercise> exercises = training.getExercises();

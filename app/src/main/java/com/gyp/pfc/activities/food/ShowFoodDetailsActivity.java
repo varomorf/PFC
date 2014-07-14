@@ -28,6 +28,7 @@ public class ShowFoodDetailsActivity extends OrmLiteBaseActivity<DatabaseHelper>
 
 	// Attributes ----------------------------------------------------
 
+	/** The food which details are shown */
 	private Food food;
 
 	/** Helper to be used */
@@ -111,9 +112,8 @@ public class ShowFoodDetailsActivity extends OrmLiteBaseActivity<DatabaseHelper>
 	}
 
 	/**
-	 * Sets the GUI TextView with the passed id, the specified value
-	 * representing grams. If the passed value is <code>null</code>, <b>0</b>
-	 * will be used.
+	 * Sets the GUI TextView with the passed id, the specified value representing grams. If the passed value is
+	 * <code>null</code>, <b>0</b> will be used.
 	 * 
 	 * @param fieldId
 	 *            the id of the TextView which text will be set
@@ -125,9 +125,8 @@ public class ShowFoodDetailsActivity extends OrmLiteBaseActivity<DatabaseHelper>
 	}
 
 	/**
-	 * Sets the GUI TextView with the passed id, the specified value
-	 * representing milligrams. If the passed value is <code>null</code>,
-	 * <b>0</b> will be used.
+	 * Sets the GUI TextView with the passed id, the specified value representing milligrams. If the passed value
+	 * is <code>null</code>, <b>0</b> will be used.
 	 * 
 	 * @param fieldId
 	 *            the id of the TextView which text will be set
@@ -171,6 +170,7 @@ public class ShowFoodDetailsActivity extends OrmLiteBaseActivity<DatabaseHelper>
 	 */
 	private void deleteFood() {
 		h.deleteWithDialog(R.string.assureFoodDeletion, new DialogInterface.OnClickListener() {
+			@Override
 			public void onClick(DialogInterface dialog, int id) {
 				// deletion is confirmed -> delete and close
 				getHelper().getFoodDao().delete(food);
